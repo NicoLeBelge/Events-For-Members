@@ -1,0 +1,51 @@
+tr:nth-child(even) {
+	background: white;
+}
+table, th, td {
+	color : #505050;
+	border-collapse: collapse;
+	padding-left: 10px;
+	padding-right: 10 px;
+}
+table td:nth-child(1) {
+	width: 25%;
+}		
+table td:nth-child(2) {
+	width: 20%;
+}		
+table td:nth-child(3) {
+	width: 5%;
+}
+table td:nth-child(4) {
+	width: 7%;
+}
+table td:nth-child(5) {
+	width: 23%;
+}
+table td:nth-child(6) {
+	width: 20%;
+}		
+tr:hover {
+	background-color: lightblue;
+	cursor: pointer;
+}
+.buttonset div{
+	width : 50px;
+	height: 50px;
+	margin-left: 5px;
+	text-align : center;	
+	display: inline-block;
+	background-color : #D0D0D0;
+}
+.buttonset div:hover{
+	background-color : #505050;
+}
+.buttonset p {
+	color: blue;
+	vertical-align:middle;
+  
+}
+#eventinfo a{
+	font-size: 1.5em;
+	text-decoration: none;
+}
