@@ -32,11 +32,8 @@ include ('../_local-connect/connect.php');
 // Let's get the strings from the json !
 $json = file_get_contents('strings.json');
 $str = json_decode($json,true);	
-
 echo "<h3>" . $str['event_list_title'] . "</h3>";
-		
-$qtxt= 'SELECT 	id, datestart, name from events
-		ORDER BY datestart ASC';
+
 $reponse = $conn->query('SELECT id, datestart, name from events ORDER BY datestart ASC');
 ?>
 
@@ -46,7 +43,6 @@ $reponse = $conn->query('SELECT id, datestart, name from events ORDER BY datesta
 		<th><?= $str['date_label'] ?></th>
 		<th><?= $str['event_label'] ?></th>
 		<th></th>
-		
 	</tr>
 
 <?php while ($event = $reponse->fetch()): ?> 

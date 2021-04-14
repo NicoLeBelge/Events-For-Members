@@ -10,12 +10,6 @@ if (isset($_GET['event'])) { // returns dummy line if no string to search
 	$sublist[]=1;
 	$sublist[]=3;
 	$sublist[]=8;
-	//var_dump($sublist);echo"<br/>";
-	
 	$matchlist["list_subs"]=$sublist;
 }
-//echo"<pre>";var_dump($matchlist);echo"</pre>";
-//echo"<br/>";
-//echo"<br/>";
-
 echo json_encode($matchlist);

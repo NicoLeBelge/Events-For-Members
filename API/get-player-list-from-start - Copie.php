@@ -20,7 +20,6 @@ if (!isset($_GET['start'])) { // returns dummy line if no string to search
 			$n=$_GET['ratn'];
 		}
 	}
-	var_dump($n);
 	$rating = "rat"."$n";	
 		
 	

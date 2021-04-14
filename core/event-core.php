@@ -6,7 +6,6 @@ if(isset($_GET['id'])){
 } else {
 	$eventid=1;
 }
-var_dump($eventid);
 ?>
 
 <div id="eventinfo"></div>
@@ -81,7 +80,8 @@ function RegList2htmltable (infoset, subid){
 	h += "<table>" ;
 	for (k=0;k<nbreg;k++){
 		console.log(CurrentSubEventId, "CurrentSubEventId à l'intérieur de RegList2htmltable")
-		if(infoset[k].subid==CurrentSubEvent){
+		//if(infoset[k].subid==CurrentSubEventId){
+		if(true){
 			h += "<tr>" ;
 			h += "<td>" + infoset[k].firstname + " "+infoset[k].lastname+" "+"</td>";
 			h += "<td>" + infoset[k].firstname + " "+infoset[k].lastname+" "+"</td>";
@@ -89,16 +89,20 @@ function RegList2htmltable (infoset, subid){
 		}
 	}
 	h += "</table>" ;
+	console.log(h);
 	return h;
 	
 }
 
 
 function SelectEvent(NumEvent) {
+	alert("appel de la fonction SelectEvent");
 	console.log("subevent_list[" + NumEvent+"]\n",subevent_list[NumEvent]);
 	CurrentSubEventId = subevent_list[NumEvent]["id"];
+	
 	console.log("CurrentSubEventId = ",CurrentSubEventId);
 	s.innerHTML = SubeventInfos2html(subevent_list[CurrentSubEvent]);
+	r.innerHTML = RegList2htmltable (member_list, NumEvent);
 }
 
 function BuildHTMLEventSelector (n){
@@ -132,9 +136,9 @@ rq_event.onreadystatechange  = function() {
 		eventinfoset =event_data_set['infos'][0];
 		subevent_list = event_data_set['subs'];
 		member_list =  event_data_set['registrations'];
+		console.log(member_list);
 		e.innerHTML = eventInfos2html(eventinfoset);
 		s.innerHTML = SubeventInfos2html(subevent_list[CurrentSubEvent]);
-		
 		r.innerHTML = RegList2htmltable (member_list, CurrentSubEvent);
 		BuildHTMLEventSelector (subevent_list.length);
 	}
