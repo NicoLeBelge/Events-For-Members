@@ -1,1 +1,0 @@
-inutile d'afficher le sélecteur s'il n'y a qu'un seul subevent.

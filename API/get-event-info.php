@@ -34,8 +34,9 @@ if (isset($_GET['event'])) { // returns dummy line if no string to search
 					registrations.member_id as memberid,
 					members.lastname,
 					members.firstname,
+					members.firstname,
 					clubs.name as clubname,
-					clubs.region
+					clubs.region as region
 	FROM registrations
 	INNER JOIN subevents
 	ON registrations.subevent_id = subevents.id	

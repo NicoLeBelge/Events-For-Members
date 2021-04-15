@@ -76,15 +76,16 @@ function RegList2htmltable (infoset, subid){
 	let h="";
 	let k=0;
 	let nbreg = infoset.length;
-	console.log (nbreg, " inscrits")
+	//console.log (nbreg, " inscrits")
+	h += "<p>Nombre d'inscrits : " + nbreg + "</p>" ;
 	h += "<table>" ;
 	for (k=0;k<nbreg;k++){
-		console.log(CurrentSubEventId, "CurrentSubEventId à l'intérieur de RegList2htmltable")
-		//if(infoset[k].subid==CurrentSubEventId){
-		if(true){
+		
+		if(infoset[k].subid==CurrentSubEventId){
+		//if(true){
 			h += "<tr>" ;
-			h += "<td>" + infoset[k].firstname + " "+infoset[k].lastname+" "+"</td>";
-			h += "<td>" + infoset[k].firstname + " "+infoset[k].lastname+" "+"</td>";
+			h += "<td>" + infoset[k].firstname + " "+infoset[k].lastname + "</td>";
+			h += "<td>" + infoset[k].clubname+"</td>";
 			h += "</tr>" ;
 		}
 	}
@@ -96,7 +97,6 @@ function RegList2htmltable (infoset, subid){
 
 
 function SelectEvent(NumEvent) {
-	alert("appel de la fonction SelectEvent");
 	console.log("subevent_list[" + NumEvent+"]\n",subevent_list[NumEvent]);
 	CurrentSubEventId = subevent_list[NumEvent]["id"];
 	
