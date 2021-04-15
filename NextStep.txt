@@ -1,4 +1,7 @@
+Done
 Nombre d'inscrits sur subevent:ne pas mettre le total, mais filtrer sur l'event
+
+To do
 Ajouter le nombre total d'inscrits (soit dans la page event, soit dans event-list) 
 Liste des inscrits : récupérer le bon rating
 Ajouter lien pour s'inscrire

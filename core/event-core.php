@@ -76,17 +76,14 @@ function RegList2htmltable (infoset, subid){
 	let h="";
 	let k=0;
 	let nbreg = infoset.length;
-	console.log ("inscrits non filtré\n")
-	console.log (infoset)
+	
 	let sublist = infoset.filter(function(filter){
 		return filter.subid == CurrentSubEventId ;
 	});
-	console.log ("---------------------\n");
-	console.log ("inscrits filtré\n");
-	console.log (sublist);
+	let nbregsub = sublist.length;
 	
 
-	h += "<p>Nombre d'inscrits : " + nbreg + "</p>" ;
+	h += "<p>Nombre d'inscrits : " + nbregsub + "</p>" ;
 	h += "<table>" ;
 	
 	
