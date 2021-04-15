@@ -16,7 +16,9 @@
     "Date_max_registration":"Date limite d'inscription",
     "Contact":"Contact",
     "Show_on_map":"Localiser sur une carte",
-    "Label_link_to_sub":"Lien tournoi"
+    "Label_link_to_sub":"Lien tournoi",
+    "Nb_tot_reg":"Nombre total d'inscrits"
+
 
     
 

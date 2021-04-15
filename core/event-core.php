@@ -24,7 +24,9 @@ var CurrentSubEventId = 0; 	// id in the database
 var eventinfoset; // {id="1", name = "eventname", datestart ="blabla",...}
 var subevent_list; // Array() of subevent_info_sets
 var eventinfoset;
-var NbSubs;
+var NbSubs; // Number of SubEvents
+var NbRegTot; // Total Number of registred members
+
 var e = document.getElementById('eventinfo');
 var s = document.getElementById('subeventinfo');
 var r = document.getElementById('regtable');
@@ -50,8 +52,11 @@ function eventInfos2html (infoset){
 		url+="/"+infoset.pos_lat;
 		url+="/="+infoset.pos_long;
 		h += "<p><?=$str['Show_on_map']?> <a href = " + url + " target='_blank'><img src='./img/geomarker.png'> </a></p>" ;
+		
 		/* debug niveau de zoom pas respecter, à creuser pourquoi */
 	}
+	h+="<?=$str['Nb_tot_reg']?> : "+NbRegTot;
+	
 
 	return h;
 }
@@ -145,7 +150,8 @@ rq_event.onreadystatechange  = function() {
 		eventinfoset =event_data_set['infos'][0];
 		subevent_list = event_data_set['subs'];
 		member_list =  event_data_set['registrations'];
-		console.log(member_list);
+		NbRegTot = member_list.length;
+		//console.log(NbRegTot, " incrits au total");
 		e.innerHTML = eventInfos2html(eventinfoset);
 		s.innerHTML = SubeventInfos2html(subevent_list[CurrentSubEvent]);
 		r.innerHTML = RegList2htmltable (member_list, CurrentSubEvent);
