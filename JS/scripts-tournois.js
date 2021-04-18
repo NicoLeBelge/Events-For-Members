@@ -1,3 +1,6 @@
+/*
+used by temporary code searchmember-with-XHR.php
+*/
 function PlayersObjToTable(playerlist) {
 	var i = 0;
 	var tablech = '';
