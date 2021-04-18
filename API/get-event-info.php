@@ -16,7 +16,8 @@ Obj["subs"] = Array (n) of Objects
 	Sub[n-1] = {id="w", name = "subeventname", ...}
 	+...
 */
-
+$json = file_get_contents('../config.json');
+$cfg = json_decode($json,true);	
 
 include('../../_local-connect/connect.php');
 if (isset($_GET['event'])) { // returns dummy line if no string to search
@@ -29,12 +30,18 @@ if (isset($_GET['event'])) { // returns dummy line if no string to search
 	$reponse = $conn->query("SELECT * from subevents where event_id=$event_id");
 	$event_set["subs"] = $reponse->fetchAll(PDO::FETCH_ASSOC);
 
+	$ratinglist="";
+	
+	for ($k=1;$k<=$cfg['Nb_rating'];$k++){
+		$ratinglist .= "members.rating$k, ";
+	}
 	$qtxt = "SELECT subevents.event_id as eventid,
 					subevents.id as subid,
 					registrations.member_id as memberid,
 					members.lastname,
 					members.firstname,
 					members.firstname,
+					$ratinglist
 					clubs.name as clubname,
 					clubs.region as region
 	FROM registrations

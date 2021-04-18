@@ -1,6 +1,10 @@
 <?php
+$json = file_get_contents('config.json');
+$cfg = json_decode($json,true);	
+
 $json = file_get_contents('strings.json');
 $str = json_decode($json,true);	
+
 if(isset($_GET['id'])){
 	$eventid=$_GET['id'];
 } else {
@@ -21,6 +25,7 @@ if(isset($_GET['id'])){
 
 var CurrentSubEvent = 0; 	// index of the internal table from json
 var CurrentSubEventId = 0; 	// id in the database
+var CurrentRating = 1; 	// id in the database
 var eventinfoset; // {id="1", name = "eventname", datestart ="blabla",...}
 var subevent_list; // Array() of subevent_info_sets
 var eventinfoset;
@@ -95,9 +100,33 @@ function RegList2htmltable (infoset, subid){
 	for (k=0;k<nbreg;k++){
 		
 		if(infoset[k].subid==CurrentSubEventId){
-		//if(true){
 			h += "<tr>" ;
 			h += "<td>" + infoset[k].firstname + " "+infoset[k].lastname + "</td>";
+			
+			
+			
+			switch(CurrentRating) { // ugly code, no ? and why do I have to put double  quotes ??
+			case "1":
+				h += "<td>" + infoset[k].rating1+"</td>";
+				break;
+			case "2":
+				h += "<td>" + infoset[k].rating2+"</td>";
+				break;
+			case "3":
+				h += "<td>" + infoset[k].rating3+"</td>";
+				break;
+			case "4":
+				h += "<td>" + infoset[k].rating4+"</td>";
+				break;
+			case "5":
+				h += "<td>" + infoset[k].rating5+"</td>";
+				break;
+			case "6":
+				h += "<td>" + infoset[k].rating6+"</td>";
+				break;
+			default:
+				alert("this should not happen");
+			}
 			h += "<td>" + infoset[k].clubname+"</td>";
 			h += "<td>" + infoset[k].region+"</td>";
 			h += "</tr>" ;
@@ -113,8 +142,10 @@ function RegList2htmltable (infoset, subid){
 function SelectEvent(NumEvent) {
 	console.log("subevent_list[" + NumEvent+"]\n",subevent_list[NumEvent]);
 	CurrentSubEventId = subevent_list[NumEvent]["id"];
-	
+	console.log("subevent_list\n = ",subevent_list);
+	CurrentRating = subevent_list[NumEvent]["rating_type"]; 
 	console.log("CurrentSubEventId = ",CurrentSubEventId);
+	console.log("CurrentRating = ",CurrentRating);
 	s.innerHTML = SubeventInfos2html(subevent_list[CurrentSubEvent]);
 	r.innerHTML = RegList2htmltable (member_list, NumEvent);
 }
