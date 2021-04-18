@@ -10,7 +10,7 @@ $str = json_decode($json,true);
 	<meta charset="UTF-8" />
 	<script src="./JS/scripts-tournois.js"></script>
 	<link rel="stylesheet" href="../css/ChessMOOC-style.css" /> 
-	<link rel="stylesheet" href="./css/trn.css" /> 
+	<link rel="stylesheet" href="./css/E4M.css" /> 
 	<link rel="icon" type="image/png" href="../img/logo-3-96.png" />
     
 </head>

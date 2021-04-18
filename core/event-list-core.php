@@ -3,26 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 
-<style>
 
-body {
-  font-family: "arial", Georgia, Serif;
-}
-th {
-	background-color: gray;
-	color: white;
-}
-table, th, td {
-  border-collapse: collapse;
-  padding-left: 10px;
-  padding-right: 10 px;
-}
-.trn_table a {
-	text-decoration: none;
-	
-}
-
-</style>
 </head>
 <body>  
 
@@ -37,7 +18,7 @@ echo "<h3>" . $str['event_list_title'] . "</h3>";
 $reponse = $conn->query('SELECT id, datestart, name from events ORDER BY datestart ASC');
 ?>
 
-<div class="trn_table"> <!-- debug faudra probalement rendre paramétrable-->
+<div class="E4M_eventlist"> <!-- debug faudra probalement rendre paramétrable-->
 <table>
 	<tr>
 		<th><?= $str['date_label'] ?></th>

@@ -12,29 +12,29 @@ if(isset($_GET['id'])){
 }
 ?>
 
-<div id="eventinfo"></div>
+<div id="E4M_eventinfo" ></div>
 <hr/>
-<div id="select_event"></div>
+<div id="E4M_select_event"></div>
 <hr/>
-<div id="subeventinfo"></div>
+<div id="E4M_subeventinfo" class="E4M_subeventinfo"></div>
 <hr/>
-<div id="regtable"></div>
+<div id="E4M_regtable" class="E4M_regtable"></div>
 <hr/>
 
 <script type="text/javascript">
 
 var CurrentSubEvent = 0; 	// index of the internal table from json
 var CurrentSubEventId = 0; 	// id in the database
-var CurrentRating = 1; 	// id in the database
+var CurrentRating = 1; 	
 var eventinfoset; // {id="1", name = "eventname", datestart ="blabla",...}
 var subevent_list; // Array() of subevent_info_sets
 var eventinfoset;
 var NbSubs; // Number of SubEvents
 var NbRegTot; // Total Number of registred members
 
-var e = document.getElementById('eventinfo');
-var s = document.getElementById('subeventinfo');
-var r = document.getElementById('regtable');
+var e = document.getElementById('E4M_eventinfo');
+var s = document.getElementById('E4M_subeventinfo');
+var r = document.getElementById('E4M_regtable');
 
 
 function eventInfos2html (infoset){
@@ -91,8 +91,6 @@ function RegList2htmltable (infoset, subid){
 		return filter.subid == CurrentSubEventId ;
 	});
 	let nbregsub = sublist.length;
-	
-
 	h += "<p>Nombre d'inscrits : " + nbregsub + "</p>" ;
 	h += "<table>" ;
 	
@@ -102,9 +100,6 @@ function RegList2htmltable (infoset, subid){
 		if(infoset[k].subid==CurrentSubEventId){
 			h += "<tr>" ;
 			h += "<td>" + infoset[k].firstname + " "+infoset[k].lastname + "</td>";
-			
-			
-			
 			switch(CurrentRating) { // ugly code, no ? and why do I have to put double  quotes ??
 			case "1":
 				h += "<td>" + infoset[k].rating1+"</td>";
@@ -154,15 +149,15 @@ function BuildHTMLEventSelector (n){
 	/* 	Builds the set of number one can click on to select subevent */
 	/* 	Should not be called if NbSubEvents =1 */
 	
-	let h="<div class='buttonset'>";
+	let html_string="<div class='E4M_buttonset'>";
 	let k=0;
-	let sel = document.getElementById('select_event');
+	let sel = document.getElementById('E4M_select_event');
 	
 	for (k=0; k<=n-1; k++) {
-		h += "<div onclick=SelectEvent(" + k + ") ><p>" + (k+1) + "</p></div>";
+		html_string += "<div onclick=SelectEvent(" + k + ") ><p>" + (k+1) + "</p></div>";
 	}
-	h +="</div>";
-	sel.innerHTML = h;
+	html_string +="</div>";
+	sel.innerHTML = html_string;
 }
 
 

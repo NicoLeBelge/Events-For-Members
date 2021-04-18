@@ -4,6 +4,8 @@ Ajouter le nombre total d'inscrits (soit dans la page event, soit dans event-lis
 Liste des inscrits : récupérer le bon rating
 
 To do
+Nettoyer le code
+debug : rating indiqué  dans le subevent  n'est pas le bon.
 Indiquer le type de rating pour le subevent.
 Ajouter lien pour s'inscrire
 Afficher le sub d'ordre 0 par défaut (actuellement rien tant que )
