@@ -1,5 +1,5 @@
 <?php
-$json = file_get_contents('strings.json');
+$json = file_get_contents('./json/strings.json');
 $str = json_decode($json,true);	
 ?>
 

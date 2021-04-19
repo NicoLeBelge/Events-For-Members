@@ -5,6 +5,7 @@ Liste des inscrits : récupérer le bon rating
 
 To do
 Nettoyer le code
+Selection du bon event-id à partir de la liste des tournois
 debug : rating indiqué  dans le subevent  n'est pas le bon.
 Indiquer le type de rating pour le subevent.
 Ajouter lien pour s'inscrire
