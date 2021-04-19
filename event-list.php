@@ -13,12 +13,9 @@ session_start();
 		<link rel="icon" type="image/png" href="../img/logo-3-96.png" />
         <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet"> 
     </head>
-
     <body >
-	
 	<?php 
 	include ('./core/event-list-core.php')
 	?>
-	
     </body>
 </html>

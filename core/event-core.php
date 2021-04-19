@@ -1,10 +1,9 @@
 <?php
 /*
 
-
 page to be included in a php page (event.php or any name chosen by admin)
 input : event id | eg event.php?id=12
-javascript functions at the bottom of the page, not externally located, to allow custom strings ($str) insertion
+javascript functions are at the bottom of the page, not externally located, to allow custom strings ($str) insertion
 Defines 4 div elements showing event information, subevent selector, info about selected event, list of registred members
 */
 $json = file_get_contents('./json/config.json'); // not sure if needed //ici debug
@@ -32,24 +31,24 @@ if(isset($_GET['id'])){ // bug : affiche toujours l'évènement 1 :-(
 
 <script type="text/javascript">
 
-var CurrentSubEvent = 0; 	// index of the internal table from json
-var CurrentSubEventId = 0; 	// id in the database
-var CurrentRating = 1; 	// default value, will later depend on rating in subevent
-var eventinfoset; // {id="1", name = "eventname", datestart ="blabla",...}
-var subevent_list; // Array() of subevent_info_sets
-var NbSubs; // Number of SubEvents
-var NbRegTot; // Total Number of registred members
+	var CurrentSubEvent = 0; 	// index of the internal table from json
+	var CurrentSubEventId = 0; 	// id in the database
+	var CurrentRating = 1; 	// default value, will later depend on rating in subevent
+	var eventinfoset; // {id="1", name = "eventname", datestart ="blabla",...}
+	var subevent_list; // Array() of subevent_info_sets
+	var NbSubs; // Number of SubEvents
+	var NbRegTot; // Total Number of registred members
 
-/* those 3 html elements will be updated each time the user selects a subevents*/
-var event_html_id = document.getElementById('E4M_eventinfo');
-var subevent_html_id = document.getElementById('E4M_subeventinfo');
-var registred_html_id = document.getElementById('E4M_regtable');
+	/* those 3 html elements will be updated each time the user selects a subevents*/
+	var event_html_id = document.getElementById('E4M_eventinfo');
+	var subevent_html_id = document.getElementById('E4M_subeventinfo');
+	var registred_html_id = document.getElementById('E4M_regtable');
 
-var rq_event = new XMLHttpRequest();
+	var rq_event = new XMLHttpRequest();
 
-rq_event.open('GET', './API/get-event-info.php?event=<?=$eventid?>'); // bug wrong subevent selected
-rq_event.responseType = 'json';
-rq_event.send();
+	rq_event.open('GET', './API/get-event-info.php?event=<?=$eventid?>'); // bug wrong subevent selected
+	rq_event.responseType = 'json';
+	rq_event.send();
 
 rq_event.onreadystatechange  = function() {
 	/* 
