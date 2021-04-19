@@ -123,10 +123,16 @@ function RegList2htmltable (infoset, subid){
 	*/
 	let html_string="";
 	let k=0;
-	let nbreg = infoset.length;
+	let nbreg = infoset.length; // which is actually nbtotreg !! debug
+	console.log("CurrentSubEventId\n");
+	console.log(CurrentSubEventId); // vaut 0!! c'est pas possible, puisque le premier tableau est OK !!
+	console.log("full list\n");
+	console.log(infoset);
 	let sublist = infoset.filter(function(filter){
 		return filter.subid == CurrentSubEventId ;
 	});
+	console.log("filtered list\n");
+	console.log(sublist);
 	let nbregsub = sublist.length;
 	html_string += "<p><?=$str['Nb_reg']?> : " + nbregsub + "</p>" ;
 	html_string += "<table>" ;
@@ -140,6 +146,18 @@ function RegList2htmltable (infoset, subid){
 			html_string += "<td>" + infoset[k].region+"</td>";
 			html_string += "</tr>" ;
 		}
+	}
+	html_string += "</table>" ;
+	html_string += "</br></hr></br>" ;
+	html_string += "<table>" ;
+	for (k=0;k<sublist.length;k++){ 
+		rating_selector = "rating"+ CurrentRating;
+		html_string += "<tr>" ;
+		html_string += "<td>" + infoset[k].firstname + " "+infoset[k].lastname + "</td>";
+		html_string += "<td>" + infoset[k][rating_selector]+"</td>";
+		html_string += "<td>" + infoset[k].clubname+"</td>";
+		html_string += "<td>" + infoset[k].region+"</td>";
+			html_string += "</tr>" ;
 	}
 	html_string += "</table>" ;
 	
