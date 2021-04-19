@@ -130,37 +130,12 @@ function RegList2htmltable (infoset, subid){
 	let nbregsub = sublist.length;
 	html_string += "<p><?=$str['Nb_reg']?> : " + nbregsub + "</p>" ;
 	html_string += "<table>" ;
-	for (k=0;k<nbreg;k++){
-		
+	for (k=0;k<nbreg;k++){ // ben, c'est con de filtrer deux fois...
 		if(infoset[k].subid==CurrentSubEventId){
+			rating_selector = "rating"+ CurrentRating;
 			html_string += "<tr>" ;
 			html_string += "<td>" + infoset[k].firstname + " "+infoset[k].lastname + "</td>";
-			switch(CurrentRating) { // ugly code, no ? and why do I have to put double  quotes ??
-			case "1":
-				html_string += "<td>" + infoset[k].rating1+"</td>";
-				break;
-			case "2":
-				html_string += "<td>" + infoset[k].rating2+"</td>";
-				break;
-			case "3":
-				html_string += "<td>" + infoset[k].rating3+"</td>";
-				break;
-			case "4":
-				html_string += "<td>" + infoset[k].rating4+"</td>";
-				break;
-			case "5":
-				html_string += "<td>" + infoset[k].rating5+"</td>";
-				break;
-			case "6":
-				html_string += "<td>" + infoset[k].rating6+"</td>";
-				break;
-			default:
-				alert("this should not happen");
-			}
-			// debug : OK, ça a l'air d'être bien plus malin de faire comme ça. --> après CodeCleaning
-			console.log (infoset[k]["rating1"]);
-			console.log (infoset[k]["rating2"]);
-			
+			html_string += "<td>" + infoset[k][rating_selector]+"</td>";
 			html_string += "<td>" + infoset[k].clubname+"</td>";
 			html_string += "<td>" + infoset[k].region+"</td>";
 			html_string += "</tr>" ;
