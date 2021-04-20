@@ -135,35 +135,27 @@ function RegList2htmltable (infoset, subid){
 	console.log(sublist);
 	let nbregsub = sublist.length;
 	html_string += "<p><?=$str['Nb_reg']?> : " + nbregsub + "</p>" ;
+	
 	html_string += "<table>" ;
-	for (k=0;k<nbreg;k++){ // ben, c'est con de filtrer deux fois...
-		if(infoset[k].subid==CurrentSubEventId){
-			rating_selector = "rating"+ CurrentRating;
-			html_string += "<tr>" ;
-			html_string += "<td>" + infoset[k].firstname + " "+infoset[k].lastname + "</td>";
-			html_string += "<td>" + infoset[k][rating_selector]+"</td>";
-			html_string += "<td>" + infoset[k].clubname+"</td>";
-			html_string += "<td>" + infoset[k].region+"</td>";
-			html_string += "</tr>" ;
-		}
-	}
-	html_string += "</table>" ;
-	html_string += "</br></hr></br>" ;
-	html_string += "<table>" ;
-	for (k=0;k<sublist.length;k++){ 
-		rating_selector = "rating"+ CurrentRating;
+	rating_selector = "rating"+ CurrentRating;
+	/* sublist contains the list filtered for current subevent, the html table is filled  */
+	sublist.forEach(function(member){
 		html_string += "<tr>" ;
-		html_string += "<td>" + infoset[k].firstname + " "+infoset[k].lastname + "</td>";
-		html_string += "<td>" + infoset[k][rating_selector]+"</td>";
-		html_string += "<td>" + infoset[k].clubname+"</td>";
-		html_string += "<td>" + infoset[k].region+"</td>";
-			html_string += "</tr>" ;
-	}
+		html_string += "<td>" + member.lastname + " "+member.firstname + "</td>";
+		html_string += "<td>" + member[rating_selector]+"</td>";
+		html_string += "<td>" + member.clubname+"</td>";
+		html_string += "<td>" + member.region+"</td>";
+		html_string += "</tr>" ;
+	});
 	html_string += "</table>" ;
-	
 	return html_string;
-	
 }
+
+function AddMemberInTable(member){
+	console.log (member.lastname)
+}
+
+
 
 
 function SelectEvent(NumEvent) {
