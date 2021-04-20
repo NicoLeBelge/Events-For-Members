@@ -58,6 +58,7 @@ rq_event.onreadystatechange  = function() {
 		let event_data_set = this.response;
 		eventinfoset =event_data_set['infos'][0];
 		subevent_list = event_data_set['subs'];
+		CurrentSubEventId = subevent_list[0]["id"];
 		member_list =  event_data_set['registrations'];
 		NbRegTot = member_list.length;
 		event_html_id.innerHTML = eventInfos2html(eventinfoset);
@@ -138,7 +139,7 @@ function RegList2htmltable (infoset, subid){
 	
 	html_string += "<table>" ;
 	rating_selector = "rating"+ CurrentRating;
-	/* sublist contains the list filtered for current subevent, the html table is filled  */
+	/* sublist contains the list filtered for current subevent, the html table is filled with these members */
 	sublist.forEach(function(member){
 		html_string += "<tr>" ;
 		html_string += "<td>" + member.lastname + " "+member.firstname + "</td>";
