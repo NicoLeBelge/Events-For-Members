@@ -66,7 +66,10 @@ rq_event.onreadystatechange  = function() {
 		event_html_id.innerHTML = eventInfos2html(eventinfoset);
 		subevent_html_id.innerHTML = SubeventInfos2html(subevent_list[CurrentSubEvent]);
 		registred_html_id.innerHTML = RegList2htmltable (member_list, CurrentSubEvent);
-		BuildHTMLEventSelector (subevent_list.length);
+		if (subevent_list.length > 1){
+			BuildHTMLEventSelector (subevent_list.length);
+		}
+		
 	}
 }
 function eventInfos2html (infoset){

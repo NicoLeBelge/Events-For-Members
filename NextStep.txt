@@ -5,11 +5,9 @@ Liste des inscrits : récupérer le bon rating
 Nettoyer le code
 Selection du bon event-id à partir de la liste des tournois
 show subevent[0] par défaut (c'était fait, mais visiblement...)
+Ajouter lien pour s'inscrire
+supprimer le sélecteur si un seul sub
 
 To do
-
-Ajouter lien pour s'inscrire
-Afficher le sub d'ordre 0 par défaut (actuellement rien tant que )
-Une fois que c'est fait, supprimer le sélecteur si un seul sub
+highlight selecte event in selector (css minimum)
 Ajouter un bouton pour télécharger si user = owner
-Supprimer le hover sur la liste des inscrits
