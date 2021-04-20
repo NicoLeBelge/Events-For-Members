@@ -25,6 +25,8 @@ if(isset($_GET['id'])){ // bug : affiche toujours l'évènement 1 :-(
 <div id="E4M_select_event"></div>
 <hr/>
 <div id="E4M_subeventinfo" class="E4M_subeventinfo"></div>
+<a href='<?=$cfg['registration_page']?>'><button><?=$str['Register']?></button></a> <!-- ici  --> 
+
 <hr/>
 <div id="E4M_regtable" class="E4M_regtable"></div>
 <hr/>
@@ -96,7 +98,6 @@ function eventInfos2html (infoset){
 	html_string += "<?=$str['Nb_tot_reg']?> : "+NbRegTot;
 	return html_string;
 }
-
 function SubeventInfos2html (infoset){
 	/*
 	constructs a HTML bloc from the object containing subevents infos 	
@@ -125,15 +126,11 @@ function RegList2htmltable (infoset, subid){
 	let html_string="";
 	let k=0;
 	let nbreg = infoset.length; // which is actually nbtotreg !! debug
-	console.log("CurrentSubEventId\n");
-	console.log(CurrentSubEventId); // vaut 0!! c'est pas possible, puisque le premier tableau est OK !!
-	console.log("full list\n");
-	console.log(infoset);
+	
 	let sublist = infoset.filter(function(filter){
 		return filter.subid == CurrentSubEventId ;
 	});
-	console.log("filtered list\n");
-	console.log(sublist);
+	
 	let nbregsub = sublist.length;
 	html_string += "<p><?=$str['Nb_reg']?> : " + nbregsub + "</p>" ;
 	
@@ -151,14 +148,6 @@ function RegList2htmltable (infoset, subid){
 	html_string += "</table>" ;
 	return html_string;
 }
-
-function AddMemberInTable(member){
-	console.log (member.lastname)
-}
-
-
-
-
 function SelectEvent(NumEvent) {
 	CurrentSubEventId = subevent_list[NumEvent]["id"];
 	CurrentRating = subevent_list[NumEvent]["rating_type"]; 
@@ -166,7 +155,6 @@ function SelectEvent(NumEvent) {
 	registred_html_id.innerHTML = RegList2htmltable (member_list, NumEvent);
 
 }
-
 function BuildHTMLEventSelector (n){
 	/* 	Builds the set of number one can click on to select subevent */
 	/* 	Should not be called if NbSubEvents =1 */

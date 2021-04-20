@@ -4,12 +4,10 @@ Ajouter le nombre total d'inscrits (soit dans la page event, soit dans event-lis
 Liste des inscrits : récupérer le bon rating
 Nettoyer le code
 Selection du bon event-id à partir de la liste des tournois
-
+show subevent[0] par défaut (c'était fait, mais visiblement...)
 
 To do
-show subevent[0] par défaut (c'était fait, mais visiblement...)
-debug : rating indiqué  dans le subevent  n'est pas le bon.
-Indiquer le type de rating pour le subevent.
+
 Ajouter lien pour s'inscrire
 Afficher le sub d'ordre 0 par défaut (actuellement rien tant que )
 Une fois que c'est fait, supprimer le sélecteur si un seul sub
