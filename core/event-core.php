@@ -25,8 +25,10 @@ if(isset($_GET['id'])){ // bug : affiche toujours l'évènement 1 :-(
 <div id="E4M_select_event"></div>
 <hr/>
 <div id="E4M_subeventinfo" class="E4M_subeventinfo"></div>
-<a href='<?=$cfg['registration_page']?>'><button><?=$str['Register']?></button></a> <!-- ici  --> 
+<a href='<?=$cfg['registration_page']?>'><button><?=$str['Register']?></button></a> &nbsp;
 
+<button onclick="download()"><?=$str['Download']?></button>	
+<p>string : <?=$str['Download']?></p>
 <hr/>
 <div id="E4M_regtable" class="E4M_regtable"></div>
 <hr/>
@@ -172,4 +174,16 @@ function BuildHTMLEventSelector (n){
 	html_string +="</div>";
 	sel.innerHTML = html_string;
 }
+function download() {
+	var csvstring ="pipo";
+	alert(subevent_list[CurrentSubEvent]+".csv"); // ici - ça marche pas.
+	var filename =subevent_list[CurrentSubEvent]+".csv";
+	var element = document.createElement('a');
+	element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(csvstring));
+	element.setAttribute('download', filename);
+	element.style.display = 'none';// necessary ??
+	document.body.appendChild(element);
+	element.click();
+	document.body.removeChild(element); // necessary ??
+	}
 </script>
