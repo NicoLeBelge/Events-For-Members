@@ -28,7 +28,6 @@ if(isset($_GET['id'])){ // bug : affiche toujours l'évènement 1 :-(
 <a href='<?=$cfg['registration_page']?>'><button><?=$str['Register']?></button></a> &nbsp;
 
 <button onclick="download()"><?=$str['Download']?></button>	
-<p>string : <?=$str['Download']?></p>
 <hr/>
 <div id="E4M_regtable" class="E4M_regtable"></div>
 <hr/>
@@ -154,6 +153,7 @@ function RegList2htmltable (infoset, subid){
 	return html_string;
 }
 function SelectEvent(NumEvent) {
+	CurrentSubEvent = NumEvent;
 	CurrentSubEventId = subevent_list[NumEvent]["id"];
 	CurrentRating = subevent_list[NumEvent]["rating_type"]; 
 	subevent_html_id.innerHTML = SubeventInfos2html(subevent_list[CurrentSubEvent]);
@@ -176,8 +176,7 @@ function BuildHTMLEventSelector (n){
 }
 function download() {
 	var csvstring ="pipo";
-	alert(subevent_list[CurrentSubEvent]+".csv"); // ici - ça marche pas.
-	var filename =subevent_list[CurrentSubEvent]+".csv";
+	var filename =subevent_list[CurrentSubEvent].name +".csv";
 	var element = document.createElement('a');
 	element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(csvstring));
 	element.setAttribute('download', filename);
