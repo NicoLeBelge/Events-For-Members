@@ -18,6 +18,8 @@ if(isset($_GET['id'])){ // bug : affiche toujours l'évènement 1 :-(
 	$eventid=1;
 }
 
+
+
 ?>
 
 <div id="E4M_eventinfo" ></div>
@@ -26,8 +28,11 @@ if(isset($_GET['id'])){ // bug : affiche toujours l'évènement 1 :-(
 <hr/>
 <div id="E4M_subeventinfo" class="E4M_subeventinfo"></div>
 <a href='<?=$cfg['registration_page']?>'><button><?=$str['Register']?></button></a> &nbsp;
+<?php if (ISSET($_SESSION['user_id'])): ?>
+	<button onclick="download()"><?=$str['Download']?></button>	
+<?php endif; ?>
 
-<button onclick="download()"><?=$str['Download']?></button>	
+
 <hr/>
 <div id="E4M_regtable" class="E4M_regtable"></div>
 <hr/>

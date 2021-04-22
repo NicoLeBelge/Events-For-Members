@@ -7,7 +7,10 @@ Selection du bon event-id à partir de la liste des tournois
 show subevent[0] par défaut (c'était fait, mais visiblement...)
 Ajouter lien pour s'inscrire
 supprimer le sélecteur si un seul sub
+Ajouter un bouton pour télécharger 
+cacher le bouton "télécharger", sauf si owner connecté.
 
 To do
 highlight selecte event in selector (css minimum)
-Ajouter un bouton pour télécharger si user = owner
+indiquer les restrictions sur suvents.
+
