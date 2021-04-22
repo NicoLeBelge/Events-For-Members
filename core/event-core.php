@@ -175,10 +175,36 @@ function BuildHTMLEventSelector (n){
 	sel.innerHTML = html_string;
 }
 function download() {
-	var csvstring ="pipo";
+	let CSVstring ="";
+	
+	//let RegList = subevent_list[CurrentSubEvent];
+	console.log ("member_list");
+	console.log (member_list); // bien disponible ici
+	let sublist = member_list.filter(function(filter){
+		return filter.subid == CurrentSubEventId ;
+	});
+	console.log ("sublist");
+	console.log (sublist); // bien disponible ici
+	rating_selector = "rating"+ CurrentRating;
+	/* sublist contains the list filtered for current subevent, the html table is filled with these members */
+	sublist.forEach(function(member){
+		CSVstring += member.memberid + ";";
+		CSVstring += member.fede_id + ";";
+		CSVstring += member.lastname + ";";
+		CSVstring += member.firstname + ";";
+		CSVstring += member[rating_selector]+ ";";
+		CSVstring += member.clubname+ ";";
+		CSVstring += member.region+ ";";
+		CSVstring += "\n" ;
+	});
+
+
+
+
+
 	var filename =subevent_list[CurrentSubEvent].name +".csv";
 	var element = document.createElement('a');
-	element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(csvstring));
+	element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(CSVstring));
 	element.setAttribute('download', filename);
 	element.style.display = 'none';// necessary ??
 	document.body.appendChild(element);
