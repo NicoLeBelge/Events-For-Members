@@ -18,8 +18,6 @@ if(isset($_GET['id'])){ // bug : affiche toujours l'évènement 1 :-(
 	$eventid=1;
 }
 
-
-
 ?>
 
 <div id="E4M_eventinfo" ></div>
@@ -72,8 +70,9 @@ rq_event.onreadystatechange  = function() {
 		event_html_id.innerHTML = eventInfos2html(eventinfoset);
 		subevent_html_id.innerHTML = SubeventInfos2html(subevent_list[CurrentSubEvent]);
 		registred_html_id.innerHTML = RegList2htmltable (member_list, CurrentSubEvent);
-		if (subevent_list.length > 1){
-			BuildHTMLEventSelector (subevent_list.length);
+		NbSubs=subevent_list.length;
+		if (NbSubs > 1){
+			BuildHTMLEventSelector (NbSubs);
 		}
 		
 	}
@@ -159,11 +158,13 @@ function RegList2htmltable (infoset, subid){
 }
 function SelectEvent(NumEvent) {
 	CurrentSubEvent = NumEvent;
+	if (NbSubs > 1){
+			BuildHTMLEventSelector (NbSubs);
+	}
 	CurrentSubEventId = subevent_list[NumEvent]["id"];
 	CurrentRating = subevent_list[NumEvent]["rating_type"]; 
 	subevent_html_id.innerHTML = SubeventInfos2html(subevent_list[CurrentSubEvent]);
 	registred_html_id.innerHTML = RegList2htmltable (member_list, NumEvent);
-
 }
 function BuildHTMLEventSelector (n){
 	/* 	Builds the set of number one can click on to select subevent */
@@ -174,7 +175,12 @@ function BuildHTMLEventSelector (n){
 	let sel = document.getElementById('E4M_select_event');
 	
 	for (k=0; k<=n-1; k++) {
-		html_string += "<div onclick=SelectEvent(" + k + ") ><p>" + (k+1) + "</p></div>";
+		
+		if (k == CurrentSubEvent){
+			html_string += "<div onclick=SelectEvent(" + k + ") id='selector_"+ k + "' class='current_sub_button' ><p>" + (k+1) + "</p></div>";
+		} else {
+			html_string += "<div onclick=SelectEvent(" + k + ") id='selector_"+ k + "' class='other_sub_button' ><p>" + (k+1) + "</p></div>";
+		}
 	}
 	html_string +="</div>";
 	sel.innerHTML = html_string;

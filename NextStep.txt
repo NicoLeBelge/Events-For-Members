@@ -13,4 +13,5 @@ cacher le bouton "télécharger", sauf si owner connecté.
 To do
 highlight selecte event in selector (css minimum)
 indiquer les restrictions sur suvents.
+cacher le bouton download is non owner connecté
 

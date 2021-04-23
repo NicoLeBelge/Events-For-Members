@@ -20,8 +20,16 @@ table, th, td {
 	display: inline-block;
 	background-color : #D0D0D0;
 }
+.E4M_buttonset .other_sub_button {
+	background-color : yellow;
+}
+.E4M_buttonset .current_sub_button {
+	background-color : orange;
+}
+
+
 .E4M_buttonset div:hover{
-	background-color : #505050;
+	background-color : red;
 }
 .E4M_buttonset p {
 	color: blue;
