@@ -18,6 +18,8 @@ highlight selecte event in selector (css minimum)
 | in progress |
 └─────────────┘
 indiquer les restrictions sur suvents.
+    ok les limites sur le rating
+    à faire pour les catégories
 
 ┌───────┐
 | To do |

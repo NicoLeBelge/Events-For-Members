@@ -13,12 +13,18 @@ table, th, td {
 	cursor: pointer;
 }
 .E4M_buttonset div{
-	width : 50px;
-	height: 50px;
+	width : 35px;
+	height: 35px;
+	padding-top: 0px;
+	border-radius: 20%;
 	margin-left: 5px;
 	text-align : center;	
 	display: inline-block;
 	background-color : #D0D0D0;
+}
+.E4M_buttonset div p{
+	margin-top: 8px;
+	padding-top: 0px;
 }
 .E4M_buttonset .other_sub_button {
 	background-color : yellow;

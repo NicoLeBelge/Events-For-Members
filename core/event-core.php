@@ -9,13 +9,6 @@ Defines 4 div elements showing event information, subevent selector, info about 
 $json = file_get_contents('./json/config.json'); // not sure if needed //ici debug
 $cfg = json_decode($json,true);	
 
-echo "pipo</br>";
-echo "pipo</br>";
-echo $cfg['Nb_rating']."</br>";
-echo $cfg['registration_page']."</br>";
-echo $cfg['rating_names'][0]."</br>";
-
-
 $json = file_get_contents('./json/strings.json');
 $str = json_decode($json,true);	
 
@@ -127,6 +120,7 @@ function SubeventInfos2html (infoset){
 	input : infoset = associative array with subevent information (name, rating_type,...)
 	*/
 	let html_string="";
+	let restriction_string="";
 	html_string += "<h3>" + infoset.name + "</h3>" ;
 	if (infoset.nbmax !==  null){
 		html_string += "<p>" + "<?=$str['Nb_max_participants']?> : " + infoset.nbmax + "</p>" ;
@@ -137,9 +131,12 @@ function SubeventInfos2html (infoset){
 	if (infoset.link !== null){
 		html_string += "<p><?=$str['Label_link_to_sub']?> : <a href=" + infoset.link + ">"+infoset.link+"</a></p>" ;
 	}
-	console.log("rating type");
-	console.log(infoset.rating_type);
-	html_string += "<p><?=$str['Rating_name']?> : " + rating_names[infoset.rating_type-1] + "</p>" ;
+	if (infoset.rating_restriction == 1) {
+		restriction_string = infoset.rating_comp + infoset.rating_limit;
+	} 
+
+	html_string += "<p><?=$str['Rating_name']?> : " + rating_names[infoset.rating_type-1] + " " + restriction_string  +"</p>" ;
+	
 	
 	return html_string;
 	
