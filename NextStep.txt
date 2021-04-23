@@ -1,3 +1,6 @@
+┌──────┐
+| done |
+└──────┘
 Done
 Nombre d'inscrits sur subevent:ne pas mettre le total, mais filtrer sur l'event
 Ajouter le nombre total d'inscrits (soit dans la page event, soit dans event-list) 
@@ -9,9 +12,16 @@ Ajouter lien pour s'inscrire
 supprimer le sélecteur si un seul sub
 Ajouter un bouton pour télécharger 
 cacher le bouton "télécharger", sauf si owner connecté.
-
-To do
 highlight selecte event in selector (css minimum)
+
+┌─────────────┐
+| in progress |
+└─────────────┘
 indiquer les restrictions sur suvents.
+
+┌───────┐
+| To do |
+└───────┘
+
 cacher le bouton download is non owner connecté
 

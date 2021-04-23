@@ -1,4 +1,5 @@
 {
     "Nb_rating":3,
-    "registration_page":"register.php"
+    "registration_page":"register.php",
+    "rating_names": ["Elo lent","Elo rapide", "Elo blitz","","",""]
 }

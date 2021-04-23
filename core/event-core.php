@@ -9,6 +9,13 @@ Defines 4 div elements showing event information, subevent selector, info about 
 $json = file_get_contents('./json/config.json'); // not sure if needed //ici debug
 $cfg = json_decode($json,true);	
 
+echo "pipo</br>";
+echo "pipo</br>";
+echo $cfg['Nb_rating']."</br>";
+echo $cfg['registration_page']."</br>";
+echo $cfg['rating_names'][0]."</br>";
+
+
 $json = file_get_contents('./json/strings.json');
 $str = json_decode($json,true);	
 
@@ -36,6 +43,14 @@ if(isset($_GET['id'])){ // bug : affiche toujours l'évènement 1 :-(
 <hr/>
 
 <script type="text/javascript">
+	const rating_names = new Array();
+	rating_names.push('<?=$cfg['rating_names'][0]?>');
+	rating_names.push('<?=$cfg['rating_names'][1]?>');
+	rating_names.push('<?=$cfg['rating_names'][2]?>');
+	rating_names.push('<?=$cfg['rating_names'][3]?>');
+	rating_names.push('<?=$cfg['rating_names'][4]?>');
+	rating_names.push('<?=$cfg['rating_names'][5]?>');
+	// debug ouh là, c'est laid, ça, pas  moyen de faire plus clean ?
 
 	var CurrentSubEvent = 0; 	// index of the internal table from json
 	var CurrentSubEventId = 0; 	// id in the database
@@ -120,8 +135,12 @@ function SubeventInfos2html (infoset){
 		html_string += "<p>" + infoset.datestart + "</p>" ;
 	}
 	if (infoset.link !== null){
-		html_string += "<p><?=$str['Label_link_to_sub']?> : <a href=" + infoset.link + ">"+infoset.link+"</p>" ;
+		html_string += "<p><?=$str['Label_link_to_sub']?> : <a href=" + infoset.link + ">"+infoset.link+"</a></p>" ;
 	}
+	console.log("rating type");
+	console.log(infoset.rating_type);
+	html_string += "<p><?=$str['Rating_name']?> : " + rating_names[infoset.rating_type-1] + "</p>" ;
+	
 	return html_string;
 	
 }
