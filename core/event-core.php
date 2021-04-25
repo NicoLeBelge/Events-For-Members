@@ -135,11 +135,13 @@ function SubeventInfos2html (infoset){
 		restriction_string = infoset.rating_comp + infoset.rating_limit;
 	} 
 	html_string += "<p><?=$str['Rating_name']?> : " + rating_names[infoset.rating_type-1] + " " + restriction_string  +"</p>" ;
-	html_string += "<p><?=$str['Categories']?> : "
+	html_string += "<p><?=$str['Categories']?> : ";
 	if (infoset.cat == "*") {
-		html_string += "<?=$str['All_cat_accepted']?></p>"
+		html_string += "<?=$str['All_cat_accepted']?></p>";
 	} else {
-		html_string += infoset.cat + "</p>"
+		html_string += infoset.cat + "</p>";
+		let cat_array = JSON.parse(infoset.cat);
+		
 	}
 	/*
 	"Categories":"Catégories",
