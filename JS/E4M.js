@@ -32,16 +32,21 @@ function PlayersObjToTable(playerlist) {
 	tablech += '<table>';
 	return tablech;
 }
-function CatArrayToList (FullList) {
+function CatArrayToList (FullList, ShortList) {
 	let html_string="";
 	/*
 	FullList.array.forEach(element => {
 		html_string += FullList.element;
 	});
 	*/
+	let Style_on = "E4M_on";
+	let Style_off = "E4M_of";
+	
+	html_string += "<div style='E4M_catlist'>" ;
 	FullList.forEach(function(element){
-		html_string += element;
+		html_string += "<div class='"+ Style_on + "'>" + element + "</div>";
 	});
+	html_string += "</div>" ;
 	return html_string;
 }
 function MySum (a,b) {

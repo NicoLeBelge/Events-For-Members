@@ -45,6 +45,19 @@ if(isset($_GET['id'])){ // bug : affiche toujours l'évènement 1 :-(
 	rating_names.push('<?=$cfg['rating_names'][5]?>');
 	// debug ouh là, c'est laid, ça, pas  moyen de faire plus clean ?
 
+	const cat_names = new Array();
+	cat_names.push('<?=$cfg['cat_names'][0]?>');	
+	cat_names.push('<?=$cfg['cat_names'][1]?>');
+	cat_names.push('<?=$cfg['cat_names'][2]?>');
+	cat_names.push('<?=$cfg['cat_names'][3]?>');
+	cat_names.push('<?=$cfg['cat_names'][4]?>');
+	cat_names.push('<?=$cfg['cat_names'][5]?>');
+	cat_names.push('<?=$cfg['cat_names'][6]?>');
+	cat_names.push('<?=$cfg['cat_names'][7]?>');
+	cat_names.push('<?=$cfg['cat_names'][8]?>');
+	cat_names.push('<?=$cfg['cat_names'][9]?>');
+
+
 	var CurrentSubEvent = 0; 	// index of the internal table from json
 	var CurrentSubEventId = 0; 	// id in the database
 	var CurrentRating = 1; 	// default value, will later depend on rating in subevent
@@ -82,7 +95,6 @@ rq_event.onreadystatechange  = function() {
 		if (NbSubs > 1){
 			BuildHTMLEventSelector (NbSubs);
 		}
-		
 	}
 }
 function eventInfos2html (infoset){
@@ -135,16 +147,16 @@ function SubeventInfos2html (infoset){
 		restriction_string = infoset.rating_comp + infoset.rating_limit;
 	} 
 	html_string += "<p><?=$str['Rating_name']?> : " + rating_names[infoset.rating_type-1] + " " + restriction_string  +"</p>" ;
+	
 	html_string += "<p><?=$str['Categories']?> : ";
 	if (infoset.cat == "*") {
 		html_string += "<?=$str['All_cat_accepted']?></p>";
 	} else {
-		html_string += infoset.cat + "</p>";
 		let cat_array = JSON.parse(infoset.cat);
-		let a = CatArrayToList (cat_array); 
-		console.log("CatArrayToList retourne a : ");
-		console.log(a);
-		console.log (MySum(3,2));
+		let tempstring = CatArrayToList (cat_names, cat_array); 
+		console.log (tempstring);
+		
+		html_string += tempstring + "</p>";
 	}
 	/*
 	"Categories":"Catégories",

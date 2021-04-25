@@ -33,7 +33,6 @@ table, th, td {
 	background-color : orange;
 }
 
-
 .E4M_buttonset div:hover{
 	background-color : red;
 }
@@ -45,4 +44,14 @@ table, th, td {
 #eventinfo a{
 	font-size: 1.5em;
 	text-decoration: none;
+}
+.E4M_catlist div{
+	width : 35px;
+	height: 35px;
+	padding-top: 0px;
+	border-radius: 20%;
+	margin-left: 5px;
+	text-align : center;	
+	display: inline-block;
+	background-color : #D0D0D0;
 }

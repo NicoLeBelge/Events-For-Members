@@ -23,6 +23,7 @@ indiquer les restrictions sur suvents (limites de rating et catégories).
 | To do |
 └───────┘
 
+Ajout nombre de cat / rating dans le config + boucle pour initialiser (au lieu de push, push,...)
 ajout restrictions  par genre
 afficher le nombre max d'inscrits
 cacher le bouton download is non owner connecté
