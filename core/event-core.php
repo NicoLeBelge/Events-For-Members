@@ -34,7 +34,7 @@ if(isset($_GET['id'])){ // bug : affiche toujours l'évènement 1 :-(
 <hr/>
 <div id="E4M_regtable" class="E4M_regtable"></div>
 <hr/>
-
+<script src="./JS/E4M.js"></script>
 <script type="text/javascript">
 	const rating_names = new Array();
 	rating_names.push('<?=$cfg['rating_names'][0]?>');
@@ -141,7 +141,10 @@ function SubeventInfos2html (infoset){
 	} else {
 		html_string += infoset.cat + "</p>";
 		let cat_array = JSON.parse(infoset.cat);
-		
+		let a = CatArrayToList (cat_array); 
+		console.log("CatArrayToList retourne a : ");
+		console.log(a);
+		console.log (MySum(3,2));
 	}
 	/*
 	"Categories":"Catégories",
@@ -214,15 +217,9 @@ function BuildHTMLEventSelector (n){
 }
 function download() {
 	let CSVstring ="";
-	
-	//let RegList = subevent_list[CurrentSubEvent];
-	console.log ("member_list");
-	console.log (member_list); // bien disponible ici
 	let sublist = member_list.filter(function(filter){
 		return filter.subid == CurrentSubEventId ;
 	});
-	console.log ("sublist");
-	console.log (sublist); // bien disponible ici
 	rating_selector = "rating"+ CurrentRating;
 	/* sublist contains the list filtered for current subevent, the html table is filled with these members */
 	sublist.forEach(function(member){
@@ -235,11 +232,6 @@ function download() {
 		CSVstring += member.region+ ";";
 		CSVstring += "\n" ;
 	});
-
-
-
-
-
 	var filename =subevent_list[CurrentSubEvent].name +".csv";
 	var element = document.createElement('a');
 	element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(CSVstring));
