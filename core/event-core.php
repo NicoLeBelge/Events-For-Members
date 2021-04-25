@@ -134,8 +134,17 @@ function SubeventInfos2html (infoset){
 	if (infoset.rating_restriction == 1) {
 		restriction_string = infoset.rating_comp + infoset.rating_limit;
 	} 
-
 	html_string += "<p><?=$str['Rating_name']?> : " + rating_names[infoset.rating_type-1] + " " + restriction_string  +"</p>" ;
+	html_string += "<p><?=$str['Categories']?> : "
+	if (infoset.cat == "*") {
+		html_string += "<?=$str['All_cat_accepted']?></p>"
+	} else {
+		html_string += infoset.cat + "</p>"
+	}
+	/*
+	"Categories":"Catégories",
+    "All_cat_accepted":"ouvert à toutes les catégories"
+	*/
 	
 	
 	return html_string;

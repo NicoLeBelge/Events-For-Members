@@ -13,13 +13,12 @@ supprimer le sélecteur si un seul sub
 Ajouter un bouton pour télécharger 
 cacher le bouton "télécharger", sauf si owner connecté.
 highlight selecte event in selector (css minimum)
+indiquer les restrictions sur suvents (limites de rating et catégories).
+    
 
 ┌─────────────┐
 | in progress |
 └─────────────┘
-indiquer les restrictions sur suvents.
-    ok les limites sur le rating
-    à faire pour les catégories
 
 ┌───────┐
 | To do |

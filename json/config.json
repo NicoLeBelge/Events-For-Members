@@ -1,5 +1,9 @@
 {
     "Nb_rating":3,
     "registration_page":"register.php",
-    "rating_names": ["Elo lent","Elo rapide", "Elo blitz","","",""]
+    "rating_names": ["Elo lent","Elo rapide", "Elo blitz","","",""],
+    "note1": "doesn't work with curly brackets !?",
+    "self_create": true,
+    "super_user_id": 1,
+    "cat_list": ["U08","U10", "U12","U14","U16","U18","U20","Sénior", "Sénior+", "Vétéran"]
 }
