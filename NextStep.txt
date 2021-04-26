@@ -18,7 +18,8 @@ indiquer les restrictions sur suvents (limites de rating et catégories).
 ┌─────────────┐
 | in progress |
 └─────────────┘
-
+block of cat picctos
+works roughly, but need to adjust CSS and add * option
 ┌───────┐
 | To do |
 └───────┘

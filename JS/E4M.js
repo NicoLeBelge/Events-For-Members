@@ -33,22 +33,22 @@ function PlayersObjToTable(playerlist) {
 	return tablech;
 }
 function CatArrayToList (FullList, ShortList) {
-	let html_string="";
 	/*
-	FullList.array.forEach(element => {
-		html_string += FullList.element;
-	});
+	Constructs a html div block where all elements of FullList are displayed with class E4M_on/off
+	whether the element is included or not in ShortList
 	*/
+	let html_string="";
 	let Style_on = "E4M_on";
-	let Style_off = "E4M_of";
+	let Style_off = "E4M_off";
 	
-	html_string += "<div style='E4M_catlist'>" ;
+	html_string += "<div class='E4M_catlist'>" ;
 	FullList.forEach(function(element){
-		html_string += "<div class='"+ Style_on + "'>" + element + "</div>";
+		if (ShortList.includes(element)){
+			html_string += "<div class='"+ Style_on + "'>" + element + "</div>";
+		} else {
+			html_string += "<div class='"+ Style_off + "'>" + element + "</div>";
+		}
 	});
 	html_string += "</div>" ;
 	return html_string;
-}
-function MySum (a,b) {
-	return a+b;
 }
