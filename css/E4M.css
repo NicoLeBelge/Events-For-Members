@@ -46,18 +46,18 @@ table, th, td {
 	text-decoration: none;
 }
 .E4M_catlist div{
-	width : 35px;
-	height: 35px;
-	padding-top: 0px;
+	width : 40px;
+	height: 22px;
+	padding-top: 3px;
 	border-radius: 20%;
-	margin-left: 5px;
+	margin-right: 5px;
 	text-align : center;	
 	display: inline-block;
-	background-color : #D0D0D0;
+	color: white;
 }
-.E4M_catlist div .style_on{
+.E4M_catlist .E4M_on{
 	background-color : green;
 }
-.E4M_catlist div .style_off{
+.E4M_catlist .E4M_off{
 	background-color : red;
 }
