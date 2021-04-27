@@ -149,21 +149,16 @@ function SubeventInfos2html (infoset){
 	html_string += "<p><?=$str['Rating_name']?> : " + rating_names[infoset.rating_type-1] + " " + restriction_string  +"</p>" ;
 	
 	html_string += "<p><?=$str['Categories']?> : ";
+	let cat_array = new Array();
+	
 	if (infoset.cat == "*") {
-		html_string += "<?=$str['All_cat_accepted']?></p>";
+		cat_array = cat_names;
 	} else {
-		let cat_array = JSON.parse(infoset.cat);
-		let tempstring = CatArrayToList (cat_names, cat_array); 
-		console.log (tempstring);
-		
-		html_string += tempstring + "</p>";
+		cat_array = JSON.parse(infoset.cat);
 	}
-	/*
-	"Categories":"Catégories",
-    "All_cat_accepted":"ouvert à toutes les catégories"
-	*/
 	
-	
+	let tempstring = CatArrayToList (cat_names, cat_array); 
+	html_string += tempstring + "</p>";
 	return html_string;
 	
 }
