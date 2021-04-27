@@ -5,5 +5,6 @@
     "note1": "doesn't work with curly brackets !?",
     "self_create": true,
     "super_user_id": 1,
-    "cat_names": ["U08","U10", "U12","U14","U16","U18","U20","Sen", "Sen+", "Vet"]
+    "cat_names": ["U08","U10", "U12","U14","U16","U18","U20","Sen", "Sen+", "Vet"],
+    "gender_names": ["M","F"]
 }
