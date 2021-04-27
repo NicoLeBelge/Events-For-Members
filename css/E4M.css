@@ -16,25 +16,26 @@ table, th, td {
 	width : 35px;
 	height: 35px;
 	padding-top: 0px;
-	border-radius: 20%;
+	border-radius: 50%;
 	margin-left: 5px;
 	text-align : center;	
 	display: inline-block;
-	background-color : #D0D0D0;
+
 }
 .E4M_buttonset div p{
 	margin-top: 8px;
 	padding-top: 0px;
+	color: white;
+	cursor: default;
 }
 .E4M_buttonset .other_sub_button {
-	background-color : yellow;
+	background-color : rgb(163, 163, 163);
 }
 .E4M_buttonset .current_sub_button {
-	background-color : orange;
+	background-color : rgb(0, 0, 0);
 }
-
 .E4M_buttonset div:hover{
-	background-color : red;
+	background-color : rgb(63, 62, 62);
 }
 .E4M_buttonset p {
 	color: blue;
@@ -49,7 +50,7 @@ table, th, td {
 	width : 40px;
 	height: 22px;
 	padding-top: 3px;
-	border-radius: 20%;
+	border-radius: 10%;
 	margin-right: 5px;
 	text-align : center;	
 	display: inline-block;

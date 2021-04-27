@@ -132,6 +132,17 @@ function SubeventInfos2html (infoset){
 	input : infoset = associative array with subevent information (name, rating_type,...)
 	*/
 	let html_string="";
+	html_string += "<p><?=$str['Categories']?> : ";
+	let cat_array = new Array();
+	
+	if (infoset.cat == "*") {
+		cat_array = cat_names;
+	} else {
+		cat_array = JSON.parse(infoset.cat);
+	}
+	
+	let tempstring = CatArrayToList (cat_names, cat_array); 
+	html_string += tempstring + "</p>";
 	let restriction_string="";
 	html_string += "<h3>" + infoset.name + "</h3>" ;
 	if (infoset.nbmax !==  null){
@@ -148,17 +159,7 @@ function SubeventInfos2html (infoset){
 	} 
 	html_string += "<p><?=$str['Rating_name']?> : " + rating_names[infoset.rating_type-1] + " " + restriction_string  +"</p>" ;
 	
-	html_string += "<p><?=$str['Categories']?> : ";
-	let cat_array = new Array();
 	
-	if (infoset.cat == "*") {
-		cat_array = cat_names;
-	} else {
-		cat_array = JSON.parse(infoset.cat);
-	}
-	
-	let tempstring = CatArrayToList (cat_names, cat_array); 
-	html_string += tempstring + "</p>";
 	return html_string;
 	
 }
