@@ -8,6 +8,10 @@ Defines 4 div elements showing event information, subevent selector, info about 
 */
 $json = file_get_contents('./json/config.json'); // not sure if needed //ici debug
 $cfg = json_decode($json,true);	
+$cat_names_str = json_encode($cfg['cat_names']);
+$gender_names_str = json_encode($cfg['gender_names']);
+$rating_names_str = json_encode($cfg['rating_names']);
+
 
 $json = file_get_contents('./json/strings.json');
 $str = json_decode($json,true);	
@@ -36,28 +40,17 @@ if(isset($_GET['id'])){ // bug : affiche toujours l'évènement 1 :-(
 <hr/>
 <script src="./JS/E4M.js"></script>
 <script type="text/javascript">
-	const rating_names = new Array();
-	rating_names.push('<?=$cfg['rating_names'][0]?>');
-	rating_names.push('<?=$cfg['rating_names'][1]?>');
-	rating_names.push('<?=$cfg['rating_names'][2]?>');
-	rating_names.push('<?=$cfg['rating_names'][3]?>');
-	rating_names.push('<?=$cfg['rating_names'][4]?>');
-	rating_names.push('<?=$cfg['rating_names'][5]?>');
-	// debug ouh là, c'est laid, ça, pas  moyen de faire plus clean ?
+	
+	// let's build the object 'rating_names' from the JSON passed by php
+	var rating_names = new Array();
+	rating_names = JSON.parse('<?=$rating_names_str?>');
 
-	const cat_names = new Array();
-	cat_names.push('<?=$cfg['cat_names'][0]?>');	
-	cat_names.push('<?=$cfg['cat_names'][1]?>');
-	cat_names.push('<?=$cfg['cat_names'][2]?>');
-	cat_names.push('<?=$cfg['cat_names'][3]?>');
-	cat_names.push('<?=$cfg['cat_names'][4]?>');
-	cat_names.push('<?=$cfg['cat_names'][5]?>');
-	cat_names.push('<?=$cfg['cat_names'][6]?>');
-	cat_names.push('<?=$cfg['cat_names'][7]?>');
-	cat_names.push('<?=$cfg['cat_names'][8]?>');
-	cat_names.push('<?=$cfg['cat_names'][9]?>');
-
-
+	var cat_names = new Array();
+	cat_names = JSON.parse('<?=$cat_names_str?>');
+	
+	var gender_names = new Array();
+	gender_names = JSON.parse('<?=$gender_names_str?>');
+	
 	var CurrentSubEvent = 0; 	// index of the internal table from json
 	var CurrentSubEventId = 0; 	// id in the database
 	var CurrentRating = 1; 	// default value, will later depend on rating in subevent
