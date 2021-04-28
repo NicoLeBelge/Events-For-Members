@@ -14,6 +14,9 @@ cacher le bouton "télécharger", sauf si owner connecté.
 highlight selecte event in selector (css minimum)
 indiquer les restrictions sur suvents (limites de rating et catégories).
 block of category pictos fully OK
+Ajout nombre de cat / rating dans le config + boucle pour initialiser (au lieu de push, push,...)
+ajout restrictions  par genre
+pointer at center of selector --> still arrow
 
 ┌─────────────┐
 | in progress |
@@ -24,8 +27,6 @@ block of category pictos fully OK
 | To do |
 └───────┘
 
-Ajout nombre de cat / rating dans le config + boucle pour initialiser (au lieu de push, push,...)
-ajout restrictions  par genre
 afficher le nombre max d'inscrits
 cacher le bouton download is non owner connecté
-pointer at center of selector --> still arrow
+
