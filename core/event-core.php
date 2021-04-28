@@ -14,7 +14,10 @@ $rating_names_str = json_encode($cfg['rating_names']);
 
 
 $json = file_get_contents('./json/strings.json');
+
 $str = json_decode($json,true);	
+$jsonstr = json_encode($str);	
+
 
 if(isset($_GET['id'])){ // bug : affiche toujours l'évènement 1 :-(
 	$eventid=$_GET['id'];
@@ -43,14 +46,18 @@ if(isset($_GET['id'])){ // bug : affiche toujours l'évènement 1 :-(
 	
 	// let's build the object 'rating_names' from the JSON passed by php
 	var rating_names = new Array();
-	rating_names = JSON.parse('<?=$rating_names_str?>');
-
+	rating_names = JSON.parse(`<?=$rating_names_str?>`);
+	// the same for the names of categories
 	var cat_names = new Array();
-	cat_names = JSON.parse('<?=$cat_names_str?>');
-	
+	cat_names = JSON.parse(`<?=$cat_names_str?>`);
+	// ... for the genders
 	var gender_names = new Array();
 	gender_names = JSON.parse('<?=$gender_names_str?>');
 	
+	// let's do it for customs strings
+	var str = JSON.parse(`<?=$jsonstr?>`);
+	
+
 	var CurrentSubEvent = 0; 	// index of the internal table from json
 	var CurrentSubEventId = 0; 	// id in the database
 	var CurrentRating = 1; 	// default value, will later depend on rating in subevent
