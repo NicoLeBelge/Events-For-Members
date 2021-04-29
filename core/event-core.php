@@ -57,6 +57,8 @@ if(isset($_GET['id'])){ // bug : affiche toujours l'évènement 1 :-(
 	// let's do it for customs strings
 	var str = JSON.parse(`<?=$jsonstr?>`);
 	//console.log (MaSomme(1,2));
+	//console.log("Hello from the script");
+	Hello();
 
 	var CurrentSubEvent = 0; 	// index of the internal table from json
 	var CurrentSubEventId = 0; 	// id in the database
@@ -97,7 +99,7 @@ rq_event.onreadystatechange  = function() {
 		}
 	}
 }
-function eventInfos2html (infoset){
+function eventInfos2html_old (infoset){
 	/* 	
 	constructs a HTML bloc from the object containing events infos 	
 	input : infoset = associative array with event information (name, datestart,...)
