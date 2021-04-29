@@ -56,7 +56,7 @@ if(isset($_GET['id'])){ // bug : affiche toujours l'évènement 1 :-(
 	
 	// let's do it for customs strings
 	var str = JSON.parse(`<?=$jsonstr?>`);
-	
+	//console.log (MaSomme(1,2));
 
 	var CurrentSubEvent = 0; 	// index of the internal table from json
 	var CurrentSubEventId = 0; 	// id in the database

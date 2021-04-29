@@ -52,3 +52,6 @@ function CatArrayToList (FullList, ShortList) {
 	html_string += "</div>" ;
 	return html_string;
 }
+function MaSomme(a,b){
+	return a+b;
+}
