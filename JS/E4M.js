@@ -52,22 +52,19 @@ function CatArrayToList (FullList, ShortList) {
 	html_string += "</div>" ;
 	return html_string;
 }
-/*function MaSomme(a,b){
-	console.log (str['Gender']);
-	return a+b;
-	
-}*/
-function Hello(){
-	console.log (str['Gender']);
-}
+
 function eventInfos2html (infoset){
 	/* 	
 	constructs a HTML bloc from the object containing events infos 	
 	input : infoset = associative array with event information (name, datestart,...)
 	*/
 	let html_string="";
+	
 	html_string += "<h3>" + infoset.name + "</h3>" ;
 	html_string += "<p>" + infoset.datestart + "</p>" ;
+	let DateEvent = new Date(infoset.datestart);
+	console.log ("cet évènement a lieu le");
+	console.log (DateEvent.toLocaleDateString());
 	html_string += "<p>" + str['Date_max_registration'] + " : " +infoset.datelim + "</p>" ;
 	if (infoset.secured =="1"){
 		html_string += str['Event_secured_info'] + "</p>" ;
