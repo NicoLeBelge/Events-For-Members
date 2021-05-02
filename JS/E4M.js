@@ -16,7 +16,7 @@ function PlayersObjToTable(playerlist) {
 	tablech += '<th>ville</th>';
 	
 	tablech += '</tr>';
-	//console.log('response', this.response); // ça marche
+	
 	for (i in playerlist){
 		
 		tablech += '<tr onclick = pickplayer(\'' + playerlist[i].id + '\')>';
@@ -188,7 +188,13 @@ function RegList2htmltable (infoset, subid){
 	rating_selector = "rating"+ CurrentRating;
 	/* sublist contains the list filtered for current subevent, the html table is filled with these members */
 	sublist.forEach(function(member){
-		html_string += "<tr>" ;
+		if(member.confirmed == "1"){
+			html_string += "<tr class='E4M_tab_confirmed'>" ;
+		} else {
+			html_string += "<tr class='E4M_tab_not_confirmed'>" ;
+		}
+		
+		
 		html_string += "<td>" + member.lastname + " "+member.firstname + "</td>";
 		html_string += "<td>" + member[rating_selector]+"</td>";
 		html_string += "<td>" + member.clubname+"</td>";

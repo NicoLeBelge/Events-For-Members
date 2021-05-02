@@ -42,6 +42,7 @@ if (isset($_GET['event'])) {
 	$qtxt = "SELECT subevents.event_id as eventid,
 					subevents.id as subid,
 					registrations.member_id as memberid,
+					registrations.confirmed,
 					members.fede_id,
 					members.lastname,
 					members.firstname,

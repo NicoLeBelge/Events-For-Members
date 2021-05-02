@@ -18,6 +18,7 @@ Ajout nombre de cat / rating dans le config + boucle pour initialiser (au lieu d
 ajout restrictions  par genre
 pointer at center of selector --> still arrow
 affichage des dates / heures en format correct
+mettre en grisé les non inscrits
 
 ┌─────────────┐
 | in progress |
@@ -31,3 +32,4 @@ affichage des dates / heures en format correct
 afficher le nombre max d'inscrits
 cacher le bouton download is non owner connecté
 vérifier que le bouton download est caché pour un non-owner
+aligner à droite le elo
