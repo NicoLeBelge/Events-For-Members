@@ -11,6 +11,12 @@ table, th, td {
 	margin-top: 2px;
 	margin-bottom: 2px;
 }
+.E4M_maindiv h3{
+	margin-top: 4px;
+	margin-bottom: 3px;
+	font-size: 1.5 em;
+	color : blue;
+}
 #E4M_eventlist tr:hover {
 	background-color: lightblue;
 	cursor: pointer;

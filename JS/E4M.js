@@ -65,6 +65,8 @@ function eventInfos2html (infoset){
 	let DateEvent = new Date(infoset.datestart);
 	console.log ("cet évènement a lieu le");
 	console.log (DateEvent.toLocaleDateString());
+	//Register_before
+	
 	html_string += "<p>" + str['Date_max_registration'] + " : " +infoset.datelim + "</p>" ;
 	if (infoset.secured =="1"){
 		html_string += str['Event_secured_info'] + "</p>" ;
