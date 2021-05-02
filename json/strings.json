@@ -12,10 +12,9 @@
     "wrong_password":"mot de passe erroné",
     "Nb_max_participants":"Nombre maximum de participants",
     "Event_secured_info":"Confirmation d'inscription par retour d'e-mail",
-    "Event_notsecured_info":"Inscription simplifiée",
     "Register_before":"Inscription avant le",
     "Contact":"Contact",
-    "Show_on_map":"Localiser sur une carte",
+    "Show_on_map":"Géolocalisation disponible ",
     "Label_link_to_sub":"Lien tournoi",
     "Nb_tot_reg":"Nombre total d'inscrits",
     "Nb_reg":"Nombre d'inscrits",
@@ -24,6 +23,10 @@
     "Rating_name":"Classement",
     "Categories":"Catégories",
     "All_cat_accepted":"ouvert à toutes les catégories",
+    "Date_of_place":"Aura lieu le",
+    "Selector_help":"Sélectionnez l'un des ",
+    "Subevnent_names":"tournois",
+    
     "Gender":"Genre"
 
 

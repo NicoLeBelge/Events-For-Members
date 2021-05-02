@@ -59,21 +59,21 @@ function eventInfos2html (infoset){
 	input : infoset = associative array with event information (name, datestart,...)
 	*/
 	let html_string="";
-	
 	html_string += "<h3>" + infoset.name + "</h3>" ;
-	html_string += "<p>" + infoset.datestart + "</p>" ;
-	let DateEvent = new Date(infoset.datestart);
-	console.log ("cet évènement a lieu le");
-	console.log (DateEvent.toLocaleDateString());
-	//Register_before
 	
-	html_string += "<p>" + str['Date_max_registration'] + " : " +infoset.datelim + "</p>" ;
+	let DateEvent = new Date(infoset.datestart);
+	let DateLim = new Date(infoset.datelim);
+
+	//html_string += "<p> Le" + DateEvent.toLocaleDateString() + "</p>" ;
+	html_string += "<p><span class='E4M_css_key'>" + str['Date_of_place'] + "</span> " + DateEvent.toLocaleDateString() + "</p>" ;
+
+	
+	html_string += "<p><span class='E4M_css_key'>" + str['Register_before'] + "</span> "  +DateLim.toLocaleString() + "</p>" ;
 	if (infoset.secured =="1"){
 		html_string += str['Event_secured_info'] + "</p>" ;
-	} else {
-		html_string += "<p>" + str['Event_notsecured_info'] + "</p>" ;
-	}
-	html_string += "<p>" + str['Contact'] + " : " + infoset.contact +"</p>" ;
+	} 
+	html_string += "<p><span class='E4M_css_key'>" + str['Contact'] + "</span> " + infoset.contact +"</p>" ;
+	html_string += "<p><span class='E4M_css_key'>" + str['Nb_tot_reg'] + " </span> " + NbRegTot +"</p>";
 	if (infoset.pos_long !==null && infoset.pos_lat !==null ){
 		let url = "https://openstreetmap.org/"
 		url+="?mlat="+infoset.pos_lat;
@@ -81,12 +81,12 @@ function eventInfos2html (infoset){
 		url+="#map=17";
 		url+="/"+infoset.pos_lat;
 		url+="/="+infoset.pos_long;
-		html_string += "<p>" + str['Show_on_map'] + " <a href = " + url 
+		html_string += "<p><span class='E4M_css_key'>" + str['Show_on_map'] + "</span> <a href = " + url 
 		html_string += " target='_blank'><img src='./img/geomarker.png'> </a></p>" ;
 		
 		/* debug niveau de zoom (#map) pas respecté, à creuser, pourquoi ? */
 	}
-	html_string += str['Nb_tot_reg'] + " : " + NbRegTot;
+	
 	return html_string;
 }
 function SubeventInfos2html (infoset){
@@ -148,8 +148,11 @@ function SubeventInfos2html (infoset){
 function BuildHTMLEventSelector (n){
 	/* 	Builds the set of number one can click on to select subevent */
 	/* 	Should not be called if NbSubEvents =1 */
+	let html_string="";
+	html_string += str['Selector_help'] + n + " " + str['Subevnent_names'] ; 
+	html_string += "<div class='E4M_buttonset'>";
 	
-	let html_string="<div class='E4M_buttonset'>";
+    
 	let k=0;
 	let sel = document.getElementById('E4M_select_event');
 	
@@ -179,7 +182,7 @@ function RegList2htmltable (infoset, subid){
 	});
 	
 	let nbregsub = sublist.length;
-	html_string += "<p><?=$str['Nb_reg']?> : " + nbregsub + "</p>" ;
+	html_string += "<p> <span class='E4M_css_key'>" +  str['Nb_reg'] + "</span> " + nbregsub +  "</p>" ;
 	
 	html_string += "<table>" ;
 	rating_selector = "rating"+ CurrentRating;

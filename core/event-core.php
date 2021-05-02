@@ -24,6 +24,7 @@ if(isset($_GET['id'])){
 ?>
 <div class='E4M_maindiv'>
 	<div id="E4M_eventinfo" ></div>
+	</br>
 	
 	<div id="E4M_select_event"></div>
 	

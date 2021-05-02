@@ -17,12 +17,13 @@ block of category pictos fully OK
 Ajout nombre de cat / rating dans le config + boucle pour initialiser (au lieu de push, push,...)
 ajout restrictions  par genre
 pointer at center of selector --> still arrow
+affichage des dates / heures en format correct
 
 ┌─────────────┐
 | in progress |
 └─────────────┘
 
-affichage des dates / heures en format correct
+
 ┌───────┐
 | To do |
 └───────┘

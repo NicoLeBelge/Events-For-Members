@@ -21,12 +21,19 @@ table, th, td {
 	background-color: lightblue;
 	cursor: pointer;
 }
+.E4M_buttonset {
+
+	margin-top: 5px;
+	margin-bottom: 5px;
+	
+}
 .E4M_buttonset div{
 	width : 35px;
 	height: 35px;
 	padding-top: 0px;
 	border-radius: 50%;
-	margin-left: 5px;
+	margin-left: 0px;
+	margin-right: 8px;
 	text-align : center;	
 	display: inline-block;
 
@@ -70,4 +77,8 @@ table, th, td {
 }
 .E4M_catlist .E4M_off{
 	background-color : red;
+}
+.E4M_css_key {
+	font-size: 0.8em;
+	color:rgb(63, 62, 62);
 }

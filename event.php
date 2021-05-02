@@ -15,7 +15,7 @@ session_start();
     </head>
 
     <body >
-	<a href = "event-list.php"><button>Tous les tournois</button> </a>
+	<a href = "event-list.php"><button> ⬆ Tous les tournois ⬆ </button> </a>
 	<?php 
 	include ('./core/event-core.php')
 	?>
