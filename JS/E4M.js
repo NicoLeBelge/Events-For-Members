@@ -134,10 +134,7 @@ function SubeventInfos2html (infoset){
 	iconString = CatArrayToList (cat_names, cat_array); 
 	html_string += iconString + "</p>";
 	
-	/* max participants */
-	if (infoset.nbmax !==  null){
-		html_string += "<p>" + str['Nb_max_participants'] + " : " + infoset.nbmax + "</p>" ;
-	}
+	
 	
 	
 	/* rating_type + optional rating restriction */
@@ -188,8 +185,15 @@ function RegList2htmltable (infoset, subid){
 	});
 	
 	let nbregsub = sublist.length;
-	html_string += "<p> <span class='E4M_css_key'>" +  str['Nb_reg'] + "</span> " + nbregsub +  "</p>" ;
+	html_string += "<p>" + nbregsub + " <span class='E4M_css_key'>" +  str['registrations'] + "</span> "  ;
+
+	/* max participants */
+	console.log(CurrentNbmax);
+	if (CurrentNbmax !==  null){
+		html_string += "(" +  CurrentNbmax  + str['max'] +")" ;
+	}
 	
+	html_string += "</p>" ;
 	html_string += "<table>" ;
 	rating_selector = "rating"+ CurrentRating;
 	/* sublist contains the list filtered for current subevent, the html table is filled with these members */
@@ -212,6 +216,7 @@ function RegList2htmltable (infoset, subid){
 }
 function SelectEvent(NumEvent) {
 	CurrentSubEvent = NumEvent;
+	/* selector rebuilt to update highlighted selection */
 	if (NbSubs > 1){
 			BuildHTMLEventSelector (NbSubs);
 	}
@@ -219,6 +224,8 @@ function SelectEvent(NumEvent) {
 	CurrentRating = subevent_list[NumEvent]["rating_type"]; 
 	subevent_html_id.innerHTML = SubeventInfos2html(subevent_list[CurrentSubEvent]);
 	registred_html_id.innerHTML = RegList2htmltable (member_list, NumEvent);
+	CurrentNbmax = subevent_list[NumEvent]["nbmax"];
+	
 }
 function download() {
 	let CSVstring ="";

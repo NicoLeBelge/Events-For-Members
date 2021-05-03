@@ -63,6 +63,7 @@ if(isset($_GET['id'])){
 	var subevent_list; // Array() of subevent_info_sets
 	var NbSubs; // Number of SubEvents
 	var NbRegTot; // Total Number of registred members
+	var CurrentNbmax ; // max subscriptions for current subevent
 
 	/* those 3 html elements will be updated each time the user selects a subevents*/
 	var event_html_id = document.getElementById('E4M_eventinfo');
@@ -83,6 +84,7 @@ rq_event.onreadystatechange  = function() {
 		eventinfoset =event_data_set['infos'][0];
 		subevent_list = event_data_set['subs'];
 		CurrentSubEventId = subevent_list[0]["id"];
+		CurrentNbmax = subevent_list[0]["nbmax"];
 		member_list =  event_data_set['registrations'];
 		NbRegTot = member_list.length;
 		event_html_id.innerHTML = eventInfos2html(eventinfoset);

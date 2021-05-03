@@ -18,17 +18,16 @@ Ajout nombre de cat / rating dans le config + boucle pour initialiser (au lieu d
 ajout restrictions  par genre
 pointer at center of selector --> still arrow
 remplacement du lien subenvent par un picto
+afficher le nombre max d'inscrits
+afficher les dates sur un format lisible
 
 ┌─────────────┐
 | in progress |
 └─────────────┘
 
-afficher le nombre max d'inscrits
+aligner le elo à droite
 
 ┌───────┐
 | To do |
 └───────┘
 
-cacher le bouton download is non owner connecté
-afficher les dates sur un format lisible
-aligner le elo à droite
