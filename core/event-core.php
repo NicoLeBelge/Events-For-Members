@@ -40,6 +40,7 @@ if(isset($_GET['id'])){
 	
 </div>
 <script src="./JS/E4M.js"></script>
+
 <script type="text/javascript">
 	
 	/* let's build arrays 'rating_names' etc. from the JSON passed by php */

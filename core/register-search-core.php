@@ -24,76 +24,42 @@ if(isset($_GET['id'])){
 }
 ?>
 <div class='E4M_maindiv'>
-	<div id="E4M_eventinfo" ></div>
-	</br>
-	
-	<div id="E4M_select_event"></div>
-	
-	<div id="E4M_subeventinfo" class="E4M_subeventinfo"></div>
-	<a href='<?=$cfg['registration_page']?>'><button><?=$str['Register']?></button></a> &nbsp;
-	<?php if (ISSET($_SESSION['user_id'])): ?>
-		<button onclick="download()"><?=$str['Download']?></button>	
-	<?php endif; ?>
+<form id='myForm'>
+		<label for="namestart"><?= $str['enter_start_name'] ?></label>
+		<input type="text" name="identifier" id="namestart" required>
+	</form> 
+	<button onclick = trouve() ><?= $str['search'] ?></button>
+	<br/><br/>
+	<div id="playertable"></div>
 
-
-	<div id="E4M_regtable" class="E4M_regtable"></div>
 	
 </div>
-<script src="./JS/E4M.js"></script>
+
 <script type="text/javascript">
-	
-	/* let's build arrays 'rating_names' etc. from the JSON passed by php */
-	var rating_names = new Array();
-	rating_names = JSON.parse(`<?=$rating_names_str?>`);
-	
-	var cat_names = new Array();
-	cat_names = JSON.parse(`<?=$cat_names_str?>`);
-	
-	var gender_names = new Array();
-	gender_names = JSON.parse('<?=$gender_names_str?>');
-	
-	var str = JSON.parse(`<?=$jsonstr?>`);
-	var subevent_link_icon = JSON.parse(`<?=$subevent_link_icon_str?>`);
-	
-	/* let's declare global variables used by external JS */
-	var CurrentSubEvent = 0; 	// index of the internal table from json
-	var CurrentSubEventId = 0; 	// id in the database
-	var CurrentRating = 1; 	// default value, will later depend on rating in subevent
-	var eventinfoset; // {id="1", name = "eventname", datestart ="blabla",...}
-	var subevent_list; // Array() of subevent_info_sets
-	var NbSubs; // Number of SubEvents
-	var NbRegTot; // Total Number of registred members
-	var CurrentNbmax ; // max subscriptions for current subevent
-
-	/* those 3 html elements will be updated each time the user selects a subevents*/
-	var event_html_id = document.getElementById('E4M_eventinfo');
-	var subevent_html_id = document.getElementById('E4M_subeventinfo');
-	var registred_html_id = document.getElementById('E4M_regtable');
-
-	var rq_event = new XMLHttpRequest();
-	rq_event.open('GET', './API/get-event-info.php?event=<?=$eventid?>'); // bug wrong subevent selected
-	rq_event.responseType = 'json';
-	rq_event.send();
-
-rq_event.onreadystatechange  = function() {
-	/* 
-	When XHR ready, 3 events information are displayed, and subevent selector is built.
-	*/
-	if (this.readyState == 4 && this.status == 200) {
-		let event_data_set = this.response;
-		eventinfoset =event_data_set['infos'][0];
-		subevent_list = event_data_set['subs'];
-		CurrentSubEventId = subevent_list[0]["id"];
-		CurrentNbmax = subevent_list[0]["nbmax"];
-		member_list =  event_data_set['registrations'];
-		NbRegTot = member_list.length;
-		event_html_id.innerHTML = eventInfos2html(eventinfoset);
-		subevent_html_id.innerHTML = SubeventInfos2html(subevent_list[CurrentSubEvent]);
-		registred_html_id.innerHTML = RegList2htmltable (member_list, CurrentSubEvent);
-		NbSubs=subevent_list.length;
-		if (NbSubs > 1){
-			BuildHTMLEventSelector (NbSubs);
+	var request = new XMLHttpRequest();
+	function trouve(){
+		/*
+		Gets the string in the field 'namestart' of the form, pass it to API that returns the list of members
+		who's name starts with this string. 
+		Build the table with members that match the start
+		*/
+		var myForm = document.getElementById('myForm');
+		formData = new FormData(myForm);
+		var start = document.getElementById('namestart').value;
+		var requestURL = './API/get-memberlist-by-namestart.php?start=' + start;
+		console.log(requestURL);
+		request.open('GET', requestURL);
+		request.responseType = 'json';
+		request.send();
+	}
+	request.onreadystatechange  = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			var players = this.response;
+			console.log(players);
+			//var tch = PlayersObjToTable(players);
+			var tch = "pipo";
+			var e = document.getElementById('playertable');
+			e.innerHTML = tch;
 		}
 	}
-}
 </script>

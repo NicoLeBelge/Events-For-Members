@@ -4,10 +4,8 @@ session_start();
 <!DOCTYPE html>
 <html>
     <head>
-        <title>liste des évènements annoncés</title>
+        <title>Recherche de licencié</title>
 		<meta charset="UTF-8" />
-		<meta name="description" content="Inscrivez-vous en ligne aux tournois annoncés !">
-		<meta name="keywords" content="tournois, inscriptions">
         <link rel="stylesheet" href="../css/ChessMOOC-style.css" /> 
 		<link rel="stylesheet" href="./css/E4M.css" /> 
 		<link rel="icon" type="image/png" href="../img/logo-3-96.png" />
@@ -15,7 +13,7 @@ session_start();
     </head>
     <body >
 	<?php 
-	include ('./core/event-list-core.php')
+	include ('./core/register-search-core.php')
 	?>
     </body>
 </html>

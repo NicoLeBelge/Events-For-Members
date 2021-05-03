@@ -31,4 +31,4 @@ registration page
 ┌───────┐
 | To do |
 └───────┘
-
+fix bug nbmax affiché pour mauvais subevent
