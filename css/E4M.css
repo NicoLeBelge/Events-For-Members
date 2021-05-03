@@ -7,6 +7,9 @@ table, th, td {
 	padding-left: 10px;
 	padding-right: 10 px;
 }
+.E4M_regtable td:nth-child(2) {
+	text-align: right;
+}
 .E4M_maindiv p{
 	margin-top: 2px;
 	margin-bottom: 2px;
@@ -22,10 +25,8 @@ table, th, td {
 	cursor: pointer;
 }
 .E4M_buttonset {
-
 	margin-top: 5px;
 	margin-bottom: 5px;
-	
 }
 .E4M_buttonset div{
 	width : 35px;
@@ -36,7 +37,6 @@ table, th, td {
 	margin-right: 8px;
 	text-align : center;	
 	display: inline-block;
-
 }
 .E4M_buttonset div p{
 	margin-top: 8px;
@@ -56,7 +56,6 @@ table, th, td {
 .E4M_buttonset p {
 	color: blue;
 	vertical-align:middle;
-  
 }
 #eventinfo a{
 	font-size: 1.5em;
