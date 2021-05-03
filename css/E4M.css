@@ -1,3 +1,6 @@
+.E4M_maindiv *{
+	font-family: raleway;
+}
 tr:nth-child(even) {
 	background: white;
 }
@@ -17,7 +20,7 @@ table, th, td {
 .E4M_maindiv h3{
 	margin-top: 4px;
 	margin-bottom: 3px;
-	font-size: 1.5 em;
+	font-size: 2 em;
 	color : blue;
 }
 #E4M_eventlist tr:hover {

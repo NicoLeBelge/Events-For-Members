@@ -16,11 +16,11 @@ $json = file_get_contents('./json/strings.json');
 $str = json_decode($json,true);	
 $jsonstr = json_encode($str);	
 
-/* this page is supposed to be called with subevent id, let's warn the visitor if omitted */
+/* this page is supposed to be called with event id, let's set it to 1 if omitted */
 if(isset($_GET['id'])){ 
 	$eventid=$_GET['id'];
 } else {
-	echo "this page needs parameter";
+	$eventid=1;
 }
 ?>
 <div class='E4M_maindiv'>
