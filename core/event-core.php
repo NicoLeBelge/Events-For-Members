@@ -8,6 +8,7 @@ Defines 4 div elements showing event information, subevent selector, info about 
 /* lets get strings from json folder (strings displayed and configuration strings) */
 $json = file_get_contents('./json/config.json'); 
 $cfg = json_decode($json,true);	
+$subevent_link_icon_str = json_encode($cfg['subevent_link_icon']);
 $cat_names_str = json_encode($cfg['cat_names']);
 $gender_names_str = json_encode($cfg['gender_names']);
 $rating_names_str = json_encode($cfg['rating_names']);
@@ -52,7 +53,8 @@ if(isset($_GET['id'])){
 	gender_names = JSON.parse('<?=$gender_names_str?>');
 	
 	var str = JSON.parse(`<?=$jsonstr?>`);
-	
+	var subevent_link_icon = JSON.parse(`<?=$subevent_link_icon_str?>`);
+	console.log(subevent_link_icon);
 	/* let's declare global variables used by external JS */
 	var CurrentSubEvent = 0; 	// index of the internal table from json
 	var CurrentSubEventId = 0; 	// id in the database

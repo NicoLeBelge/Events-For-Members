@@ -95,16 +95,21 @@ function SubeventInfos2html (infoset){
 	input : infoset = associative array with subevent information (name, rating_type,...)
 	*/
 	let html_string="";
-	
+		
 	/* subevent name */
 	html_string += "<h3>" + infoset.name + "</h3>" ;
 	
+	/* link */
+	if (infoset.link !== null){
+		//html_string += "<p>" + str['Label_link_to_sub'] + " : <a href=" + infoset.link + ">"+infoset.link+"</a></p>" ;
+		html_string += "<p> <a href=" + infoset.link + "> <img src='"+ subevent_link_icon + "'/></a></p>" ;
+	}
 	/* date subevent */
 	if (infoset.datestart !== null){
 		html_string += "<p>" + infoset.datestart + "</p>" ;
 	}
 	/* gender */
-	html_string += "<p>" + str['Gender'] + " : ";
+	//html_string += "<p>" + str['Gender'] + " : ";
 	let gender_array = new Array();
 	if (infoset.gender == "*") {
 		gender_array = gender_names;
@@ -115,7 +120,7 @@ function SubeventInfos2html (infoset){
 	html_string += iconString + "</p>";
 	
 	/* categories */
-	html_string += "<p>" + str['Categories'] + " : ";
+	//html_string += "<p>" + str['Categories'] + " : ";
 	let cat_array = new Array();
 	if (infoset.cat == "*") {
 		cat_array = cat_names;
@@ -129,10 +134,7 @@ function SubeventInfos2html (infoset){
 	if (infoset.nbmax !==  null){
 		html_string += "<p>" + str['Nb_max_participants'] + " : " + infoset.nbmax + "</p>" ;
 	}
-	/* link */
-	if (infoset.link !== null){
-		html_string += "<p>" + str['Label_link_to_sub'] + " : <a href=" + infoset.link + ">"+infoset.link+"</a></p>" ;
-	}
+	
 	
 	/* rating_type + optional rating restriction */
 	let restriction_string="";
