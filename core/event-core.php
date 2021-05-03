@@ -54,7 +54,7 @@ if(isset($_GET['id'])){
 	
 	var str = JSON.parse(`<?=$jsonstr?>`);
 	var subevent_link_icon = JSON.parse(`<?=$subevent_link_icon_str?>`);
-	console.log(subevent_link_icon);
+	
 	/* let's declare global variables used by external JS */
 	var CurrentSubEvent = 0; 	// index of the internal table from json
 	var CurrentSubEventId = 0; 	// id in the database

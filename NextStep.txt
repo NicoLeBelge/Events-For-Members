@@ -17,19 +17,18 @@ block of category pictos fully OK
 Ajout nombre de cat / rating dans le config + boucle pour initialiser (au lieu de push, push,...)
 ajout restrictions  par genre
 pointer at center of selector --> still arrow
-affichage des dates / heures en format correct
-mettre en grisé les non inscrits
+remplacement du lien subenvent par un picto
 
 ┌─────────────┐
 | in progress |
 └─────────────┘
 
+afficher le nombre max d'inscrits
 
 ┌───────┐
 | To do |
 └───────┘
 
-afficher le nombre max d'inscrits
 cacher le bouton download is non owner connecté
-vérifier que le bouton download est caché pour un non-owner
-aligner à droite le elo
+afficher les dates sur un format lisible
+aligner le elo à droite
