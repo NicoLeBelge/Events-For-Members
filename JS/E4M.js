@@ -124,7 +124,6 @@ function SubeventInfos2html (infoset){
 	html_string += iconString + "</p>";
 	
 	/* categories */
-	//html_string += "<p>" + str['Categories'] + " : ";
 	let cat_array = new Array();
 	if (infoset.cat == "*") {
 		cat_array = cat_names;
@@ -134,9 +133,6 @@ function SubeventInfos2html (infoset){
 	iconString = CatArrayToList (cat_names, cat_array); 
 	html_string += iconString + "</p>";
 	
-	
-	
-	
 	/* rating_type + optional rating restriction */
 	let restriction_string="";
 	if (infoset.rating_restriction == 1) {
@@ -144,7 +140,11 @@ function SubeventInfos2html (infoset){
 	} 
 	html_string += "<p>" + str['Rating_name'] +" : " + rating_names[infoset.rating_type-1] + " " + restriction_string  +"</p>" ;
 	
+	/* button Register ! */
+	html_string += "<a href='" + registration_page + "?sub=" + CurrentSubEventId + "'<button> chessmooc </button></a>"
 	
+	console.log(CurrentSubEventId);
+
 	return html_string;
 	
 }
@@ -188,7 +188,6 @@ function RegList2htmltable (infoset, subid){
 	html_string += "<p>" + nbregsub + " <span class='E4M_css_key'>" +  str['registrations'] + "</span> "  ;
 
 	/* max participants */
-	console.log(CurrentNbmax);
 	if (CurrentNbmax !==  null){
 		html_string += "(" +  CurrentNbmax  + str['max'] +")" ;
 	}

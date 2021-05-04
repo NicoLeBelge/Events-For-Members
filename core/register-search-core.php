@@ -9,6 +9,7 @@ input : subevent id | eg event.php?sub=12
 $json = file_get_contents('./json/config.json'); 
 $cfg = json_decode($json,true);	
 $subevent_link_icon_str = json_encode($cfg['subevent_link_icon']);
+$registration_page = json_encode($cfg['registration_page']); // debug --> à garder
 $cat_names_str = json_encode($cfg['cat_names']);
 $gender_names_str = json_encode($cfg['gender_names']);
 $rating_names_str = json_encode($cfg['rating_names']);
@@ -36,6 +37,9 @@ if(isset($_GET['sub'])){
 </div>
 <script src="./JS/E4M-search.js"></script>
 <script type="text/javascript">
+	var registration_page = `<?= $cfg['registration_page'] ?>`;
+	console.log ("regisration_page");
+	console.log (registration_page);
 	var request = new XMLHttpRequest();
 	function trouve(){
 		/*
