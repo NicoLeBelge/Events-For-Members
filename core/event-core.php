@@ -30,7 +30,7 @@ if(isset($_GET['id'])){
 	<div id="E4M_select_event"></div>
 	
 	<div id="E4M_subeventinfo" class="E4M_subeventinfo"></div>
-	<a href='<?=$cfg['registration_page']?>'><button><?=$str['Register']?></button></a> &nbsp;
+	<a href='<?=$cfg['registration_page']?>'><button><?=$str['Register']?> bla bla </button></a> &nbsp;
 	<?php if (ISSET($_SESSION['user_id'])): ?>
 		<button onclick="download()"><?=$str['Download']?></button>	
 	<?php endif; ?>

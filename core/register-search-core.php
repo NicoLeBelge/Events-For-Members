@@ -1,11 +1,11 @@
 <?php
 /*
-page to be included in a php page (event.php or any name chosen by admin)
-input : event id | eg event.php?id=12
-javascript functions are at the bottom of the page, not externally located, to allow custom strings ($str) insertion
-Defines 4 div elements showing event information, subevent selector, info about selected event, list of registred members
+page to be included in a php page (register-search.php or any name chosen by admin - see config.json)
+input : subevent id | eg event.php?sub=12
 */
+
 /* lets get strings from json folder (strings displayed and configuration strings) */
+// debug --> enlever ce qui est inutile
 $json = file_get_contents('./json/config.json'); 
 $cfg = json_decode($json,true);	
 $subevent_link_icon_str = json_encode($cfg['subevent_link_icon']);
@@ -17,10 +17,10 @@ $str = json_decode($json,true);
 $jsonstr = json_encode($str);	
 
 /* this page is supposed to be called with event id, let's set it to 1 if omitted */
-if(isset($_GET['id'])){ 
-	$eventid=$_GET['id'];
+if(isset($_GET['sub'])){ 
+	$subeventid=$_GET['sub'];
 } else {
-	$eventid=1;
+	echo "this page is not supposed to be called without subenvent identifier";
 }
 ?>
 <div class='E4M_maindiv'>
@@ -30,7 +30,7 @@ if(isset($_GET['id'])){
 	</form> 
 	<button onclick = trouve() ><?= $str['search'] ?></button>
 	<br/><br/>
-	<div id="memberstable"></div>
+	<div id="members_table"></div>
 
 	
 </div>
@@ -56,7 +56,7 @@ if(isset($_GET['id'])){
 		if (this.readyState == 4 && this.status == 200) {
 			var members = this.response;
 			var tch = MembersObjToTable(members);
-			var e = document.getElementById('memberstable');
+			var e = document.getElementById('members_table');
 			e.innerHTML = tch;
 		}
 	}
