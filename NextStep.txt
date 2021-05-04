@@ -32,3 +32,11 @@ registration page
 | To do |
 └───────┘
 fix bug nbmax affiché pour mauvais subevent
+formater la date dans event-list
+Dans la page Recherche de membre
+    Valider la recherche par ENTER 
+    Mettre un bouton "retour" dans le formulaire de recherche de membre
+    Gérer les clubs "null" dans la liste des membres trouvés
+    aligner le elo à droite
+    Créer le lien vers la page d'enregistrement
+    Rappeler les infos tournoi

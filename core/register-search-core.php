@@ -26,15 +26,15 @@ if(isset($_GET['id'])){
 <div class='E4M_maindiv'>
 <form id='myForm'>
 		<label for="namestart"><?= $str['enter_start_name'] ?></label>
-		<input type="text" name="identifier" id="namestart" required>
+		<input type="text" autocomplete="off" name="identifier" id="namestart" required>
 	</form> 
 	<button onclick = trouve() ><?= $str['search'] ?></button>
 	<br/><br/>
-	<div id="playertable"></div>
+	<div id="memberstable"></div>
 
 	
 </div>
-
+<script src="./JS/E4M-search.js"></script>
 <script type="text/javascript">
 	var request = new XMLHttpRequest();
 	function trouve(){
@@ -54,11 +54,9 @@ if(isset($_GET['id'])){
 	}
 	request.onreadystatechange  = function() {
 		if (this.readyState == 4 && this.status == 200) {
-			var players = this.response;
-			console.log(players);
-			//var tch = PlayersObjToTable(players);
-			var tch = "pipo";
-			var e = document.getElementById('playertable');
+			var members = this.response;
+			var tch = MembersObjToTable(members);
+			var e = document.getElementById('memberstable');
 			e.innerHTML = tch;
 		}
 	}

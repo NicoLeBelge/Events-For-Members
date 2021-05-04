@@ -1,5 +1,5 @@
-.E4M_maindiv *{
-	font-family: raleway;
+.E4M_maindiv *, .E4M_eventlist *{
+	font-family: Quicksand;
 }
 tr:nth-child(even) {
 	background: white;
