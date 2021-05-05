@@ -141,8 +141,9 @@ function SubeventInfos2html (infoset){
 	html_string += "<p>" + str['Rating_name'] +" : " + rating_names[infoset.rating_type-1] + " " + restriction_string  +"</p>" ;
 	
 	/* button Register ! */
-	html_string += "<a href='" + registration_page + "?sub=" + CurrentSubEventId + "'<button> chessmooc </button></a>"
-	
+	html_string += "<br/>"
+	html_string += "<a href='" + registration_page + "?sub=" + CurrentSubEventId + "'><button> " + str['Register']+ " </button></a>"
+	html_string += "<br/>"
 	console.log(CurrentSubEventId);
 
 	return html_string;

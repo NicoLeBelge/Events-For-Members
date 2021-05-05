@@ -28,7 +28,8 @@ aligner le elo à droite
 
 registration page
 passage du bouton "sinscrire" en JS pour pouvoir passer l'id du subevent à la page registration
-Bouton registration à boucler (marqué chessmooc)
+Rappel des infos et contraintes du sub dans la page de recherche de membre
+
 ┌───────┐
 | To do |
 └───────┘

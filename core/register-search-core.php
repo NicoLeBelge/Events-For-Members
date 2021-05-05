@@ -32,15 +32,12 @@ if(isset($_GET['sub'])){
 	<button onclick = trouve() ><?= $str['search'] ?></button>
 	<br/><br/>
 	<div id="members_table"></div>
-
-	
 </div>
 <script src="./JS/E4M-search.js"></script>
 <script type="text/javascript">
 	var registration_page = `<?= $cfg['registration_page'] ?>`;
-	console.log ("regisration_page");
-	console.log (registration_page);
 	var request = new XMLHttpRequest();
+	
 	function trouve(){
 		/*
 		Gets the string in the field 'namestart' of the form, pass it to API that returns the list of members
@@ -50,9 +47,8 @@ if(isset($_GET['sub'])){
 		var myForm = document.getElementById('myForm');
 		formData = new FormData(myForm);
 		var start = document.getElementById('namestart').value;
-		var requestURL = './API/get-memberlist-by-namestart.php?start=' + start;
-		console.log(requestURL);
-		request.open('GET', requestURL);
+		var XHR = './API/get-memberlist-by-namestart.php?start=' + start;
+		request.open('GET', XHR);
 		request.responseType = 'json';
 		request.send();
 	}

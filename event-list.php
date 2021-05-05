@@ -11,7 +11,7 @@ session_start();
         <link rel="stylesheet" href="../css/ChessMOOC-style.css" /> 
 		<link rel="stylesheet" href="./css/E4M.css" /> 
 		<link rel="icon" type="image/png" href="../img/logo-3-96.png" />
-        <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet"> 
     </head>
     <body >
 	<?php 
