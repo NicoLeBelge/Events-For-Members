@@ -27,9 +27,8 @@ aligner le elo à droite
 └─────────────┘
 
 registration page
-passage du bouton "sinscrire" en JS pour pouvoir passer l'id du subevent à la page registration
-Rappel des infos et contraintes du sub dans la page de recherche de membre
-
+restauration du bouton s'inscrire
+je suis calmé, la config cfg(registration_page est perdue !?)
 ┌───────┐
 | To do |
 └───────┘
@@ -42,5 +41,6 @@ Dans la page Recherche de membre
     aligner le elo à droite
     Créer le lien vers la page d'enregistrement
     Rappeler les infos tournoi
+    ne rien afficher d'autre que le warning php si pas de GET sub=
 
-Enlever toutes les lignes debug    
+Page event : restaurer le bouton "s'inscrire qui a disparu !!    

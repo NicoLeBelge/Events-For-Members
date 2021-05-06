@@ -1,37 +1,7 @@
 /*
 used by temporary code searchmember-with-XHR.php
 */
-function PlayersObjToTable(playerlist) {
-	var i = 0;
-	var tablech = '';
-	var debugch='';
-	tablech += '<table>';
-	tablech += '<tr>';
-	tablech += '<th>idFFE</th>';
-	tablech += '<th>nom</th>';
-	tablech += '<th>prénom</th>';
-	tablech += '<th>elo</th>';
-	tablech += '<th>cat</th>';
-	tablech += '<th>club</th>';
-	tablech += '<th>ville</th>';
-	
-	tablech += '</tr>';
-	
-	for (i in playerlist){
-		
-		tablech += '<tr onclick = pickplayer(\'' + playerlist[i].id + '\')>';
-		tablech += '<td>' + playerlist[i].fede_id + '</td>';
-		tablech += '<td>' + playerlist[i].lastname + '</td>';
-		tablech += '<td>' + playerlist[i].firstname + '</td>';
-		tablech += '<td>' + playerlist[i].rating + '</td>';
-		tablech += '<td>' + playerlist[i].cat + '</td>';
-		tablech += '<td>' + playerlist[i].club_name + '</td>';
-		tablech += '<td>' + playerlist[i].city + '</td>';
-		tablech += '</tr>';
-	}
-	tablech += '<table>';
-	return tablech;
-}
+
 function CatArrayToList (FullList, ShortList) {
 	/*
 	Constructs a html div block where all elements of FullList are displayed with class E4M_on/off
@@ -124,6 +94,7 @@ function SubeventInfos2html (infoset){
 	html_string += iconString + "</p>";
 	
 	/* categories */
+	//html_string += "<p>" + str['Categories'] + " : ";
 	let cat_array = new Array();
 	if (infoset.cat == "*") {
 		cat_array = cat_names;
@@ -133,19 +104,22 @@ function SubeventInfos2html (infoset){
 	iconString = CatArrayToList (cat_names, cat_array); 
 	html_string += iconString + "</p>";
 	
+	
+	
+	
 	/* rating_type + optional rating restriction */
 	let restriction_string="";
 	if (infoset.rating_restriction == 1) {
 		restriction_string = infoset.rating_comp + infoset.rating_limit;
 	} 
-	html_string += "<p>" + str['Rating_name'] +" : " + rating_names[infoset.rating_type-1] + " " + restriction_string  +"</p>" ;
-	
-	/* button Register ! */
+	html_string += "<p>ok" + str['Rating_name'] +" : " + rating_names[infoset.rating_type-1] + " " + restriction_string  +"</p>" ;
 	html_string += "<br/>"
-	html_string += "<a href='" + registration_page + "?sub=" + CurrentSubEventId + "'><button> " + str['Register']+ " </button></a>"
-	html_string += "<br/>"
-	console.log(CurrentSubEventId);
+	let destination = cfg['registration_page'];
+	console.log (destination);
 
+	html_string += "<a href='" + cfg + "'><button>" + "pipo" +"</button></a>";
+	html_string += "<br/>"
+	
 	return html_string;
 	
 }
@@ -189,6 +163,7 @@ function RegList2htmltable (infoset, subid){
 	html_string += "<p>" + nbregsub + " <span class='E4M_css_key'>" +  str['registrations'] + "</span> "  ;
 
 	/* max participants */
+	console.log(CurrentNbmax);
 	if (CurrentNbmax !==  null){
 		html_string += "(" +  CurrentNbmax  + str['max'] +")" ;
 	}

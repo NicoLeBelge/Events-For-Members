@@ -32,4 +32,5 @@ function MembersObjToTable(memberList) {
 }
 function pickplayer (fede_id) {
 	alert ('tu as cliqué sur le joueur avec l\'id' + fede_id);
+	console.log(CurrentSub...);
 }

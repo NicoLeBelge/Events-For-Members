@@ -32,6 +32,3 @@ function PlayersObjToTable(playerlist) {
 	tablech += '<table>';
 	return tablech;
 }
-function pickplayer (fede_id) {
-	alert ('tu as cliqué sur le joueur avec l\'id' + fede_id);
-}
