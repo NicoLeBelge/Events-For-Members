@@ -27,8 +27,8 @@ aligner le elo à droite
 └─────────────┘
 
 registration page
-restauration du bouton s'inscrire
-je suis calmé, la config cfg(registration_page est perdue !?)
+Bouton s'inscrire passe le subevent
+search-core --> ça merdouille --> passer les infos du subeventset à la page search par la méthode POST.
 ┌───────┐
 | To do |
 └───────┘

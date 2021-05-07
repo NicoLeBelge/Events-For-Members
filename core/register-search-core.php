@@ -9,7 +9,7 @@ input : subevent id | eg event.php?sub=12
 $json = file_get_contents('./json/config.json'); 
 $cfg = json_decode($json,true);	
 $subevent_link_icon_str = json_encode($cfg['subevent_link_icon']);
-$registration_page = json_encode($cfg['registration_page']); // debug --> à garder
+$registration_check_page = json_encode($cfg['registration_check_page']); // debug --> à garder
 $cat_names_str = json_encode($cfg['cat_names']);
 $gender_names_str = json_encode($cfg['gender_names']);
 $rating_names_str = json_encode($cfg['rating_names']);
@@ -19,10 +19,19 @@ $jsonstr = json_encode($str);
 
 /* this page is supposed to be called with event id, let's set it to 1 if omitted */
 if(isset($_GET['sub'])){ 
-	$subeventid=$_GET['sub'];
+	$subevent_id=$_GET['sub'];
+	include('../_local-connect/connect.php'); // PDO connection required
+	$qtxt = "SELECT * from subevents where id=$subevent_id";
+	
+	$reponse = $conn->query($qtxt);
+	$subevent_set = $reponse->fetchAll(PDO::FETCH_ASSOC);
+	echo "<pre>";var_dump($subevent_set);echo "</pre>";
+	$subevent_set_str = json_encode($subevent_set[0]); // debug - pourquoi j'ai un tableau ???
+	echo "<pre>";var_dump($subevent_set_str);echo "</pre>";
 } else {
 	echo "this page is not supposed to be called without subenvent identifier";
 }
+
 ?>
 <div class='E4M_maindiv'>
 <form id='myForm'>
@@ -35,9 +44,12 @@ if(isset($_GET['sub'])){
 </div>
 <script src="./JS/E4M-search.js"></script>
 <script type="text/javascript">
-	var registration_page = `<?= $cfg['registration_page'] ?>`;
+	var registration_check_page = `<?= $cfg['registration_check_page'] ?>`;
 	var request = new XMLHttpRequest();
-	
+	let json_str=`<?=$subevent_set_str?>`;
+	console.log(json_str);
+	var subevent_set = JSON.parse(`<?=$subevent_set_str?>`);
+	console.log(subevent_set);
 	function trouve(){
 		/*
 		Gets the string in the field 'namestart' of the form, pass it to API that returns the list of members

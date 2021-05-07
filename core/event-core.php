@@ -9,7 +9,7 @@ Defines 4 div elements showing event information, subevent selector, info about 
 $json = file_get_contents('./json/config.json'); 
 $cfg = json_decode($json,true);	
 $subevent_link_icon_str = json_encode($cfg['subevent_link_icon']);
-$registration_page = json_encode($cfg['registration_page']); 
+$registration_search_page = json_encode($cfg['registration_search_page']); 
 $cat_names_str = json_encode($cfg['cat_names']);
 $gender_names_str = json_encode($cfg['gender_names']);
 $rating_names_str = json_encode($cfg['rating_names']);
@@ -57,7 +57,7 @@ if(isset($_GET['id'])){
 	var subevent_link_icon = JSON.parse(`<?=$subevent_link_icon_str?>`);
 	
 	/* let's declare global variables used by external JS */
-	var registration_page = `<?= $cfg['registration_page'] ?>`;
+	var registration_search_page = `<?= $cfg['registration_search_page'] ?>`;
 	var CurrentSubEvent = 0; 	// index of the internal table from json
 	var CurrentSubEventId = 0; 	// id in the database
 	var CurrentRating = 1; 	// default value, will later depend on rating in subevent
