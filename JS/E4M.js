@@ -114,10 +114,10 @@ function SubeventInfos2html (infoset){
 	} 
 	html_string += "<p>ok" + str['Rating_name'] +" : " + rating_names[infoset.rating_type-1] + " " + restriction_string  +"</p>" ;
 	html_string += "<br/>"
-	let destination = cfg['registration_page'];
-	console.log (destination);
+	console.log(registration_page);
+	console.log (CurrentSubEventId);
 
-	html_string += "<a href='" + cfg + "'><button>" + "pipo" +"</button></a>";
+	html_string += "<a href='" + registration_page + "'><button>" + str['Register'] +"</button></a>";
 	html_string += "<br/>"
 	
 	return html_string;
