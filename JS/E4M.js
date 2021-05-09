@@ -112,8 +112,10 @@ function SubeventInfos2html (infoset){
 	if (infoset.rating_restriction == 1) {
 		restriction_string = infoset.rating_comp + infoset.rating_limit;
 	} 
-	html_string += "<p>ok" + str['Rating_name'] +" : " + rating_names[infoset.rating_type-1] + " " + restriction_string  +"</p>" ;
+	html_string += "<p>" + str['Rating_name'] +" : " + rating_names[infoset.rating_type-1] + " " + restriction_string  +"</p>" ;
 	html_string += "<br/>"
+	
+	/*  cette section est à remplacer par l'astuce du forumaire caché
 	let destination = registration_search_page + "?sub=" + CurrentSubEventId;
 	console.log("destination", destination);
 	console.log("registration_search_page");
@@ -121,7 +123,7 @@ function SubeventInfos2html (infoset){
 
 	html_string += "<a href='" + destination + "'><button>" + str['Register'] +"</button></a>";
 	html_string += "<br/>"
-	
+	*/
 	return html_string;
 	
 }
@@ -202,6 +204,13 @@ function SelectEvent(NumEvent) {
 	subevent_html_id.innerHTML = SubeventInfos2html(subevent_list[CurrentSubEvent]);
 	registred_html_id.innerHTML = RegList2htmltable (member_list, NumEvent);
 	CurrentNbmax = subevent_list[NumEvent]["nbmax"];
+	console.log('CurrentSubEventId = ', CurrentSubEventId);
+	CurrentSubEventObj = subevent_list[CurrentSubEvent];
+
+	console.log(CurrentSubEventObj);
+	let sub_json_str = JSON.stringify(CurrentSubEventObj);
+	console.log(JSON.stringify(CurrentSubEventObj));
+	hidden_json.value = sub_json_str;
 	
 }
 function download() {

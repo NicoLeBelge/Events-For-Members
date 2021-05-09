@@ -4,6 +4,8 @@ page to be included in a php page (event.php or any name chosen by admin)
 input : event id | eg event.php?id=12
 javascript functions are at the bottom of the page, not externally located, to allow custom strings ($str) insertion
 Defines 4 div elements showing event information, subevent selector, info about selected event, list of registred members
+
+note : subevent data are passed to REGISTER page via POST of hidden field in form - might be made in a smarter way...
 */
 /* lets get strings from json folder (strings displayed and configuration strings) */
 $json = file_get_contents('./json/config.json'); 
@@ -35,7 +37,10 @@ if(isset($_GET['id'])){
 		<button onclick="download()"><?=$str['Download']?></button>	
 	<?php endif; ?>
 
-
+	<form action="<?=$cfg['registration_search_page']?>" method="post">
+	<input id="sub_json" type="text" value="pipo" name="sub_json">
+	<button type="submit" ><?=$str['Register']?></button>
+	</form >
 	<div id="E4M_regtable" class="E4M_regtable"></div>
 	
 </div>
@@ -62,10 +67,12 @@ if(isset($_GET['id'])){
 	var CurrentSubEventId = 0; 	// id in the database
 	var CurrentRating = 1; 	// default value, will later depend on rating in subevent
 	var eventinfoset; // {id="1", name = "eventname", datestart ="blabla",...}
+	var CurrentSubEventObj; // {Array for current subevent}
 	var subevent_list; // Array() of subevent_info_sets
 	var NbSubs; // Number of SubEvents
 	var NbRegTot; // Total Number of registred members
 	var CurrentNbmax ; // max subscriptions for current subevent
+	var hidden_json = document.getElementById('sub_json');
 
 	/* those 3 html elements will be updated each time the user selects a subevents*/
 	var event_html_id = document.getElementById('E4M_eventinfo');
@@ -86,9 +93,14 @@ rq_event.onreadystatechange  = function() {
 		eventinfoset =event_data_set['infos'][0];
 		subevent_list = event_data_set['subs'];
 		CurrentSubEventId = subevent_list[0]["id"];
+		CurrentSubEventObj = subevent_list[0];
+		console.log(CurrentSubEventObj);
 		CurrentNbmax = subevent_list[0]["nbmax"];
 		member_list =  event_data_set['registrations'];
 		NbRegTot = member_list.length;
+
+		hidden_json.value = JSON.stringify(subevent_list[0]);
+
 		event_html_id.innerHTML = eventInfos2html(eventinfoset);
 		subevent_html_id.innerHTML = SubeventInfos2html(subevent_list[CurrentSubEvent]);
 		registred_html_id.innerHTML = RegList2htmltable (member_list, CurrentSubEvent);

@@ -18,16 +18,16 @@ $str = json_decode($json,true);
 $jsonstr = json_encode($str);	
 
 /* this page is supposed to be called with event id, let's set it to 1 if omitted */
-if(isset($_GET['sub'])){ 
-	$subevent_id=$_GET['sub'];
-	include('../_local-connect/connect.php'); // PDO connection required
-	$qtxt = "SELECT * from subevents where id=$subevent_id";
-	
-	$reponse = $conn->query($qtxt);
-	$subevent_set = $reponse->fetchAll(PDO::FETCH_ASSOC);
-	echo "<pre>";var_dump($subevent_set);echo "</pre>";
-	$subevent_set_str = json_encode($subevent_set[0]); // debug - pourquoi j'ai un tableau ???
+if(isset($_POST['sub_json'])){ 
+	//$subevent_id=$_GET['sub_json'];
+	$subevent_set_str = $_POST['sub_json'];
 	echo "<pre>";var_dump($subevent_set_str);echo "</pre>";
+	$subevent_set_obj = json_decode($subevent_set_str);
+	echo "<pre>";var_dump($subevent_set_obj);echo "</pre>";
+	$subevent_set_str = json_encode($subevent_set_obj);
+	echo "<pre>";var_dump($subevent_set_str);echo "</pre>";
+
+	//echo "<pre>";var_dump($subevent_set_str);echo "</pre>";
 } else {
 	echo "this page is not supposed to be called without subenvent identifier";
 }
