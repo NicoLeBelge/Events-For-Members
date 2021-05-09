@@ -1,7 +1,3 @@
-/*
-used by temporary code searchmember-with-XHR.php
-*/
-
 function CatArrayToList (FullList, ShortList) {
 	/*
 	Constructs a html div block where all elements of FullList are displayed with class E4M_on/off

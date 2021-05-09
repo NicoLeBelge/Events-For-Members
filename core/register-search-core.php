@@ -21,11 +21,11 @@ $jsonstr = json_encode($str);
 if(isset($_POST['sub_json'])){ 
 	//$subevent_id=$_GET['sub_json'];
 	$subevent_set_str = $_POST['sub_json'];
-	echo "<pre>";var_dump($subevent_set_str);echo "</pre>";
+	//echo "<pre>";var_dump($subevent_set_str);echo "</pre>";
 	$subevent_set_obj = json_decode($subevent_set_str);
-	echo "<pre>";var_dump($subevent_set_obj);echo "</pre>";
-	$subevent_set_str = json_encode($subevent_set_obj);
-	echo "<pre>";var_dump($subevent_set_str);echo "</pre>";
+	//echo "<pre>";var_dump($subevent_set_obj);echo "</pre>";
+	//$subevent_set_str = json_encode($subevent_set_obj);
+	//echo "<pre>";var_dump($subevent_set_str);echo "</pre>";
 
 	//echo "<pre>";var_dump($subevent_set_str);echo "</pre>";
 } else {
@@ -48,8 +48,10 @@ if(isset($_POST['sub_json'])){
 	var request = new XMLHttpRequest();
 	let json_str=`<?=$subevent_set_str?>`;
 	console.log(json_str);
-	var subevent_set = JSON.parse(`<?=$subevent_set_str?>`);
-	console.log(subevent_set);
+	// var subevent_set = JSON.parse(`<!=$subevent_set_str?>`); // ca marche sauf si restrictions catégories (ou autres ??...)
+	var subevent_set = JSON.parse(json_str);
+	//console.log(subevent_set);
+	document.write(subevent_set['name']);
 	function trouve(){
 		/*
 		Gets the string in the field 'namestart' of the form, pass it to API that returns the list of members
