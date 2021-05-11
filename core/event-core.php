@@ -20,8 +20,49 @@ $str = json_decode($json,true);
 $jsonstr = json_encode($str);	
 
 /* this page is supposed to be called with subevent id, let's warn the visitor if omitted */
+include('../_local-connect/connect.php'); // PDO connection required
 if(isset($_GET['id'])){ 
-	$eventid=$_GET['id'];
+	$event_id = $_GET['id'];
+	$event_set = array();
+	
+	$reponse = $conn->query("SELECT * from events where id=$event_id");
+	$event_set["infos"] = $reponse->fetchAll(PDO::FETCH_ASSOC);
+	
+	$reponse = $conn->query("SELECT * from subevents where event_id=$event_id");
+	$event_set["subs"] = $reponse->fetchAll(PDO::FETCH_ASSOC);
+
+	//var_dump($event_set["subs"]);
+	$subs_data_jsonstr = json_encode($event_set["subs"], JSON_UNESCAPED_UNICODE);
+	var_dump($subs_data_jsonstr);
+	$ratinglist="";
+	for ($k=1;$k<=$cfg['Nb_rating'];$k++){
+		$ratinglist .= "members.rating$k, ";
+	}
+	$qtxt = "SELECT subevents.event_id as eventid,
+					subevents.id as subid,
+					registrations.member_id as memberid,
+					registrations.confirmed,
+					members.fede_id,
+					members.lastname,
+					members.firstname,
+					members.firstname,
+					$ratinglist
+					clubs.name as clubname,
+					clubs.region as region
+	FROM registrations
+	INNER JOIN subevents
+	ON registrations.subevent_id = subevents.id	
+	INNER JOIN members
+	ON registrations.member_id = members.id	
+	INNER JOIN events
+	ON events.id = subevents.event_id
+	INNER JOIN clubs
+	ON members.club_id = clubs.club_id
+	WHERE subevents.event_id = $event_id";
+	$reponse = $conn->query($qtxt);
+	$event_set["registrations"] = $reponse->fetchAll(PDO::FETCH_ASSOC);
+	$event_set_jsonstr = json_encode($event_set);
+	
 } else {
 	echo "this page needs parameter";
 }
@@ -90,40 +131,40 @@ if(isset($_GET['id'])){
 	rq_event.responseType = 'json';
 	rq_event.send();
 
-rq_event.onreadystatechange  = function() {
-	/* 
-	When XHR ready, 3 events information are displayed, and subevent selector is built.
-	*/
-	if (this.readyState == 4 && this.status == 200) {
-		let event_data_set = this.response;
-		// ici
-		
-		let event_data_set_str = JSON.stringify(event_data_set);
-		
-		subevent_list_str =JSON.stringify(event_data_set['subs']);
-		// note : we can then access subevent data (eg cat) or order n (eg 0)  with 
-		// let new_subevent_list = JSON.parse(subevent_list_str);
-		// cat_list = new_subevent_list[0]['cat']
 
-		eventinfoset =event_data_set['infos'][0];
-		subevent_list = event_data_set['subs'];
-		
-		CurrentSubEventId = subevent_list[0]["id"];
-		CurrentSubEventObj = subevent_list[0];
-		console.log(CurrentSubEventObj);
-		CurrentNbmax = subevent_list[0]["nbmax"];
-		member_list =  event_data_set['registrations'];
-		NbRegTot = member_list.length;
+	var subs_data_set = JSON.parse(`<?=$subs_data_jsonstr?>`);
+	console.log(subs_data_set);
 
-		hidden_json.value = JSON.stringify(subevent_list[0]);
+	var event_data_set = JSON.parse(`<?=$event_set_jsonstr?>`);
+	console.log(event_data_set);
 	
-		event_html_id.innerHTML = eventInfos2html(eventinfoset);
-		subevent_html_id.innerHTML = SubeventInfos2html(subevent_list[CurrentSubEvent]);
-		registred_html_id.innerHTML = RegList2htmltable (member_list, CurrentSubEvent);
-		NbSubs=subevent_list.length;
-		if (NbSubs > 1){
-			BuildHTMLEventSelector (NbSubs);
-		}
+	//let event_data_set_str = JSON.stringify(event_data_set);
+	
+	//subevent_list_str =JSON.stringify(event_data_set['subs']);
+	
+	// note : we can then access subevent data (eg cat) or order n (eg 0)  with 
+	// let new_subevent_list = JSON.parse(subevent_list_str);
+	// cat_list = new_subevent_list[0]['cat']
+
+	eventinfoset =event_data_set['infos'][0];
+	subevent_list = event_data_set['subs'];
+	
+	CurrentSubEventId = subevent_list[0]["id"];
+	CurrentSubEventObj = subevent_list[0];
+	console.log(CurrentSubEventObj);
+	CurrentNbmax = subevent_list[0]["nbmax"];
+	member_list =  event_data_set['registrations'];
+	NbRegTot = member_list.length;
+
+	hidden_json.value = JSON.stringify(subevent_list[0]);
+
+	event_html_id.innerHTML = eventInfos2html(eventinfoset);
+	subevent_html_id.innerHTML = SubeventInfos2html(subevent_list[CurrentSubEvent]);
+	registred_html_id.innerHTML = RegList2htmltable (member_list, CurrentSubEvent);
+	NbSubs=subevent_list.length;
+	if (NbSubs > 1){
+		BuildHTMLEventSelector (NbSubs);
 	}
-}
+	
+
 </script>
