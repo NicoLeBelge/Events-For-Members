@@ -56,6 +56,11 @@ if(isset($_GET['id'])){
 	cat_names = JSON.parse(`<?=$cat_names_str?>`);
 	
 	var gender_names = new Array();
+	
+	let gender_names_str = '<?=$gender_names_str?>'; // debug
+	console.log("et pourtant il devrait y avoir des guillemets, ici...");
+	console.log(gender_names_str);
+
 	gender_names = JSON.parse('<?=$gender_names_str?>');
 	
 	var str = JSON.parse(`<?=$jsonstr?>`);
@@ -92,6 +97,7 @@ rq_event.onreadystatechange  = function() {
 		let event_data_set = this.response;
 		eventinfoset =event_data_set['infos'][0];
 		subevent_list = event_data_set['subs'];
+		//$_SESSION[]
 		CurrentSubEventId = subevent_list[0]["id"];
 		CurrentSubEventObj = subevent_list[0];
 		console.log(CurrentSubEventObj);
