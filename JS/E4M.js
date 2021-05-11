@@ -210,9 +210,9 @@ function SelectEvent(NumEvent) {
 	console.log(CurrentSubEventObj);
 	let sub_json_str = JSON.stringify(CurrentSubEventObj);
 	console.log(JSON.stringify(CurrentSubEventObj));
-	hidden_json.value = sub_json_str;
-	*/
 	
+	*/
+	hidden_json.value = subevent_list_str;
 }
 function download() {
 	let CSVstring ="";
