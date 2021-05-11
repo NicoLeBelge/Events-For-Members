@@ -77,8 +77,9 @@ if(isset($_GET['id'])){
 	var NbSubs; // Number of SubEvents
 	var NbRegTot; // Total Number of registred members
 	var CurrentNbmax ; // max subscriptions for current subevent
-	var hidden_json = document.getElementById('sub_json');
-
+	var subevent_list_str; // will contain JSON of subevents data
+	var hidden_json = document.getElementById('sub_json'); // hidden field to pass subevents data to next page
+	
 	/* those 3 html elements will be updated each time the user selects a subevents*/
 	var event_html_id = document.getElementById('E4M_eventinfo');
 	var subevent_html_id = document.getElementById('E4M_subeventinfo');
@@ -95,9 +96,18 @@ rq_event.onreadystatechange  = function() {
 	*/
 	if (this.readyState == 4 && this.status == 200) {
 		let event_data_set = this.response;
+		// ici
+		
+		let event_data_set_str = JSON.stringify(event_data_set);
+		
+		subevent_list_str =JSON.stringify(event_data_set['subs']);
+		// note : we can then access subevent data (eg cat) or order n (eg 0)  with 
+		// let new_subevent_list = JSON.parse(subevent_list_str);
+		// cat_list = new_subevent_list[0]['cat']
+
 		eventinfoset =event_data_set['infos'][0];
 		subevent_list = event_data_set['subs'];
-		//$_SESSION[]
+		
 		CurrentSubEventId = subevent_list[0]["id"];
 		CurrentSubEventObj = subevent_list[0];
 		console.log(CurrentSubEventObj);
@@ -106,7 +116,7 @@ rq_event.onreadystatechange  = function() {
 		NbRegTot = member_list.length;
 
 		hidden_json.value = JSON.stringify(subevent_list[0]);
-
+	
 		event_html_id.innerHTML = eventInfos2html(eventinfoset);
 		subevent_html_id.innerHTML = SubeventInfos2html(subevent_list[CurrentSubEvent]);
 		registred_html_id.innerHTML = RegList2htmltable (member_list, CurrentSubEvent);

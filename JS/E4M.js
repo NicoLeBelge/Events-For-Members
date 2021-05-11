@@ -201,12 +201,17 @@ function SelectEvent(NumEvent) {
 	registred_html_id.innerHTML = RegList2htmltable (member_list, NumEvent);
 	CurrentNbmax = subevent_list[NumEvent]["nbmax"];
 	console.log('CurrentSubEventId = ', CurrentSubEventId);
+	// print var subevent_list_str;
+	console.log("subevent_list_str =");
+	console.log(subevent_list_str);
+	console.log("---------------------");
 	CurrentSubEventObj = subevent_list[CurrentSubEvent];
-
+	/*
 	console.log(CurrentSubEventObj);
 	let sub_json_str = JSON.stringify(CurrentSubEventObj);
 	console.log(JSON.stringify(CurrentSubEventObj));
 	hidden_json.value = sub_json_str;
+	*/
 	
 }
 function download() {
