@@ -31,6 +31,7 @@ Bouton s'inscrire passe le subevent
 search-core --> ça merdouille --> passer les infos du subeventset à la page search par la méthode POST.
 Exécution de la requête en PHP, avec mise du résultat en variable de session
 Ca parse toujours pas, ça a l'air d'aller mieux avec des simple quote dans la base...
+Mettre le GET sub= dans l'appel à la page search
 ┌───────┐
 | To do |
 └───────┘

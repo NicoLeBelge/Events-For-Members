@@ -33,7 +33,7 @@ if(isset($_GET['id'])){
 
 	//var_dump($event_set["subs"]);
 	$subs_data_jsonstr = json_encode($event_set["subs"], JSON_UNESCAPED_UNICODE);
-	
+	$_SESSION['subs_data_set']=$subs_data_jsonstr;
 	$ratinglist="";
 	for ($k=1;$k<=$cfg['Nb_rating'];$k++){
 		$ratinglist .= "members.rating$k, ";
@@ -62,6 +62,7 @@ if(isset($_GET['id'])){
 	$reponse = $conn->query($qtxt);
 	$event_set["registrations"] = $reponse->fetchAll(PDO::FETCH_ASSOC);
 	$event_set_jsonstr = json_encode($event_set);
+	
 	
 } else {
 	echo "this page needs parameter";
@@ -97,6 +98,7 @@ if(isset($_GET['id'])){
 	var str = JSON.parse(`<?=$jsonstr?>`);
 	var subevent_link_icon = JSON.parse(`<?=$subevent_link_icon_str?>`);
 	
+	
 	var subs_data_set = JSON.parse(`<?=$subs_data_jsonstr?>`);
 	console.log(subs_data_set);
 	//subevent_list_str =JSON.stringify(event_data_set['subs']);
@@ -116,7 +118,7 @@ if(isset($_GET['id'])){
 	var eventinfoset; // {id="1", name = "eventname", datestart ="blabla",...}
 	var CurrentSubEventObj; // {Array for current subevent}
 	var subevent_list; // Array() of subevent_info_sets
-	var NbSubs; // Number of SubEvents
+	var NbSubs; // Number of SubEvents in current events
 	var NbRegTot; // Total Number of registred members
 	var CurrentNbmax ; // max subscriptions for current subevent
 	var subevent_list_str; // will contain JSON of subevents data
@@ -134,25 +136,36 @@ if(isset($_GET['id'])){
 	
 
 	eventinfoset =event_data_set['infos'][0];
-	subevent_list = event_data_set['subs'];
+	//subevent_list = event_data_set['subs'];
 	
-	CurrentSubEventId = subevent_list[0]["id"];
-	CurrentSubEventObj = subevent_list[0];
-
-	CurrentNbmax = subevent_list[0]["nbmax"];
+	//CurrentSubEventId = subevent_list[0]["id"];
+	CurrentSubEventId = subs_data_set[0]["id"];
+	
+	
+	//CurrentSubEventObj = subevent_list[0]; subs_data_set
+	CurrentSubEventObj = subs_data_set[0]; 
+	
+	//CurrentNbmax = subevent_list[0]["nbmax"];
+	CurrentNbmax = CurrentSubEventObj["nbmax"]
+	console.log("CurrentNbmax = ", CurrentNbmax)
 	member_list =  event_data_set['registrations'];
 	NbRegTot = member_list.length;
 
 	// hidden_json.value = JSON.stringify(subevent_list[0]);
 
 	event_html_id.innerHTML = eventInfos2html(eventinfoset);
+	/*
+	 
 	console.log("CurrentSubEvent");
 	console.log(CurrentSubEvent);
 	console.log("subs_data_set[CurrentSubEvent]");
 	console.log(subs_data_set[CurrentSubEvent]);
+	*/
 	subevent_html_id.innerHTML = SubeventInfos2html(subs_data_set[CurrentSubEvent]);
 	registred_html_id.innerHTML = RegList2htmltable (member_list, CurrentSubEvent);
-	NbSubs=subevent_list.length;
+	
+	NbSubs=subs_data_set.length;
+	
 	if (NbSubs > 1){
 		BuildHTMLEventSelector (NbSubs);
 	}

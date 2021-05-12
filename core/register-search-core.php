@@ -2,6 +2,7 @@
 /*
 page to be included in a php page (register-search.php or any name chosen by admin - see config.json)
 input : subevent id | eg event.php?sub=12
+recovers data about subevents of selected events through $_SESSION['subs_data_set']
 */
 
 /* lets get strings from json folder (strings displayed and configuration strings) */
@@ -16,20 +17,16 @@ $rating_names_str = json_encode($cfg['rating_names']);
 $json = file_get_contents('./json/strings.json');
 $str = json_decode($json,true);	
 $jsonstr = json_encode($str);	
+$subs_data_set_str = $_SESSION['subs_data_set'];
+var_dump($subs_data_set_str);
 
 /* this page is supposed to be called with event id, let's set it to 1 if omitted */
-if(isset($_POST['sub_json'])){ 
+if(isset($_GET['sub']) && isset($_SESSION['subs_data_set'])){ 
 	//$subevent_id=$_GET['sub_json'];
-	$subevent_set_str = $_POST['sub_json'];
-	//echo "<pre>";var_dump($subevent_set_str);echo "</pre>";
-	$subevent_set_obj = json_decode($subevent_set_str);
-	//echo "<pre>";var_dump($subevent_set_obj);echo "</pre>";
-	//$subevent_set_str = json_encode($subevent_set_obj);
-	//echo "<pre>";var_dump($subevent_set_str);echo "</pre>";
-
-	//echo "<pre>";var_dump($subevent_set_str);echo "</pre>";
+	$subevent_id = $_GET['sub'];
+	var_dump($subevent_id);
 } else {
-	echo "this page is not supposed to be called without subenvent identifier";
+	echo "this page can only be called from event description page";
 }
 
 ?>
@@ -45,13 +42,14 @@ if(isset($_POST['sub_json'])){
 <script src="./JS/E4M-search.js"></script>
 <script type="text/javascript">
 	var registration_check_page = `<?= $cfg['registration_check_page'] ?>`;
+	console.log("registration_check_page = ", registration_check_page)
 	var request = new XMLHttpRequest();
-	let json_str=`<?=$subevent_set_str?>`;
-	console.log(json_str);
+	var subs_data_set= JSON.parse(`<?=$subs_data_set_str?>`);
+	var subevent_id = `<?=$subevent_id?>`;
+	console.log("subs_data_set = ", subs_data_set);
 	// var subevent_set = JSON.parse(`<!=$subevent_set_str?>`); // ca marche sauf si restrictions catégories (ou autres ??...)
-	var subevent_set = JSON.parse(json_str);
-	//console.log(subevent_set);
-	document.write(subevent_set['name']);
+	console.log("subevent_id = ", subevent_id);
+	//document.write(subs_data_set[subevent_id]['name']);
 	function trouve(){
 		/*
 		Gets the string in the field 'namestart' of the form, pass it to API that returns the list of members

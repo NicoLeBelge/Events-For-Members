@@ -188,15 +188,14 @@ function SelectEvent(NumEvent) {
 	if (NbSubs > 1){
 			BuildHTMLEventSelector (NbSubs);
 	}
-	CurrentSubEventId = subevent_list[NumEvent]["id"];
-	CurrentRating = subevent_list[NumEvent]["rating_type"]; 
-	subevent_html_id.innerHTML = SubeventInfos2html(subevent_list[CurrentSubEvent]);
+	CurrentSubEventId = subs_data_set[NumEvent]["id"];
+	CurrentRating = subs_data_set[NumEvent]["rating_type"]; 
+	subevent_html_id.innerHTML = SubeventInfos2html(subs_data_set[CurrentSubEvent]);
 	registred_html_id.innerHTML = RegList2htmltable (member_list, NumEvent);
-	CurrentNbmax = subevent_list[NumEvent]["nbmax"];
+	CurrentNbmax = subs_data_set[NumEvent]["nbmax"];
 	
-	CurrentSubEventObj = subevent_list[CurrentSubEvent];
+	CurrentSubEventObj = subs_data_set[CurrentSubEvent];
 	
-	hidden_json.value = subevent_list_str; // debug à remplacer par variable de session
 }
 function download() {
 	let CSVstring ="";
