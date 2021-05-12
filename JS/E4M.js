@@ -60,6 +60,8 @@ function eventInfos2html (infoset){
 	return html_string;
 }
 function SubeventInfos2html (infoset){
+	console.log("infoset dans sub SuventInfos2html");
+	console.log(infoset);
 	/*
 	constructs a HTML bloc from the object containing subevents infos 	
 	input : infoset = associative array with subevent information (name, rating_type,...)
@@ -84,7 +86,7 @@ function SubeventInfos2html (infoset){
 	if (infoset.gender == "*") {
 		gender_array = gender_names;
 	} else {
-		gender_array = JSON.parse(infoset.gender);
+		gender_array = JSON.parse(infoset.gender.replace(/'/g, '"')); // see cat below to understand
 	}
 	let iconString = CatArrayToList (gender_names, gender_array); 
 	html_string += iconString + "</p>";
@@ -95,12 +97,11 @@ function SubeventInfos2html (infoset){
 	if (infoset.cat == "*") {
 		cat_array = cat_names;
 	} else {
-		cat_array = JSON.parse(infoset.cat);
+		// cat_array = JSON.parse(infoset.cat); doesn't work, I don't know why (debug)
+		cat_array = JSON.parse(infoset.cat.replace(/'/g, '"')); // need to replace single quote by double quotes
 	}
 	iconString = CatArrayToList (cat_names, cat_array); 
 	html_string += iconString + "</p>";
-	
-	
 	
 	
 	/* rating_type + optional rating restriction */
@@ -111,15 +112,7 @@ function SubeventInfos2html (infoset){
 	html_string += "<p>" + str['Rating_name'] +" : " + rating_names[infoset.rating_type-1] + " " + restriction_string  +"</p>" ;
 	html_string += "<br/>"
 	
-	/*  cette section est à remplacer par l'astuce du forumaire caché
-	let destination = registration_search_page + "?sub=" + CurrentSubEventId;
-	console.log("destination", destination);
-	console.log("registration_search_page");
-	console.log(registration_search_page);
-
-	html_string += "<a href='" + destination + "'><button>" + str['Register'] +"</button></a>";
-	html_string += "<br/>"
-	*/
+	
 	return html_string;
 	
 }
@@ -200,19 +193,10 @@ function SelectEvent(NumEvent) {
 	subevent_html_id.innerHTML = SubeventInfos2html(subevent_list[CurrentSubEvent]);
 	registred_html_id.innerHTML = RegList2htmltable (member_list, NumEvent);
 	CurrentNbmax = subevent_list[NumEvent]["nbmax"];
-	console.log('CurrentSubEventId = ', CurrentSubEventId);
-	// print var subevent_list_str;
-	console.log("subevent_list_str =");
-	console.log(subevent_list_str);
-	console.log("---------------------");
-	CurrentSubEventObj = subevent_list[CurrentSubEvent];
-	/*
-	console.log(CurrentSubEventObj);
-	let sub_json_str = JSON.stringify(CurrentSubEventObj);
-	console.log(JSON.stringify(CurrentSubEventObj));
 	
-	*/
-	hidden_json.value = subevent_list_str;
+	CurrentSubEventObj = subevent_list[CurrentSubEvent];
+	
+	hidden_json.value = subevent_list_str; // debug à remplacer par variable de session
 }
 function download() {
 	let CSVstring ="";

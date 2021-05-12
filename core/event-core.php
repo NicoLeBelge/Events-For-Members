@@ -5,18 +5,18 @@ input : event id | eg event.php?id=12
 javascript functions are at the bottom of the page, not externally located, to allow custom strings ($str) insertion
 Defines 4 div elements showing event information, subevent selector, info about selected event, list of registred members
 
-note : subevent data are passed to REGISTER page via POST of hidden field in form - might be made in a smarter way...
+note : subevent data are passed to REGISTER page via POST of hidden field in form (debug) or session variables  - might be made in a smarter way...
 */
 /* lets get strings from json folder (strings displayed and configuration strings) */
-$json = file_get_contents('./json/config.json'); 
-$cfg = json_decode($json,true);	
+
+$cfg = json_decode(file_get_contents('./json/config.json'),true);	
 $subevent_link_icon_str = json_encode($cfg['subevent_link_icon']);
 $registration_search_page = json_encode($cfg['registration_search_page']); 
 $cat_names_str = json_encode($cfg['cat_names']);
 $gender_names_str = json_encode($cfg['gender_names']);
 $rating_names_str = json_encode($cfg['rating_names']);
-$json = file_get_contents('./json/strings.json');
-$str = json_decode($json,true);	
+
+$str = json_decode(file_get_contents('./json/strings.json'),true);	
 $jsonstr = json_encode($str);	
 
 /* this page is supposed to be called with subevent id, let's warn the visitor if omitted */
@@ -33,7 +33,7 @@ if(isset($_GET['id'])){
 
 	//var_dump($event_set["subs"]);
 	$subs_data_jsonstr = json_encode($event_set["subs"], JSON_UNESCAPED_UNICODE);
-	var_dump($subs_data_jsonstr);
+	
 	$ratinglist="";
 	for ($k=1;$k<=$cfg['Nb_rating'];$k++){
 		$ratinglist .= "members.rating$k, ";
@@ -131,10 +131,6 @@ if(isset($_GET['id'])){
 	rq_event.open('GET', './API/get-event-info.php?event=<?=$eventid?>'); // bug wrong subevent selected
 	rq_event.responseType = 'json';
 	rq_event.send();
-
-
-	
-	
 	
 
 	eventinfoset =event_data_set['infos'][0];
@@ -142,15 +138,19 @@ if(isset($_GET['id'])){
 	
 	CurrentSubEventId = subevent_list[0]["id"];
 	CurrentSubEventObj = subevent_list[0];
-	console.log(CurrentSubEventObj);
+
 	CurrentNbmax = subevent_list[0]["nbmax"];
 	member_list =  event_data_set['registrations'];
 	NbRegTot = member_list.length;
 
-	hidden_json.value = JSON.stringify(subevent_list[0]);
+	// hidden_json.value = JSON.stringify(subevent_list[0]);
 
 	event_html_id.innerHTML = eventInfos2html(eventinfoset);
-	subevent_html_id.innerHTML = SubeventInfos2html(subevent_list[CurrentSubEvent]);
+	console.log("CurrentSubEvent");
+	console.log(CurrentSubEvent);
+	console.log("subs_data_set[CurrentSubEvent]");
+	console.log(subs_data_set[CurrentSubEvent]);
+	subevent_html_id.innerHTML = SubeventInfos2html(subs_data_set[CurrentSubEvent]);
 	registred_html_id.innerHTML = RegList2htmltable (member_list, CurrentSubEvent);
 	NbSubs=subevent_list.length;
 	if (NbSubs > 1){
