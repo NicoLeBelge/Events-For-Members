@@ -89,26 +89,27 @@ if(isset($_GET['id'])){
 
 <script type="text/javascript">
 	
-	/* let's build arrays 'rating_names' etc. from the JSON passed by php */
-	var rating_names = new Array();
-	rating_names = JSON.parse(`<?=$rating_names_str?>`);
+	/* let's declare global variables used by external JS */
 	
-	var cat_names = new Array();
-	cat_names = JSON.parse(`<?=$cat_names_str?>`);
-	
-	var gender_names = new Array();
-	
-	let gender_names_str = '<?=$gender_names_str?>'; // debug
-	console.log("et pourtant il devrait y avoir des guillemets, ici...");
-	console.log(gender_names_str);
-
-	gender_names = JSON.parse('<?=$gender_names_str?>');
-	
+	var rating_names = JSON.parse(`<?=$rating_names_str?>`);
+	var cat_names = JSON.parse(`<?=$cat_names_str?>`);
+	var gender_names = JSON.parse('<?=$gender_names_str?>');
 	var str = JSON.parse(`<?=$jsonstr?>`);
 	var subevent_link_icon = JSON.parse(`<?=$subevent_link_icon_str?>`);
 	
-	/* let's declare global variables used by external JS */
+	var subs_data_set = JSON.parse(`<?=$subs_data_jsonstr?>`);
+	console.log(subs_data_set);
+	//subevent_list_str =JSON.stringify(event_data_set['subs']);
+	
+	// note : we can then access subevent data (eg cat) or order n (eg 0)  with 
+	// let new_subevent_list = JSON.parse(subevent_list_str);
+	// cat_list = new_subevent_list[0]['cat']
+
+	var event_data_set = JSON.parse(`<?=$event_set_jsonstr?>`);
+	console.log(event_data_set);
+	
 	var registration_search_page = `<?= $cfg['registration_search_page'] ?>`;
+	
 	var CurrentSubEvent = 0; 	// index of the internal table from json
 	var CurrentSubEventId = 0; 	// id in the database
 	var CurrentRating = 1; 	// default value, will later depend on rating in subevent
@@ -119,7 +120,7 @@ if(isset($_GET['id'])){
 	var NbRegTot; // Total Number of registred members
 	var CurrentNbmax ; // max subscriptions for current subevent
 	var subevent_list_str; // will contain JSON of subevents data
-	var hidden_json = document.getElementById('sub_json'); // hidden field to pass subevents data to next page
+	var hidden_json = document.getElementById('sub_json'); // hidden field to pass subevents data to next page // debug à garder ??
 	
 	/* those 3 html elements will be updated each time the user selects a subevents*/
 	var event_html_id = document.getElementById('E4M_eventinfo');
@@ -132,19 +133,9 @@ if(isset($_GET['id'])){
 	rq_event.send();
 
 
-	var subs_data_set = JSON.parse(`<?=$subs_data_jsonstr?>`);
-	console.log(subs_data_set);
-
-	var event_data_set = JSON.parse(`<?=$event_set_jsonstr?>`);
-	console.log(event_data_set);
 	
-	//let event_data_set_str = JSON.stringify(event_data_set);
 	
-	//subevent_list_str =JSON.stringify(event_data_set['subs']);
 	
-	// note : we can then access subevent data (eg cat) or order n (eg 0)  with 
-	// let new_subevent_list = JSON.parse(subevent_list_str);
-	// cat_list = new_subevent_list[0]['cat']
 
 	eventinfoset =event_data_set['infos'][0];
 	subevent_list = event_data_set['subs'];
