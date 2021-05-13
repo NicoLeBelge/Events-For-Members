@@ -60,8 +60,7 @@ function eventInfos2html (infoset){
 	return html_string;
 }
 function SubeventInfos2html (infoset){
-	console.log("infoset dans sub SuventInfos2html");
-	console.log(infoset);
+
 	/*
 	constructs a HTML bloc from the object containing subevents infos 	
 	input : infoset = associative array with subevent information (name, rating_type,...)
@@ -156,7 +155,7 @@ function RegList2htmltable (infoset, subid){
 	html_string += "<p>" + nbregsub + " <span class='E4M_css_key'>" +  str['registrations'] + "</span> "  ;
 
 	/* max participants */
-	console.log(CurrentNbmax);
+
 	if (CurrentNbmax !==  null){
 		html_string += "(" +  CurrentNbmax  + str['max'] +")" ;
 	}
@@ -184,6 +183,7 @@ function RegList2htmltable (infoset, subid){
 }
 function SelectEvent(NumEvent) {
 	CurrentSubEvent = NumEvent;
+	hidden_id.value = NumEvent;
 	/* selector rebuilt to update highlighted selection */
 	if (NbSubs > 1){
 			BuildHTMLEventSelector (NbSubs);

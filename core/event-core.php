@@ -79,10 +79,9 @@ if(isset($_GET['id'])){
 		<button onclick="download()"><?=$str['Download']?></button>	
 	<?php endif; ?>
 
-	<form name="E4M_destination" action="<?=$cfg['registration_search_page']?>" method="get">
-	
-	
-	<button type="submit" ><?=$str['Register']?></button>
+	<form action="<?=$cfg['registration_search_page']?>" method="POST">
+		<input id="E4M_hidden_id" name="E4M_hidden_id" type=hidden value=0>
+		<button type="submit" ><?=$str['Register']?></button>
 	</form >
 	<div id="E4M_regtable" class="E4M_regtable"></div>
 	
@@ -90,7 +89,9 @@ if(isset($_GET['id'])){
 <script src="./JS/E4M.js"></script>
 
 <script type="text/javascript">
+	var hidden_id= document.getElementById('E4M_hidden_id');
 	
+	//console.log("document.E4M_destination.value = ",document.E4M_destination.value)
 	/* let's declare global variables used by external JS */
 	
 	var rating_names = JSON.parse(`<?=$rating_names_str?>`);
@@ -101,7 +102,7 @@ if(isset($_GET['id'])){
 	
 	
 	var subs_data_set = JSON.parse(`<?=$subs_data_jsonstr?>`);
-	console.log(subs_data_set);
+	
 	//subevent_list_str =JSON.stringify(event_data_set['subs']);
 	
 	// note : we can then access subevent data (eg cat) or order n (eg 0)  with 
@@ -109,7 +110,7 @@ if(isset($_GET['id'])){
 	// cat_list = new_subevent_list[0]['cat']
 
 	var event_data_set = JSON.parse(`<?=$event_set_jsonstr?>`);
-	console.log(event_data_set);
+	
 	
 	var registration_search_page = `<?= $cfg['registration_search_page'] ?>`;
 	
@@ -129,14 +130,14 @@ if(isset($_GET['id'])){
 	var event_html_id = document.getElementById('E4M_eventinfo');
 	var subevent_html_id = document.getElementById('E4M_subeventinfo');
 	var registred_html_id = document.getElementById('E4M_regtable');
-	var form_destination = document.E4M_destination.action;
+	// var form_destination = document.E4M_destination.action;
 	
-
+/*
 	var rq_event = new XMLHttpRequest();
 	rq_event.open('GET', './API/get-event-info.php?event=<?=$eventid?>'); // bug wrong subevent selected
 	rq_event.responseType = 'json';
 	rq_event.send();
-	
+*/	
 
 	eventinfoset =event_data_set['infos'][CurrentSubEvent];
 	//subevent_list = event_data_set['subs'];
@@ -150,7 +151,7 @@ if(isset($_GET['id'])){
 	
 	//CurrentNbmax = subevent_list[0]["nbmax"];
 	CurrentNbmax = CurrentSubEventObj["nbmax"]
-	console.log("CurrentNbmax = ", CurrentNbmax)
+	
 	member_list =  event_data_set['registrations'];
 	NbRegTot = member_list.length;
 
@@ -166,13 +167,15 @@ if(isset($_GET['id'])){
 	*/
 	subevent_html_id.innerHTML = SubeventInfos2html(subs_data_set[CurrentSubEvent]);
 	registred_html_id.innerHTML = RegList2htmltable (member_list, CurrentSubEvent);
+	/*
 	let destination = `<?=$cfg['registration_search_page']?>`+ "?sub=" + CurrentSubEvent;
 	console.log("form_destination before modification = ",document.E4M_destination.action);
 	console.log("destination = ",destination);
 	
 	document.E4M_destination.action = destination;
-	console.log("form_destination after modification = ",document.E4M_destination.action)
-	//form_destination = destination;
+	*/
+	//console.log("form_destination after modification = ",document.E4M_destination.action)
+	
 	NbSubs=subs_data_set.length;
 	
 	if (NbSubs > 1){

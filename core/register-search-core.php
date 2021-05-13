@@ -21,9 +21,9 @@ $subs_data_set_str = $_SESSION['subs_data_set'];
 var_dump($subs_data_set_str);
 
 /* this page is supposed to be called with event id, let's set it to 1 if omitted */
-if(isset($_GET['sub']) && isset($_SESSION['subs_data_set'])){ 
+if(isset($_POST['E4M_hidden_id']) && isset($_SESSION['subs_data_set'])){ 
 	//$subevent_id=$_GET['sub_json'];
-	$subevent_id = $_GET['sub'];
+	$subevent_id = $_POST['E4M_hidden_id'];
 	var_dump($subevent_id);
 } else {
 	echo "this page can only be called from event description page";

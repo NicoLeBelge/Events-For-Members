@@ -1,6 +1,6 @@
 {
     "Nb_rating":3,
-    "registration_search_page":"register-search.php",
+    "registration_search_page":"register-search.php?sub=0",
     "registration_check_page":"register-check.php",
     "rating_names": ["Elo lent","Elo rapide", "Elo blitz","","",""],
     "self_create": true,

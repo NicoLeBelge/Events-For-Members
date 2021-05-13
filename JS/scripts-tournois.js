@@ -16,7 +16,7 @@ function PlayersObjToTable(playerlist) {
 	tablech += '<th>ville</th>';
 	
 	tablech += '</tr>';
-	//console.log('response', this.response); // ça marche
+
 	for (i in playerlist){
 		
 		tablech += '<tr onclick = pickplayer(\'' + playerlist[i].id + '\')>';
