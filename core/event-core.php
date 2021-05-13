@@ -79,8 +79,9 @@ if(isset($_GET['id'])){
 		<button onclick="download()"><?=$str['Download']?></button>	
 	<?php endif; ?>
 
-	<form action="<?=$cfg['registration_search_page']?>" method="post">
-	<input id="sub_json" type="text" value="pipo" name="sub_json">
+	<form name="E4M_destination" action="<?=$cfg['registration_search_page']?>" method="get">
+	
+	
 	<button type="submit" ><?=$str['Register']?></button>
 	</form >
 	<div id="E4M_regtable" class="E4M_regtable"></div>
@@ -122,12 +123,14 @@ if(isset($_GET['id'])){
 	var NbRegTot; // Total Number of registred members
 	var CurrentNbmax ; // max subscriptions for current subevent
 	var subevent_list_str; // will contain JSON of subevents data
-	var hidden_json = document.getElementById('sub_json'); // hidden field to pass subevents data to next page // debug à garder ??
+	//var hidden_json = document.getElementById('sub_json'); // hidden field to pass subevents data to next page // debug à garder ??
 	
 	/* those 3 html elements will be updated each time the user selects a subevents*/
 	var event_html_id = document.getElementById('E4M_eventinfo');
 	var subevent_html_id = document.getElementById('E4M_subeventinfo');
 	var registred_html_id = document.getElementById('E4M_regtable');
+	var form_destination = document.E4M_destination.action;
+	
 
 	var rq_event = new XMLHttpRequest();
 	rq_event.open('GET', './API/get-event-info.php?event=<?=$eventid?>'); // bug wrong subevent selected
@@ -135,15 +138,15 @@ if(isset($_GET['id'])){
 	rq_event.send();
 	
 
-	eventinfoset =event_data_set['infos'][0];
+	eventinfoset =event_data_set['infos'][CurrentSubEvent];
 	//subevent_list = event_data_set['subs'];
 	
 	//CurrentSubEventId = subevent_list[0]["id"];
-	CurrentSubEventId = subs_data_set[0]["id"];
+	CurrentSubEventId = subs_data_set[CurrentSubEvent]["id"];
 	
 	
 	//CurrentSubEventObj = subevent_list[0]; subs_data_set
-	CurrentSubEventObj = subs_data_set[0]; 
+	CurrentSubEventObj = subs_data_set[CurrentSubEvent]; 
 	
 	//CurrentNbmax = subevent_list[0]["nbmax"];
 	CurrentNbmax = CurrentSubEventObj["nbmax"]
@@ -163,7 +166,13 @@ if(isset($_GET['id'])){
 	*/
 	subevent_html_id.innerHTML = SubeventInfos2html(subs_data_set[CurrentSubEvent]);
 	registred_html_id.innerHTML = RegList2htmltable (member_list, CurrentSubEvent);
+	let destination = `<?=$cfg['registration_search_page']?>`+ "?sub=" + CurrentSubEvent;
+	console.log("form_destination before modification = ",document.E4M_destination.action);
+	console.log("destination = ",destination);
 	
+	document.E4M_destination.action = destination;
+	console.log("form_destination after modification = ",document.E4M_destination.action)
+	//form_destination = destination;
 	NbSubs=subs_data_set.length;
 	
 	if (NbSubs > 1){
