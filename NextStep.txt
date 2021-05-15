@@ -26,17 +26,15 @@ aligner le elo à droite
 | in progress |
 └─────────────┘
 
-registration page
-Bouton s'inscrire passe le subevent
-search-core --> ça merdouille --> passer les infos du subeventset à la page search par la méthode POST.
-Exécution de la requête en PHP, avec mise du résultat en variable de session
-Ca parse toujours pas, ça a l'air d'aller mieux avec des simple quote dans la base...
-Mettre le GET sub= dans l'appel à la page search
+récupérer TOUTES les données joueurs (réponse API --> tableau)
+vérifier les contraintes
+Ajouter un bouton VALIDER
+
+
 ┌───────┐
 | To do |
 └───────┘
-fix bug nbmax affiché pour mauvais subevent
-formater la date dans event-list
+
 Dans la page Recherche de membre
     Valider la recherche par ENTER 
     Mettre un bouton "retour" dans le formulaire de recherche de membre
@@ -44,6 +42,7 @@ Dans la page Recherche de membre
     aligner le elo à droite
     Créer le lien vers la page d'enregistrement
     Rappeler les infos tournoi
-    ne rien afficher d'autre que le warning php si pas de GET sub=
+    ne rien afficher d'autre que le warning php si pas de données PQST
 
-Page event : restaurer le bouton "s'inscrire qui a disparu !!    
+
+search page : affiche mauvais message si on tape ENTER.

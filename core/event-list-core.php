@@ -17,8 +17,8 @@ echo "<h3>" . $str['event_list_title'] . "</h3>";
 
 $reponse = $conn->query('SELECT id, datestart, name from events ORDER BY datestart ASC');
 ?>
-
-<div class="E4M_eventlist"> <!-- debug faudra probalement rendre paramétrable-->
+<!-- used to be eventlist-->
+<div class="E4M_hoverable_list"> <!-- debug faudra probalement rendre paramétrable-->
 <table>
 	<tr>
 		<th><?= $str['date_label'] ?></th>

@@ -3,6 +3,9 @@
 page to be included in a php page (register-search.php or any name chosen by admin - see config.json)
 input : subevent id | eg event.php?sub=12
 recovers data about subevents of selected events through $_SESSION['subs_data_set']
+The page allows the visitor to find a member by typing the beginning of the name and pick him from the list.
+If the selected member matches the restrictions of the current subevent, the visitor can confirm the registration. 
+He is then redirected to event page, where he can see the name added in the participants.
 */
 
 /* lets get strings from json folder (strings displayed and configuration strings) */
@@ -18,37 +21,41 @@ $json = file_get_contents('./json/strings.json');
 $str = json_decode($json,true);	
 $jsonstr = json_encode($str);	
 $subs_data_set_str = $_SESSION['subs_data_set'];
-var_dump($subs_data_set_str);
 
 /* this page is supposed to be called with event id, let's set it to 1 if omitted */
 if(isset($_POST['E4M_hidden_id']) && isset($_SESSION['subs_data_set'])){ 
 	//$subevent_id=$_GET['sub_json'];
 	$subevent_id = $_POST['E4M_hidden_id'];
-	var_dump($subevent_id);
 } else {
 	echo "this page can only be called from event description page";
 }
 
 ?>
 <div class='E4M_maindiv'>
+
 <form id='myForm'>
 		<label for="namestart"><?= $str['enter_start_name'] ?></label>
 		<input type="text" autocomplete="off" name="identifier" id="namestart" required>
 	</form> 
 	<button onclick = trouve() ><?= $str['search'] ?></button>
 	<br/><br/>
-	<div id="members_table"></div>
+	<div id="E4M_members_table" class="E4M_hoverable_list"></div>
 </div>
 <script src="./JS/E4M-search.js"></script>
 <script type="text/javascript">
 	var registration_check_page = `<?= $cfg['registration_check_page'] ?>`;
 	console.log("registration_check_page = ", registration_check_page)
+	
 	var request = new XMLHttpRequest();
 	var subs_data_set= JSON.parse(`<?=$subs_data_set_str?>`);
 	var subevent_id = `<?=$subevent_id?>`;
-	console.log("subs_data_set = ", subs_data_set);
+	var currentSubEvent = subs_data_set[subevent_id];
+	console.log(currentSubEvent);
+	var members;
+	
+	//console.log("subs_data_set = ", subs_data_set);
 	// var subevent_set = JSON.parse(`<!=$subevent_set_str?>`); // ca marche sauf si restrictions catégories (ou autres ??...)
-	console.log("subevent_id = ", subevent_id);
+	//console.log("subevent_id = ", subevent_id);
 	//document.write(subs_data_set[subevent_id]['name']);
 	function trouve(){
 		/*
@@ -66,9 +73,10 @@ if(isset($_POST['E4M_hidden_id']) && isset($_SESSION['subs_data_set'])){
 	}
 	request.onreadystatechange  = function() {
 		if (this.readyState == 4 && this.status == 200) {
-			var members = this.response;
-			var tch = MembersObjToTable(members);
-			var e = document.getElementById('members_table');
+			// var members = this.response;
+			let e = document.getElementById('E4M_members_table');
+			members = this.response;
+			let tch = MembersObjToTable(members);
 			e.innerHTML = tch;
 		}
 	}

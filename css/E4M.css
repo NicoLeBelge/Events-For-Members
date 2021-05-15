@@ -1,4 +1,4 @@
-.E4M_maindiv *, .E4M_eventlist *{
+.E4M_maindiv *, .E4M_hoverable_list *{
 	font-family: Quicksand;
 }
 tr:nth-child(even) {
@@ -23,9 +23,11 @@ table, th, td {
 	font-size: 2 em;
 	color : blue;
 }
-#E4M_eventlist tr:hover {
-	background-color: lightblue;
+.E4M_hoverable_list *{
 	cursor: pointer;
+}
+.E4M_hoverable_list tr:hover {
+	background-color: lightblue;
 }
 .E4M_buttonset {
 	margin-top: 5px;
