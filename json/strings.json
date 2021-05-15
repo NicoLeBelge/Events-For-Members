@@ -30,7 +30,9 @@
     "Selector_help":"Sélectionnez l'un des ",
     "Subevnent_names":"tournois",
     "Too_many_answers":"Il y a plus de 25 réponses, entrez plus de lettres",
-    
+    "Gender_matching_problem":"Problème de respect des restrictions de genre",
+    "Category_matching_problem":"Problème de respect des restrictions de catégorie",
+    "Rating_matching_problem":"Problème de respect des restrictions de classement Elo",
     "Gender":"Genre"
 
 

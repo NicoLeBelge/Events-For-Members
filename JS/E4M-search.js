@@ -30,7 +30,32 @@ function MembersObjToTable(memberList) {
 	tablech += '<table>';
 	return tablech;
 }
-function pickplayer (fede_id) {
-	//alert ('tu as cliqué sur le joueur avec l\'id' + fede_id);
-	console.log(members);
+function pickplayer (member_id) {
+	let filtered_members = members.filter(function(filter){
+		return filter.id == member_id;
+	});
+	let member = filtered_members[0];
+	//console.log(currentSubEvent);
+	let isMatching = isPlayerMatching(member, currentSubEvent);
+}
+function isPlayerMatching (member, sub) {
+	/*
+	"Gender_matching_problem":"Problème de respect des restrictions de genre",
+    "Category_matching_problem":"Problème de respect des restrictions de catégorie",
+    "Rating_matching_problem":"Problème de respect des restrictions de classement Elo",
+	*/
+	console.log(member);
+	console.log(sub);
+	let isMatching= true;
+	let alertSTR="";
+	if (sub.gender !== '*'){
+		if (!sub.gender.includes(member.gender)){
+			isMatching= false;
+			alertSTR += str["Gender_matching_problem"];
+		} 
+	}
+
+	if (alertSTR!=="") {
+		alert(alertSTR);
+	}
 }

@@ -44,15 +44,15 @@ if(isset($_POST['E4M_hidden_id']) && isset($_SESSION['subs_data_set'])){
 <script src="./JS/E4M-search.js"></script>
 <script type="text/javascript">
 	var registration_check_page = `<?= $cfg['registration_check_page'] ?>`;
-	console.log("registration_check_page = ", registration_check_page)
-	
+	var str = JSON.parse(`<?=$jsonstr?>`);
 	var request = new XMLHttpRequest();
 	var subs_data_set= JSON.parse(`<?=$subs_data_set_str?>`);
 	var subevent_id = `<?=$subevent_id?>`;
 	var currentSubEvent = subs_data_set[subevent_id];
+	console.log("currentSubEvent in register_search_core --------");
 	console.log(currentSubEvent);
-	var members;
-	
+	var members; // list of members matching search
+	var member; // member picked in list of member
 	//console.log("subs_data_set = ", subs_data_set);
 	// var subevent_set = JSON.parse(`<!=$subevent_set_str?>`); // ca marche sauf si restrictions catégories (ou autres ??...)
 	//console.log("subevent_id = ", subevent_id);
