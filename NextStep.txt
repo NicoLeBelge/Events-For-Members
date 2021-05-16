@@ -20,12 +20,13 @@ pointer at center of selector --> still arrow
 remplacement du lien subenvent par un picto
 afficher le nombre max d'inscrits
 afficher les dates sur un format lisible
-aligner le elo à droite
+aligner le elo à droite (liste des inscrits)
+
 
 ┌─────────────┐
 | in progress |
 └─────────────┘
-debug rating  dans API
+vérifier les contraintes
 
 
 
@@ -33,7 +34,7 @@ debug rating  dans API
 | To do |
 └───────┘
 récupérer TOUTES les données joueurs (réponse API --> tableau)
-vérifier les contraintes
+
 Ajouter un bouton VALIDER
 Dans la page Recherche de membre
     Considère le mauvais Elo ! (ACHOR tournoi 3 Elo blitz <1400)

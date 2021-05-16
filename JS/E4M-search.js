@@ -7,15 +7,22 @@ function MembersObjToTable(memberList) {
 	var debugch='';
 	tablech += '<table>';
 	tablech += '<tr>';
-	tablech += '<th>idFFE</th>';
-	tablech += '<th>nom</th>';
-	tablech += '<th>prénom</th>';
-	tablech += '<th>elo</th>';
-	tablech += '<th>cat</th>';
-	tablech += '<th>club</th>';
-	tablech += '<th>ville</th>';
+	tablech += '<th>' + str["fede_id"] + '</th>';
+	tablech += '<th>' + str["lastname"] + '</th>';
+	tablech += '<th>' + str["firstname"] + '</th>';
+	tablech += '<th>' + str["header_rating_name"] + '</th>';
+	tablech += '<th>' + str["cat"] + '</th>';
+	tablech += '<th>' + str["club_name"] + '</th>';
+	tablech += '<th>' + str["City"] + '</th>';
 	tablech += '</tr>';
-	
+/*
+	"":"id FFE",
+    "lastname":"Nom",
+    "firstname":"Prénom",
+    "cat":"Cat.",
+    "club_name":"Club",
+    "Gender":"Genre"
+*/	
 	for (i in memberList){
 		tablech += '<tr onclick = pickplayer(\'' + memberList[i].id + '\')>';
 		tablech += '<td>' + memberList[i].fede_id + '</td>';

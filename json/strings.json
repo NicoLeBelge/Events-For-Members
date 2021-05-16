@@ -24,6 +24,7 @@
     "registrations":"inscriptions",
     "max":"max",
     "Rating_name":"Classement",
+    "header_rating_name":"Class.",
     "Categories":"Catégories",
     "All_cat_accepted":"ouvert à toutes les catégories",
     "Date_of_place":"Aura lieu le",
@@ -33,9 +34,14 @@
     "Gender_matching_problem":"Problème de respect des restrictions de genre",
     "Category_matching_problem":"Problème de respect des restrictions de catégorie",
     "Rating_matching_problem":"Problème de respect des restrictions de classement Elo",
+    "fede_id":"id FFE",
+    "lastname":"Nom",
+    "firstname":"Prénom",
+    "cat":"Cat.",
+    "club_name":"Club",
+    "City":"Ville",
     "Gender":"Genre"
-
-
     
 
 }
+
