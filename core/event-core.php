@@ -114,7 +114,7 @@ if(isset($_GET['id'])){
 	
 	var registration_search_page = `<?= $cfg['registration_search_page'] ?>`;
 	
-	var CurrentSubEvent = 0; 	// index of the internal table from json
+	var CurrentSubEventIndex = 0; 	// index of the internal table from json
 	var CurrentSubEventId = 0; 	// id in the database
 	var CurrentRating = 1; 	// default value, will later depend on rating in subevent
 	var eventinfoset; // {id="1", name = "eventname", datestart ="blabla",...}
@@ -139,16 +139,16 @@ if(isset($_GET['id'])){
 	rq_event.send();
 */	
 
-	eventinfoset =event_data_set['infos'][CurrentSubEvent];
+	eventinfoset =event_data_set['infos'][CurrentSubEventIndex];
 	//subevent_list = event_data_set['subs'];
 	
 	//CurrentSubEventId = subevent_list[0]["id"];
-	CurrentSubEventId = subs_data_set[CurrentSubEvent]["id"];
+	CurrentSubEventId = subs_data_set[CurrentSubEventIndex]["id"];
 	
 	hidden_id.value = CurrentSubEventId;
 	
 	//CurrentSubEventObj = subevent_list[0]; subs_data_set
-	CurrentSubEventObj = subs_data_set[CurrentSubEvent]; 
+	CurrentSubEventObj = subs_data_set[CurrentSubEventIndex]; 
 	
 	//CurrentNbmax = subevent_list[0]["nbmax"];
 	CurrentNbmax = CurrentSubEventObj["nbmax"]
@@ -156,26 +156,11 @@ if(isset($_GET['id'])){
 	member_list =  event_data_set['registrations'];
 	NbRegTot = member_list.length;
 
-	// hidden_json.value = JSON.stringify(subevent_list[0]);
-
 	event_html_id.innerHTML = eventInfos2html(eventinfoset);
-	/*
-	 
-	console.log("CurrentSubEvent");
-	console.log(CurrentSubEvent);
-	console.log("subs_data_set[CurrentSubEvent]");
-	console.log(subs_data_set[CurrentSubEvent]);
-	*/
-	subevent_html_id.innerHTML = SubeventInfos2html(subs_data_set[CurrentSubEvent]);
-	registred_html_id.innerHTML = RegList2htmltable (member_list, CurrentSubEvent);
-	/*
-	let destination = `<!=$cfg['registration_search_page']?>`+ "?sub=" + CurrentSubEvent;
-	console.log("form_destination before modification = ",document.E4M_destination.action);
-	console.log("destination = ",destination);
+
+	subevent_html_id.innerHTML = SubeventInfos2html(subs_data_set[CurrentSubEventIndex]);
+	registred_html_id.innerHTML = RegList2htmltable (member_list, CurrentSubEventIndex);
 	
-	document.E4M_destination.action = destination;
-	*/
-	//console.log("form_destination after modification = ",document.E4M_destination.action)
 	
 	NbSubs=subs_data_set.length;
 	

@@ -12,6 +12,7 @@ He is then redirected to event page, where he can see the name added in the part
 // debug --> enlever ce qui est inutile
 $json = file_get_contents('./json/config.json'); 
 $cfg = json_decode($json,true);	
+
 $subevent_link_icon_str = json_encode($cfg['subevent_link_icon']);
 $registration_check_page = json_encode($cfg['registration_check_page']); // debug --> à garder
 $cat_names_str = json_encode($cfg['cat_names']);
@@ -25,38 +26,45 @@ $subs_data_set_str = $_SESSION['subs_data_set'];
 /* this page is supposed to be called with event id, let's set it to 1 if omitted */
 if(isset($_POST['E4M_hidden_id']) && isset($_SESSION['subs_data_set'])){ 
 	//$subevent_id=$_GET['sub_json'];
-	$subevent_id = $_POST['E4M_hidden_id'];
+	$subevent_index = $_POST['E4M_hidden_id'];
 } else {
 	echo "this page can only be called from event description page";
 }
-
 ?>
 <div class='E4M_maindiv'>
-<div id="E4M_subeventinfo"></div>
+<div id="E4M_subeventinfo" class="E4M_subeventinfo"></div>
 <form id='myForm'>
-		<label for="namestart"><?= $str['enter_start_name'] ?></label>
-		<input type="text" autocomplete="off" name="identifier" id="namestart" required>
-	</form> 
-	<button onclick = trouve() ><?= $str['search'] ?></button>
-	<br/><br/>
-	<div id="E4M_members_table" class="E4M_hoverable_list"></div>
+	<label for="namestart"><?= $str['enter_start_name'] ?></label>
+	<input type="text" autocomplete="off" name="identifier" id="namestart" required>
+</form> 
+<button onclick = trouve() ><?= $str['search'] ?></button>
+<br/><br/>
+<div id="E4M_members_table" class="E4M_hoverable_list"></div>
 </div>
 <script src="./JS/E4M-search.js"></script>
+<script src="./JS/E4M.js"></script>
 <script type="text/javascript">
+	var rating_names = JSON.parse(`<?=$rating_names_str?>`);
+	var cat_names = JSON.parse(`<?=$cat_names_str?>`);
+	var gender_names = JSON.parse('<?=$gender_names_str?>');
 	var registration_check_page = `<?= $cfg['registration_check_page'] ?>`;
 	var str = JSON.parse(`<?=$jsonstr?>`);
 	var request = new XMLHttpRequest();
 	var subs_data_set= JSON.parse(`<?=$subs_data_set_str?>`);
-	var subevent_id = `<?=$subevent_id?>`;
+	var subevent_index = `<?=$subevent_index?>`;
+	var currentSubEventObj = subs_data_set[subevent_index];
+	var subevent_link_icon = JSON.parse(`<?=$subevent_link_icon_str?>`);
 	
-	var currentSubEvent = subs_data_set[subevent_id];
-	console.log("currentSubEvent in register_search_core --------");
-	console.log(currentSubEvent);
+	console.log("subevent_index in register_search_core --------");
+	console.log(subevent_index); // ici not defined
 	
-	var rating_t = currentSubEvent.rating_type;
+	var rating_t = currentSubEventObj.rating_type;
 
 	var members; // list of members matching search
 	var member; // member picked in list of member
+
+	let subevent_html_id = document.getElementById('E4M_subeventinfo');
+	subevent_html_id.innerHTML = SubeventInfos2html (currentSubEventObj);
 	//console.log("subs_data_set = ", subs_data_set);
 	// var subevent_set = JSON.parse(`<!=$subevent_set_str?>`); // ca marche sauf si restrictions catégories (ou autres ??...)
 	//console.log("subevent_id = ", subevent_id);

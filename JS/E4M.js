@@ -18,7 +18,6 @@ function CatArrayToList (FullList, ShortList) {
 	html_string += "</div>" ;
 	return html_string;
 }
-
 function eventInfos2html (infoset){
 	/* 	
 	constructs a HTML bloc from the object containing events infos 	
@@ -128,7 +127,7 @@ function BuildHTMLEventSelector (n){
 	
 	for (k=0; k<=n-1; k++) {
 		
-		if (k == CurrentSubEvent){
+		if (k == CurrentSubEventIndex){
 			html_string += "<div onclick=SelectEvent(" + k + ") id='selector_"+ k + "' class='current_sub_button' ><p>" + (k+1) + "</p></div>";
 		} else {
 			html_string += "<div onclick=SelectEvent(" + k + ") id='selector_"+ k + "' class='other_sub_button' ><p>" + (k+1) + "</p></div>";
@@ -182,7 +181,7 @@ function RegList2htmltable (infoset, subid){
 	return html_string;
 }
 function SelectEvent(NumEvent) {
-	CurrentSubEvent = NumEvent;
+	CurrentSubEventIndex = NumEvent;
 	hidden_id.value = NumEvent;
 	/* selector rebuilt to update highlighted selection */
 	if (NbSubs > 1){
@@ -190,10 +189,10 @@ function SelectEvent(NumEvent) {
 	}
 	CurrentSubEventId = subs_data_set[NumEvent]["id"];
 	CurrentRating = subs_data_set[NumEvent]["rating_type"]; 
-	subevent_html_id.innerHTML = SubeventInfos2html(subs_data_set[CurrentSubEvent]);
+	subevent_html_id.innerHTML = SubeventInfos2html(subs_data_set[CurrentSubEventIndex]);
 	registred_html_id.innerHTML = RegList2htmltable (member_list, NumEvent);
 	CurrentNbmax = subs_data_set[NumEvent]["nbmax"];
-	CurrentSubEventObj = subs_data_set[CurrentSubEvent];
+	CurrentSubEventObj = subs_data_set[CurrentSubEventIndex];
 	
 }
 function download() {
@@ -213,7 +212,7 @@ function download() {
 		CSVstring += member.region+ ";";
 		CSVstring += "\n" ;
 	});
-	var filename =subevent_list[CurrentSubEvent].name +".csv";
+	var filename =subevent_list[CurrentSubEventObj].name +".csv";
 	var element = document.createElement('a');
 	element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(CSVstring));
 	element.setAttribute('download', filename);
@@ -221,6 +220,6 @@ function download() {
 	document.body.appendChild(element);
 	element.click();
 	document.body.removeChild(element); // necessary ??
-	}
+}
 	
 	

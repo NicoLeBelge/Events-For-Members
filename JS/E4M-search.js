@@ -42,8 +42,8 @@ function pickplayer (member_id) {
 		return filter.id == member_id;
 	});
 	let member = filtered_members[0];
-	//console.log(currentSubEvent);
-	let isMatching = isPlayerMatching(member, currentSubEvent);
+	
+	let isMatching = isPlayerMatching(member, currentSubEventObj);
 }
 function isPlayerMatching (member, sub) {
 	/*
