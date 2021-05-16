@@ -143,9 +143,9 @@ if(isset($_GET['id'])){
 	//subevent_list = event_data_set['subs'];
 	
 	//CurrentSubEventId = subevent_list[0]["id"];
-	CurrentSubEventId = subs_data_set[CurrentSubEventIndex]["id"];
+	CurrentSubEventId = subs_data_set[CurrentSubEventIndex]["id"]; // debug sert à rien, non ???
 	
-	hidden_id.value = CurrentSubEventId;
+	hidden_id.value = CurrentSubEventIndex;
 	
 	//CurrentSubEventObj = subevent_list[0]; subs_data_set
 	CurrentSubEventObj = subs_data_set[CurrentSubEventIndex]; 

@@ -68,8 +68,10 @@ function isPlayerMatching (member, sub) {
 		} 
 	}
 	if (sub.rating_restriction !== '0'){
-		console.log(sub.rating_comp, sub.rating_limit, " vs ", member.rating);
+		console.log("restriction ", sub.rating_comp, sub.rating_limit, " vs member = ", member.rating);
 		if (sub.rating_comp == ">"){ 
+			console.log("sub.rating_limit = ",sub.rating_limit)
+			console.log("member.rating = ",member.rating)
 			if (member.rating <= sub.rating_limit){
 				alertSTR += "\n" + str["Rating_matching_problem"];
 				isMatching= false;
