@@ -51,8 +51,8 @@ function isPlayerMatching (member, sub) {
 	"Category_matching_problem":"Problème de respect des restrictions de catégorie",
 	"Rating_matching_problem":"Problème de respect des restrictions de classement Elo",
 	*/
-	console.log(member);
-	console.log(sub);
+	//console.log(member);
+	//console.log(sub);
 	let isMatching= true;
 	let alertSTR="";
 	if (sub.gender !== '*'){
@@ -68,23 +68,34 @@ function isPlayerMatching (member, sub) {
 		} 
 	}
 	if (sub.rating_restriction !== '0'){
-		console.log("restriction ", sub.rating_comp, sub.rating_limit, " vs member = ", member.rating);
+		/*
+		console.log("Le tournoi a une restriction de elo ");
+		console.log("restriction  : ", sub.rating_comp, sub.rating_limit, " vs member = ", member.rating);
+		console.log("typeOf(sub.rating_limit) ", typeof(sub.rating_limit));
+		console.log("typeOf(member.rating) ", typeof(member.rating));
+		*/
 		if (sub.rating_comp == ">"){ 
-			console.log("sub.rating_limit = ",sub.rating_limit)
-			console.log("member.rating = ",member.rating)
-			if (member.rating <= sub.rating_limit){
+			
+			//console.log("sub.rating_limit = ",sub.rating_comp, sub.rating_limit)
+			//console.log("member.rating = ",member.rating)
+			// note : data from the database are read as text
+			if (parseFloat(member.rating) <= parseFloat(sub.rating_limit)){
 				alertSTR += "\n" + str["Rating_matching_problem"];
 				isMatching= false;
 			}
 		}
 		if (sub.rating_comp == "<"){ 
-			if (member.rating >= sub.rating_limit){
+			console.log("sub.rating_limit = ",sub.rating_comp, sub.rating_limit)
+			console.log("member.rating = ",member.rating)
+
+			if (parseFloat(member.rating) >= parseFloat(sub.rating_limit)){
 				alertSTR += "\n" + str["Rating_matching_problem"];
 				isMatching= false;
 			}
 		}
 	}
 	if (alertSTR!=="") {
+		alertSTR = member.firstname + " " + member.lastname + "\n" + alertSTR;
 		alert(alertSTR);
 	}
 }

@@ -21,15 +21,13 @@ remplacement du lien subenvent par un picto
 afficher le nombre max d'inscrits
 afficher les dates sur un format lisible
 aligner le elo à droite (liste des inscrits)
-
+rating comparison fait sur des parseFloat
 
 ┌─────────────┐
 | in progress |
 └─────────────┘
-vérifier les contraintes
-bug à résoudre : affiche toujours pb  restriction pour subid=7
 
-
+search page : affiche mauvais message si on tape ENTER.
 ┌───────┐
 | To do |
 └───────┘
@@ -49,4 +47,4 @@ Dans la page Recherche de membre
     
 
 
-search page : affiche mauvais message si on tape ENTER.
+

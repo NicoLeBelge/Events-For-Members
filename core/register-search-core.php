@@ -51,12 +51,15 @@ if(isset($_POST['E4M_hidden_id']) && isset($_SESSION['subs_data_set'])){
 	var str = JSON.parse(`<?=$jsonstr?>`);
 	var request = new XMLHttpRequest();
 	var subs_data_set= JSON.parse(`<?=$subs_data_set_str?>`);
-	var subevent_index = `<?=$subevent_index?>`;
+	let subevent_index_str = `<?=$subevent_index?>`;
+	var subevent_index = parseInt(subevent_index_str,10);
+	console.log("subevent_index = ", subevent_index, "[", typeof(subevent_index),"]")
 	var currentSubEventObj = subs_data_set[subevent_index];
+	console.log(subs_data_set);
+
 	var subevent_link_icon = JSON.parse(`<?=$subevent_link_icon_str?>`);
 	
-	console.log("subevent_index in register_search_core --------");
-	console.log(subevent_index); // ici not defined
+
 	
 	var rating_t = currentSubEventObj.rating_type;
 
@@ -65,10 +68,7 @@ if(isset($_POST['E4M_hidden_id']) && isset($_SESSION['subs_data_set'])){
 
 	let subevent_html_id = document.getElementById('E4M_subeventinfo');
 	subevent_html_id.innerHTML = SubeventInfos2html (currentSubEventObj);
-	//console.log("subs_data_set = ", subs_data_set);
-	// var subevent_set = JSON.parse(`<!=$subevent_set_str?>`); // ca marche sauf si restrictions catégories (ou autres ??...)
-	//console.log("subevent_id = ", subevent_id);
-	//document.write(subs_data_set[subevent_id]['name']);
+	
 	function trouve(){
 		/*
 		Gets the string in the field 'namestart' of the form, pass it to API that returns the list of members
@@ -88,7 +88,7 @@ if(isset($_POST['E4M_hidden_id']) && isset($_SESSION['subs_data_set'])){
 			// var members = this.response;
 			let e = document.getElementById('E4M_members_table');
 			members = this.response;
-			console.log(members);
+			
 			let tch = MembersObjToTable(members);
 			e.innerHTML = tch;
 		}
