@@ -49,9 +49,12 @@ if(isset($_POST['E4M_hidden_id']) && isset($_SESSION['subs_data_set'])){
 	var request = new XMLHttpRequest();
 	var subs_data_set= JSON.parse(`<?=$subs_data_set_str?>`);
 	var subevent_id = `<?=$subevent_id?>`;
+	
 	var currentSubEvent = subs_data_set[subevent_id];
 	console.log("currentSubEvent in register_search_core --------");
 	console.log(currentSubEvent);
+	let rating_t = currentSubEvent.rating_type;
+
 	var members; // list of members matching search
 	var member; // member picked in list of member
 	//console.log("subs_data_set = ", subs_data_set);
@@ -67,7 +70,7 @@ if(isset($_POST['E4M_hidden_id']) && isset($_SESSION['subs_data_set'])){
 		var myForm = document.getElementById('myForm');
 		formData = new FormData(myForm);
 		var start = document.getElementById('namestart').value;
-		var XHR = './API/get-memberlist-by-namestart.php?start=' + start;
+		var XHR = './API/get-memberlist-by-namestart.php?start=' + start + "&ratn=" + rating_t;
 		request.open('GET', XHR);
 		request.responseType = 'json';
 		request.send();
