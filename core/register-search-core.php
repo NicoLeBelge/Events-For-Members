@@ -26,6 +26,7 @@ $subs_data_set_str = $_SESSION['subs_data_set'];
 if(isset($_POST['E4M_hidden_id']) && isset($_SESSION['subs_data_set'])){ 
 	//$subevent_id=$_GET['sub_json'];
 	$subevent_id = $_POST['E4M_hidden_id'];
+	var_dump($subevent_id);
 } else {
 	echo "this page can only be called from event description page";
 }
@@ -76,6 +77,7 @@ if(isset($_POST['E4M_hidden_id']) && isset($_SESSION['subs_data_set'])){
 			// var members = this.response;
 			let e = document.getElementById('E4M_members_table');
 			members = this.response;
+			console.log(members);
 			let tch = MembersObjToTable(members);
 			e.innerHTML = tch;
 		}

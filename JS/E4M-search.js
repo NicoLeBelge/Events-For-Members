@@ -51,10 +51,30 @@ function isPlayerMatching (member, sub) {
 	if (sub.gender !== '*'){
 		if (!sub.gender.includes(member.gender)){
 			isMatching= false;
-			alertSTR += str["Gender_matching_problem"];
+			alertSTR += "\n" + str["Gender_matching_problem"];
 		} 
 	}
-
+	if (sub.cat !== '*'){
+		if (!sub.cat.includes(member.cat)){
+			isMatching= false;
+			alertSTR += "\n" + str["Category_matching_problem"];
+		} 
+	}
+	if (sub.rating_restriction !== '0'){
+		console.log(sub.rating_comp, sub.rating_limit, " vs ", member.rating);
+		if (sub.rating_comp == ">"){ 
+			if (member.rating <= sub.rating_limit){
+				alertSTR += "\n" + str["Rating_matching_problem"];
+				isMatching= false;
+			}
+		}
+		if (sub.rating_comp == "<"){ 
+			if (member.rating >= sub.rating_limit){
+				alertSTR += "\n" + str["Rating_matching_problem"];
+				isMatching= false;
+			}
+		}
+	}
 	if (alertSTR!=="") {
 		alert(alertSTR);
 	}

@@ -144,7 +144,8 @@ if(isset($_GET['id'])){
 	
 	//CurrentSubEventId = subevent_list[0]["id"];
 	CurrentSubEventId = subs_data_set[CurrentSubEvent]["id"];
-	
+	console.log("CurrentSubEventId = ",CurrentSubEventId)
+	hidden_id.value = CurrentSubEventId;
 	
 	//CurrentSubEventObj = subevent_list[0]; subs_data_set
 	CurrentSubEventObj = subs_data_set[CurrentSubEvent]; 

@@ -25,24 +25,27 @@ aligner le elo à droite
 ┌─────────────┐
 | in progress |
 └─────────────┘
+debug rating  dans API
 
-récupérer TOUTES les données joueurs (réponse API --> tableau)
-vérifier les contraintes
-Ajouter un bouton VALIDER
 
 
 ┌───────┐
 | To do |
 └───────┘
-
+récupérer TOUTES les données joueurs (réponse API --> tableau)
+vérifier les contraintes
+Ajouter un bouton VALIDER
 Dans la page Recherche de membre
+    Considère le mauvais Elo ! (ACHOR tournoi 3 Elo blitz <1400)
     Valider la recherche par ENTER 
     Mettre un bouton "retour" dans le formulaire de recherche de membre
     Gérer les clubs "null" dans la liste des membres trouvés
     aligner le elo à droite
     Créer le lien vers la page d'enregistrement
     Rappeler les infos tournoi
-    ne rien afficher d'autre que le warning php si pas de données PQST
+    Mettre un message si aucun résultat
+    Boucler les tests de restrictions
+    
 
 
 search page : affiche mauvais message si on tape ENTER.
