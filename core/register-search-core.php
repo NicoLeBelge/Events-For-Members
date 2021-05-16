@@ -26,14 +26,13 @@ $subs_data_set_str = $_SESSION['subs_data_set'];
 if(isset($_POST['E4M_hidden_id']) && isset($_SESSION['subs_data_set'])){ 
 	//$subevent_id=$_GET['sub_json'];
 	$subevent_id = $_POST['E4M_hidden_id'];
-	var_dump($subevent_id);
 } else {
 	echo "this page can only be called from event description page";
 }
 
 ?>
 <div class='E4M_maindiv'>
-
+<div id="E4M_subeventinfo"></div>
 <form id='myForm'>
 		<label for="namestart"><?= $str['enter_start_name'] ?></label>
 		<input type="text" autocomplete="off" name="identifier" id="namestart" required>
@@ -53,7 +52,8 @@ if(isset($_POST['E4M_hidden_id']) && isset($_SESSION['subs_data_set'])){
 	var currentSubEvent = subs_data_set[subevent_id];
 	console.log("currentSubEvent in register_search_core --------");
 	console.log(currentSubEvent);
-	let rating_t = currentSubEvent.rating_type;
+	
+	var rating_t = currentSubEvent.rating_type;
 
 	var members; // list of members matching search
 	var member; // member picked in list of member

@@ -193,7 +193,6 @@ function SelectEvent(NumEvent) {
 	subevent_html_id.innerHTML = SubeventInfos2html(subs_data_set[CurrentSubEvent]);
 	registred_html_id.innerHTML = RegList2htmltable (member_list, NumEvent);
 	CurrentNbmax = subs_data_set[NumEvent]["nbmax"];
-	
 	CurrentSubEventObj = subs_data_set[CurrentSubEvent];
 	
 }
@@ -223,3 +222,5 @@ function download() {
 	element.click();
 	document.body.removeChild(element); // necessary ??
 	}
+	
+	

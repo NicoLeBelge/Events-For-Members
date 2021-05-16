@@ -27,7 +27,7 @@ aligner le elo à droite (liste des inscrits)
 | in progress |
 └─────────────┘
 vérifier les contraintes
-
+bug à résoudre : affiche toujours pb  restriction pour subid=7
 
 
 ┌───────┐

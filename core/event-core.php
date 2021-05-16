@@ -31,7 +31,7 @@ if(isset($_GET['id'])){
 	$reponse = $conn->query("SELECT * from subevents where event_id=$event_id");
 	$event_set["subs"] = $reponse->fetchAll(PDO::FETCH_ASSOC);
 
-	//var_dump($event_set["subs"]);
+	
 	$subs_data_jsonstr = json_encode($event_set["subs"], JSON_UNESCAPED_UNICODE);
 	$_SESSION['subs_data_set']=$subs_data_jsonstr;
 	$ratinglist="";
@@ -144,7 +144,7 @@ if(isset($_GET['id'])){
 	
 	//CurrentSubEventId = subevent_list[0]["id"];
 	CurrentSubEventId = subs_data_set[CurrentSubEvent]["id"];
-	console.log("CurrentSubEventId = ",CurrentSubEventId)
+	
 	hidden_id.value = CurrentSubEventId;
 	
 	//CurrentSubEventObj = subevent_list[0]; subs_data_set
@@ -169,7 +169,7 @@ if(isset($_GET['id'])){
 	subevent_html_id.innerHTML = SubeventInfos2html(subs_data_set[CurrentSubEvent]);
 	registred_html_id.innerHTML = RegList2htmltable (member_list, CurrentSubEvent);
 	/*
-	let destination = `<?=$cfg['registration_search_page']?>`+ "?sub=" + CurrentSubEvent;
+	let destination = `<!=$cfg['registration_search_page']?>`+ "?sub=" + CurrentSubEvent;
 	console.log("form_destination before modification = ",document.E4M_destination.action);
 	console.log("destination = ",destination);
 	

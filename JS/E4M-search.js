@@ -17,11 +17,11 @@ function MembersObjToTable(memberList) {
 	tablech += '</tr>';
 /*
 	"":"id FFE",
-    "lastname":"Nom",
-    "firstname":"Prénom",
-    "cat":"Cat.",
-    "club_name":"Club",
-    "Gender":"Genre"
+	"lastname":"Nom",
+	"firstname":"Prénom",
+	"cat":"Cat.",
+	"club_name":"Club",
+	"Gender":"Genre"
 */	
 	for (i in memberList){
 		tablech += '<tr onclick = pickplayer(\'' + memberList[i].id + '\')>';
@@ -48,8 +48,8 @@ function pickplayer (member_id) {
 function isPlayerMatching (member, sub) {
 	/*
 	"Gender_matching_problem":"Problème de respect des restrictions de genre",
-    "Category_matching_problem":"Problème de respect des restrictions de catégorie",
-    "Rating_matching_problem":"Problème de respect des restrictions de classement Elo",
+	"Category_matching_problem":"Problème de respect des restrictions de catégorie",
+	"Rating_matching_problem":"Problème de respect des restrictions de classement Elo",
 	*/
 	console.log(member);
 	console.log(sub);
