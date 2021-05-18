@@ -12,6 +12,7 @@ function MembersObjToTable(memberList) {
 	tablech += '<th>' + str["firstname"] + '</th>';
 	tablech += '<th>' + str["header_rating_name"] + '</th>';
 	tablech += '<th>' + str["cat"] + '</th>';
+	tablech += '<th>' + str["Gender_header"] + '</th>';
 	tablech += '<th>' + str["club_name"] + '</th>';
 	tablech += '<th>' + str["City"] + '</th>';
 	tablech += '</tr>';
@@ -30,6 +31,7 @@ function MembersObjToTable(memberList) {
 		tablech += '<td>' + memberList[i].firstname + '</td>';
 		tablech += '<td>' + memberList[i].rating + '</td>';
 		tablech += '<td>' + memberList[i].cat + '</td>';
+		tablech += '<td>' + memberList[i].gender + '</td>';
 		tablech += '<td>' + memberList[i].club_name + '</td>';
 		tablech += '<td>' + memberList[i].city + '</td>';
 		tablech += '</tr>';

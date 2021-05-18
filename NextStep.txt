@@ -26,11 +26,12 @@ rating comparison fait sur des parseFloat
 ┌─────────────┐
 | in progress |
 └─────────────┘
+ajout affichage et restriction de type (licence A/B)
 
-search page : affiche mauvais message si on tape ENTER.
 ┌───────┐
 | To do |
 └───────┘
+search page : affiche mauvais message si on tape ENTER.
 récupérer TOUTES les données joueurs (réponse API --> tableau)
 
 Ajouter un bouton VALIDER

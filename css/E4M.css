@@ -13,6 +13,9 @@ table, th, td {
 .E4M_regtable td:nth-child(2) {
 	text-align: right;
 }
+#E4M_members_table td:nth-child(4) {
+	text-align: right;
+}
 .E4M_maindiv p{
 	margin-top: 2px;
 	margin-bottom: 2px;
