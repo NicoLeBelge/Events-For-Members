@@ -69,11 +69,7 @@ function SubeventInfos2html (infoset){
 	/* subevent name */
 	html_string += "<h3>" + infoset.name + "</h3>" ;
 	
-	/* link */
-	if (infoset.link !== null){
-		//html_string += "<p>" + str['Label_link_to_sub'] + " : <a href=" + infoset.link + ">"+infoset.link+"</a></p>" ;
-		html_string += "<p> <a href=" + infoset.link + "> <img src='"+ subevent_link_icon + "'/></a></p>" ;
-	}
+	
 	/* date subevent */
 	if (infoset.datestart !== null){
 		html_string += "<p>" + infoset.datestart + "</p>" ;
@@ -108,6 +104,11 @@ function SubeventInfos2html (infoset){
 		restriction_string = infoset.rating_comp + infoset.rating_limit;
 	} 
 	html_string += "<p>" + str['Rating_name'] +" : " + rating_names[infoset.rating_type-1] + " " + restriction_string  +"</p>" ;
+	/* link */
+	if (infoset.link !== null){
+		//html_string += "<p>" + str['Label_link_to_sub'] + " : <a href=" + infoset.link + ">"+infoset.link+"</a></p>" ;
+		html_string += "<p> <a href=" + infoset.link + "> <img src='"+ subevent_link_icon + "'/></a></p>" ;
+	}
 	html_string += "<br/>"
 	
 	

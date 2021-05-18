@@ -15,6 +15,7 @@ $registration_search_page = json_encode($cfg['registration_search_page']);
 $cat_names_str = json_encode($cfg['cat_names']);
 $gender_names_str = json_encode($cfg['gender_names']);
 $rating_names_str = json_encode($cfg['rating_names']);
+$type_names_str = json_encode($cfg['type_names']);
 
 $str = json_decode(file_get_contents('./json/strings.json'),true);	
 $jsonstr = json_encode($str);	
@@ -91,12 +92,12 @@ if(isset($_GET['id'])){
 <script type="text/javascript">
 	var hidden_id= document.getElementById('E4M_hidden_id');
 	
-	//console.log("document.E4M_destination.value = ",document.E4M_destination.value)
 	/* let's declare global variables used by external JS */
 	
 	var rating_names = JSON.parse(`<?=$rating_names_str?>`);
 	var cat_names = JSON.parse(`<?=$cat_names_str?>`);
 	var gender_names = JSON.parse('<?=$gender_names_str?>');
+	var type_names = JSON.parse('<?=$type_names_str?>');
 	var str = JSON.parse(`<?=$jsonstr?>`);
 	var subevent_link_icon = JSON.parse(`<?=$subevent_link_icon_str?>`);
 	
@@ -130,43 +131,23 @@ if(isset($_GET['id'])){
 	var event_html_id = document.getElementById('E4M_eventinfo');
 	var subevent_html_id = document.getElementById('E4M_subeventinfo');
 	var registred_html_id = document.getElementById('E4M_regtable');
-	// var form_destination = document.E4M_destination.action;
-	
-/*
-	var rq_event = new XMLHttpRequest();
-	rq_event.open('GET', './API/get-event-info.php?event=<?=$eventid?>'); // bug wrong subevent selected
-	rq_event.responseType = 'json';
-	rq_event.send();
-*/	
+
 
 	eventinfoset =event_data_set['infos'][CurrentSubEventIndex];
-	//subevent_list = event_data_set['subs'];
-	
-	//CurrentSubEventId = subevent_list[0]["id"];
 	CurrentSubEventId = subs_data_set[CurrentSubEventIndex]["id"]; // debug sert à rien, non ???
-	
 	hidden_id.value = CurrentSubEventIndex;
-	
-	//CurrentSubEventObj = subevent_list[0]; subs_data_set
 	CurrentSubEventObj = subs_data_set[CurrentSubEventIndex]; 
-	
-	//CurrentNbmax = subevent_list[0]["nbmax"];
-	CurrentNbmax = CurrentSubEventObj["nbmax"]
+	CurrentNbmax = CurrentSubEventObj["nbmax"];
 	
 	member_list =  event_data_set['registrations'];
 	NbRegTot = member_list.length;
 
 	event_html_id.innerHTML = eventInfos2html(eventinfoset);
-
 	subevent_html_id.innerHTML = SubeventInfos2html(subs_data_set[CurrentSubEventIndex]);
 	registred_html_id.innerHTML = RegList2htmltable (member_list, CurrentSubEventIndex);
 	
-	
 	NbSubs=subs_data_set.length;
-	
 	if (NbSubs > 1){
 		BuildHTMLEventSelector (NbSubs);
 	}
-	
-
 </script>
