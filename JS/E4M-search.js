@@ -10,25 +10,20 @@ function MembersObjToTable(memberList) {
 	tablech += '<th>' + str["fede_id"] + '</th>';
 	tablech += '<th>' + str["lastname"] + '</th>';
 	tablech += '<th>' + str["firstname"] + '</th>';
+	tablech += '<th>' + str["Type_header"] + '</th>';
 	tablech += '<th>' + str["header_rating_name"] + '</th>';
 	tablech += '<th>' + str["cat"] + '</th>';
 	tablech += '<th>' + str["Gender_header"] + '</th>';
 	tablech += '<th>' + str["club_name"] + '</th>';
 	tablech += '<th>' + str["City"] + '</th>';
 	tablech += '</tr>';
-/*
-	"":"id FFE",
-	"lastname":"Nom",
-	"firstname":"Prénom",
-	"cat":"Cat.",
-	"club_name":"Club",
-	"Gender":"Genre"
-*/	
+
 	for (i in memberList){
 		tablech += '<tr onclick = pickplayer(\'' + memberList[i].id + '\')>';
 		tablech += '<td>' + memberList[i].fede_id + '</td>';
 		tablech += '<td>' + memberList[i].lastname + '</td>';
 		tablech += '<td>' + memberList[i].firstname + '</td>';
+		tablech += '<td>' + memberList[i].member_type + '</td>';
 		tablech += '<td>' + memberList[i].rating + '</td>';
 		tablech += '<td>' + memberList[i].cat + '</td>';
 		tablech += '<td>' + memberList[i].gender + '</td>';
@@ -52,15 +47,22 @@ function isPlayerMatching (member, sub) {
 	"Gender_matching_problem":"Problème de respect des restrictions de genre",
 	"Category_matching_problem":"Problème de respect des restrictions de catégorie",
 	"Rating_matching_problem":"Problème de respect des restrictions de classement Elo",
+	"Type_matching_problem":"Problème de restrictions de licence",
 	*/
-	//console.log(member);
-	//console.log(sub);
+	console.log(member);
+	console.log(sub);
 	let isMatching= true;
 	let alertSTR="";
 	if (sub.gender !== '*'){
 		if (!sub.gender.includes(member.gender)){
 			isMatching= false;
 			alertSTR += "\n" + str["Gender_matching_problem"];
+		} 
+	}
+	if (sub.type !== '*'){
+		if (!sub.type.includes(member.member_type)){
+			isMatching= false;
+			alertSTR += "\n" + str["Type_matching_problem"];
 		} 
 	}
 	if (sub.cat !== '*'){
@@ -70,16 +72,7 @@ function isPlayerMatching (member, sub) {
 		} 
 	}
 	if (sub.rating_restriction !== '0'){
-		/*
-		console.log("Le tournoi a une restriction de elo ");
-		console.log("restriction  : ", sub.rating_comp, sub.rating_limit, " vs member = ", member.rating);
-		console.log("typeOf(sub.rating_limit) ", typeof(sub.rating_limit));
-		console.log("typeOf(member.rating) ", typeof(member.rating));
-		*/
 		if (sub.rating_comp == ">"){ 
-			
-			//console.log("sub.rating_limit = ",sub.rating_comp, sub.rating_limit)
-			//console.log("member.rating = ",member.rating)
 			// note : data from the database are read as text
 			if (parseFloat(member.rating) <= parseFloat(sub.rating_limit)){
 				alertSTR += "\n" + str["Rating_matching_problem"];

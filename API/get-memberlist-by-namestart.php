@@ -26,7 +26,7 @@ if (!isset($_GET['start'])) { // returns dummy line if no string to search
 		}
 	}
 	$rating = "rating"."$n";	
-	$qtxt = "	SELECT members.id as id, fede_id, lastname, firstname, $rating as rating, cat, gender, clubs.id as id_club, clubs.name as club_name, clubs.city as city, clubs.region as reg
+	$qtxt = "	SELECT members.id as id, fede_id, lastname, firstname, $rating as rating, cat, member_type, gender, clubs.id as id_club, clubs.name as club_name, clubs.city as city, clubs.region as reg
 				FROM members 
 				LEFT JOIN clubs
 				ON members.club_id = clubs.club_id

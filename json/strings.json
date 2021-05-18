@@ -34,6 +34,7 @@
     "Gender_matching_problem":"Problème de respect des restrictions de genre",
     "Category_matching_problem":"Problème de respect des restrictions de catégorie",
     "Rating_matching_problem":"Problème de respect des restrictions de classement Elo",
+    "Type_matching_problem":"Problème de restrictions de licence",
     "fede_id":"id FFE",
     "lastname":"Nom",
     "firstname":"Prénom",
@@ -41,6 +42,7 @@
     "club_name":"Club",
     "City":"Ville",
     "Gender_header":"F/M",
+    "Type_header":"Lic.",
     "Gender":"Genre"
     
 
