@@ -18,6 +18,7 @@ $registration_check_page = json_encode($cfg['registration_check_page']); // debu
 $cat_names_str = json_encode($cfg['cat_names']);
 $gender_names_str = json_encode($cfg['gender_names']);
 $rating_names_str = json_encode($cfg['rating_names']);
+$type_names_str = json_encode($cfg['type_names']);
 $json = file_get_contents('./json/strings.json');
 $str = json_decode($json,true);	
 $jsonstr = json_encode($str);	
@@ -47,25 +48,21 @@ if(isset($_POST['E4M_hidden_id']) && isset($_SESSION['subs_data_set'])){
 	var rating_names = JSON.parse(`<?=$rating_names_str?>`);
 	var cat_names = JSON.parse(`<?=$cat_names_str?>`);
 	var gender_names = JSON.parse('<?=$gender_names_str?>');
+	var type_names = JSON.parse('<?=$type_names_str?>');
 	var registration_check_page = `<?= $cfg['registration_check_page'] ?>`;
 	var str = JSON.parse(`<?=$jsonstr?>`);
 	var request = new XMLHttpRequest();
 	var subs_data_set= JSON.parse(`<?=$subs_data_set_str?>`);
 	let subevent_index_str = `<?=$subevent_index?>`;
 	var subevent_index = parseInt(subevent_index_str,10);
-	console.log("subevent_index = ", subevent_index, "[", typeof(subevent_index),"]")
 	var currentSubEventObj = subs_data_set[subevent_index];
-	console.log(subs_data_set);
-
 	var subevent_link_icon = JSON.parse(`<?=$subevent_link_icon_str?>`);
-	
-
-	
 	var rating_t = currentSubEventObj.rating_type;
 
 	var members; // list of members matching search
+	console.log("typeof members juste après simple déclaration var : ", typeof(members));
 	var member; // member picked in list of member
-
+	console.log("typeof member juste après simple déclaration var : ", typeof(member));
 	let subevent_html_id = document.getElementById('E4M_subeventinfo');
 	subevent_html_id.innerHTML = SubeventInfos2html (currentSubEventObj);
 	

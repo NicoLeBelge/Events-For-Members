@@ -75,7 +75,6 @@ function SubeventInfos2html (infoset){
 		html_string += "<p>" + infoset.datestart + "</p>" ;
 	}
 	/* gender */
-	//html_string += "<p>" + str['Gender'] + " : ";
 	let gender_array = new Array();
 	if (infoset.gender == "*") {
 		gender_array = gender_names;
@@ -83,20 +82,27 @@ function SubeventInfos2html (infoset){
 		gender_array = JSON.parse(infoset.gender.replace(/'/g, '"')); // see cat below to understand
 	}
 	let iconString = CatArrayToList (gender_names, gender_array); 
-	html_string += iconString + "</p>";
+	html_string += "</p>" + iconString + "</p>";
 	
 	/* categories */
-	//html_string += "<p>" + str['Categories'] + " : ";
 	let cat_array = new Array();
 	if (infoset.cat == "*") {
 		cat_array = cat_names;
 	} else {
-		// cat_array = JSON.parse(infoset.cat); doesn't work, I don't know why (debug)
 		cat_array = JSON.parse(infoset.cat.replace(/'/g, '"')); // need to replace single quote by double quotes
 	}
 	iconString = CatArrayToList (cat_names, cat_array); 
-	html_string += iconString + "</p>";
+	html_string += "</p>" + iconString + "</p>";
 	
+	/* Types */
+	let type_array = new Array();
+	if (infoset.type == "*") {
+		type_array = type_names;
+	} else {
+		type_array = JSON.parse(infoset.type.replace(/'/g, '"')); // need to replace single quote by double quotes
+	}
+	iconString = CatArrayToList (type_names, type_array); 
+	html_string += "</p>" + iconString + "</p>";
 	
 	/* rating_type + optional rating restriction */
 	let restriction_string="";

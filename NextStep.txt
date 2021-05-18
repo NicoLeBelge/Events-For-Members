@@ -47,5 +47,5 @@ Dans la page Recherche de membre
     Boucler les tests de restrictions
     
 Tester avec un subevent qui a une date différente du event
-
+Gérer les noms d'events ou de subevents avec des guillemets, ou s'assurer qu'ils soient sans.
 
