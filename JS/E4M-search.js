@@ -49,8 +49,6 @@ function isPlayerMatching (member, sub) {
 	"Rating_matching_problem":"Problème de respect des restrictions de classement Elo",
 	"Type_matching_problem":"Problème de restrictions de licence",
 	*/
-	console.log(member);
-	console.log(sub);
 	let isMatching= true;
 	let alertSTR="";
 	if (sub.gender !== '*'){
@@ -80,9 +78,6 @@ function isPlayerMatching (member, sub) {
 			}
 		}
 		if (sub.rating_comp == "<"){ 
-			console.log("sub.rating_limit = ",sub.rating_comp, sub.rating_limit)
-			console.log("member.rating = ",member.rating)
-
 			if (parseFloat(member.rating) >= parseFloat(sub.rating_limit)){
 				alertSTR += "\n" + str["Rating_matching_problem"];
 				isMatching= false;
