@@ -33,20 +33,18 @@ affiche un problème de licence pour les tournois en licence A
 | To do |
 └───────┘
 search page : affiche mauvais message si on tape ENTER.
-récupérer TOUTES les données joueurs (réponse API --> tableau)
+Il est passé où le géolocalisateur ???
 
 Ajouter un bouton VALIDER
 Dans la page Recherche de membre
-    Considère le mauvais Elo ! (ACHOR tournoi 3 Elo blitz <1400)
     Valider la recherche par ENTER 
     Mettre un bouton "retour" dans le formulaire de recherche de membre
-    Gérer les clubs "null" dans la liste des membres trouvés
-    aligner le elo à droite
     Créer le lien vers la page d'enregistrement
-    Rappeler les infos tournoi
     Mettre un message si aucun résultat
-    Boucler les tests de restrictions
+    Mettre un message "compléter" si trop de résultats
+    Mettre une légende si joueurs en attente de confirmation
     
 Tester avec un subevent qui a une date différente du event
 Gérer les noms d'events ou de subevents avec des guillemets, ou s'assurer qu'ils soient sans.
+afficher les titres (et probablement plus) dans la liste des inscrits
 

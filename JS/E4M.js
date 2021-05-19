@@ -74,15 +74,17 @@ function SubeventInfos2html (infoset){
 	if (infoset.datestart !== null){
 		html_string += "<p>" + infoset.datestart + "</p>" ;
 	}
-	
-	
+
 	/* categories */
+	//html_string += "<p>" + str['Categories'] + " : ";
 	let cat_array = new Array();
 	if (infoset.cat == "*") {
 		cat_array = cat_names;
 	} else {
+		// cat_array = JSON.parse(infoset.cat); doesn't work, I don't know why (debug)
 		cat_array = JSON.parse(infoset.cat.replace(/'/g, '"')); // need to replace single quote by double quotes
 	}
+
 	let iconString = CatArrayToList (cat_names, cat_array); 
 	html_string += "</p>" + iconString + "</p>";
 	
@@ -105,6 +107,10 @@ function SubeventInfos2html (infoset){
 	}
 	iconString = CatArrayToList (type_names, type_array); 
 	html_string += "</p>" + iconString + "</p>";
+
+	iconString = CatArrayToList (cat_names, cat_array); 
+	html_string += iconString + "</p>";
+	
 	
 	/* rating_type + optional rating restriction */
 	let restriction_string="";

@@ -83,7 +83,6 @@ if(isset($_POST['E4M_hidden_id']) && isset($_SESSION['subs_data_set'])){
 			// var members = this.response;
 			let e = document.getElementById('E4M_members_table');
 			members = this.response;
-			
 			let tch = MembersObjToTable(members);
 			e.innerHTML = tch;
 		}
