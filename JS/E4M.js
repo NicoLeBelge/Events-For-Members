@@ -74,15 +74,7 @@ function SubeventInfos2html (infoset){
 	if (infoset.datestart !== null){
 		html_string += "<p>" + infoset.datestart + "</p>" ;
 	}
-	/* gender */
-	let gender_array = new Array();
-	if (infoset.gender == "*") {
-		gender_array = gender_names;
-	} else {
-		gender_array = JSON.parse(infoset.gender.replace(/'/g, '"')); // see cat below to understand
-	}
-	let iconString = CatArrayToList (gender_names, gender_array); 
-	html_string += "</p>" + iconString + "</p>";
+	
 	
 	/* categories */
 	let cat_array = new Array();
@@ -91,9 +83,19 @@ function SubeventInfos2html (infoset){
 	} else {
 		cat_array = JSON.parse(infoset.cat.replace(/'/g, '"')); // need to replace single quote by double quotes
 	}
-	iconString = CatArrayToList (cat_names, cat_array); 
+	let iconString = CatArrayToList (cat_names, cat_array); 
 	html_string += "</p>" + iconString + "</p>";
 	
+	/* gender */
+	let gender_array = new Array();
+	if (infoset.gender == "*") {
+		gender_array = gender_names;
+	} else {
+		gender_array = JSON.parse(infoset.gender.replace(/'/g, '"')); // see cat below to understand
+	}
+	iconString = CatArrayToList (gender_names, gender_array); 
+	html_string += "</p>" + iconString + "</p>";
+
 	/* Types */
 	let type_array = new Array();
 	if (infoset.type == "*") {

@@ -60,9 +60,7 @@ if(isset($_POST['E4M_hidden_id']) && isset($_SESSION['subs_data_set'])){
 	var rating_t = currentSubEventObj.rating_type;
 
 	var members; // list of members matching search
-	console.log("typeof members juste après simple déclaration var : ", typeof(members));
 	var member; // member picked in list of member
-	console.log("typeof member juste après simple déclaration var : ", typeof(member));
 	let subevent_html_id = document.getElementById('E4M_subeventinfo');
 	subevent_html_id.innerHTML = SubeventInfos2html (currentSubEventObj);
 	

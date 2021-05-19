@@ -23,10 +23,11 @@ afficher les dates sur un format lisible
 aligner le elo à droite (liste des inscrits)
 rating comparison fait sur des parseFloat
 ajout affichage et restriction de type (licence A/B) 
+affiche un problème de licence pour les tournois en licence A
 ┌─────────────┐
 | in progress |
 └─────────────┘
-affiche un problème de licence pour les tournois en licence A
+
 
 ┌───────┐
 | To do |
