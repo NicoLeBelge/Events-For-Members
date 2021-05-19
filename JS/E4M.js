@@ -76,7 +76,6 @@ function SubeventInfos2html (infoset){
 	}
 
 	/* categories */
-	//html_string += "<p>" + str['Categories'] + " : ";
 	let cat_array = new Array();
 	if (infoset.cat == "*") {
 		cat_array = cat_names;
@@ -107,10 +106,6 @@ function SubeventInfos2html (infoset){
 	}
 	iconString = CatArrayToList (type_names, type_array); 
 	html_string += "</p>" + iconString + "</p>";
-
-	iconString = CatArrayToList (cat_names, cat_array); 
-	html_string += iconString + "</p>";
-	
 	
 	/* rating_type + optional rating restriction */
 	let restriction_string="";
