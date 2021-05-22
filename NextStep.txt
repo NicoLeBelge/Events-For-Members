@@ -27,7 +27,7 @@ affiche un problème de licence pour les tournois en licence A
 ┌─────────────┐
 | in progress |
 └─────────────┘
-
+Tentative de réparation suite Pb pull sur portable
 
 ┌───────┐
 | To do |
