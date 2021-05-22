@@ -24,7 +24,7 @@ $str = json_decode($json,true);
 $jsonstr = json_encode($str);	
 $subs_data_set_str = $_SESSION['subs_data_set'];
 
-/* this page is supposed to be called with event id, let's set it to 1 if omitted */
+/* this page must be called with event id, let's set it to 1 if omitted */
 if(isset($_POST['E4M_hidden_id']) && isset($_SESSION['subs_data_set'])){ 
 	//$subevent_id=$_GET['sub_json'];
 	$subevent_index = $_POST['E4M_hidden_id'];
@@ -42,6 +42,13 @@ if(isset($_POST['E4M_hidden_id']) && isset($_SESSION['subs_data_set'])){
 <br/><br/>
 <div id="E4M_members_table" class="E4M_hoverable_list"></div>
 </div>
+<form action="<?= $cfg['registration_check_page'] ?>" id='ValidationForm' method="POST">
+	<input type="text" autocomplete="off" name="member_name" id="member_name" required>
+	<input type="text" autocomplete="off" name="member_id" id="member_id" required>
+	<input type="text" autocomplete="off" name="sub_id" id="sub_id" required>
+	<button type="submit" ><?= $str["Register_confirm"] ?></button>
+</form> 
+
 <script src="./JS/E4M-search.js"></script>
 <script src="./JS/E4M.js"></script>
 <script type="text/javascript">
@@ -56,11 +63,15 @@ if(isset($_POST['E4M_hidden_id']) && isset($_SESSION['subs_data_set'])){
 	let subevent_index_str = `<?=$subevent_index?>`;
 	var subevent_index = parseInt(subevent_index_str,10);
 	var currentSubEventObj = subs_data_set[subevent_index];
+	var currentSubEventId = currentSubEventObj.id;
+	console.log("currentSubEventId = ",currentSubEventId);
 	var subevent_link_icon = JSON.parse(`<?=$subevent_link_icon_str?>`);
 	var rating_t = currentSubEventObj.rating_type;
 
 	var members; // list of members matching search
 	var member; // member picked in list of member
+	
+
 	let subevent_html_id = document.getElementById('E4M_subeventinfo');
 	subevent_html_id.innerHTML = SubeventInfos2html (currentSubEventObj);
 	
@@ -70,9 +81,9 @@ if(isset($_POST['E4M_hidden_id']) && isset($_SESSION['subs_data_set'])){
 		who's name starts with this string. 
 		Build the table with members that match the start
 		*/
-		var myForm = document.getElementById('myForm');
-		formData = new FormData(myForm);
-		var start = document.getElementById('namestart').value;
+		//var myForm = document.getElementById('myForm');
+		//formData = new FormData(myForm); // debug ça sert à quelque chose ???
+		let start = document.getElementById('namestart').value;
 		var XHR = './API/get-memberlist-by-namestart.php?start=' + start + "&ratn=" + rating_t;
 		request.open('GET', XHR);
 		request.responseType = 'json';
@@ -87,4 +98,5 @@ if(isset($_POST['E4M_hidden_id']) && isset($_SESSION['subs_data_set'])){
 			e.innerHTML = tch;
 		}
 	}
+	
 </script>
