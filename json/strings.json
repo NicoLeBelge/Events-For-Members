@@ -2,6 +2,7 @@
     "id":"identifiant",
     "email":"e-mail",
     "id_or_email":"identifiant ou e-mail",
+    "Member":"Licencié(e)",
     "password":"mot de passe",
     "event_list_title":"Liste des évènements programmés",
     "date_label":"📅 date",

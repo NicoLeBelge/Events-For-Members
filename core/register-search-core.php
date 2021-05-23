@@ -10,6 +10,7 @@ He is then redirected to event page, where he can see the name added in the part
 
 /* lets get strings from json folder (strings displayed and configuration strings) */
 // debug --> enlever ce qui est inutile
+
 $json = file_get_contents('./json/config.json'); 
 $cfg = json_decode($json,true);	
 
@@ -42,11 +43,19 @@ if(isset($_POST['E4M_hidden_id']) && isset($_SESSION['subs_data_set'])){
 <br/><br/>
 <div id="E4M_members_table" class="E4M_hoverable_list"></div>
 </div>
-<form action="<?= $cfg['registration_check_page'] ?>" id='ValidationForm' method="POST">
-	<input type="text" autocomplete="off" name="member_name" id="member_name" required>
-	<input type="text" autocomplete="off" name="member_id" id="member_id" required>
-	<input type="text" autocomplete="off" name="sub_id" id="sub_id" required>
-	<button type="submit" ><?= $str["Register_confirm"] ?></button>
+<form action="<?= $cfg['registration_check_page'] ?>" id='ValidationForm' method="POST" >
+
+
+	<label for="member_name"><?= $str['Member'] ?></label>
+	<input type="text" autocomplete="off" name="member_name" id="member_name" readonly required>
+	<?php if ($_SESSION["secured"]=="1"): ?>
+		<label for="member_email"><?= $str['email'] ?></label>
+		<input type="email" autocomplete="on" name="member_email" id="member_email" required>
+	<?php endif; ?>
+	
+	<input type="hidden" autocomplete="off" name="member_id" id="member_id" required>
+	<input type="hidden" autocomplete="off" name="sub_id" id="sub_id" required>
+	<button type="submit" id="register_btn" disabled><?= $str["Register_confirm"] ?></button>
 </form> 
 
 <script src="./JS/E4M-search.js"></script>

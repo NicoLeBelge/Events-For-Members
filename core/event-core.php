@@ -28,7 +28,7 @@ if(isset($_GET['id'])){
 	
 	$reponse = $conn->query("SELECT * from events where id=$event_id");
 	$event_set["infos"] = $reponse->fetchAll(PDO::FETCH_ASSOC);
-	
+	$_SESSION["secured"]=$event_set["infos"][0]["secured"]; // used on seach page to display e-mail input in form
 	$reponse = $conn->query("SELECT * from subevents where event_id=$event_id");
 	$event_set["subs"] = $reponse->fetchAll(PDO::FETCH_ASSOC);
 
@@ -131,10 +131,11 @@ if(isset($_GET['id'])){
 	var event_html_id = document.getElementById('E4M_eventinfo');
 	var subevent_html_id = document.getElementById('E4M_subeventinfo');
 	var registred_html_id = document.getElementById('E4M_regtable');
+	
 
-
-	eventinfoset =event_data_set['infos'][CurrentSubEventIndex];
-	CurrentSubEventId = subs_data_set[CurrentSubEventIndex]["id"]; // debug sert à rien, non ???
+	eventinfoset =event_data_set['infos'][0]; 
+	
+	// CurrentSubEventId = subs_data_set[CurrentSubEventIndex]["id"]; // debug sert à rien, non ???
 	hidden_id.value = CurrentSubEventIndex;
 	CurrentSubEventObj = subs_data_set[CurrentSubEventIndex]; 
 	CurrentNbmax = CurrentSubEventObj["nbmax"];

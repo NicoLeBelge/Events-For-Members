@@ -40,6 +40,11 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 </div>
 <script src="./JS/E4M.js"></script>
 <script type="text/javascript">
+/*
+vérifier que
+	le joueur n'est pas déjà inscrit dans ce tournoi
+	l'email est fourni si tournoi sécurisé 
+ */
 	var message = `<?=$message?>`;
 	
 	document.getElementById('E4M_message').innerHTML = "<p>" + message + "</p>";
