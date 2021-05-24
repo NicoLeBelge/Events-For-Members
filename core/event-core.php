@@ -135,7 +135,7 @@ if(isset($_GET['id'])){
 
 	eventinfoset =event_data_set['infos'][0]; 
 	
-	// CurrentSubEventId = subs_data_set[CurrentSubEventIndex]["id"]; // debug sert à rien, non ???
+	CurrentSubEventId = subs_data_set[CurrentSubEventIndex]["id"]; 
 	hidden_id.value = CurrentSubEventIndex;
 	CurrentSubEventObj = subs_data_set[CurrentSubEventIndex]; 
 	CurrentNbmax = CurrentSubEventObj["nbmax"];

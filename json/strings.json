@@ -37,6 +37,7 @@
     "Category_matching_problem":"Problème de respect des restrictions de catégorie",
     "Rating_matching_problem":"Problème de respect des restrictions de classement Elo",
     "Type_matching_problem":"Problème de restrictions de licence",
+    "Already_registered":"Membre déjà inscrit dans ce tournoi",
     "fede_id":"id FFE",
     "lastname":"Nom",
     "firstname":"Prénom",
