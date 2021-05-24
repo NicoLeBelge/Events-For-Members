@@ -7,6 +7,8 @@ outpu : registration of the member for the mentionned subevent
 
 /* lets get strings from json folder (strings displayed and configuration strings) */
 // debug --> enlever ce qui est inutile
+
+include('./include/str-tools.php');
 $json = file_get_contents('./json/config.json'); 
 $cfg = json_decode($json,true);	
 
@@ -19,25 +21,43 @@ $type_names_str = json_encode($cfg['type_names']);
 $json = file_get_contents('./json/strings.json');
 $str = json_decode($json,true);	
 $jsonstr = json_encode($str);	
-$subs_data_set_str = $_SESSION['subs_data_set'];
 
 /* this page is supposed to be called with event id and member id */
-var_dump($_POST['member_id']);
-var_dump($_POST['sub_id']);
+
 if(isset($_POST['member_id']) && isset($_POST['sub_id'])){ 
 	$subevent_id = $_POST['sub_id'];
 	$member_id = $_POST['member_id'];
-	var_dump($subevent_id);
-	var_dump($member_id);
+
 	include('../_local-connect/connect.php'); 
+	
+
+	
 	$qtxt = "SELECT * from registrations
 			WHERE member_id=$member_id 
 			AND subevent_id=$subevent_id";
 	$result = $conn->query($qtxt);
 	if ($result->rowCount() !== 0) { 
 		//member already registered in this subevent
-		$message=str["Already_registered"];
+		$message=$str["Already_registered"];
+
+		var_dump($message);
 	} else {
+		// recover subevent.name and events.secured
+		$qtxt = "SELECT	subevents.event_id as eventid,
+						subevents.name as subname,
+						subevents.id as subid,
+						events.secured as sec
+				FROM subevents
+				INNER JOIN events
+				ON subevents.event_id = events.id	
+				WHERE subevents.id = $subevent_id";
+		$result = $conn->query($qtxt);
+		$data = array();
+		$data = $result->fetchAll(PDO::FETCH_ASSOC);
+		$subevent_name=$data["subname"];
+		$event_secured=$data["sec"];
+echo"$subevent_name";var_dump($subevent_name);echo"<br/>";
+echo"$event_secured";var_dump($event_secured);echo"<br/>";
 		$req=$conn->prepare("INSERT INTO registrations (member_id, subevent_id, confirmed, code) 
 						VALUES (:new_member,
 								:new_sub, 
@@ -54,9 +74,10 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 		//$link = "https://www.chessmooc.org/web/login/signup-end.php?code=$newcode";
 		$newconfirmed = 1;
 		$req->execute();	
+		$message="inscription enregistrée avec succès, affiner le message.";
 	}		
 
-	$message="inscription OK";
+	
 } else {
 	echo "Unothorized access to this page";
 }

@@ -35,7 +35,18 @@ if(isset($_POST['E4M_hidden_id']) && isset($_SESSION['subs_data_set'])){
 ?>
 <div class='E4M_maindiv'>
 <div id="E4M_subeventinfo" class="E4M_subeventinfo"></div>
-<form id='myForm'>
+
+<form action="<?= $cfg['registration_check_page'] ?>" id='ValidationForm' method="POST" >
+	<label for="member_name"><?= $str['Member'] ?></label>
+	<input type="text" autocomplete="off" name="member_name" id="member_name" readonly required>
+	<?php if ($_SESSION["secured"]=="1"): ?>
+		<label for="member_email"><?= $str['email'] ?></label>
+		<input type="email" autocomplete="on" name="member_email" id="member_email" required>
+	<?php endif; ?>
+	<input type="hidden" autocomplete="off" name="member_id" id="member_id" required>
+	<input type="hidden" autocomplete="off" name="sub_id" id="sub_id" required>
+	<button type="submit" id="register_btn" disabled><?= $str["Register_confirm"] ?></button>
+</form> <form id='myForm'>
 	<label for="namestart"><?= $str['enter_start_name'] ?></label>
 	<input type="text" autocomplete="off" name="identifier" id="namestart" required>
 </form> 
@@ -43,20 +54,7 @@ if(isset($_POST['E4M_hidden_id']) && isset($_SESSION['subs_data_set'])){
 <br/><br/>
 <div id="E4M_members_table" class="E4M_hoverable_list"></div>
 </div>
-<form action="<?= $cfg['registration_check_page'] ?>" id='ValidationForm' method="POST" >
 
-
-	<label for="member_name"><?= $str['Member'] ?></label>
-	<input type="text" autocomplete="off" name="member_name" id="member_name" readonly required>
-	<?php if ($_SESSION["secured"]=="1"): ?>
-		<label for="member_email"><?= $str['email'] ?></label>
-		<input type="email" autocomplete="on" name="member_email" id="member_email" required>
-	<?php endif; ?>
-	
-	<input type="hidden" autocomplete="off" name="member_id" id="member_id" required>
-	<input type="hidden" autocomplete="off" name="sub_id" id="sub_id" required>
-	<button type="submit" id="register_btn" disabled><?= $str["Register_confirm"] ?></button>
-</form> 
 
 <script src="./JS/E4M-search.js"></script>
 <script src="./JS/E4M.js"></script>
