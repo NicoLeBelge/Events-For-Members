@@ -81,7 +81,9 @@ if(isset($_POST['E4M_hidden_id']) && isset($_SESSION['subs_data_set'])){
 
 	let subevent_html_id = document.getElementById('E4M_subeventinfo');
 	subevent_html_id.innerHTML = SubeventInfos2html (currentSubEventObj);
-	
+	/*"Search_instruction":"Entrez les premières lettres du nom recherché",
+    "Pick_instruction":"Sélectionnez le nom dans la liste", ici
+	*/
 	function trouve(){
 		/*
 		Gets the string in the field 'namestart' of the form, pass it to API that returns the list of members

@@ -39,8 +39,6 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 	if ($result->rowCount() !== 0) { 
 		//member already registered in this subevent
 		$message=$str["Already_registered"];
-
-		var_dump($message);
 	} else {
 		// recover subevent.name and events.secured
 		$qtxt = "SELECT	subevents.event_id as eventid,
@@ -54,10 +52,10 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 		$result = $conn->query($qtxt);
 		$data = array();
 		$data = $result->fetchAll(PDO::FETCH_ASSOC);
-		$subevent_name=$data["subname"];
-		$event_secured=$data["sec"];
-echo"$subevent_name";var_dump($subevent_name);echo"<br/>";
-echo"$event_secured";var_dump($event_secured);echo"<br/>";
+	
+		$subevent_name=$data[0]["subname"];
+		$event_secured=$data[0]["sec"];
+
 		$req=$conn->prepare("INSERT INTO registrations (member_id, subevent_id, confirmed, code) 
 						VALUES (:new_member,
 								:new_sub, 
@@ -72,7 +70,9 @@ echo"$event_secured";var_dump($event_secured);echo"<br/>";
 		//$newcode = RandomString(10);
 		$newcode = "pipocode";
 		//$link = "https://www.chessmooc.org/web/login/signup-end.php?code=$newcode";
-		$newconfirmed = 1;
+		$newconfirmed = $event_secured? 1 : 0;
+		echo "$newconfirmed :";
+		var_dump($newconfirmed);
 		$req->execute();	
 		$message="inscription enregistrée avec succès, affiner le message.";
 	}		
