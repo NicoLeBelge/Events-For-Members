@@ -41,12 +41,14 @@ if(isset($_POST['E4M_hidden_id']) && isset($_SESSION['subs_data_set'])){
 	<input type="text" autocomplete="off" name="member_name" id="member_name" readonly required>
 	<?php if ($_SESSION["secured"]=="1"): ?>
 		<label for="member_email"><?= $str['email'] ?></label>
-		<input type="email" autocomplete="on" name="member_email" id="member_email" required>
+		<input type="email" autocomplete="on" name="member_email" id="member_email" placeholder="<?=$str["email_required"]?>"required>
 	<?php endif; ?>
 	<input type="hidden" autocomplete="off" name="member_id" id="member_id" required>
 	<input type="hidden" autocomplete="off" name="sub_id" id="sub_id" required>
 	<button type="submit" id="register_btn" disabled><?= $str["Register_confirm"] ?></button>
-</form> <form id='myForm'>
+</form> 
+<br/><br/>
+<form>
 	<label for="namestart"><?= $str['enter_start_name'] ?></label>
 	<input type="text" autocomplete="off" name="identifier" id="namestart" required>
 </form> 
@@ -77,7 +79,10 @@ if(isset($_POST['E4M_hidden_id']) && isset($_SESSION['subs_data_set'])){
 
 	var members; // list of members matching search
 	var member; // member picked in list of member
-	
+	document.getElementById('member_name').placeholder=str["Register_instruction"];
+	let searchInput = document.getElementById('namestart');
+	searchInput.placeholder=str["Search_instruction"];
+	searchInput.focus();
 
 	let subevent_html_id = document.getElementById('E4M_subeventinfo');
 	subevent_html_id.innerHTML = SubeventInfos2html (currentSubEventObj);
@@ -90,8 +95,7 @@ if(isset($_POST['E4M_hidden_id']) && isset($_SESSION['subs_data_set'])){
 		who's name starts with this string. 
 		Build the table with members that match the start
 		*/
-		//var myForm = document.getElementById('myForm');
-		//formData = new FormData(myForm); // debug ça sert à quelque chose ???
+		
 		let start = document.getElementById('namestart').value;
 		var XHR = './API/get-memberlist-by-namestart.php?start=' + start + "&ratn=" + rating_t;
 		request.open('GET', XHR);
