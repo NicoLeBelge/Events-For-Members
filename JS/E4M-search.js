@@ -39,15 +39,17 @@ function pickplayer (member_id) {
 		return filter.id == member_id;
 	});
 	let member = filtered_members[0];
-	console.log(member);
+	
 	
 	if (isPlayerMatching(member, currentSubEventObj)){
 		document.getElementById('member_id').value = member.id;
 		document.getElementById('member_name').value = member.firstname + " " + member.lastname;
 		document.getElementById('sub_id').value = currentSubEventId;
-		console.log("avant : ", document.getElementById('register_btn').disabled);
+		
 		document.getElementById('register_btn').disabled = false;
-		console.log("après : ", document.getElementById('register_btn').disabled);
+		
+		//ValidationForm.style.visibility = "visible";
+		ValidationForm.style.display = "inline";
 	}
 }
 function isPlayerMatching (member, sub) {

@@ -35,9 +35,9 @@ if(isset($_POST['E4M_hidden_id']) && isset($_SESSION['subs_data_set'])){
 ?>
 <div class='E4M_maindiv'>
 <div id="E4M_subeventinfo" class="E4M_subeventinfo"></div>
-
+<img src="./img/info-picto.png" /> <span id="E4M_instruction"></span><br/><br/>
 <form action="<?= $cfg['registration_check_page'] ?>" id='ValidationForm' method="POST" >
-	<label for="member_name"><?= $str['Member'] ?></label>
+	<label  for="member_name" id="E4M_register_name_label"><?= $str['Member'] ?></label>
 	<input type="text" autocomplete="off" name="member_name" id="member_name" readonly required>
 	<?php if ($_SESSION["secured"]=="1"): ?>
 		<label for="member_email"><?= $str['email'] ?></label>
@@ -73,13 +73,21 @@ if(isset($_POST['E4M_hidden_id']) && isset($_SESSION['subs_data_set'])){
 	var subevent_index = parseInt(subevent_index_str,10);
 	var currentSubEventObj = subs_data_set[subevent_index];
 	var currentSubEventId = currentSubEventObj.id;
-	console.log("currentSubEventId = ",currentSubEventId);
+	
 	var subevent_link_icon = JSON.parse(`<?=$subevent_link_icon_str?>`);
 	var rating_t = currentSubEventObj.rating_type;
 
 	var members; // list of members matching search
 	var member; // member picked in list of member
+	var ValidationForm = document.getElementById('ValidationForm');
+	
+	//ValidationForm.style.visibility = "hidden";
+	ValidationForm.style.display = "none";
 	document.getElementById('member_name').placeholder=str["Register_instruction"];
+	var Instruction = document.getElementById('E4M_instruction')
+	//document.getElementById('E4M_instruction').innerHTML=str["Register_instruction"];
+	Instruction.innerHTML=str["Register_instruction"];
+	
 	let searchInput = document.getElementById('namestart');
 	searchInput.placeholder=str["Search_instruction"];
 	searchInput.focus();
@@ -108,6 +116,15 @@ if(isset($_POST['E4M_hidden_id']) && isset($_SESSION['subs_data_set'])){
 			let e = document.getElementById('E4M_members_table');
 			members = this.response;
 			let tch = MembersObjToTable(members);
+			if(members.length==0){
+				Instruction.innerHTML=str["No_result"];
+			} else {
+				if(members.length==25){
+					Instruction.innerHTML=str["Too_many_answers"];
+				} else {
+					Instruction.innerHTML=str["Select_in_list"];
+				}
+			}
 			e.innerHTML = tch;
 		}
 	}
