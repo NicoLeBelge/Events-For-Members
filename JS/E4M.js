@@ -37,7 +37,10 @@ function eventInfos2html (infoset){
 	if (infoset.secured =="1"){
 		html_string += str['Event_secured_info'] + "</p>" ;
 	} 
-	html_string += "<p><span class='E4M_css_key'>" + str['Contact'] + "</span> " + infoset.contact +"</p>" ;
+	if (infoset.contact !==null) {
+		html_string += "<p><span class='E4M_css_key'>" + str['Contact'] + "</span> " + infoset.contact +"</p>" ;
+	}
+	
 	html_string += "<p><span class='E4M_css_key'>" + str['Nb_tot_reg'] + " </span> " + NbRegTot ;
 	if (infoset.nbmax !== null){
 		html_string += "<span class='E4M_css_key'> " + str['Over_total_max'] + " </span> " + infoset.nbmax +"</p>";
