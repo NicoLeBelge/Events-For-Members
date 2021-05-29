@@ -27,15 +27,14 @@ affiche un problème de licence pour les tournois en licence A
 ┌─────────────┐
 | in progress |
 └─────────────┘
-enter dans page de search plante plus, mais ne récupère pas le bon subevent.
+
 
 ┌───────┐
 | To do |
 └───────┘
 
-Bug : n'affiche plus la liste des inscrits si on ne sélectionne pas un subevent.
-search page : affiche mauvais message si on tape ENTER.
-Il est passé où le géolocalisateur ???
+
+faire un clic sur search si press ENTER dans form search
 
 Ajouter un bouton VALIDER
 Dans la page Recherche de membre
