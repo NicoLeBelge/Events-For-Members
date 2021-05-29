@@ -28,12 +28,13 @@ $jsonstr = json_encode($str);
 /* this page must be called with event id, let's warn the user if omitted */
 /* 2 forms in this page. If refresh, subevent_id restored from session variable.*/
 
-if((isset($_POST['E4M_hidden_index']) || isset($_SESSION['sub_id'])) && isset($_SESSION['subs_data_set'])){ 
+if((isset($_POST['E4M_hidden_index']) || isset($_SESSION['sub_index'])) && isset($_SESSION['subs_data_set'])){ 
 	$subs_data_set_str = $_SESSION['subs_data_set'];
 	if(isset($_POST['E4M_hidden_index'])){
 		$subevent_index = $_POST['E4M_hidden_index'];
+		$_SESSION['sub_index'] = $subevent_index;
 	} else {
-		$subevent_index = $_SESSION['sub_id'];
+		$subevent_index = $_SESSION['sub_index'];
 	}
 
 } else {
