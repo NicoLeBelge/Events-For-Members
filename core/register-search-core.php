@@ -1,15 +1,15 @@
 <?php
 /*
 page to be included in a php page (register-search.php or any name chosen by admin - see config.json)
-input : subevent id | eg event.php?sub=12
-recovers data about subevents of selected events through $_SESSION['subs_data_set']
+input : subevent index | eg event.php?sub=0 (first subevent of event)
+recovers data about subevents of selected event through $_SESSION['subs_data_set']
+
 The page allows the visitor to find a member by typing the beginning of the name and pick him from the list.
 If the selected member matches the restrictions of the current subevent, the visitor can confirm the registration. 
-He is then redirected to event page, where he can see the name added in the participants.
+He is then redirected to registration page, for confirmation or error report.
 */
 
 /* lets get strings from json folder (strings displayed and configuration strings) */
-// debug --> enlever ce qui est inutile
 
 $json = file_get_contents('./json/config.json'); 
 $cfg = json_decode($json,true);	
@@ -23,12 +23,19 @@ $type_names_str = json_encode($cfg['type_names']);
 $json = file_get_contents('./json/strings.json');
 $str = json_decode($json,true);	
 $jsonstr = json_encode($str);	
-$subs_data_set_str = $_SESSION['subs_data_set'];
 
-/* this page must be called with event id, let's set it to 1 if omitted */
-if(isset($_POST['E4M_hidden_id']) && isset($_SESSION['subs_data_set'])){ 
-	//$subevent_id=$_GET['sub_json'];
-	$subevent_index = $_POST['E4M_hidden_id'];
+
+/* this page must be called with event id, let's warn the user if omitted */
+/* 2 forms in this page. If refresh, subevent_id restored from session variable.*/
+
+if((isset($_POST['E4M_hidden_index']) || isset($_SESSION['sub_id'])) && isset($_SESSION['subs_data_set'])){ 
+	$subs_data_set_str = $_SESSION['subs_data_set'];
+	if(isset($_POST['E4M_hidden_index'])){
+		$subevent_index = $_POST['E4M_hidden_index'];
+	} else {
+		$subevent_index = $_SESSION['sub_id'];
+	}
+
 } else {
 	echo "this page can only be called from event description page";
 }

@@ -2,11 +2,11 @@
 /*
 page to be included in a php page (event.php or any name chosen by admin)
 input : event id | eg event.php?id=12
-javascript functions are at the bottom of the page, not externally located, to allow custom strings ($str) insertion
 Defines 4 div elements showing event information, subevent selector, info about selected event, list of registred members
-
-note : subevent data are passed to REGISTER page via POST of hidden field in form (debug) or session variables  - might be made in a smarter way...
+note : 	event data are passed to REGISTER page via session variables
+		subevent is selected by user --> must be passed to next page via hidden field
 */
+
 /* lets get strings from json folder (strings displayed and configuration strings) */
 
 $cfg = json_decode(file_get_contents('./json/config.json'),true);	
@@ -20,7 +20,7 @@ $type_names_str = json_encode($cfg['type_names']);
 $str = json_decode(file_get_contents('./json/strings.json'),true);	
 $jsonstr = json_encode($str);	
 
-/* this page is supposed to be called with subevent id, let's warn the visitor if omitted */
+/* this page is supposed to be called with event id, let's warn the visitor if omitted */
 include('../_local-connect/connect.php'); // PDO connection required
 if(isset($_GET['id'])){ 
 	$event_id = $_GET['id'];
@@ -35,6 +35,7 @@ if(isset($_GET['id'])){
 	
 	$subs_data_jsonstr = json_encode($event_set["subs"], JSON_UNESCAPED_UNICODE);
 	$_SESSION['subs_data_set']=$subs_data_jsonstr;
+	
 	$ratinglist="";
 	for ($k=1;$k<=$cfg['Nb_rating'];$k++){
 		$ratinglist .= "members.rating$k, ";
@@ -81,7 +82,7 @@ if(isset($_GET['id'])){
 	<?php endif; ?>
 
 	<form action="<?=$cfg['registration_search_page']?>" method="POST">
-		<input id="E4M_hidden_id" name="E4M_hidden_id" type=hidden value=0>
+		<input id="E4M_hidden_id" name="E4M_hidden_index" type=hidden value=0>
 		<button type="submit" ><?=$str['Register']?></button>
 	</form >
 	<div id="E4M_regtable" class="E4M_regtable"></div>
@@ -136,6 +137,7 @@ if(isset($_GET['id'])){
 	eventinfoset =event_data_set['infos'][0]; 
 	
 	CurrentSubEventId = subs_data_set[CurrentSubEventIndex]["id"]; 
+	
 	hidden_id.value = CurrentSubEventIndex;
 	CurrentSubEventObj = subs_data_set[CurrentSubEventIndex]; 
 	CurrentNbmax = CurrentSubEventObj["nbmax"];
