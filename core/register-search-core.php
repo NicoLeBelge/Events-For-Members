@@ -56,11 +56,11 @@ if((isset($_POST['E4M_hidden_index']) || isset($_SESSION['sub_index'])) && isset
 	<button type="submit" id="register_btn" disabled><?= $str["Register_confirm"] ?></button>
 </form> 
 <br/><br/>
-<form>
+<form action="#" onsubmit="intercept(event)">
 	<label for="namestart"><?= $str['enter_start_name'] ?></label>
 	<input type="text" autocomplete="off" name="identifier" id="namestart" required>
 </form> 
-<button onclick = trouve() ><?= $str['search'] ?></button>
+<button id="searchButton" onclick = trouve() ><?= $str['search'] ?></button>
 <br/><br/>
 <div id="E4M_members_table" class="E4M_hoverable_list"></div>
 </div>
@@ -136,5 +136,11 @@ if((isset($_POST['E4M_hidden_index']) || isset($_SESSION['sub_index'])) && isset
 			e.innerHTML = tch;
 		}
 	}
+	function intercept(e){
+		e.preventDefault();
+		document.getElementById("searchButton").click();
+		
+	}
+	
 	
 </script>
