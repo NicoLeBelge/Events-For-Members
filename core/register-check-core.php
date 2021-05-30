@@ -2,7 +2,8 @@
 /*
 page to be included in a php page (register-check.php or any name chosen by admin - see config.json)
 input (POST) : subevent id + member id
-outpu : registration of the member for the mentionned subevent
+output : registration of the member for the mentionned subevent if constraints respected
+constraints checked : number of registrations for event/subevent + member not registred already.
 */
 
 /* lets get strings from json folder (strings displayed and configuration strings) */
@@ -22,7 +23,7 @@ $json = file_get_contents('./json/strings.json');
 $str = json_decode($json,true);	
 $jsonstr = json_encode($str);	
 
-/* this page is supposed to be called with event id and member id */
+/* this page must be called with event id and member id */
 
 if(isset($_POST['member_id']) && isset($_POST['sub_id'])){ 
 	$subevent_id = $_POST['sub_id'];

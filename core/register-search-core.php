@@ -93,7 +93,7 @@ if((isset($_POST['E4M_hidden_index']) || isset($_SESSION['sub_index'])) && isset
 	ValidationForm.style.display = "none";
 	document.getElementById('member_name').placeholder=str["Register_instruction"];
 	var Instruction = document.getElementById('E4M_instruction')
-	//document.getElementById('E4M_instruction').innerHTML=str["Register_instruction"];
+	
 	Instruction.innerHTML=str["Register_instruction"];
 	
 	let searchInput = document.getElementById('namestart');
@@ -102,9 +102,7 @@ if((isset($_POST['E4M_hidden_index']) || isset($_SESSION['sub_index'])) && isset
 
 	let subevent_html_id = document.getElementById('E4M_subeventinfo');
 	subevent_html_id.innerHTML = SubeventInfos2html (currentSubEventObj);
-	/*"Search_instruction":"Entrez les premières lettres du nom recherché",
-    "Pick_instruction":"Sélectionnez le nom dans la liste", ici
-	*/
+
 	function trouve(){
 		/*
 		Gets the string in the field 'namestart' of the form, pass it to API that returns the list of members
@@ -137,10 +135,8 @@ if((isset($_POST['E4M_hidden_index']) || isset($_SESSION['sub_index'])) && isset
 		}
 	}
 	function intercept(e){
+		/* form namestart : don't reload page on ENTER + click on search button*/
 		e.preventDefault();
 		document.getElementById("searchButton").click();
-		
 	}
-	
-	
 </script>

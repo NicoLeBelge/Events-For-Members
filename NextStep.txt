@@ -24,6 +24,8 @@ aligner le elo à droite (liste des inscrits)
 rating comparison fait sur des parseFloat
 ajout affichage et restriction de type (licence A/B) 
 affiche un problème de licence pour les tournois en licence A
+faire un clic sur search si press ENTER dans form search
+
 ┌─────────────┐
 | in progress |
 └─────────────┘
@@ -34,18 +36,13 @@ affiche un problème de licence pour les tournois en licence A
 └───────┘
 
 
-faire un clic sur search si press ENTER dans form search
 
-Ajouter un bouton VALIDER
+Ajouter un bouton VALIDER (?? avec le recul, ça me reviendra peut-être...)
 Dans la page Recherche de membre
-    Valider la recherche par ENTER 
     Mettre un bouton "retour" dans le formulaire de recherche de membre
-    Créer le lien vers la page d'enregistrement
-    Mettre un message si aucun résultat
-    Mettre un message "compléter" si trop de résultats
     Mettre une légende si joueurs en attente de confirmation
     
 Tester avec un subevent qui a une date différente du event
 Gérer les noms d'events ou de subevents avec des guillemets, ou s'assurer qu'ils soient sans.
 afficher les titres (et probablement plus) dans la liste des inscrits
-
+permettre à l'organisateur de valider une inscription en attente
