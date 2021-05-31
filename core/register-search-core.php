@@ -44,6 +44,7 @@ if((isset($_POST['E4M_hidden_index']) || isset($_SESSION['sub_index'])) && isset
 <div class='E4M_maindiv'>
 <div id="E4M_subeventinfo" class="E4M_subeventinfo"></div>
 <img src="./img/info-picto.png" /> <span id="E4M_instruction"></span><br/><br/>
+
 <form action="<?= $cfg['registration_check_page'] ?>" id='ValidationForm' method="POST" >
 	<label  for="member_name" id="E4M_register_name_label"><?= $str['Member'] ?></label>
 	<input type="text" autocomplete="off" name="member_name" id="member_name" readonly required>

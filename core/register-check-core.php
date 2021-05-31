@@ -28,11 +28,7 @@ $jsonstr = json_encode($str);
 if(isset($_POST['member_id']) && isset($_POST['sub_id'])){ 
 	$subevent_id = $_POST['sub_id'];
 	$member_id = $_POST['member_id'];
-
 	include('../_local-connect/connect.php'); 
-	
-
-	
 	$qtxt = "SELECT * from registrations
 			WHERE member_id=$member_id 
 			AND subevent_id=$subevent_id";
@@ -40,6 +36,9 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 	if ($result->rowCount() !== 0) { 
 		//member already registered in this subevent
 		$message=$str["Already_registered"];
+		$message+= " " . $str["Confirmation_pb_contact_organizer"];
+		
+
 	} else {
 		// recover subevent.name and events.secured
 		$qtxt = "SELECT	subevents.event_id as eventid,
@@ -51,9 +50,39 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 				ON subevents.event_id = events.id	
 				WHERE subevents.id = $subevent_id";
 		$result = $conn->query($qtxt);
-		$data = array();
+		//$data = array();
 		$data = $result->fetchAll(PDO::FETCH_ASSOC);
-	
+		var_dump($data);
+		echo"<br/>";
+		$secured_str = $data[0]["sec"];
+		//$secured_str = $data["sec"];
+		$is_secured = ($secured_str == "1") ? true : false; 
+		$subname = $data[0]["subname"];
+		//$subname = $data["subname"];
+		echo "<br/>" ; var_dump($secured_str); 
+		echo "<br/>" ; var_dump($is_secured); 
+		echo "<br/>" ; var_dump($subname); 
+		/* Nombre d'inscriptions dans le subevent */
+		
+		$result = $conn->query("SELECT COUNT(id) as totsub FROM registrations WHERE subevent_id=$subevent_id");
+		$data = $result->fetchAll(PDO::FETCH_ASSOC);
+		var_dump($data);
+		$totsubb=$data[0]["totsub"];
+
+		
+		$qtxt = "SELECT	count(member_id) as cid 
+				FROM registrations
+				INNER JOIN subevents
+				ON subevents.id = registrations.subevent_id	
+				INNER JOIN events
+				ON events.id = subevents.event_id	
+				WHERE events.id=1";
+		$result = $conn->query($qtxt);
+		//$data = array();
+		$data = $result->fetchAll(PDO::FETCH_ASSOC);
+		$totevent=$data[0]["cid"];
+		
+		/* 
 		$subevent_name=$data[0]["subname"];
 		$event_secured=$data[0]["sec"];
 
@@ -76,12 +105,14 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 		var_dump($newconfirmed);
 		$req->execute();	
 		$message="inscription enregistrée avec succès, affiner le message.";
+		*/
 	}		
-
+ 
 	
 } else {
 	echo "Unothorized access to this page";
 }
+
 ?>
 
 <div class='E4M_maindiv'>

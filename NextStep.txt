@@ -29,7 +29,7 @@ faire un clic sur search si press ENTER dans form search
 ┌─────────────┐
 | in progress |
 └─────────────┘
-
+fine-tune de la page register-check
 
 ┌───────┐
 | To do |
