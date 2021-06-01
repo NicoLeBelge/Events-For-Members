@@ -24,20 +24,40 @@ $str = json_decode($json,true);
 $jsonstr = json_encode($str);	
 
 /* this page must be called with event id and member id */
+/** Registration_of */
 
 if(isset($_POST['member_id']) && isset($_POST['sub_id'])){ 
 	$subevent_id = $_POST['sub_id'];
 	$member_id = $_POST['member_id'];
 	include('../_local-connect/connect.php'); 
-	$qtxt = "SELECT * from registrations
+	$qtxt = "SELECT registrations.id, 
+					confirmed, 
+					members.firstname as firstname, 
+					members.lastname as lastname, 
+					subevents.name as subname
+			FROM registrations
+			INNER JOIN members
+			ON members.id = registrations.member_id
+			INNER JOIN subevents
+			ON subevents.id = registrations.subevent_id
 			WHERE member_id=$member_id 
 			AND subevent_id=$subevent_id";
 	$result = $conn->query($qtxt);
 	if ($result->rowCount() !== 0) { 
 		//member already registered in this subevent
-		$message=$str["Already_registered"];
-		$message+= " " . $str["Confirmation_pb_contact_organizer"];
+		$data = $result->fetchAll(PDO::FETCH_ASSOC);
+		$registered = true;
+		$html_message ="<h3>" . $data[0]["subname"] ."</h3>";
+		$html_message .="<h4>" . $data[0]["firstname"] . " " . $data[0]["lastname"] . "</h3>";
 		
+		$confirmed=($data[0]["confirmed"]=="1") ? true : false;
+		if ($confirmed) {
+			$html_message.= "<p>" . $str["Already_confirmed"]."</p>";
+		} else {
+			$html_message .="<p>" . $str["Already_registered"] ."</p>";
+			$html_message.= "<p>" . $str["Waiting_confirmation"]."</p>";
+			$html_message.= "<p>" . $str["Pb_contact_organizer"]."</p>";
+		}
 
 	} else {
 		// recover subevent.name and events.secured
@@ -82,7 +102,7 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 		$data = $result->fetchAll(PDO::FETCH_ASSOC);
 		$totevent=$data[0]["cid"];
 		
-		/* 
+		
 		$subevent_name=$data[0]["subname"];
 		$event_secured=$data[0]["sec"];
 
@@ -104,8 +124,8 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 		echo "$newconfirmed :";
 		var_dump($newconfirmed);
 		$req->execute();	
-		$message="inscription enregistrée avec succès, affiner le message.";
-		*/
+		$html_message="inscription enregistrée avec succès, affiner le html_message.";
+		
 	}		
  
 	
@@ -127,8 +147,8 @@ vérifier que
 	le nombre max d'inscrits n'est pas atteint
 	le nombre total d'inscrits n'est pas atteint
  */
-	var message = `<?=$message?>`;
+	var html_message = `<?=$html_message?>`;
 	
-	document.getElementById('E4M_message').innerHTML = "<p>" + message + "</p>";
+	document.getElementById('E4M_message').innerHTML = html_message;
 	
 </script>
