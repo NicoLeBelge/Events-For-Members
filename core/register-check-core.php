@@ -30,11 +30,27 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 	$subevent_id = $_POST['sub_id'];
 	$member_id = $_POST['member_id'];
 	include('../_local-connect/connect.php'); 
+	
+	
+	$qtxt = "SELECT subevents.name as subname, 
+					events.name as eventname
+			FROM subevents
+			INNER JOIN events
+			ON events.id = subevents.event_id
+			WHERE subevents.id=$subevent_id";
+	$result = $conn->query($qtxt);
+	$data = $result->fetchAll(PDO::FETCH_ASSOC);
+	$eventname = $data[0]["eventname"];
+	$subname = $data[0]["subname"];
+	$html_message ="<h3>" . $eventname ."</h3>";
+	$html_message .="<h4>" . $subname . "</h3>";
+	
+	$result = $conn->query("SELECT firstname, lastname FROM members WHERE id=$member_id");
+	$data = $result->fetchAll(PDO::FETCH_ASSOC);
+	$fullname = $data[0]["firstname"] . " " . $data[0]["lastname"];
+	$html_message.= "<h5>" . $fullname ."</h5>";
 	$qtxt = "SELECT registrations.id, 
-					confirmed, 
-					members.firstname as firstname, 
-					members.lastname as lastname, 
-					subevents.name as subname
+					confirmed 
 			FROM registrations
 			INNER JOIN members
 			ON members.id = registrations.member_id
@@ -47,8 +63,6 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 		//member already registered in this subevent
 		$data = $result->fetchAll(PDO::FETCH_ASSOC);
 		$registered = true;
-		$html_message ="<h3>" . $data[0]["subname"] ."</h3>";
-		$html_message .="<h4>" . $data[0]["firstname"] . " " . $data[0]["lastname"] . "</h3>";
 		
 		$confirmed=($data[0]["confirmed"]=="1") ? true : false;
 		if ($confirmed) {
@@ -56,6 +70,7 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 		} else {
 			$html_message .="<p>" . $str["Already_registered"] ."</p>";
 			$html_message.= "<p>" . $str["Waiting_confirmation"]."</p>";
+			$html_message.= "<p>" . $str["Check_spams"]."</p>";
 			$html_message.= "<p>" . $str["Pb_contact_organizer"]."</p>";
 		}
 
