@@ -33,7 +33,10 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 	
 	
 	$qtxt = "SELECT subevents.name as subname, 
-					events.name as eventname
+					events.nbmax as e_nbmax,
+					subevents.nbmax as s_nbmax,
+					events.name as eventname,
+					events.secured as secured
 			FROM subevents
 			INNER JOIN events
 			ON events.id = subevents.event_id
@@ -42,6 +45,9 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 	$data = $result->fetchAll(PDO::FETCH_ASSOC);
 	$eventname = $data[0]["eventname"];
 	$subname = $data[0]["subname"];
+	$secured = $data[0]["secured"];
+	$s_nbmax = $data[0]["s_nbmax"];
+	$e_nbmax = $data[0]["e_nbmax"];
 	$html_message ="<h3>" . $eventname ."</h3>";
 	$html_message .="<h4>" . $subname . "</h3>";
 	
@@ -62,8 +68,6 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 	if ($result->rowCount() !== 0) { 
 		//member already registered in this subevent
 		$data = $result->fetchAll(PDO::FETCH_ASSOC);
-		$registered = true;
-		
 		$confirmed=($data[0]["confirmed"]=="1") ? true : false;
 		if ($confirmed) {
 			$html_message.= "<p>" . $str["Already_confirmed"]."</p>";
@@ -75,36 +79,13 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 		}
 
 	} else {
-		// recover subevent.name and events.secured
-		$qtxt = "SELECT	subevents.event_id as eventid,
-						subevents.name as subname,
-						subevents.id as subid,
-						events.secured as sec
-				FROM subevents
-				INNER JOIN events
-				ON subevents.event_id = events.id	
-				WHERE subevents.id = $subevent_id";
-		$result = $conn->query($qtxt);
-		//$data = array();
+		/* Before registering the member, we check if there is room in the event / subents */
+				$result = $conn->query("SELECT COUNT(id) as totsub FROM registrations WHERE subevent_id=$subevent_id");
 		$data = $result->fetchAll(PDO::FETCH_ASSOC);
 		var_dump($data);
-		echo"<br/>";
-		$secured_str = $data[0]["sec"];
-		//$secured_str = $data["sec"];
-		$is_secured = ($secured_str == "1") ? true : false; 
-		$subname = $data[0]["subname"];
-		//$subname = $data["subname"];
-		echo "<br/>" ; var_dump($secured_str); 
-		echo "<br/>" ; var_dump($is_secured); 
-		echo "<br/>" ; var_dump($subname); 
-		/* Nombre d'inscriptions dans le subevent */
-		
-		$result = $conn->query("SELECT COUNT(id) as totsub FROM registrations WHERE subevent_id=$subevent_id");
-		$data = $result->fetchAll(PDO::FETCH_ASSOC);
-		var_dump($data);
-		$totsubb=$data[0]["totsub"];
-
-		
+		$totsub=$data[0]["totsub"];
+		echo "total subevent registrations : $totsub <br/>";
+		echo "<br/>";
 		$qtxt = "SELECT	count(member_id) as cid 
 				FROM registrations
 				INNER JOIN subevents
@@ -116,11 +97,9 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 		//$data = array();
 		$data = $result->fetchAll(PDO::FETCH_ASSOC);
 		$totevent=$data[0]["cid"];
+		echo "total event registrations : $totevent <br/>";
 		
 		
-		$subevent_name=$data[0]["subname"];
-		$event_secured=$data[0]["sec"];
-
 		$req=$conn->prepare("INSERT INTO registrations (member_id, subevent_id, confirmed, code) 
 						VALUES (:new_member,
 								:new_sub, 
