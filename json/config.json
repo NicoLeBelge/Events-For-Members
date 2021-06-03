@@ -1,5 +1,6 @@
 {
     "Nb_rating":3,
+    "Full_margin":5,
     "registration_search_page":"register-search.php",
     "registration_check_page":"register-check.php",
     "rating_names": ["Elo lent","Elo rapide", "Elo blitz","","",""],

@@ -15,6 +15,7 @@ $cfg = json_decode($json,true);
 
 $subevent_link_icon_str = json_encode($cfg['subevent_link_icon']);
 $registration_check_page = json_encode($cfg['registration_check_page']); // debug --> à garder
+$Full_margin = json_encode($cfg['Full_margin']);
 $cat_names_str = json_encode($cfg['cat_names']);
 $gender_names_str = json_encode($cfg['gender_names']);
 $rating_names_str = json_encode($cfg['rating_names']);
@@ -35,6 +36,7 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 	$qtxt = "SELECT subevents.name as subname, 
 					events.nbmax as e_nbmax,
 					subevents.nbmax as s_nbmax,
+					events.id as e_id,
 					events.name as eventname,
 					events.secured as secured
 			FROM subevents
@@ -48,6 +50,10 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 	$secured = $data[0]["secured"];
 	$s_nbmax = $data[0]["s_nbmax"];
 	$e_nbmax = $data[0]["e_nbmax"];
+
+	var_dump($e_nbmax);
+	var_dump($s_nbmax);
+	$e_id = $data[0]["e_id"];
 	$html_message ="<h3>" . $eventname ."</h3>";
 	$html_message .="<h4>" . $subname . "</h3>";
 	
@@ -80,25 +86,37 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 
 	} else {
 		/* Before registering the member, we check if there is room in the event / subents */
-				$result = $conn->query("SELECT COUNT(id) as totsub FROM registrations WHERE subevent_id=$subevent_id");
+		$result = $conn->query("SELECT COUNT(id) as tot_sub FROM registrations WHERE subevent_id=$subevent_id");
 		$data = $result->fetchAll(PDO::FETCH_ASSOC);
 		var_dump($data);
-		$totsub=$data[0]["totsub"];
-		echo "total subevent registrations : $totsub <br/>";
+		$tot_sub=$data[0]["tot_sub"];
+		echo "total subevent registrations : $tot_sub (max $s_nbmax)<br/>";
 		echo "<br/>";
-		$qtxt = "SELECT	count(member_id) as cid 
+		$qtxt = "SELECT	count(member_id) as count_members 
 				FROM registrations
 				INNER JOIN subevents
 				ON subevents.id = registrations.subevent_id	
 				INNER JOIN events
 				ON events.id = subevents.event_id	
-				WHERE events.id=1";
+				WHERE events.id=$e_id ";
 		$result = $conn->query($qtxt);
-		//$data = array();
-		$data = $result->fetchAll(PDO::FETCH_ASSOC);
-		$totevent=$data[0]["cid"];
-		echo "total event registrations : $totevent <br/>";
 		
+		$data = $result->fetchAll(PDO::FETCH_ASSOC);
+		$tot_evt=$data[0]["count_members"];
+		echo "total event registrations : $tot_evt (max $e_nbmax)<br/>";
+		
+		//$sub_full ($s_nbmax !== null && ($tot_sub >= $s_nbmax)) ? true : false;
+		//$evt_full ($e_nbmax !== null && ($tot_evt >= $e_nbmax)) ? true : false;
+		if ($sub_full){
+			echo "sous-evenement full <br/>";
+		} else {
+			echo "sous-evenement not full <br/>";
+		}
+		if ($evt_full){
+			echo "evenement full <br/>";
+		} else {
+			echo "evenement not full <br/>";
+		}
 		
 		$req=$conn->prepare("INSERT INTO registrations (member_id, subevent_id, confirmed, code) 
 						VALUES (:new_member,
