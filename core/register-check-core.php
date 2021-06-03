@@ -13,9 +13,10 @@ include('./include/str-tools.php');
 $json = file_get_contents('./json/config.json'); 
 $cfg = json_decode($json,true);	
 
-$subevent_link_icon_str = json_encode($cfg['subevent_link_icon']);
+// $subevent_link_icon_str = json_encode($cfg['subevent_link_icon']);
 $registration_check_page = json_encode($cfg['registration_check_page']); // debug --> à garder
-$Full_margin = json_encode($cfg['Full_margin']);
+$full_margin = intval($cfg['Full_margin'],10);
+
 $cat_names_str = json_encode($cfg['cat_names']);
 $gender_names_str = json_encode($cfg['gender_names']);
 $rating_names_str = json_encode($cfg['rating_names']);
@@ -32,7 +33,6 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 	$member_id = $_POST['member_id'];
 	include('../_local-connect/connect.php'); 
 	
-	
 	$qtxt = "SELECT subevents.name as subname, 
 					events.nbmax as e_nbmax,
 					subevents.nbmax as s_nbmax,
@@ -48,11 +48,11 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 	$eventname = $data[0]["eventname"];
 	$subname = $data[0]["subname"];
 	$secured = $data[0]["secured"];
-	$s_nbmax = $data[0]["s_nbmax"];
-	$e_nbmax = $data[0]["e_nbmax"];
+	$s_nbmax = intval($data[0]["s_nbmax"], 10); // zero if null
+	$e_nbmax = intval($data[0]["e_nbmax"], 10); // zero if null
 
-	var_dump($e_nbmax);
-	var_dump($s_nbmax);
+	echo '$e_nbmax = <pre>'; var_dump($e_nbmax);echo "</pre>";
+	echo '$s_nbmax = <pre>'; var_dump($s_nbmax);echo "</pre>";
 	$e_id = $data[0]["e_id"];
 	$html_message ="<h3>" . $eventname ."</h3>";
 	$html_message .="<h4>" . $subname . "</h3>";
@@ -89,7 +89,7 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 		$result = $conn->query("SELECT COUNT(id) as tot_sub FROM registrations WHERE subevent_id=$subevent_id");
 		$data = $result->fetchAll(PDO::FETCH_ASSOC);
 		var_dump($data);
-		$tot_sub=$data[0]["tot_sub"];
+		$tot_sub=intval($data[0]["tot_sub"],10);
 		echo "total subevent registrations : $tot_sub (max $s_nbmax)<br/>";
 		echo "<br/>";
 		$qtxt = "SELECT	count(member_id) as count_members 
@@ -102,20 +102,35 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 		$result = $conn->query($qtxt);
 		
 		$data = $result->fetchAll(PDO::FETCH_ASSOC);
-		$tot_evt=$data[0]["count_members"];
+		$tot_evt=intval($data[0]["count_members"],10);
+		/*
+		echo '$tot_evt = <pre>'; var_dump($tot_evt);echo "</pre>";
+		echo '$tot_sub = <pre>'; var_dump($tot_sub);echo "</pre>";
 		echo "total event registrations : $tot_evt (max $e_nbmax)<br/>";
-		
-		//$sub_full ($s_nbmax !== null && ($tot_sub >= $s_nbmax)) ? true : false;
-		//$evt_full ($e_nbmax !== null && ($tot_evt >= $e_nbmax)) ? true : false;
-		if ($sub_full){
-			echo "sous-evenement full <br/>";
+		if ($s_nbmax > 0) {
+			$sub_limit = true;
 		} else {
-			echo "sous-evenement not full <br/>";
+			$sub_limit = true;
 		}
-		if ($evt_full){
-			echo "evenement full <br/>";
+		$sub_limit = ($s_nbmax > 0) ? true : false;
+		//($s_nbmax > 0) ? true : false;
+		
+		echo '$sub_limit = <pre>'; var_dump($sub_limit);echo "</pre>";
+		 */
+		$sub_full = ($s_nbmax > 0 && ($tot_sub >= $s_nbmax)) ? true : false;
+		$evt_full = ($e_nbmax > 0 && ($tot_evt >= $e_nbmax)) ? true : false;
+		if ($sub_full || $evt_full){
+			$html_message.= "<p>" . $str["Full"]."</p>";
 		} else {
-			echo "evenement not full <br/>";
+			// maybe almost full --> warning if secured event
+			if ($secured){
+				$sub_almsot_full = ($s_nbmax > 0 && ($tot_sub >= $s_nbmax - $full_margin)) ? true : false;
+				$evt_almsot_full = ($e_nbmax > 0 && ($tot_evt >= $e_nbmax - $full_margin)) ? true : false;
+				if ($sub_almost_full || $evt_almost_full){
+					$html_message.= "<p>" . $str["Almost_full"]."</p>";
+					$html_message.= "<p>" . $str["Hurry_up"]."</p>";
+				}
+			}
 		}
 		
 		$req=$conn->prepare("INSERT INTO registrations (member_id, subevent_id, confirmed, code) 

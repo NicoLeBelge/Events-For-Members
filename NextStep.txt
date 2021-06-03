@@ -35,7 +35,7 @@ fine-tune de la page register-check
 | To do |
 └───────┘
 
-
+Indiquer le nombre max d'inscription par subevent (pas seulement event)
 
 Ajouter un bouton VALIDER (?? avec le recul, ça me reviendra peut-être...)
 Dans la page Recherche de membre
