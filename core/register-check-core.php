@@ -51,9 +51,10 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 	$s_nbmax = intval($data[0]["s_nbmax"], 10); // zero if null
 	$e_nbmax = intval($data[0]["e_nbmax"], 10); // zero if null
 
-	echo '$e_nbmax = <pre>'; var_dump($e_nbmax);echo "</pre>";
-	echo '$s_nbmax = <pre>'; var_dump($s_nbmax);echo "</pre>";
+	
 	$e_id = $data[0]["e_id"];
+	$destination=$cfg["event_page"] . "?id=" .$e_id;
+	var_dump($destination);
 	$html_message ="<h3>" . $eventname ."</h3>";
 	$html_message .="<h4>" . $subname . "</h3>";
 	
@@ -88,10 +89,9 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 		/* Before registering the member, we check if there is room in the event / subents */
 		$result = $conn->query("SELECT COUNT(id) as tot_sub FROM registrations WHERE subevent_id=$subevent_id");
 		$data = $result->fetchAll(PDO::FETCH_ASSOC);
-		var_dump($data);
+		//var_dump($data);
 		$tot_sub=intval($data[0]["tot_sub"],10);
-		echo "total subevent registrations : $tot_sub (max $s_nbmax)<br/>";
-		echo "<br/>";
+		
 		$qtxt = "SELECT	count(member_id) as count_members 
 				FROM registrations
 				INNER JOIN subevents
@@ -103,20 +103,7 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 		
 		$data = $result->fetchAll(PDO::FETCH_ASSOC);
 		$tot_evt=intval($data[0]["count_members"],10);
-		/*
-		echo '$tot_evt = <pre>'; var_dump($tot_evt);echo "</pre>";
-		echo '$tot_sub = <pre>'; var_dump($tot_sub);echo "</pre>";
-		echo "total event registrations : $tot_evt (max $e_nbmax)<br/>";
-		if ($s_nbmax > 0) {
-			$sub_limit = true;
-		} else {
-			$sub_limit = true;
-		}
-		$sub_limit = ($s_nbmax > 0) ? true : false;
-		//($s_nbmax > 0) ? true : false;
 		
-		echo '$sub_limit = <pre>'; var_dump($sub_limit);echo "</pre>";
-		 */
 		$sub_full = ($s_nbmax > 0 && ($tot_sub >= $s_nbmax)) ? true : false;
 		$evt_full = ($e_nbmax > 0 && ($tot_evt >= $e_nbmax)) ? true : false;
 		if ($sub_full || $evt_full){
@@ -147,17 +134,17 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 		//$newcode = RandomString(10);
 		$newcode = "pipocode";
 		//$link = "https://www.chessmooc.org/web/login/signup-end.php?code=$newcode";
-		$newconfirmed = $event_secured? 1 : 0;
-		echo "$newconfirmed :";
-		var_dump($newconfirmed);
+		$newconfirmed = $secured? 0 : 1;
+		
 		$req->execute();	
-		$html_message="inscription enregistrée avec succès, affiner le html_message.";
+		
+		$html_message.= "<p>" . $str["Registration_OK"]."</p>";
 		
 	}		
  
 	
 } else {
-	echo "Unothorized access to this page";
+	echo "Unauthorized access to this page";
 }
 
 ?>
@@ -165,15 +152,12 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 <div class='E4M_maindiv'>
 <div id="E4M_message"></div>
 </div>
+
+<a href="<?=$destination?>"><button><?=$str["Back_to_event"]?></button></a>
+
 <script src="./JS/E4M.js"></script>
 <script type="text/javascript">
-/*
-vérifier que
-	le joueur n'est pas déjà inscrit dans ce tournoi
-	l'email est fourni si tournoi sécurisé 
-	le nombre max d'inscrits n'est pas atteint
-	le nombre total d'inscrits n'est pas atteint
- */
+
 	var html_message = `<?=$html_message?>`;
 	
 	document.getElementById('E4M_message').innerHTML = html_message;

@@ -30,12 +30,15 @@ faire un clic sur search si press ENTER dans form search
 | in progress |
 └─────────────┘
 fine-tune de la page register-check
+parametrisation de event.php
 
 ┌───────┐
 | To do |
 └───────┘
-
+Gérer le cas où il y a plus de 25 noms complets (par exemple en rendant 25 paramétrable, même si c'est pas génial)
+à débugger : le nombre max de participants dans le subevent (affichage page search) est décaler de 1 subevent.
 Indiquer le nombre max d'inscription par subevent (pas seulement event)
+Gérer les waiting list. -> ajout champ valid dans table registrations.
 
 Ajouter un bouton VALIDER (?? avec le recul, ça me reviendra peut-être...)
 Dans la page Recherche de membre
