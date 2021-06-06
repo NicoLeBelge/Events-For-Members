@@ -31,11 +31,12 @@ faire un clic sur search si press ENTER dans form search
 └─────────────┘
 fine-tune de la page register-check
 parametrisation de event.php
-
+ajout colonne wait dans registrations
 
 ┌───────┐
 | To do |
 └───────┘
+envoyer un mail à la fin de register_check
 Indique "inscription enregistrée avec succès, même quand ça a besoin d'être confirmer. Préciser qu'il faut confirmer"
 Gérer le cas où il y a plus de 25 noms complets (par exemple en rendant 25 paramétrable, même si c'est pas génial)
 à débugger : le nombre max de participants dans le subevent (affichage page search) est décaler de 1 subevent.
