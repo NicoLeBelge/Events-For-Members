@@ -31,6 +31,8 @@ $jsonstr = json_encode($str);
 if(isset($_POST['member_id']) && isset($_POST['sub_id'])){ 
 	$subevent_id = $_POST['sub_id'];
 	$member_id = $_POST['member_id'];
+	$member_email = $_POST['member_email'];
+	
 	include('../_local-connect/connect.php'); 
 	
 	$qtxt = "SELECT subevents.name as subname, 
@@ -54,7 +56,7 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 	
 	$e_id = $data[0]["e_id"];
 	$destination=$cfg["event_page"] . "?id=" .$e_id;
-	var_dump($destination);
+	
 	$html_message ="<h3>" . $eventname ."</h3>";
 	$html_message .="<h4>" . $subname . "</h3>";
 	
@@ -120,20 +122,26 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 			}
 		}
 		
-		$req=$conn->prepare("INSERT INTO registrations (member_id, subevent_id, confirmed, code) 
+		$req=$conn->prepare("INSERT INTO registrations (member_id, subevent_id, confirmed, code, email) 
 						VALUES (:new_member,
 								:new_sub, 
 								:new_confirmed,
-								:new_code)");
-		$req->BindParam(':new_member', $newmember); // debug --> faudra quand même voir si on peut pas simplifier !!!
+								:new_code,
+								:new_email)");
+		$req->BindParam(':new_member', $newmember); 
 		$req->BindParam(':new_sub', $newsub);
 		$req->BindParam(':new_confirmed', $newconfirmed);
 		$req->BindParam(':new_code', $newcode);
+		$req->BindParam(':new_email', $newemail);
 		$newmember = $member_id;
 		$newsub = $subevent_id;
-		//$newcode = RandomString(10);
-		$newcode = "pipocode";
-		//$link = "https://www.chessmooc.org/web/login/signup-end.php?code=$newcode";
+		if($secured){
+			$newcode = RandomString(10);
+		} else {
+			$newcode = "--";
+		}
+		$newemail=$member_email;
+		/*$link = "https://www.chessmooc.org/web/login/signup-end.php?code=$newcode";*/
 		$newconfirmed = $secured? 0 : 1;
 		
 		$req->execute();	
@@ -151,10 +159,10 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 
 <div class='E4M_maindiv'>
 <div id="E4M_message"></div>
-</div>
 
+<br/>
 <a href="<?=$destination?>"><button><?=$str["Back_to_event"]?></button></a>
-
+</div>
 <script src="./JS/E4M.js"></script>
 <script type="text/javascript">
 
