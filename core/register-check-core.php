@@ -79,7 +79,7 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 		$data = $result->fetchAll(PDO::FETCH_ASSOC);
 		$confirmed=($data[0]["confirmed"]=="1") ? true : false;
 		if ($confirmed) {
-			$html_message.= "<p>" . $str["Already_confirmed"]."</p>";
+			$html_message.= "<p>" . $str["Already_confirmed_OK"]."</p>";
 		} else {
 			$html_message .="<p>" . $str["Already_registered"] ."</p>";
 			$html_message.= "<p>" . $str["Waiting_confirmation"]."</p>";
