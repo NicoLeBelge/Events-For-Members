@@ -41,6 +41,7 @@
     "Type_matching_problem":"⛔ Problème de restrictions de licence",
     "Registration_OK":"✅ Inscription enregistrée avec succès.",
     "Registration_confirmed":"✅ Inscription confirmée avec succès.",
+    "Registration_confirmed_wait":"⚠ Inscription sur liste d'attente confirmée.",
     "Already_registered":"⚠ Membre déjà inscrit dans ce tournoi.",
     "Already_confirmed_OK":"⚠ Membre déjà inscrit et confirmé dans ce tournoi.",
     "Already_confirmed_wait":"⚠ Confirmation déjà reçue - Inscription en liste d'attente.",
