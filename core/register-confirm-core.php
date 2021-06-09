@@ -45,7 +45,8 @@ if (!isset($_GET['code'])) {
 		echo "<p>Code de confirmation inconnu </p>";
 		} 
 	else {
-		// code found. Let's get data from the database, set confirm=1 if not yet confirmed, else print message
+		// code found. Let's get data from the database
+		// and set confirm=1 if not yet confirmed, else print message
 		$data = $result->fetch();
 		$e_id = $data["e_id"];
 		$destination=$cfg["event_page"] . "?id=" .$e_id;
@@ -68,7 +69,6 @@ if (!isset($_GET['code'])) {
 			} else {
 				$html_message.= "<p>" . $str["Registration_confirmed"] ."<p>";
 				$database_update=true;
-
 			}
 		}
 		if ($database_update){

@@ -108,10 +108,13 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 		
 		$sub_full = ($s_nbmax > 0 && ($tot_sub >= $s_nbmax)) ? true : false;
 		$evt_full = ($e_nbmax > 0 && ($tot_evt >= $e_nbmax)) ? true : false;
+		
 		if ($sub_full || $evt_full){
+			$wait=true;
 			$html_message.= "<p>" . $str["Full"]."</p>";
 		} else {
 			// maybe almost full --> warning if secured event
+			$wait=false;
 			if ($secured){
 				$sub_almsot_full = ($s_nbmax > 0 && ($tot_sub >= $s_nbmax - $full_margin)) ? true : false;
 				$evt_almsot_full = ($e_nbmax > 0 && ($tot_evt >= $e_nbmax - $full_margin)) ? true : false;
@@ -122,15 +125,22 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 			}
 		}
 		
-		$req=$conn->prepare("INSERT INTO registrations (member_id, subevent_id, confirmed, code, email) 
+		$req=$conn->prepare("INSERT INTO registrations (member_id, 
+										subevent_id, 
+										confirmed, 
+										wait, 
+										code, 
+										email) 
 						VALUES (:new_member,
 								:new_sub, 
 								:new_confirmed,
+								:new_wait,
 								:new_code,
 								:new_email)");
 		$req->BindParam(':new_member', $newmember); 
 		$req->BindParam(':new_sub', $newsub);
 		$req->BindParam(':new_confirmed', $newconfirmed);
+		$req->BindParam(':new_wait', $newwait);
 		$req->BindParam(':new_code', $newcode);
 		$req->BindParam(':new_email', $newemail);
 		$newmember = $member_id;
@@ -143,11 +153,17 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 		$newemail=$member_email;
 		/*$link = "https://www.chessmooc.org/web/login/signup-end.php?code=$newcode";*/
 		$newconfirmed = $secured? 0 : 1;
-		
+		$newwait = $wait? 1 : 0;
 		$req->execute();	
-		
-		$html_message.= "<p>" . $str["Registration_OK"]."</p>";
-		
+		if ($wait) {
+			$html_message.= "<p>" . $str["Registration_wait"]."</p>";
+		} else {
+			$html_message.= "<p>" . $str["Registration_OK"]."</p>";
+		}
+		if ($secured) {
+			$html_message.= "<p>" . $str["e-mail_sent_to"] . "<strong>" . $member_email . "</strong></p>";
+			$html_message.= "<p>" . $str["Confirm_mail"]."</p>";
+		} 		
 	}		
  
 	
