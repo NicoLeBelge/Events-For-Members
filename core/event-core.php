@@ -62,10 +62,12 @@ if(isset($_GET['id'])){
 	ON members.club_id = clubs.club_id
 	WHERE subevents.event_id = $event_id";
 	$reponse = $conn->query($qtxt);
+	
 	$event_set["registrations"] = $reponse->fetchAll(PDO::FETCH_ASSOC);
 	$event_set_jsonstr = json_encode($event_set);
-	
-	
+
+	//echo "<pre>";var_dump(count($event_set)); echo "</pre>";	
+	echo "<br/><br/>nombre d'inscrits :<pre>";var_dump(count($event_set["registrations"])); echo "</pre>";
 } else {
 	echo "this page needs parameter";
 }
