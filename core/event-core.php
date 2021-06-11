@@ -65,9 +65,9 @@ if(isset($_GET['id'])){
 	
 	$event_set["registrations"] = $reponse->fetchAll(PDO::FETCH_ASSOC);
 	$event_set_jsonstr = json_encode($event_set);
-
+	// debug --> on peut aussi choper le nombre d'inscrits en php, quel intérêt ?
 	//echo "<pre>";var_dump(count($event_set)); echo "</pre>";	
-	echo "<br/><br/>nombre d'inscrits :<pre>";var_dump(count($event_set["registrations"])); echo "</pre>";
+	//echo "<br/><br/>nombre d'inscrits :<pre>";var_dump(count($event_set["registrations"])); echo "</pre>";
 } else {
 	echo "this page needs parameter";
 }

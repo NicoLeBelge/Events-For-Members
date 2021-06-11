@@ -25,17 +25,20 @@ rating comparison fait sur des parseFloat
 ajout affichage et restriction de type (licence A/B) 
 affiche un problème de licence pour les tournois en licence A
 faire un clic sur search si press ENTER dans form search
+ajout colonne wait dans registrations
 
 ┌─────────────┐
 | in progress |
 └─────────────┘
-fine-tune de la page register-check
-parametrisation de event.php
-ajout colonne wait dans registrations
-bug : dit 'confirmation déjà reçue si confirmed=0 et wait=1
+
+event et subevents info : ajout cas full (OK pour event, à faire pour subevent)
+
 ┌───────┐
 | To do |
 └───────┘
+fine-tune de la page register-check / test de toutes les combinaisons
+parametrisation de event.php
+bug : dit 'confirmation déjà reçue si confirmed=0 et wait=1
 check : gérer le statut wait
 Mettre les dates d'enregistrement/confirmation
 factoriser par une fonction la génération des infos d'inscription (tournoi, joueur,...) dans search et confirm
@@ -46,10 +49,10 @@ Gérer le cas où il y a plus de 25 noms complets (par exemple en rendant 25 par
 Indiquer le nombre max d'inscription par subevent (pas seulement event)
 Gérer les waiting list. -> ajout champ valid dans table registrations.
 
-Ajouter un bouton VALIDER (?? avec le recul, ça me reviendra peut-être...)
+
 Dans la page Recherche de membre
     Mettre un bouton "retour" dans le formulaire de recherche de membre
-    Mettre une légende si joueurs en attente de confirmation
+    Mettre une légende si joueurs en attente de confirmation ou wating list
     
 Tester avec un subevent qui a une date différente du event
 Gérer les noms d'events ou de subevents avec des guillemets, ou s'assurer qu'ils soient sans.
