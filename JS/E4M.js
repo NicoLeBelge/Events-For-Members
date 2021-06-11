@@ -41,14 +41,16 @@ function eventInfos2html (infoset){
 		html_string += "<p><span class='E4M_css_key'>" + str['Contact'] + "</span> " + infoset.contact +"</p>" ;
 	}
 	
-	html_string += "<p><span class='E4M_css_key'>" + str['Nb_tot_reg'] + " </span> " + NbRegTot ;
+	html_string += "<p><span class='E4M_css_key'>" + str['Nb_tot_reg'] + " </span> " + NbRegTot + " </p> ";
+	
 	if (infoset.nbmax !== null){
-		html_string += "<span class='E4M_css_key'> " + str['Over_total_max'] + " </span> " + infoset.nbmax ;
+		html_string += "<p><span class='E4M_css_key'> " + str['Max_reg'] + " </span> " + infoset.nbmax + " </p>";
 		if (NbRegTot >= infoset.nbmax){
-			//html_string += "</p><span class='E4M_css_warning'> " + str['Over_total_max'] + " </span> " + infoset.nbmax +"<p>";
+			html_string += "</p>"+ str['Full'] +"<p>";
+			html_string += "</p>"+ str['Waiting_list'] +"<p>";
 		}
 	}
-	html_string += "</p>"; // ici
+
 	
 	if (infoset.pos_long !==null && infoset.pos_lat !==null ){
 		let url = "https://openstreetmap.org/"
