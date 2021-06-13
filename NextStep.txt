@@ -31,7 +31,8 @@ ajout colonne wait dans registrations
 | in progress |
 └─────────────┘
 
-event et subevents info : ajout cas full (OK pour event, à faire pour subevent)
+event et subevents info : ajout cas full (OK pour event, en cours pour subevent)
+je touche du doigt le bug de décalage du nombre de participants max pour le subevent
 
 ┌───────┐
 | To do |

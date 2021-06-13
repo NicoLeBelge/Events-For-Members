@@ -122,6 +122,12 @@ function SubeventInfos2html (infoset){
 		restriction_string = infoset.rating_comp + infoset.rating_limit;
 	} 
 	html_string += "<p>" + str['Rating_name'] +" : " + rating_names[infoset.rating_type-1] + " " + restriction_string  +"</p>" ;
+	
+	/* nbmax for subevent */
+	if (infoset.nbmax !== null){ // ici
+		html_string += "<p><span class='E4M_css_key'>" +  str['Nb_max_participants'] + "</span> : "+ infoset.nbmax +"</p>"  ;
+	}
+
 	/* link */
 	if (infoset.link !== null){
 		//html_string += "<p>" + str['Label_link_to_sub'] + " : <a href=" + infoset.link + ">"+infoset.link+"</a></p>" ;
@@ -170,15 +176,16 @@ function RegList2htmltable (infoset, subid){
 	});
 	
 	let nbregsub = sublist.length;
-	html_string += "<p>" + nbregsub + " <span class='E4M_css_key'>" +  str['registrations'] + "</span> "  ;
+	html_string += "<p>" + nbregsub + " <span class='E4M_css_key'>" +  str['registrations'] + "</span> </p>"  ;
 
 	/* max participants */
 
 	if (CurrentNbmax !==  null){
-		html_string += "(" +  CurrentNbmax  + str['max'] +")" ;
+		html_string += "<p><span class='E4M_css_key'>" +  str['Nb_max_participants'] + "</span> : "+CurrentNbmax+"</p>"  ;
+		
 	}
+	// debug ici à gicler ?
 	
-	html_string += "</p>" ;
 	html_string += "<table>" ;
 	rating_selector = "rating"+ CurrentRating;
 	/* sublist contains the list filtered for current subevent, the html table is filled with these members */
