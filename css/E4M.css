@@ -1,0 +1,107 @@
+.E4M_maindiv *, .E4M_hoverable_list *{
+	font-family: Quicksand;
+}
+tr:nth-child(even) {
+	background: white;
+}
+table, th, td {
+	color : #505050;
+	border-collapse: collapse;
+	padding-left: 10px;
+	padding-right: 10 px;
+}
+.E4M_regtable td:nth-child(2) {
+	text-align: right;
+}
+#E4M_members_table td:nth-child(5) {
+	text-align: right;
+}
+.E4M_maindiv p{
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+
+.E4M_maindiv h3{
+	margin-top: 8px;
+	margin-bottom: 8px;
+	font-size: 1.7em;
+	color : blue;
+}
+.E4M_maindiv h4{
+	margin-top: 2px;
+	margin-bottom: 2px;
+	font-size: 1.4em;
+	color : blue;
+}
+.E4M_maindiv h5{
+	margin-top: 2px;
+	margin-bottom: 2px;
+	font-size: 1.2em;
+	color : black;
+}
+.E4M_hoverable_list *{
+	cursor: pointer;
+}
+.E4M_hoverable_list tr:hover {
+	background-color: lightblue;
+}
+.E4M_buttonset {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+.E4M_buttonset div{
+	width : 35px;
+	height: 35px;
+	padding-top: 0px;
+	border-radius: 50%;
+	margin-left: 0px;
+	margin-right: 8px;
+	text-align : center;	
+	display: inline-block;
+}
+.E4M_buttonset div p{
+	margin-top: 8px;
+	padding-top: 0px;
+	color: white;
+	cursor: default;
+}
+.E4M_buttonset .other_sub_button {
+	background-color : rgb(163, 163, 163);
+}
+.E4M_buttonset .current_sub_button {
+	background-color : rgb(0, 0, 0);
+}
+.E4M_buttonset div:hover{
+	background-color : rgb(63, 62, 62);
+}
+.E4M_buttonset p {
+	color: blue;
+	vertical-align:middle;
+}
+#eventinfo a{
+	font-size: 1.5em;
+	text-decoration: none;
+}
+.E4M_catlist div{
+	width : 40px;
+	height: 22px;
+	padding-top: 5px;
+	border-radius: 10%;
+	margin-right: 5px;
+	text-align : center;	
+	display: inline-block;
+	color: white;
+}
+.E4M_catlist .E4M_on{
+	background-color : green;
+}
+.E4M_catlist .E4M_off{
+	background-color : red;
+}
+.E4M_css_key {
+	font-size: 0.8em;
+	color:rgb(38, 48, 163);
+}
+.E4M_tab_not_confirmed td{
+	color: rgb(167, 167, 167);
+}

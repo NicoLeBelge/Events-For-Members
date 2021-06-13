@@ -1,0 +1,18 @@
+S = secured
+R = registered
+C = Confirmed
+cases SRC =
+    000 --> inscription enregistrée
+    001 --> cas impossible
+    010 --> cas impossible (si sécurisé --> on a mis C à 1)
+    011 --> inscription déjà enregistrée
+    100 --> inscription enregistrée + à confirmer par mail
+    101 --> cas impossible
+    110 --> inscription déjà enregistrée + toujours en attente de confirmation
+    111 --> inscription déjà enregistrée et confirmée
+
+A tester : 
+event full (secured or not)    
+subevent full (secured or not)    
+event almst full (secured or not)    
+sub event almst full (secured or not)    
