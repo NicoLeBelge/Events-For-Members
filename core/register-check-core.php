@@ -13,7 +13,6 @@ include('./include/str-tools.php');
 $json = file_get_contents('./json/config.json'); 
 $cfg = json_decode($json,true);	
 
-// $subevent_link_icon_str = json_encode($cfg['subevent_link_icon']);
 $registration_check_page = json_encode($cfg['registration_check_page']); // debug --> à garder
 $full_margin = intval($cfg['Full_margin'],10);
 
@@ -52,8 +51,6 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 	$secured = $data[0]["secured"];
 	$s_nbmax = intval($data[0]["s_nbmax"], 10); // zero if null
 	$e_nbmax = intval($data[0]["e_nbmax"], 10); // zero if null
-
-	
 	$e_id = $data[0]["e_id"];
 	$destination=$cfg["event_page"] . "?id=" .$e_id;
 	
@@ -91,7 +88,6 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 		/* Before registering the member, we check if there is room in the event / subents */
 		$result = $conn->query("SELECT COUNT(id) as tot_sub FROM registrations WHERE subevent_id=$subevent_id");
 		$data = $result->fetchAll(PDO::FETCH_ASSOC);
-		//var_dump($data);
 		$tot_sub=intval($data[0]["tot_sub"],10);
 		
 		$qtxt = "SELECT	count(member_id) as count_members 
@@ -116,9 +112,10 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 			// maybe almost full --> warning if secured event
 			$wait=false;
 			if ($secured){
-				$sub_almsot_full = ($s_nbmax > 0 && ($tot_sub >= $s_nbmax - $full_margin)) ? true : false;
-				$evt_almsot_full = ($e_nbmax > 0 && ($tot_evt >= $e_nbmax - $full_margin)) ? true : false;
+				$sub_almost_full = ($s_nbmax > 0 && ($tot_sub >= $s_nbmax - $full_margin)) ? true : false;
+				$evt_almost_full = ($e_nbmax > 0 && ($tot_evt >= $e_nbmax - $full_margin)) ? true : false;
 				if ($sub_almost_full || $evt_almost_full){
+					echo "on devrait passer ici puisque almost full";
 					$html_message.= "<p>" . $str["Almost_full"]."</p>";
 					$html_message.= "<p>" . $str["Hurry_up"]."</p>";
 				}
@@ -151,7 +148,6 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 			$newcode = "--";
 		}
 		$newemail=$member_email;
-		/*$link = "https://www.chessmooc.org/web/login/signup-end.php?code=$newcode";*/
 		$newconfirmed = $secured? 0 : 1;
 		$newwait = $wait? 1 : 0;
 		$req->execute();	

@@ -178,13 +178,7 @@ function RegList2htmltable (infoset, subid){
 	let nbregsub = sublist.length;
 	html_string += "<p>" + nbregsub + " <span class='E4M_css_key'>" +  str['registrations'] + "</span> </p>"  ;
 
-	/* max participants */
-
-	if (CurrentNbmax !==  null){
-		html_string += "<p><span class='E4M_css_key'>" +  str['Nb_max_participants'] + "</span> : "+CurrentNbmax+"</p>"  ;
-		
-	}
-	// debug ici à gicler ?
+	
 	
 	html_string += "<table>" ;
 	rating_selector = "rating"+ CurrentRating;

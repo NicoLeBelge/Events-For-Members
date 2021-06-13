@@ -26,20 +26,19 @@ ajout affichage et restriction de type (licence A/B)
 affiche un problème de licence pour les tournois en licence A
 faire un clic sur search si press ENTER dans form search
 ajout colonne wait dans registrations
+event et subevents info : ajout du cas full (pour event, et pour subevent)
 
 ┌─────────────┐
 | in progress |
 └─────────────┘
-
-event et subevents info : ajout cas full (OK pour event, en cours pour subevent)
-je touche du doigt le bug de décalage du nombre de participants max pour le subevent
+traitement du bug : dit 'confirmation déjà reçue si confirmed=0 et wait=1
 
 ┌───────┐
 | To do |
 └───────┘
 fine-tune de la page register-check / test de toutes les combinaisons
 parametrisation de event.php
-bug : dit 'confirmation déjà reçue si confirmed=0 et wait=1
+
 check : gérer le statut wait
 Mettre les dates d'enregistrement/confirmation
 factoriser par une fonction la génération des infos d'inscription (tournoi, joueur,...) dans search et confirm
