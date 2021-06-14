@@ -184,17 +184,28 @@ function RegList2htmltable (infoset, subid){
 	rating_selector = "rating"+ CurrentRating;
 	/* sublist contains the list filtered for current subevent, the html table is filled with these members */
 	sublist.forEach(function(member){
-		if(member.confirmed == "1"){
-			html_string += "<tr class='E4M_tab_confirmed'>" ;
-		} else {
+		//if(member.confirmed == "1"){
+		if(member.confirmed == "0" || member.wait == "1"){
 			html_string += "<tr class='E4M_tab_not_confirmed'>" ;
+		} else {
+			html_string += "<tr class='E4M_tab_confirmed'>" ;
 		}
-		
-		
 		html_string += "<td>" + member.lastname + " "+member.firstname + "</td>";
 		html_string += "<td>" + member[rating_selector]+"</td>";
 		html_string += "<td>" + member.clubname+"</td>";
 		html_string += "<td>" + member.region+"</td>";
+		
+		
+		if(member.wait == "1"){
+			html_string += "<td>" + str["wait_sign"] +"</td>";
+		} else {
+			if(member.confirmed == "0"){
+				html_string += "<td>" + str["mail_sign"] +"</td>";
+			} else {
+				html_string +=  "<td>" + str["OK_sign"] +"</td>";
+			}
+		}
+		
 		html_string += "</tr>" ;
 	});
 	html_string += "</table>" ;

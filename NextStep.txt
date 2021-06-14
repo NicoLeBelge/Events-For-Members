@@ -27,15 +27,17 @@ affiche un problème de licence pour les tournois en licence A
 faire un clic sur search si press ENTER dans form search
 ajout colonne wait dans registrations
 event et subevents info : ajout du cas full (pour event, et pour subevent)
-
+affichage du statut confirmé, en attente de confirmation / liste d'attente 
 ┌─────────────┐
 | in progress |
 └─────────────┘
+
 traitement du bug : dit 'confirmation déjà reçue si confirmed=0 et wait=1
 
 ┌───────┐
 | To do |
 └───────┘
+liste des inscrits, trier avec les confirmés d'abord
 fine-tune de la page register-check / test de toutes les combinaisons
 parametrisation de event.php
 

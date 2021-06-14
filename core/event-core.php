@@ -44,6 +44,7 @@ if(isset($_GET['id'])){
 					subevents.id as subid,
 					registrations.member_id as memberid,
 					registrations.confirmed,
+					registrations.wait,
 					members.fede_id,
 					members.lastname,
 					members.firstname,
