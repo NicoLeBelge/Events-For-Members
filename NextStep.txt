@@ -31,6 +31,7 @@ event et subevents info : ajout du cas full (pour event, et pour subevent)
 ┌─────────────┐
 | in progress |
 └─────────────┘
+Maitrise du github
 traitement du bug : dit 'confirmation déjà reçue si confirmed=0 et wait=1
 
 ┌───────┐
