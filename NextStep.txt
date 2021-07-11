@@ -59,3 +59,11 @@ Tester avec un subevent qui a une date différente du event
 Gérer les noms d'events ou de subevents avec des guillemets, ou s'assurer qu'ils soient sans.
 afficher les titres (et probablement plus) dans la liste des inscrits
 permettre à l'organisateur de valider une inscription en attente
+
+
+mode de publication 'brouillon' + 'my_event_list' + problème d'identifiant de session 
+-> Ajouter un module de gestion des users ? 
+
+Guillaume : JSON + sécurité + github + ajout des infos existantes  + ajout de l'heure ! 
+
+
