@@ -48,7 +48,7 @@
     "Registration_confirmed_wait":"⚠ Inscription sur liste d'attente confirmée.",
     "Already_registered":"⚠ Membre déjà inscrit dans ce tournoi.",
     "Already_confirmed_OK":"⚠ Membre déjà inscrit et confirmé dans ce tournoi.",
-    "Already_confirmed_wait":"⚠ Confirmation déjà reçue - Inscription en liste d'attente.",
+    "Already_confirmed_wait":"⚠ Confirmation bien reçue - Inscription en liste d'attente.",
     "Waiting_confirmation":"Confirmation par mail non reçue.",
     "Pb_contact_organizer":"En cas de problème, contactez l'organisateur",
     "Search_instruction":"Entrez les premières lettres du nom recherché",

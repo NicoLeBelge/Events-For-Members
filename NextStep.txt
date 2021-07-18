@@ -28,11 +28,12 @@ faire un clic sur search si press ENTER dans form search
 ajout colonne wait dans registrations
 event et subevents info : ajout du cas full (pour event, et pour subevent)
 affichage du statut confirmé, en attente de confirmation / liste d'attente 
+traitement du bug : dit 'confirmation déjà reçue si confirmed=0 et wait=1 (c'était un un problème de string)
 ┌─────────────┐
 | in progress |
 └─────────────┘
-traitement du bug : dit 'confirmation déjà reçue si confirmed=0 et wait=1
-Test push github 
+Envoi du mail pour confirmation
+
 ┌───────┐
 | To do |
 └───────┘
