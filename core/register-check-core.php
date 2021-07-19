@@ -159,7 +159,35 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 		if ($secured) {
 			$html_message.= "<p>" . $str["e-mail_sent_to"] . "<strong>" . $member_email . "</strong></p>";
 			$html_message.= "<p>" . $str["Confirm_mail"]."</p>";
-		} 		
+		}
+		// send e-mail if event secured
+		if($secured){
+			// $newcode = RandomString(10);
+			$mailto= $newemail;
+			
+			
+		$from  = $cfg["e-mail_from"];  // adresse MAIL related to webhosting.
+		$JOUR  = date("Y-m-d");
+		$HEURE = date("H:i");
+		$mailobject = $str["confirmation_mail_subject"]; 
+		$ReplyTo = $cfg["e-mail_reply"];
+		$link =	$cfg["domain"] . $cfg["registration_confirm_page"] . "?code=". $newcode;
+		$conf_message = $str["confirmation_mail_message"];
+		$mailmessage = "<p> $eventname </p>";
+		$mailmessage .= "<p> $subname </p>";
+		$mailmessage .= "<p> $fullname </p>";
+		$mailmessage .= "<p> $conf_message </p>";
+		$mailmessage .="<a href='$link'>$link</a>";
+		$mail_Data = $mailmessage;
+		$headers  = "MIME-Version: 1.0 \n";
+		$headers .= "Content-type: text/html; charset=UTF-8 \n";
+		$headers .= "From: $from  \n";
+		$headers .= "Reply-To: $ReplyTo  \n";
+		var_dump ($mailmessage); echo "</br>";
+		$CR_Mail = TRUE;
+		$CR_Mail = @mail ($mailto, $mailobject, $mail_Data, $headers);
+		if ($CR_Mail === FALSE)   echo " Error mail \n";
+		}
 	}		
  
 	

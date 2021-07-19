@@ -1,9 +1,13 @@
 {
     "Nb_rating":3,
     "Full_margin":5,
+    "domain":"https://www.chessmooc.org/web/E4M/",
+    "e-mail_reply":"noreply@chessmooc.org",
+    "e-mail_from":"chessMOOC<noreply@chessmooc.org>",
     "event_page":"event.php",
     "registration_search_page":"register-search.php",
     "registration_check_page":"register-check.php",
+    "registration_confirm_page":"register-confirm.php",
     "rating_names": ["Elo lent","Elo rapide", "Elo blitz","","",""],
     "self_create": true,
     "super_user_id": 1,
