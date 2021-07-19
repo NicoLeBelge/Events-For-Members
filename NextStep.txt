@@ -34,6 +34,7 @@ traitement du bug : dit 'confirmation déjà reçue si confirmed=0 et wait=1 (c'
 └─────────────┘
 Envoi du mail pour confirmation
 test push-pull
+add one line by Nico
 
 ┌───────┐
 | To do |
