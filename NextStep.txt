@@ -33,6 +33,7 @@ traitement du bug : dit 'confirmation déjà reçue si confirmed=0 et wait=1 (c'
 | in progress |
 └─────────────┘
 Envoi du mail pour confirmation
+test push-pull
 
 ┌───────┐
 | To do |
