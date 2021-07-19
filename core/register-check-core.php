@@ -183,7 +183,6 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 		$headers .= "Content-type: text/html; charset=UTF-8 \n";
 		$headers .= "From: $from  \n";
 		$headers .= "Reply-To: $ReplyTo  \n";
-		var_dump ($mailmessage); echo "</br>";
 		$CR_Mail = TRUE;
 		$CR_Mail = @mail ($mailto, $mailobject, $mail_Data, $headers);
 		if ($CR_Mail === FALSE)   echo " Error mail \n";
