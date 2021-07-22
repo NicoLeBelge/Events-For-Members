@@ -35,7 +35,7 @@ traitement du bug : dit 'confirmation déjà reçue si confirmed=0 et wait=1 (c'
 Envoi du mail pour confirmation
 test push-pull
 add one line by Nico
-test multi push
+gtest multi push
 
 ┌───────┐
 | To do |
@@ -53,8 +53,8 @@ Gérer le cas où il y a plus de 25 noms complets (par exemple en rendant 25 par
 à débugger : le nombre max de participants dans le subevent (affichage page search) est décaler de 1 subevent.
 Indiquer le nombre max d'inscription par subevent (pas seulement event)
 Gérer les waiting list. -> ajout champ valid dans table registrations.
-
-
+owner : permettre de shooter des participants avec gestion de la liste d'attente
+Quand on clique sur "inscrire", ça met du temps, même en local --> prévoir sablier
 Dans la page Recherche de membre
     Mettre un bouton "retour" dans le formulaire de recherche de membre
     Mettre une légende si joueurs en attente de confirmation ou wating list

@@ -173,10 +173,15 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 		$ReplyTo = $cfg["e-mail_reply"];
 		$link =	$cfg["domain"] . $cfg["registration_confirm_page"] . "?code=". $newcode;
 		$conf_message = $str["confirmation_mail_message"];
+		
 		$mailmessage = "<p> $eventname </p>";
 		$mailmessage .= "<p> $subname </p>";
 		$mailmessage .= "<p> $fullname </p>";
 		$mailmessage .= "<p> $conf_message </p>";
+		if ($wait) {
+			$mailmessage .= "<p>" . $str["Full"] . "</p>";
+			$mailmessage .= "<p>" . $str["Waiting_list"] . "</p>";
+		}
 		$mailmessage .="<a href='$link'>$link</a>";
 		$mail_Data = $mailmessage;
 		$headers  = "MIME-Version: 1.0 \n";
@@ -186,7 +191,9 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 		$CR_Mail = TRUE;
 		$CR_Mail = @mail ($mailto, $mailobject, $mail_Data, $headers);
 		if ($CR_Mail === FALSE)   echo " Error mail \n";
+		var_dump($mailmessage);
 		}
+
 	}		
  
 	
