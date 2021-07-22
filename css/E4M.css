@@ -105,3 +105,9 @@ table, th, td {
 .E4M_tab_not_confirmed td{
 	color: rgb(167, 167, 167);
 }
+.cent_block{
+	position:relative;
+	width:800px;
+	height:700px;
+	margin: auto;
+}	

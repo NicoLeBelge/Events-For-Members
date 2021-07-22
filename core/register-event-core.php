@@ -1,7 +1,7 @@
 <?php
 /*
-page to be included in a php page (event.php or any name chosen by admin)
-input : event id | eg event.php?id=12
+page to be included in a php page (register-event.php or any name chosen by admin)
+input : event id | eg register-event.php?id=12
 Defines 4 div elements showing event information, subevent selector, info about selected event, list of registred members
 note : 	event data are passed to REGISTER page via session variables
 		subevent is selected by user --> must be passed to next page via hidden field
@@ -18,7 +18,7 @@ $rating_names_str = json_encode($cfg['rating_names']);
 $type_names_str = json_encode($cfg['type_names']);
 
 $str = json_decode(file_get_contents('./json/strings.json'),true);	
-$jsonstr = json_encode($str);	
+$jsonstr = json_encode($str);
 
 /* this page is supposed to be called with event id, let's warn the visitor if omitted */
 include('../_local-connect/connect.php'); // PDO connection required

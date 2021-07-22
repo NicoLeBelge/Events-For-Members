@@ -29,20 +29,22 @@ ajout colonne wait dans registrations
 event et subevents info : ajout du cas full (pour event, et pour subevent)
 affichage du statut confirmé, en attente de confirmation / liste d'attente 
 traitement du bug : dit 'confirmation déjà reçue si confirmed=0 et wait=1 (c'était un un problème de string)
+Envoi du mail pour confirmation
+
 ┌─────────────┐
 | in progress |
 └─────────────┘
-Envoi du mail pour confirmation
-test push-pull
-add one line by Nico
-gtest multi push
+parametrisation de event.php
+test avec header et footer
+et (peut-être) "procéduralisation" de la lecture des fichiers de config.json et string.json
+ !! à faire : bouger le bouton "tous les tournois" dans le core (parce que paramètre)
 
 ┌───────┐
 | To do |
 └───────┘
 liste des inscrits, trier avec les confirmés d'abord
 fine-tune de la page register-check / test de toutes les combinaisons
-parametrisation de event.php
+
 
 check : gérer le statut wait
 Mettre les dates d'enregistrement/confirmation

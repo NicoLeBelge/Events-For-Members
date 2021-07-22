@@ -16,9 +16,18 @@ session_start();
     </head>
 
     <body >
-	<a href = "event-list.php"><button> ⬆ Tous les tournois ⬆ </button> </a>
+	<a href = "register-event-list.php"><button> ⬆ Tous les tournois ⬆ </button> </a>
 	<?php 
-	include ('./core/event-core.php')
+	
+	include ('../head-foot/T0P-menu.php');
+	
+	echo "<div class='cent_block'> \n";
+	include ('./core/event-core.php');
+	echo "</div> \n";
+	
+	echo "<div class='T0P-footer'> \n";
+	include ('../head-foot/T0P-footer.php');
+	echo "</div> \n";
 	?>
 	
     </body>

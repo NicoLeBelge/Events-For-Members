@@ -191,11 +191,8 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 		$CR_Mail = TRUE;
 		$CR_Mail = @mail ($mailto, $mailobject, $mail_Data, $headers);
 		if ($CR_Mail === FALSE)   echo " Error mail \n";
-		var_dump($mailmessage);
 		}
-
 	}		
- 
 	
 } else {
 	echo "Unauthorized access to this page";

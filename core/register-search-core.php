@@ -1,7 +1,7 @@
 <?php
 /*
 page to be included in a php page (register-search.php or any name chosen by admin - see config.json)
-input : subevent index | eg event.php?sub=0 (first subevent of event)
+input : subevent index | eg register-event.php?sub=0 (first subevent of event)
 recovers data about subevents of selected event through $_SESSION['subs_data_set']
 
 The page allows the visitor to find a member by typing the beginning of the name and pick him from the list.

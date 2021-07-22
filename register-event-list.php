@@ -16,7 +16,16 @@ session_start();
     </head>
     <body >
 	<?php 
-	include ('./core/event-list-core.php')
+	include ('../head-foot/T0P-menu.php');
+	
+	echo "<div class='cent_block'> \n";
+	include ('./core/event-list-core.php');
+	echo "</div> \n";
+	
+	echo "<div class='T0P-footer'> \n";
+	include ('../head-foot/T0P-footer.php');
+	echo "</div> \n";
+
 	?>
     </body>
 </html>
