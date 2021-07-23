@@ -107,7 +107,7 @@ table, th, td {
 }
 .cent_block{
 	position:relative;
-	width:800px;
-	height:700px;
+	width:1024px;
+	min-height:700px;
 	margin: auto;
 }	

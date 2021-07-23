@@ -14,7 +14,17 @@ session_start();
     </head>
     <body >
 	<?php 
-	include ('./core/register-search-core.php')
+	
+    include ('../head-foot/T0P-menu.php');
+	
+	echo "<div class='cent_block'> \n";
+	echo "<br/> \n";
+	include ('./core/register-search-core.php');
+	echo "</div> \n";
+	
+	echo "<div class='T0P-footer'> \n";
+	include ('../head-foot/T0P-footer.php');
+	echo "</div> \n";
 	?>
     </body>
 </html>

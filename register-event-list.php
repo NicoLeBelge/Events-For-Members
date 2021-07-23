@@ -19,7 +19,7 @@ session_start();
 	include ('../head-foot/T0P-menu.php');
 	
 	echo "<div class='cent_block'> \n";
-	include ('./core/event-list-core.php');
+	include ('./core/register-event-list-core.php');
 	echo "</div> \n";
 	
 	echo "<div class='T0P-footer'> \n";

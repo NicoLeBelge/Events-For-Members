@@ -74,6 +74,7 @@ if(isset($_GET['id'])){
 }
 ?>
 <div class='E4M_maindiv'>
+	<a href = "<?=$cfg['event_list_page']?>"><button> ⬆ <?=$str['Goto_all_events']?> ⬆ </button> </a>
 	<div id="E4M_eventinfo" ></div>
 	</br>
 	
