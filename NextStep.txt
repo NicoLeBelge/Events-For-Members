@@ -36,28 +36,25 @@ bug overlap search list over footer (css : height --> min-height)
 check : gérer le statut wait
 pages register header et footer
 clic dans la liste --> mettre le focus sur le champ nom
-
+envoyer un mail à la fin de register_check
+Indiquer le nombre max d'inscription par subevent (pas seulement event)
+bug bouton "télécharger" ne fonctionne plus
 ┌─────────────┐
 | in progress |
 └─────────────┘
+branche fullname : Gérer le cas où il y a plus de 25 noms complets (par exemple en rendant 25 paramétrable, même si c'est pas génial)
 
-bug bouton "télécharger" ne fonctionne plus
 
 ┌───────┐
 | To do |
 └───────┘
+débugger : le nombre max de participants dans le subevent (affichage page search) est décaler de 1 subevent.
 bug graphique sur footer T0P (hors projet)
 liste des inscrits, trier avec les confirmés d'abord
 Ne montrer que les tournois futurs
-
-
 Mettre les dates d'enregistrement/confirmation
 factoriser par une fonction la génération des infos d'inscription (tournoi, joueur,...) dans search et confirm
-envoyer un mail à la fin de register_check
-Indique "inscription enregistrée avec succès, même quand ça a besoin d'être confirmer. Préciser qu'il faut confirmer"
-Gérer le cas où il y a plus de 25 noms complets (par exemple en rendant 25 paramétrable, même si c'est pas génial)
-à débugger : le nombre max de participants dans le subevent (affichage page search) est décaler de 1 subevent.
-Indiquer le nombre max d'inscription par subevent (pas seulement event)
+
 Gérer les waiting list. -> ajout champ valid dans table registrations.
 owner : permettre de shooter des participants avec gestion de la liste d'attente
 Quand on clique sur "inscrire", ça met du temps, même en local --> prévoir sablier
@@ -67,7 +64,7 @@ Dans la page Recherche de membre
     
 Tester avec un subevent qui a une date différente du event
 Gérer les noms d'events ou de subevents avec des guillemets, ou s'assurer qu'ils soient sans.
-afficher les titres (et probablement plus) dans la liste des inscrits
+afficher les titres FIDE (et probablement plus) dans la liste des inscrits
 permettre à l'organisateur de valider une inscription en attente
 
 
