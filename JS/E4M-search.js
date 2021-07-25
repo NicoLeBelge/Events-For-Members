@@ -40,16 +40,15 @@ function pickplayer (member_id) {
 	});
 	let member = filtered_members[0];
 	
-	
 	if (isPlayerMatching(member, currentSubEventObj)){
+		let member_name_field = document.getElementById('member_name');
 		document.getElementById('member_id').value = member.id;
-		document.getElementById('member_name').value = member.firstname + " " + member.lastname;
+		member_name_field.value = member.firstname + " " + member.lastname;
+		member_name_field.focus();
 		document.getElementById('sub_id').value = currentSubEventId;
-		
 		document.getElementById('register_btn').disabled = false;
-		
-		//ValidationForm.style.visibility = "visible";
-		ValidationForm.style.display = "inline";
+		ValidationForm.style.display = "inline"; //was hidden, make it visible
+
 	}
 }
 function isPlayerMatching (member, sub) {
