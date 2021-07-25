@@ -48,7 +48,7 @@ bug bouton "télécharger" ne fonctionne plus
 └───────┘
 bug graphique sur footer T0P (hors projet)
 liste des inscrits, trier avec les confirmés d'abord
-
+Ne montrer que les tournois futurs
 
 
 Mettre les dates d'enregistrement/confirmation
