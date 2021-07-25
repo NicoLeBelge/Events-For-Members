@@ -49,6 +49,7 @@ et (peut-être) "procéduralisation" de la lecture des fichiers de config.json e
 bug graphique sur footer T0P (hors projet)
 liste des inscrits, trier avec les confirmés d'abord
 bug bouton "télécharger" ne fonctionne plus
+clic dans la liste --> mettre le focus sur le champ nom
 
 Mettre les dates d'enregistrement/confirmation
 factoriser par une fonction la génération des infos d'inscription (tournoi, joueur,...) dans search et confirm
