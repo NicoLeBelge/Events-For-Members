@@ -111,3 +111,6 @@ table, th, td {
 	min-height:700px;
 	margin: auto;
 }	
+.footer-spacer{
+	min-height:40px;
+}	
