@@ -39,17 +39,19 @@ clic dans la liste --> mettre le focus sur le champ nom
 envoyer un mail à la fin de register_check
 Indiquer le nombre max d'inscription par subevent (pas seulement event)
 bug bouton "télécharger" ne fonctionne plus
+branche fullname : Gérer le cas où il y a plus de 25 noms complets (par exemple en rendant 25 paramétrable, même si c'est pas génial)
+
 ┌─────────────┐
 | in progress |
 └─────────────┘
-branche fullname : Gérer le cas où il y a plus de 25 noms complets (par exemple en rendant 25 paramétrable, même si c'est pas génial)
+bug graphique sur footer T0P (hors projet)
 
 
 ┌───────┐
 | To do |
 └───────┘
 débugger : le nombre max de participants dans le subevent (affichage page search) est décaler de 1 subevent.
-bug graphique sur footer T0P (hors projet)
+
 liste des inscrits, trier avec les confirmés d'abord
 Ne montrer que les tournois futurs
 Mettre les dates d'enregistrement/confirmation
@@ -70,6 +72,7 @@ permettre à l'organisateur de valider une inscription en attente
 
 mode de publication 'brouillon' + 'my_event_list' + problème d'identifiant de session 
 -> Ajouter un module de gestion des users ? 
+Nombre max de résultats sur namesearch rendre 25 paramétrable
 
 Guillaume : JSON + sécurité + github + ajout des infos existantes  + ajout de l'heure ! 
 
