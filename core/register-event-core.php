@@ -43,6 +43,7 @@ if(isset($_GET['id'])){
 	$qtxt = "SELECT subevents.event_id as eventid,
 					subevents.id as subid,
 					registrations.member_id as memberid,
+					registrations.datereg as datereg,
 					registrations.confirmed,
 					registrations.wait,
 					members.fede_id,
@@ -61,12 +62,13 @@ if(isset($_GET['id'])){
 	ON events.id = subevents.event_id
 	INNER JOIN clubs
 	ON members.club_id = clubs.club_id
-	WHERE subevents.event_id = $event_id";
+	WHERE subevents.event_id = $event_id
+	ORDER BY datereg ASC";
 	$reponse = $conn->query($qtxt);
 	
 	$event_set["registrations"] = $reponse->fetchAll(PDO::FETCH_ASSOC);
 	$event_set_jsonstr = json_encode($event_set);
-	// debug --> on peut aussi choper le nombre d'inscrits en php, quel intérêt ?
+	// debug --> on peut aussi récupérer le nombre d'inscrits en php, quel intérêt ?
 	//echo "<pre>";var_dump(count($event_set)); echo "</pre>";	
 	//echo "<br/><br/>nombre d'inscrits :<pre>";var_dump(count($event_set["registrations"])); echo "</pre>";
 } else {
@@ -137,6 +139,7 @@ if(isset($_GET['id'])){
 	var subevent_html_id = document.getElementById('E4M_subeventinfo');
 	var registred_html_id = document.getElementById('E4M_regtable');
 	
+	var sort_method = "rating"; // default (datereg) | name | rating | club
 
 	eventinfoset =event_data_set['infos'][0]; 
 	

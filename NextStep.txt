@@ -40,11 +40,11 @@ envoyer un mail à la fin de register_check
 Indiquer le nombre max d'inscription par subevent (pas seulement event)
 bug bouton "télécharger" ne fonctionne plus
 branche fullname : Gérer le cas où il y a plus de 25 noms complets (par exemple en rendant 25 paramétrable, même si c'est pas génial)
-
+bug graphique sur footer T0P (hors projet)
 ┌─────────────┐
 | in progress |
 └─────────────┘
-bug graphique sur footer T0P (hors projet)
+sort list of registered members
 
 
 ┌───────┐

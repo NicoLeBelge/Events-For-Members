@@ -124,7 +124,7 @@ function SubeventInfos2html (infoset){
 	html_string += "<p>" + str['Rating_name'] +" : " + rating_names[infoset.rating_type-1] + " " + restriction_string  +"</p>" ;
 	
 	/* nbmax for subevent */
-	if (infoset.nbmax !== null){ // ici
+	if (infoset.nbmax !== null){
 		html_string += "<p><span class='E4M_css_key'>" +  str['Nb_max_participants'] + "</span> : "+ infoset.nbmax +"</p>"  ;
 	}
 
@@ -170,21 +170,33 @@ function RegList2htmltable (infoset, subid){
 	let html_string="";
 	let k=0;
 	let nbreg = infoset.length; // which is actually nbtotreg !! debug
-	
+	let ordered_sublist=[];
 	let sublist = infoset.filter(function(filter){
 		return filter.subid == CurrentSubEventId ;
 	});
-	
+	rating_selector = "rating"+ CurrentRating;
+	switch (sort_method) {
+		case 'name' : 
+			sublist.sort((a,b) => a.lastname.toString().localeCompare(b.lastname.toString())); 
+			break;
+		case 'club' : 
+			sublist.sort((a,b) => a.clubname.toString().localeCompare(b.clubname.toString())); 
+			break;	
+		case 'rating' : 
+			sublist.sort((a,b) => -parseFloat(a[rating_selector]) + parseFloat(b[rating_selector]));	
+			break;
+		default :
+			console.log('sort_method undefined');
+	}
 	let nbregsub = sublist.length;
 	html_string += "<p>" + nbregsub + " <span class='E4M_css_key'>" +  str['registrations'] + "</span> </p>"  ;
 
 	
 	
 	html_string += "<table>" ;
-	rating_selector = "rating"+ CurrentRating;
+	
 	/* sublist contains the list filtered for current subevent, the html table is filled with these members */
 	sublist.forEach(function(member){
-		//if(member.confirmed == "1"){
 		if(member.confirmed == "0" || member.wait == "1"){
 			html_string += "<tr class='E4M_tab_not_confirmed'>" ;
 		} else {
@@ -256,5 +268,3 @@ function download() {
 	element.click();
 	document.body.removeChild(element); // necessary ??
 }
-	
-	

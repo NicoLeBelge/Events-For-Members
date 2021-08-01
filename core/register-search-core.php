@@ -85,7 +85,8 @@ if((isset($_POST['E4M_hidden_index']) || isset($_SESSION['sub_index'])) && isset
 	
 	var subevent_link_icon = JSON.parse(`<?=$subevent_link_icon_str?>`);
 	var rating_t = currentSubEventObj.rating_type;
-
+	
+	
 	var members; // list of members matching search
 	var member; // member picked in list of member
 	var ValidationForm = document.getElementById('ValidationForm');
