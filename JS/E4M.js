@@ -175,15 +175,30 @@ function RegList2htmltable (infoset, subid){
 		return filter.subid == CurrentSubEventId ;
 	});
 	rating_selector = "rating"+ CurrentRating;
+	let sort_symbol = {
+		"name" : "",
+		"club" : "",
+		"rating" : "",
+		"region" : ""
+		}; 
+	console.log(sort_symbol["name"]);
+		
 	switch (sort_method) {
 		case 'name' : 
 			sublist.sort((a,b) => a.lastname.toString().localeCompare(b.lastname.toString())); 
+			sort_symbol["name"] = str["sort_mark"];
 			break;
 		case 'club' : 
 			sublist.sort((a,b) => a.clubname.toString().localeCompare(b.clubname.toString())); 
+			sort_symbol["club"] = str["sort_mark"];
 			break;	
 		case 'rating' : 
 			sublist.sort((a,b) => -parseFloat(a[rating_selector]) + parseFloat(b[rating_selector]));	
+			sort_symbol["rating"] = str["sort_mark"];
+			break;
+		case 'region' : 
+			sublist.sort((a,b) => a.region.toString().localeCompare(b.region.toString())); 	
+			sort_symbol["region"] = str["sort_mark"];
 			break;
 		default :
 			console.log('sort_method undefined');
@@ -191,12 +206,15 @@ function RegList2htmltable (infoset, subid){
 	let nbregsub = sublist.length;
 	html_string += "<p>" + nbregsub + " <span class='E4M_css_key'>" +  str['registrations'] + "</span> </p>"  ;
 
-	
-	
-	html_string += "<table>" ;
-	
+	html_string += "<table><tr>" ;
+	html_string += "<th onclick=SortUpdate('name')>" + str["Member"] + sort_symbol["name"] +"</th>";
+	html_string += "<th onclick=SortUpdate('rating')>" + str["header_rating_name"] + sort_symbol["rating"] +"</th>";
+	html_string += "<th onclick=SortUpdate('club')>" + str["club_name"] + sort_symbol["club"] + "</th>";
+	html_string += "<th onclick=SortUpdate('region')>" + str["region_name"] + sort_symbol["region"] + "</th>";
+	html_string += "<th>🚦</th></tr>";
 	/* sublist contains the list filtered for current subevent, the html table is filled with these members */
 	sublist.forEach(function(member){
+		html_string += "<tr>" ;
 		if(member.confirmed == "0" || member.wait == "1"){
 			html_string += "<tr class='E4M_tab_not_confirmed'>" ;
 		} else {
@@ -217,12 +235,16 @@ function RegList2htmltable (infoset, subid){
 				html_string +=  "<td>" + str["OK_sign"] +"</td>";
 			}
 		}
-		
 		html_string += "</tr>" ;
 	});
 	html_string += "</table>" ;
 	return html_string;
 }
+function SortUpdate (method) {
+	sort_method = method;
+	registred_html_id.innerHTML = RegList2htmltable (member_list, CurrentSubEventIndex);
+}
+
 function SelectEvent(NumEvent) {
 	CurrentSubEventIndex = NumEvent;
 	hidden_id.value = NumEvent;
