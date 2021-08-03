@@ -45,14 +45,13 @@ sort list of registered members
 ┌─────────────┐
 | in progress |
 └─────────────┘
-
+Liste des inscrits : Mettre une légende si joueurs en attente de confirmation ou wating list
 
 
 ┌───────┐
 | To do |
 └───────┘
-Dans la page Recherche de membre
-    Mettre un bouton "retour" dans le formulaire de recherche de membre
+
 
 Ne montrer que les tournois futurs
 fine-tuner le curseur dans le header de la liste des participants (clic fonctionne, mais curseur bof)
@@ -62,8 +61,6 @@ factoriser par une fonction la génération des infos d'inscription (tournoi, jo
 Gérer les waiting list. -> ajout champ valid dans table registrations.
 owner : permettre de shooter des participants avec gestion de la liste d'attente
 Quand on clique sur "inscrire", ça met du temps, même en local --> prévoir sablier
-Dans la page Recherche de membre
-    Mettre une légende si joueurs en attente de confirmation ou wating list
     
 Tester avec un subevent qui a une date différente du event
 Gérer les noms d'events ou de subevents avec des guillemets, ou s'assurer qu'ils soient sans.

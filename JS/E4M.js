@@ -213,6 +213,7 @@ function RegList2htmltable (infoset, subid){
 	html_string += "<th onclick=SortUpdate('region')>" + str["region_name"] + sort_symbol["region"] + "</th>";
 	html_string += "<th>🚦</th></tr>";
 	/* sublist contains the list filtered for current subevent, the html table is filled with these members */
+	let StatusLegendNeeded = false;
 	sublist.forEach(function(member){
 		html_string += "<tr>" ;
 		if(member.confirmed == "0" || member.wait == "1"){
@@ -228,9 +229,11 @@ function RegList2htmltable (infoset, subid){
 		
 		if(member.wait == "1"){
 			html_string += "<td>" + str["wait_sign"] +"</td>";
+			StatusLegendNeeded ||= true;
 		} else {
 			if(member.confirmed == "0"){
 				html_string += "<td>" + str["mail_sign"] +"</td>";
+				StatusLegendNeeded ||= true;
 			} else {
 				html_string +=  "<td>" + str["OK_sign"] +"</td>";
 			}
@@ -238,6 +241,9 @@ function RegList2htmltable (infoset, subid){
 		html_string += "</tr>" ;
 	});
 	html_string += "</table>" ;
+	if (StatusLegendNeeded){
+		html_string += "<p>" + str["status_legend"] + "</p>" ;
+	}
 	return html_string;
 }
 function SortUpdate (method) {

@@ -139,7 +139,7 @@ if(isset($_GET['id'])){
 	var subevent_html_id = document.getElementById('E4M_subeventinfo');
 	var registred_html_id = document.getElementById('E4M_regtable');
 	
-	var sort_method = "rating"; // default (datereg) | name | rating | club
+	var sort_method = "default"; // default (datereg) | name | rating | club
 
 	eventinfoset =event_data_set['infos'][0]; 
 	
