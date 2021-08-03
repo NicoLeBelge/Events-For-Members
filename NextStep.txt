@@ -42,31 +42,27 @@ bug bouton "télécharger" ne fonctionne plus
 branche fullname : Gérer le cas où il y a plus de 25 noms complets (par exemple en rendant 25 paramétrable, même si c'est pas génial)
 bug graphique sur footer T0P (hors projet)
 sort list of registered members
+Liste des inscrits : Mettre une légende si joueurs en attente de confirmation ou wating list
+
 ┌─────────────┐
 | in progress |
 └─────────────┘
-Liste des inscrits : Mettre une légende si joueurs en attente de confirmation ou wating list
-
+Ne montrer que les tournois futurs
 
 ┌───────┐
 | To do |
 └───────┘
 
 
-Ne montrer que les tournois futurs
+
 fine-tuner le curseur dans le header de la liste des participants (clic fonctionne, mais curseur bof)
-débugger : le nombre max de participants dans le subevent (affichage page search) est décaler de 1 subevent.
-Mettre les dates d'enregistrement/confirmation
-factoriser par une fonction la génération des infos d'inscription (tournoi, joueur,...) dans search et confirm
-Gérer les waiting list. -> ajout champ valid dans table registrations.
-owner : permettre de shooter des participants avec gestion de la liste d'attente
+Mettre les dates d'enregistrement/confirmation (si vraiment utile)
+owner : permettre de shooter des participants avec gestion de la liste d'attente /permettre à l'organisateur de valider une inscription en attente
 Quand on clique sur "inscrire", ça met du temps, même en local --> prévoir sablier
     
 Tester avec un subevent qui a une date différente du event
 Gérer les noms d'events ou de subevents avec des guillemets, ou s'assurer qu'ils soient sans.
 afficher les titres FIDE (et probablement plus) dans la liste des inscrits
-permettre à l'organisateur de valider une inscription en attente
-
 
 mode de publication 'brouillon' + 'my_event_list' + problème d'identifiant de session 
 -> Ajouter un module de gestion des users ? 

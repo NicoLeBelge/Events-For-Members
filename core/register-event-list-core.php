@@ -1,26 +1,18 @@
-<!DOCTYPE HTML>  
-<html>
-<head>
-<meta charset="UTF-8" />
-
-
-</head>
-<body>  
-
 <?php
-
 include ('../_local-connect/connect.php');
-// Let's get the strings from the json !
-$json = file_get_contents('./json/strings.json');
-$str = json_decode($json,true);	
-$json = file_get_contents('./json/config.json');
-$cfg = json_decode($json,true);	
+$str = json_decode(file_get_contents('./json/strings.json'),true);	
+$cfg = json_decode(file_get_contents('./json/config.json'),true);	
 echo "<h3>" . $str['event_list_title'] . "</h3>";
+$yesterday = new DateTime("now");
+$yesterday->sub(new DateInterval('P1D'));
+$yesterdayTXT = $yesterday->format("Y-m-d h:i:s");
 
-$reponse = $conn->query('SELECT id, datestart, name from events ORDER BY datestart ASC');
+$qtxt="SELECT id, datestart, name FROM events WHERE datestart >= '$yesterdayTXT' ORDER BY datestart ASC";
+
+$reponse = $conn->query($qtxt);
+
 ?>
-<!-- used to be eventlist-->
-<div class="E4M_hoverable_list"> <!-- debug faudra probalement rendre paramétrable-->
+<div class="E4M_hoverable_list">
 <table>
 	<tr>
 		<th><?= $str['date_label'] ?></th>
@@ -45,6 +37,3 @@ $reponse = $conn->query('SELECT id, datestart, name from events ORDER BY datesta
 <?php
 $reponse->closeCursor();	
 ?>
-
-</body>
-</html>
