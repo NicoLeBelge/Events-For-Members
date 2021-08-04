@@ -43,11 +43,13 @@ branche fullname : Gérer le cas où il y a plus de 25 noms complets (par exempl
 bug graphique sur footer T0P (hors projet)
 sort list of registered members
 Liste des inscrits : Mettre une légende si joueurs en attente de confirmation ou wating list
+Ne montrer que les tournois futurs
 
 ┌─────────────┐
 | in progress |
 └─────────────┘
-Ne montrer que les tournois futurs
+
+afficher les titres FIDE + categorie dans la liste des inscrits
 
 ┌───────┐
 | To do |
@@ -62,7 +64,7 @@ Quand on clique sur "inscrire", ça met du temps, même en local --> prévoir sa
     
 Tester avec un subevent qui a une date différente du event
 Gérer les noms d'events ou de subevents avec des guillemets, ou s'assurer qu'ils soient sans.
-afficher les titres FIDE (et probablement plus) dans la liste des inscrits
+
 
 mode de publication 'brouillon' + 'my_event_list' + problème d'identifiant de session 
 -> Ajouter un module de gestion des users ? 

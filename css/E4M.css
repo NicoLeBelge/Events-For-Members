@@ -10,7 +10,7 @@ table, th, td {
 	padding-left: 10px;
 	padding-right: 10 px;
 }
-.E4M_regtable td:nth-child(2) {
+.E4M_regtable td:nth-child(3) {
 	text-align: right;
 }
 #E4M_members_table td:nth-child(5) {

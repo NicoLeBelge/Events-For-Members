@@ -49,7 +49,8 @@ if(isset($_GET['id'])){
 					members.fede_id,
 					members.lastname,
 					members.firstname,
-					members.firstname,
+					members.member_grade,
+					members.cat,
 					$ratinglist
 					clubs.name as clubname,
 					clubs.region as region
@@ -67,10 +68,8 @@ if(isset($_GET['id'])){
 	$reponse = $conn->query($qtxt);
 	
 	$event_set["registrations"] = $reponse->fetchAll(PDO::FETCH_ASSOC);
+
 	$event_set_jsonstr = json_encode($event_set);
-	// debug --> on peut aussi récupérer le nombre d'inscrits en php, quel intérêt ?
-	//echo "<pre>";var_dump(count($event_set)); echo "</pre>";	
-	//echo "<br/><br/>nombre d'inscrits :<pre>";var_dump(count($event_set["registrations"])); echo "</pre>";
 } else {
 	echo "this page needs parameter";
 }
@@ -139,7 +138,7 @@ if(isset($_GET['id'])){
 	var subevent_html_id = document.getElementById('E4M_subeventinfo');
 	var registred_html_id = document.getElementById('E4M_regtable');
 	
-	var sort_method = "default"; // default (datereg) | name | rating | club
+	var sort_method = "default"; // default (datereg) | name | rating | club | cat 
 
 	eventinfoset =event_data_set['infos'][0]; 
 	

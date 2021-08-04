@@ -5,6 +5,8 @@ function MembersObjToTable(memberList) {
 	var i = 0;
 	var tablech = '';
 	var debugch='';
+	console.log("string str =");
+	console.log(str);
 	tablech += '<table>';
 	tablech += '<tr>';
 	tablech += '<th>' + str["fede_id"] + '</th>';

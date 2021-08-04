@@ -179,10 +179,11 @@ function RegList2htmltable (infoset, subid){
 		"name" : "",
 		"club" : "",
 		"rating" : "",
+		"cat" : "",
 		"region" : ""
 		}; 
 	console.log(sort_symbol["name"]);
-		
+	console.log(sublist);
 	switch (sort_method) {
 		case 'name' : 
 			sublist.sort((a,b) => a.lastname.toString().localeCompare(b.lastname.toString())); 
@@ -200,6 +201,10 @@ function RegList2htmltable (infoset, subid){
 			sublist.sort((a,b) => a.region.toString().localeCompare(b.region.toString())); 	
 			sort_symbol["region"] = str["sort_mark"];
 			break;
+		case 'cat' : 
+			sublist.sort((a,b) => a.cat.toString().localeCompare(b.cat.toString())); 	
+			sort_symbol["cat"] = str["sort_mark"];
+			break;
 		default :
 			console.log('sort_method undefined');
 	}
@@ -207,8 +212,10 @@ function RegList2htmltable (infoset, subid){
 	html_string += "<p>" + nbregsub + " <span class='E4M_css_key'>" +  str['registrations'] + "</span> </p>"  ;
 
 	html_string += "<table><tr>" ;
+	html_string += "<th ></th>";
 	html_string += "<th onclick=SortUpdate('name')>" + str["Member"] + sort_symbol["name"] +"</th>";
 	html_string += "<th onclick=SortUpdate('rating')>" + str["header_rating_name"] + sort_symbol["rating"] +"</th>";
+	html_string += "<th onclick=SortUpdate('cat')>" + str["cat"] + sort_symbol["cat"] +"</th>";
 	html_string += "<th onclick=SortUpdate('club')>" + str["club_name"] + sort_symbol["club"] + "</th>";
 	html_string += "<th onclick=SortUpdate('region')>" + str["region_name"] + sort_symbol["region"] + "</th>";
 	html_string += "<th>🚦</th></tr>";
@@ -221,8 +228,10 @@ function RegList2htmltable (infoset, subid){
 		} else {
 			html_string += "<tr class='E4M_tab_confirmed'>" ;
 		}
+		html_string += "<td>" + member.member_grade  + "</td>";
 		html_string += "<td>" + member.lastname + " "+member.firstname + "</td>";
 		html_string += "<td>" + member[rating_selector]+"</td>";
+		html_string += "<td>" + member.cat+"</td>";
 		html_string += "<td>" + member.clubname+"</td>";
 		html_string += "<td>" + member.region+"</td>";
 		
