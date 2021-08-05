@@ -28,6 +28,11 @@ if(isset($_GET['id'])){
 	
 	$reponse = $conn->query("SELECT * from events where id=$event_id");
 	$event_set["infos"] = $reponse->fetchAll(PDO::FETCH_ASSOC);
+	// echo"<pre>";var_dump($event_set); echo"</pre><br/>";
+	//var_dump($event_set["infos"][0]["owner"]); echo"<br/>";
+	//var_dump($_SESSION["user_id"]); echo"<br/>";
+	$is_owner = ($_SESSION["user_id"] === $event_set["infos"][0]["owner"]) ? true : false;
+	var_dump($is_owner); echo"<br/>";
 	$_SESSION["secured"]=$event_set["infos"][0]["secured"]; // used on seach page to display e-mail input in form
 	$reponse = $conn->query("SELECT * from subevents where event_id=$event_id");
 	$event_set["subs"] = $reponse->fetchAll(PDO::FETCH_ASSOC);
@@ -139,7 +144,11 @@ if(isset($_GET['id'])){
 	var registred_html_id = document.getElementById('E4M_regtable');
 	
 	var sort_method = "default"; // default (datereg) | name | rating | club | cat 
-
+	var is_owner = false;
+	let is_owner_php = `<?= $is_owner ?>`;
+	// console.log("isownner ", is_owner_php);
+	if (is_owner_php == "1") {is_owner=true}; // is_owner = user connected is the owner of current event
+	// console.log("isownner ", is_owner);
 	eventinfoset =event_data_set['infos'][0]; 
 	
 	CurrentSubEventId = subs_data_set[CurrentSubEventIndex]["id"]; 

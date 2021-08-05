@@ -166,6 +166,7 @@ function RegList2htmltable (infoset, subid){
 	constructs a HTML table bloc from the object containing the list of registered members for a specific subevent	
 	input1 : infoset = array of members registred to the selected subevent
 	input2 : subid = id of subevent
+	global variables needed : str, sort_method, is_owner
 	*/
 	let html_string="";
 	let k=0;
@@ -182,8 +183,6 @@ function RegList2htmltable (infoset, subid){
 		"cat" : "",
 		"region" : ""
 		}; 
-	console.log(sort_symbol["name"]);
-	console.log(sublist);
 	switch (sort_method) {
 		case 'name' : 
 			sublist.sort((a,b) => a.lastname.toString().localeCompare(b.lastname.toString())); 
@@ -219,6 +218,7 @@ function RegList2htmltable (infoset, subid){
 	html_string += "<th onclick=SortUpdate('club')>" + str["club_name"] + sort_symbol["club"] + "</th>";
 	html_string += "<th onclick=SortUpdate('region')>" + str["region_name"] + sort_symbol["region"] + "</th>";
 	html_string += "<th>🚦</th></tr>";
+	
 	/* sublist contains the list filtered for current subevent, the html table is filled with these members */
 	let StatusLegendNeeded = false;
 	sublist.forEach(function(member){

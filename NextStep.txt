@@ -44,22 +44,21 @@ bug graphique sur footer T0P (hors projet)
 sort list of registered members
 Liste des inscrits : Mettre une légende si joueurs en attente de confirmation ou wating list
 Ne montrer que les tournois futurs
+afficher les titres FIDE + categorie dans la liste des inscrits
+
 
 ┌─────────────┐
 | in progress |
 └─────────────┘
-
-afficher les titres FIDE + categorie dans la liste des inscrits
+owner : permettre de shooter des participants avec gestion de la liste d'attente /permettre à l'organisateur de valider une inscription en attente
 
 ┌───────┐
 | To do |
 └───────┘
 
-
-
 fine-tuner le curseur dans le header de la liste des participants (clic fonctionne, mais curseur bof)
 Mettre les dates d'enregistrement/confirmation (si vraiment utile)
-owner : permettre de shooter des participants avec gestion de la liste d'attente /permettre à l'organisateur de valider une inscription en attente
+
 Quand on clique sur "inscrire", ça met du temps, même en local --> prévoir sablier
     
 Tester avec un subevent qui a une date différente du event
