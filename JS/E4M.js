@@ -175,6 +175,7 @@ function RegList2htmltable (infoset, subid){
 	let sublist = infoset.filter(function(filter){
 		return filter.subid == CurrentSubEventId ;
 	});
+	console.log(sublist);
 	rating_selector = "rating"+ CurrentRating;
 	let sort_symbol = {
 		"name" : "",
@@ -217,8 +218,11 @@ function RegList2htmltable (infoset, subid){
 	html_string += "<th onclick=SortUpdate('cat')>" + str["cat"] + sort_symbol["cat"] +"</th>";
 	html_string += "<th onclick=SortUpdate('club')>" + str["club_name"] + sort_symbol["club"] + "</th>";
 	html_string += "<th onclick=SortUpdate('region')>" + str["region_name"] + sort_symbol["region"] + "</th>";
-	html_string += "<th>🚦</th></tr>";
-	
+	html_string += "<th>🚦</th>";
+	if(is_owner){
+		html_string += "<th></th>";
+	}
+	html_string += "</tr>";
 	/* sublist contains the list filtered for current subevent, the html table is filled with these members */
 	let StatusLegendNeeded = false;
 	sublist.forEach(function(member){
@@ -247,6 +251,12 @@ function RegList2htmltable (infoset, subid){
 				html_string +=  "<td>" + str["OK_sign"] +"</td>";
 			}
 		}
+		if(is_owner){ // add link to registration edit
+			let destination = " onclick =EditRegistration(" + member.regid + ")"
+			 html_string += "<th" + destination + ">⚙</th>";
+			//console.log(member.regid, typeof(member.regid));
+			//html_string += "<th>" + toString(member.regid) + "</th>";
+		}
 		html_string += "</tr>" ;
 	});
 	html_string += "</table>" ;
@@ -259,7 +269,19 @@ function SortUpdate (method) {
 	sort_method = method;
 	registred_html_id.innerHTML = RegList2htmltable (member_list, CurrentSubEventIndex);
 }
+function EditRegistration (reg) {
+	/* allows the change registration status */
 
+	// pour test : on supprime le status wait
+	let data = new FormData();
+	data.append('reg_id', reg);
+	let request = new XMLHttpRequest();
+	let XHR = './API/set-registration-status.php';
+	request.open('POST', XHR);
+	request.responseType = 'json';
+	request.send(data);
+		
+}
 function SelectEvent(NumEvent) {
 	CurrentSubEventIndex = NumEvent;
 	hidden_id.value = NumEvent;

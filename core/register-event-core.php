@@ -47,6 +47,7 @@ if(isset($_GET['id'])){
 	}
 	$qtxt = "SELECT subevents.event_id as eventid,
 					subevents.id as subid,
+					registrations.id as regid,
 					registrations.member_id as memberid,
 					registrations.datereg as datereg,
 					registrations.confirmed,
