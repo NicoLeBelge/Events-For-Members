@@ -251,12 +251,9 @@ function RegList2htmltable (infoset, subid){
 			}
 		}
 		if(is_owner){ // add link to registration edit
-			// console.log(member.regid);
 			if (member.confirmed == "0"){
-				
 				let destination = ` onclick = "EditRegistration(${member.regid},'c')"`;
 				// warning, browser adds double quotes if space between coma and 'c' !!
-				console.log(destination);
 				html_string += "<th" + destination + ">" + str["Validate_sign"]+ "</th>";
 			} else {
 				let destination = " onclick =EditRegistration(" + member.regid + ",'d')";

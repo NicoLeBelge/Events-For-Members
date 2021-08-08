@@ -31,8 +31,12 @@ if(isset($_GET['id'])){
 	// echo"<pre>";var_dump($event_set); echo"</pre><br/>";
 	//var_dump($event_set["infos"][0]["owner"]); echo"<br/>";
 	//var_dump($_SESSION["user_id"]); echo"<br/>";
-	$is_owner = ($_SESSION["user_id"] === $event_set["infos"][0]["owner"]) ? true : false;
-	var_dump($is_owner); echo"<br/>";
+	if (!isset($_SESSION["user_id"])){
+		$is_owner = false;
+	} else {
+		$is_owner = ($_SESSION["user_id"] === $event_set["infos"][0]["owner"]) ? true : false;
+	}
+	
 	$_SESSION["secured"]=$event_set["infos"][0]["secured"]; // used on seach page to display e-mail input in form
 	$reponse = $conn->query("SELECT * from subevents where event_id=$event_id");
 	$event_set["subs"] = $reponse->fetchAll(PDO::FETCH_ASSOC);
@@ -147,12 +151,11 @@ if(isset($_GET['id'])){
 	var sort_method = "default"; // default (datereg) | name | rating | club | cat 
 	var is_owner = false;
 	let is_owner_php = `<?= $is_owner ?>`;
-	is_owner = true;
-	/*
+	
 	if (is_owner_php == "1") { // is_owner = user connected is the owner of current event
 		is_owner=true;
 	};
-	*/
+	
 
 	eventinfoset =event_data_set['infos'][0]; 
 	
