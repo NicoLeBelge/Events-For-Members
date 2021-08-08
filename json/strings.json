@@ -15,7 +15,9 @@
     "Event_secured_info":"Confirmation d'inscription par retour d'e-mail",
     "Register_before":"Inscription avant le",
     "Contact":"Contact",
-    "OK_sign":"✅",
+    "OK_sign":"✔",
+    "Validate_sign":"✅",
+    "Delete_sign":"❌",
     "mail_sign":"📧",
     "wait_sign":"⏳",
     "status_legend":"📧 Confirmation attendue | ⏳ Sur liste d'attente",
@@ -78,6 +80,4 @@
     "Type_header":"Lic.",
     "Goto_all_events":"Voir tous les tournois",
     "Gender":"Genre"
-
 }
-

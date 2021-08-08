@@ -42,6 +42,9 @@ table, th, td {
 .E4M_hoverable_list *{
 	cursor: pointer;
 }
+.E4M_regtable * {
+	cursor: pointer;
+}
 .E4M_hoverable_list tr:hover {
 	background-color: lightblue;
 }

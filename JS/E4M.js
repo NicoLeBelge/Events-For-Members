@@ -175,7 +175,6 @@ function RegList2htmltable (infoset, subid){
 	let sublist = infoset.filter(function(filter){
 		return filter.subid == CurrentSubEventId ;
 	});
-	console.log(sublist);
 	rating_selector = "rating"+ CurrentRating;
 	let sort_symbol = {
 		"name" : "",
@@ -252,10 +251,17 @@ function RegList2htmltable (infoset, subid){
 			}
 		}
 		if(is_owner){ // add link to registration edit
-			let destination = " onclick =EditRegistration(" + member.regid + ")"
-			 html_string += "<th" + destination + ">⚙</th>";
-			//console.log(member.regid, typeof(member.regid));
-			//html_string += "<th>" + toString(member.regid) + "</th>";
+			// console.log(member.regid);
+			if (member.confirmed == "0"){
+				
+				let destination = ` onclick = "EditRegistration(${member.regid},'c')"`;
+				// warning, browser adds double quotes if space between coma and 'c' !!
+				console.log(destination);
+				html_string += "<th" + destination + ">" + str["Validate_sign"]+ "</th>";
+			} else {
+				let destination = " onclick =EditRegistration(" + member.regid + ",'d')";
+				html_string += "<th" + destination + ">" + str["Delete_sign"]+ "</th>";
+			}
 		}
 		html_string += "</tr>" ;
 	});
@@ -269,19 +275,25 @@ function SortUpdate (method) {
 	sort_method = method;
 	registred_html_id.innerHTML = RegList2htmltable (member_list, CurrentSubEventIndex);
 }
-function EditRegistration (reg) {
-	/* allows the change registration status */
+function EditRegistration (reg,action) {
+	/* 
+	allows the change registration status 
+	action = 'c' --> set confirmed = 1
+	action = 'd' --> delete registration
+	*/
 
-	// pour test : on supprime le status wait
+	
 	let data = new FormData();
 	data.append('reg_id', reg);
+	data.append('action_code', action);
 	let request = new XMLHttpRequest();
 	let XHR = './API/set-registration-status.php';
 	request.open('POST', XHR);
 	request.responseType = 'json';
 	request.send(data);
-		
+	location.reload();
 }
+
 function SelectEvent(NumEvent) {
 	CurrentSubEventIndex = NumEvent;
 	hidden_id.value = NumEvent;

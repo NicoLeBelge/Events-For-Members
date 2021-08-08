@@ -147,9 +147,13 @@ if(isset($_GET['id'])){
 	var sort_method = "default"; // default (datereg) | name | rating | club | cat 
 	var is_owner = false;
 	let is_owner_php = `<?= $is_owner ?>`;
-	// console.log("isownner ", is_owner_php);
-	if (is_owner_php == "1") {is_owner=true}; // is_owner = user connected is the owner of current event
-	// console.log("isownner ", is_owner);
+	is_owner = true;
+	/*
+	if (is_owner_php == "1") { // is_owner = user connected is the owner of current event
+		is_owner=true;
+	};
+	*/
+
 	eventinfoset =event_data_set['infos'][0]; 
 	
 	CurrentSubEventId = subs_data_set[CurrentSubEventIndex]["id"]; 

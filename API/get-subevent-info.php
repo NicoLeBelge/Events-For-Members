@@ -14,8 +14,6 @@ if (isset($_GET['sub'])) {
 	$subevent_id = $_GET['sub'];
 	$qtxt = "SELECT * from subevents where id=$subevent_id";
 	$reponse = $conn->query($qtxt);
-	//$subevent_set = array();
-	//$subevent_set["infos"] = $reponse->fetchAll(PDO::FETCH_ASSOC);
 	$subevent_set = $reponse->fetchAll(PDO::FETCH_ASSOC);
 }
 echo json_encode($subevent_set);
