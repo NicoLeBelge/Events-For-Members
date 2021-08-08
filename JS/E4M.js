@@ -225,6 +225,7 @@ function RegList2htmltable (infoset, subid){
 	/* sublist contains the list filtered for current subevent, the html table is filled with these members */
 	let StatusLegendNeeded = false;
 	sublist.forEach(function(member){
+		let fullname = member.lastname + " "+ member.firstname;
 		html_string += "<tr>" ;
 		if(member.confirmed == "0" || member.wait == "1"){
 			html_string += "<tr class='E4M_tab_not_confirmed'>" ;
@@ -232,7 +233,7 @@ function RegList2htmltable (infoset, subid){
 			html_string += "<tr class='E4M_tab_confirmed'>" ;
 		}
 		html_string += "<td>" + member.member_grade  + "</td>";
-		html_string += "<td>" + member.lastname + " "+member.firstname + "</td>";
+		html_string += "<td>" + fullname + "</td>";
 		html_string += "<td>" + member[rating_selector]+"</td>";
 		html_string += "<td>" + member.cat+"</td>";
 		html_string += "<td>" + member.clubname+"</td>";
@@ -256,7 +257,7 @@ function RegList2htmltable (infoset, subid){
 				// warning, browser adds double quotes if space between coma and 'c' !!
 				html_string += "<th" + destination + ">" + str["Validate_sign"]+ "</th>";
 			} else {
-				let destination = " onclick =EditRegistration(" + member.regid + ",'d')";
+				let destination = ` onclick =EditRegistration(${member.regid},'d','${member.lastname}')`;
 				html_string += "<th" + destination + ">" + str["Delete_sign"]+ "</th>";
 			}
 		}
@@ -272,14 +273,19 @@ function SortUpdate (method) {
 	sort_method = method;
 	registred_html_id.innerHTML = RegList2htmltable (member_list, CurrentSubEventIndex);
 }
-function EditRegistration (reg,action) {
+function EditRegistration (reg, action, member_name) {
 	/* 
 	allows the change registration status 
 	action = 'c' --> set confirmed = 1
 	action = 'd' --> delete registration
 	*/
+	let owner_confirmation = true;
+	if (action === 'd') {
+		let owner_confirmation = confirm (str['Unregister'] + "_"+ member_name + "_?");
+	}
+	if (owner_confirmation){
 
-	
+	}
 	let data = new FormData();
 	data.append('reg_id', reg);
 	data.append('action_code', action);
