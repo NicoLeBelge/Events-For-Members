@@ -61,7 +61,7 @@ if((isset($_POST['E4M_hidden_index']) || isset($_SESSION['sub_index'])) && isset
 	<label for="namestart"><?= $str['enter_start_name'] ?></label>
 	<input type="text" autocomplete="off" name="identifier" id="namestart" required>
 </form> 
-<button id="searchButton" onclick = trouve() ><?= $str['search'] ?></button>
+<button id="searchButton"><?= $str['search'] ?></button>
 <br/><br/>
 <div id="E4M_members_table" class="E4M_hoverable_list"></div>
 </div>
@@ -91,6 +91,9 @@ if((isset($_POST['E4M_hidden_index']) || isset($_SESSION['sub_index'])) && isset
 	var member; // member picked in list of member
 	var ValidationForm = document.getElementById('ValidationForm');
 	
+	let SearchButton = document.getElementById('searchButton');
+	SearchButton.addEventListener('click', trouve());
+
 	//ValidationForm.style.visibility = "hidden";
 	ValidationForm.style.display = "none";
 	document.getElementById('member_name').placeholder=str["Register_instruction"];
