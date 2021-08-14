@@ -31,13 +31,12 @@
 						$requete="UPDATE `events` SET ".$key."= '".$value. "' WHERE id=".$_POST['id'];
 						break;
 					}
-					$res= $conn->query($requete);
-					echo $requete;
-					echo "<br />";
+					$res= $conn->query(htmlspecialchars($requete));
+					echo $requete."<br />";
 				}
 			}
 			$requete='SELECT * FROM `events` WHERE id='.$_POST['id'];
-			$res= $conn->query($requete);
+			$res= $conn->query(htmlspecialchars($requete));
 		}
 		else echo "erreurs dans le formulaire";
 	}

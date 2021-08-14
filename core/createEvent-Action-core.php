@@ -22,8 +22,8 @@
                 break;
 
                 case 'secured':
-                if($value =='no') $secured = 0;
-                else $secured = 1;
+                    if($value =='no') $secured = 0;
+                    else $secured = 1;
                 break; 
 
                 case 'datestart':
