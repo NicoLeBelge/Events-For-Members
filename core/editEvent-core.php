@@ -26,9 +26,7 @@ $pathbdd = '../../_local-connect/connect.php'
 			include('editEvent-functions-core.php');
 			if(modifAuthorization($conn,$err)['success'])
 			{
-				echo '<br />';
-				echo(modifAuthorization($conn,$err)['message']);
-				echo '<br />';
+				echo('<br />'.modifAuthorization($conn,$err)['message'].'<br />');
 				include('editEvent-formulaire-core.php');
 		?>
 		 <script type="text/javascript">
@@ -38,9 +36,7 @@ $pathbdd = '../../_local-connect/connect.php'
 			}
 			else
 			{
-				echo '<br />';
-				echo(modifAuthorization($conn,$err)['message']);
-				echo '<br />';
+				echo('<br />'.modifAuthorization($conn,$err)['message'].'<br />');
 				echo $err;
 			}
 		?>

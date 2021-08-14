@@ -21,7 +21,7 @@
 			    "message"  => $message,
 			    "success " => $boolSuccess
 		*/
-		$message = "test";
+		$message = "TestModification";
 		$boolSuccess = false;
 		if(! empty($_SESSION))
 		{
@@ -30,7 +30,7 @@
 			if($user_ip == getIP() && ! empty($_GET))
 			{
 				$requete='SELECT * FROM `events`';
-				$res= $conn->query($requete);
+				$res= $conn->query(htmlspecialchars($requete));
 				if(!empty($res->error)) exit(0); // tue Php, arrête l'interprétation de la page   
 				while ($row = $res->fetch()) 
 				{
@@ -39,12 +39,12 @@
 					    $owner = $row['owner'];
 					    if($owner == $user_id)
 					    {
-							$message = '<p class="E4M_message_alerte"> modification autorisée, bonjour user : '.$user_id.'</p>';
+							$message = '<p class="E4M_message_alerte"> modification autorisée, bonjour id : '.$user_id.'</p>';
 							$boolSuccess = true;
 					    }
 					    else
 					    {
-					    	$message = "Vous n'êtes pas autorisé à modifier cette Event";
+					    	$message = "Vous n'êtes pas autorisé à modifier cet Event";
 					    	$err = 1;
 					    }
 				    }

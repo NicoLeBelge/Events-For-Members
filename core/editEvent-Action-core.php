@@ -1,4 +1,6 @@
 <?php
+	$ID = "id"
+	$EMPTY_STRING = ""
 	$pathbdd = '../../_local-connect/connect.php';
 	include($pathbdd);
 	if(!empty($_POST))
@@ -12,7 +14,7 @@
 		{
 			foreach($_POST as $key => $value)
 			{
-				if($value != "" && $key != "id")
+				if($value != $EMPTY_STRING && $key != )
 				{
 					switch ($key) 
 					{
