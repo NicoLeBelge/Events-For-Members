@@ -2,6 +2,8 @@
 	$ID = "id"
 	$EMPTY_STRING = ""
 	$pathbdd = '../../_local-connect/connect.php';
+	$pathJson = '../json/strings.json';
+	$values = json_decode(file_get_contents($pathJson),true);
 	include($pathbdd);
 	if(!empty($_POST))
 	{
@@ -40,8 +42,8 @@
 			$requete='SELECT * FROM `events` WHERE id='.$_POST['id'];
 			$res= $conn->query(htmlspecialchars($requete));
 		}
-		else echo "erreurs dans le formulaire";
+		else echo $values['Error_form'];
 	}
-	else echo "formulaire absent";
+	else echo $values['Absence_form']
  	
 ?>

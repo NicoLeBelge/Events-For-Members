@@ -1,6 +1,6 @@
 <?php
-session_start();
-$pathbdd = '../../_local-connect/connect.php'
+	session_start();
+	$pathbdd = '../../_local-connect/connect.php'
 ?>
 <!DOCTYPE html>
 <html>
@@ -12,21 +12,18 @@ $pathbdd = '../../_local-connect/connect.php'
 		<meta name="keywords" content="tournois, inscription, modification">
 
 		<link rel="stylesheet" href="../css/E4M.css" /> 
-		<!--
         <link rel="preconnect" href="https://fonts.gstatic.com">
 		<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
-		-->
 		<script type="text/javascript" src="../JS/verifDataForm.js"></script>  
     </head>
 
     <body >
 		<?php
-			$err = 0; 
 			include($pathbdd);
 			include('editEvent-functions-core.php');
-			if(modifAuthorization($conn,$err)['success'])
+			if(modifAuthorization($conn)['success'])
 			{
-				echo('<br />'.modifAuthorization($conn,$err)['message'].'<br />');
+				echo('<br />'.modifAuthorization($conn)['message'].'<br />');
 				include('editEvent-formulaire-core.php');
 		?>
 		 <script type="text/javascript">
@@ -34,11 +31,7 @@ $pathbdd = '../../_local-connect/connect.php'
 		</script> 
 		<?php
 			}
-			else
-			{
-				echo('<br />'.modifAuthorization($conn,$err)['message'].'<br />');
-				echo $err;
-			}
+			else echo('<br />'.modifAuthorization($conn)['message'].'<br />');
 		?>
     </body>
 </html>

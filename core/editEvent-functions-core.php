@@ -1,5 +1,6 @@
 <?php
-
+	$pathJson = '../json/strings.json';
+	$values = json_decode(file_get_contents($pathJson),true);
 	function getIp()
 	{
 		/*
@@ -12,8 +13,9 @@
 		return $ip;
 	}
 
-	function modifAuthorization($conn,&$err)
+	function modifAuthorization($conn)
 	{
+		global $values;
 		/* 
 			Action : This function checks if the visitor has the right to modify the event  
 			Return : 		
@@ -39,28 +41,17 @@
 					    $owner = $row['owner'];
 					    if($owner == $user_id)
 					    {
-							$message = '<p class="E4M_message_alerte"> modification autorisée, bonjour id : '.$user_id.'</p>';
+							$message = '<p class="E4M_message_alerte"> modification autorisée, id : '.$user_id.'</p>';
 							$boolSuccess = true;
 					    }
-					    else
-					    {
-					    	$message = "Vous n'êtes pas autorisé à modifier cet Event";
-					    	$err = 1;
-					    }
+					    else $message =$values["Error_choice_event"];
 				    }
 				}
 			}
-			else
-			{
-				$message = "Erreur dans le choix de l'event";
-				$err = 1;
-			}
+			else $message = $values["Error_modif_event"];
 		}
-		else
-		{
-			$message = "Erreur dans le chargement de la page.";
-			$err = 1;
-		}
+		else $message = $values["Error_chargement_event"];
+
 		$tab_verif = array (
 		    "message"  => $message,
 		    "success" => $boolSuccess
