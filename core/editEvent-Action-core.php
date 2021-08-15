@@ -1,6 +1,6 @@
 <?php
-	$ID = "id"
-	$EMPTY_STRING = ""
+	$ID = "id";
+	$EMPTY_STRING = "";
 	$pathbdd = '../../_local-connect/connect.php';
 	$pathJson = '../json/strings.json';
 	$values = json_decode(file_get_contents($pathJson),true);
@@ -16,7 +16,7 @@
 		{
 			foreach($_POST as $key => $value)
 			{
-				if($value != $EMPTY_STRING && $key != )
+				if($value != $EMPTY_STRING && $key != $ID)
 				{
 					switch ($key) 
 					{

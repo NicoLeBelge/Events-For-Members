@@ -1,6 +1,5 @@
 <?php
 session_start();
-$pathbdd = '../../_local-connect/connect.php'
 ?>
 <!DOCTYPE html>
 <html>
