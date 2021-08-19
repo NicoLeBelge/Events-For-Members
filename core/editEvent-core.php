@@ -23,9 +23,13 @@
 			include('editEvent-functions-core.php');
 			if(modifAuthorization($conn)['success'])
 			{
-				echo('<br />'.modifAuthorization($conn)['message'].'<br />');
+				// echo('<br />'.modifAuthorization($conn)['message'].'<br />');
+		?>
+		<div style="border: 4mm ridge grey; padding: 1em;">
+		<?php
 				include('editEvent-formulaire-core.php');
 		?>
+		</div>
 		 <script type="text/javascript">
 		 	validate();
 		</script> 
