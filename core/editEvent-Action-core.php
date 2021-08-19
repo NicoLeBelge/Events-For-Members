@@ -47,3 +47,9 @@
 	else echo $values['Absence_form']
  	
 ?>
+
+<?php
+	sleep(1);
+	header('Location: http://localhost/ProjectTest/core/');
+	exit();
+?>
