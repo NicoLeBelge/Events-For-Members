@@ -86,5 +86,6 @@
     "Error_modif_event" : "Vous n'êtes pas autorisé à modifier cet Event",
     "Error_choice_event" : "Erreur dans le choix de l'event, vous n'êtes pas le propriétaire.",
     "Error_chargement_event" : "Erreur dans le chargement de l'event",
-    "Error_modif_subevent" : "Vous n'êtes pas autorisé à modifier cet SubEvent"
+    "Error_modif_subevent" : "Vous n'êtes pas autorisé à modifier cet SubEvent",
+    "Error_edition_event_id" : "Bad id ! "
 }

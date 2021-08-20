@@ -1,5 +1,5 @@
 <?php
-	$pathJson = '../json/strings.json';
+	$pathJson = './json/strings.json';
 	$values = json_decode(file_get_contents($pathJson),true);
 	function getIp()
 	{
@@ -46,6 +46,7 @@
 					    }
 					    else $message =$values["Error_choice_event"];
 				    }
+					else $message = $values["Error_edition_event_id"];
 				}
 			}
 			else $message = $values["Error_modif_event"];

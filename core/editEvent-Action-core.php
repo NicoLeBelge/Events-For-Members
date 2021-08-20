@@ -50,6 +50,6 @@
 
 <?php
 	sleep(1);
-	header('Location: http://localhost/ProjectTest/core/');
+	header('Location: ..');
 	exit();
 ?>

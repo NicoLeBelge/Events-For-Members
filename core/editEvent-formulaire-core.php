@@ -1,13 +1,13 @@
 <?php
 	$ID = $_GET['id']; 
-	$pathbdd = '../../_local-connect/connect.php';
+	$pathbdd = './../_local-connect/connect.php';
 	include($pathbdd);
 	$requete='SELECT * FROM `events` WHERE id='.$ID;
 	$res= $conn->query(htmlspecialchars($requete));
 	$array_old = $res->fetch();
 ?>
-<form action="editEvent-Action-core.php" method="post">
-	<label for="name">Nom de l'event :</label>  <input type="text" id="name" name="name" onchange="validate()"  value=<?=$array_old['name'] ?> />
+<form action="./core/editEvent-Action-core.php" method="post">
+	<label for="name">Nom de l'event :</label>  <input type="text" id="name" name="name" onchange="validate()"  value=<?="'".$array_old['name']."'"?> />
 	<p>Date de début de l'évènement : <input type="date" name="datestart" onchange="validate()" value=<?=$array_old['datestart'] ?> /></p>
 	<p>Date de fin d'inscription : <input type="date" name="datelim" onchange="validate()" value=<?=$array_old['datelim'] ?> /></p>
 	<p>Sécutisation de l'évènement :
