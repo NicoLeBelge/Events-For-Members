@@ -100,8 +100,10 @@ if(isset($_GET['id'])){
 		<input id="E4M_hidden_id" name="E4M_hidden_index" type=hidden value=0>
 		<button type="submit" ><?=$str['Register']?></button>
 	</form >
-	<div id="E4M_regtable" class="E4M_regtable"></div>
-	
+	<form action=<?= $cfg["event_modification_page"] ?> method="GET" >
+		<button type="submit" name="id" value=<?=$_GET['id']?> >Modifier</button>
+	</form >
+	<div id="E4M_regtable" class="E4M_regtable"></div>	
 </div>
 <script src="./JS/E4M.js"></script>
 
@@ -119,7 +121,7 @@ if(isset($_GET['id'])){
 	
 	
 	var subs_data_set = JSON.parse(`<?=$subs_data_jsonstr?>`);
-	
+	 
 	//subevent_list_str =JSON.stringify(event_data_set['subs']);
 	
 	// note : we can then access subevent data (eg cat) or order n (eg 0)  with 

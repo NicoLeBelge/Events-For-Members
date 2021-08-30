@@ -1,22 +1,18 @@
 <?php
 session_start();
-$pathbdd = '../../_local-connect/connect.php'
 ?>
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Modification d'évènement</title>
+        <title>Création d'un évènement</title>
 		<meta charset="UTF-8" />
 		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-		<meta name="description" content="Editer un event">
-		<meta name="keywords" content="tournois, inscription, modification">
+		<meta name="description" content="Créer un event">
+		<meta name="keywords" content="tournois, inscription, création">
 
 		<link rel="stylesheet" href="../css/E4M.css" /> 
-		<!--
         <link rel="preconnect" href="https://fonts.gstatic.com">
 		<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
-		-->
-		<script type="text/javascript" src="../JS/verifDataForm.js"></script>  
     </head>
 
     <body >

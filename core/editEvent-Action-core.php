@@ -1,5 +1,9 @@
 <?php
+	$ID = "id";
+	$EMPTY_STRING = "";
 	$pathbdd = '../../_local-connect/connect.php';
+	$pathJson = '../json/strings.json';
+	$values = json_decode(file_get_contents($pathJson),true);
 	include($pathbdd);
 	if(!empty($_POST))
 	{
@@ -12,7 +16,7 @@
 		{
 			foreach($_POST as $key => $value)
 			{
-				if($value != "" && $key != "id")
+				if($value != $EMPTY_STRING && $key != $ID)
 				{
 					switch ($key) 
 					{
@@ -31,16 +35,21 @@
 						$requete="UPDATE `events` SET ".$key."= '".$value. "' WHERE id=".$_POST['id'];
 						break;
 					}
-					$res= $conn->query($requete);
-					echo $requete;
-					echo "<br />";
+					$res= $conn->query(htmlspecialchars($requete));
+					echo $requete."<br />";
 				}
 			}
 			$requete='SELECT * FROM `events` WHERE id='.$_POST['id'];
-			$res= $conn->query($requete);
+			$res= $conn->query(htmlspecialchars($requete));
 		}
-		else echo "erreurs dans le formulaire";
+		else echo $values['Error_form'];
 	}
-	else echo "formulaire absent";
+	else echo $values['Absence_form']
  	
+?>
+
+<?php
+	sleep(1);
+	header('Location: ..');
+	exit();
 ?>
