@@ -308,6 +308,9 @@ function SelectEvent(NumEvent) {
 	CurrentRating = subs_data_set[NumEvent]["rating_type"]; 
 	subevent_html_id.innerHTML = SubeventInfos2html(subs_data_set[CurrentSubEventIndex]);
 	registred_html_id.innerHTML = RegList2htmltable (member_list, NumEvent);
+	cat_set.Refresh(subs_data_set[CurrentSubEventIndex].cat);
+	gen_set.Refresh(subs_data_set[CurrentSubEventIndex].gender);
+	typ_set.Refresh(subs_data_set[CurrentSubEventIndex].type);
 	CurrentNbmax = subs_data_set[NumEvent]["nbmax"];
 	CurrentSubEventObj = subs_data_set[CurrentSubEventIndex];
 	

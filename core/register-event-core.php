@@ -91,7 +91,10 @@ if(isset($_GET['id'])){
 	
 	<div id="E4M_select_event"></div>
 	
-	<div id="E4M_subeventinfo" class="E4M_subeventinfo"></div>
+	<div id="E4M_subeventinfo" ></div>
+	<div id="E4M_subevent_cat" class="E4M_catlist" ></div>
+	<div id="E4M_subevent_gen" class="E4M_catlist" ></div>
+	<div id="E4M_subevent_typ" class="E4M_catlist" ></div>
 	<?php if (ISSET($_SESSION['user_id'])): ?>
 		<button onclick="download()"><?=$str['Download']?></button>	
 	<?php endif; ?>
@@ -106,7 +109,7 @@ if(isset($_GET['id'])){
 	<div id="E4M_regtable" class="E4M_regtable"></div>	
 </div>
 <script src="./JS/E4M.js"></script>
-
+<script type="text/javascript" src="./JS/E4M_class.js"></script>
 <script type="text/javascript">
 	var hidden_id= document.getElementById('E4M_hidden_id');
 	
@@ -121,7 +124,7 @@ if(isset($_GET['id'])){
 	
 	
 	var subs_data_set = JSON.parse(`<?=$subs_data_jsonstr?>`);
-	 
+	console.log(subs_data_set);
 	//subevent_list_str =JSON.stringify(event_data_set['subs']);
 	
 	// note : we can then access subevent data (eg cat) or order n (eg 0)  with 
@@ -143,11 +146,31 @@ if(isset($_GET['id'])){
 	var NbRegTot; // Total Number of registred members
 	var CurrentNbmax ; // max subscriptions for current subevent
 	var subevent_list_str; // will contain JSON of subevents data
-	//var hidden_json = document.getElementById('sub_json'); // hidden field to pass subevents data to next page // debug à garder ??
 	
+	var cat_set = new IconSet (
+		"E4M_subevent_cat", 
+		cat_names,
+		subs_data_set[CurrentSubEventIndex].cat,
+		"E4M_cat",
+		false
+	);
+	var gen_set = new IconSet (
+		"E4M_subevent_gen", 
+		gender_names,
+		subs_data_set[CurrentSubEventIndex].gender,
+		"E4M_gen",
+		false
+	);	
+	var typ_set = new IconSet (
+		"E4M_subevent_typ", 
+		type_names,
+		subs_data_set[CurrentSubEventIndex].type,
+		"E4M_typ",
+		false
+	);	
 	/* those 3 html elements will be updated each time the user selects a subevents*/
 	var event_html_id = document.getElementById('E4M_eventinfo');
-	var subevent_html_id = document.getElementById('E4M_subeventinfo');
+	var subevent_html_id = document.getElementById('E4M_subeventinfo'); // icon sets added separately from Aug 30th 2021
 	var registred_html_id = document.getElementById('E4M_regtable');
 	
 	var sort_method = "default"; // default (datereg) | name | rating | club | cat 
