@@ -28,9 +28,6 @@ if(isset($_GET['id'])){
 	
 	$reponse = $conn->query("SELECT * from events where id=$event_id");
 	$event_set["infos"] = $reponse->fetchAll(PDO::FETCH_ASSOC);
-	// echo"<pre>";var_dump($event_set); echo"</pre><br/>";
-	//var_dump($event_set["infos"][0]["owner"]); echo"<br/>";
-	//var_dump($_SESSION["user_id"]); echo"<br/>";
 	if (!isset($_SESSION["user_id"])){
 		$is_owner = false;
 	} else {
@@ -84,28 +81,33 @@ if(isset($_GET['id'])){
 	echo "this page needs parameter";
 }
 ?>
-<div class='E4M_maindiv'>
+	<div class='E4M_maindiv'>
 	<a href = "<?=$cfg['event_list_page']?>"><button> ⬆ <?=$str['Goto_all_events']?> ⬆ </button> </a>
 	<div id="E4M_eventinfo" ></div>
-	</br>
 	
+	<?php if (ISSET($_SESSION['user_id'])): ?>
+		<form action=<?= $cfg["event_modification_page"] ?> method="GET" >
+		<button type="submit" name="id" value=<?=$_GET['id']?> ><?=$str['Modify']?></button>
+		<br/>
+	</form >
+	<?php endif; ?>
 	<div id="E4M_select_event"></div>
-	
 	<div id="E4M_subeventinfo" ></div>
 	<div id="E4M_subevent_cat" class="E4M_catlist" ></div>
 	<div id="E4M_subevent_gen" class="E4M_catlist" ></div>
 	<div id="E4M_subevent_typ" class="E4M_catlist" ></div>
+	
 	<?php if (ISSET($_SESSION['user_id'])): ?>
+		<br/>
 		<button onclick="download()"><?=$str['Download']?></button>	
+	</form >
 	<?php endif; ?>
 
 	<form action="<?=$cfg['registration_search_page']?>" method="POST">
 		<input id="E4M_hidden_id" name="E4M_hidden_index" type=hidden value=0>
 		<button type="submit" ><?=$str['Register']?></button>
 	</form >
-	<form action=<?= $cfg["event_modification_page"] ?> method="GET" >
-		<button type="submit" name="id" value=<?=$_GET['id']?> >Modifier</button>
-	</form >
+	
 	<div id="E4M_regtable" class="E4M_regtable"></div>	
 </div>
 <script src="./JS/E4M.js"></script>

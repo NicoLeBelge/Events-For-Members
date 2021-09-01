@@ -1,23 +1,3 @@
-function CatArrayToList (FullList, ShortList) {
-	/*
-	Constructs a html div block where all elements of FullList are displayed with class E4M_on/off
-	whether the element is included or not in ShortList
-	*/
-	let html_string="";
-	let Style_on = "E4M_on";
-	let Style_off = "E4M_off";
-	
-	html_string += "<div class='E4M_catlist'>" ;
-	FullList.forEach(function(element){
-		if (ShortList.includes(element)){
-			html_string += "<div class='"+ Style_on + "'>" + element + "</div>";
-		} else {
-			html_string += "<div class='"+ Style_off + "'>" + element + "</div>";
-		}
-	});
-	html_string += "</div>" ;
-	return html_string;
-}
 function eventInfos2html (infoset){
 	/* 	
 	constructs a HTML bloc from the object containing events infos 	
@@ -68,55 +48,15 @@ function eventInfos2html (infoset){
 	return html_string;
 }
 function SubeventInfos2html (infoset){
-
 	/*
 	constructs a HTML bloc from the object containing subevents infos 	
 	input : infoset = associative array with subevent information (name, rating_type,...)
 	*/
 	let html_string="";
-		
-	/* subevent name */
 	html_string += "<h3>" + infoset.name + "</h3>" ;
-	
-	
-	/* date subevent */
 	if (infoset.datestart !== null){
 		html_string += "<p>" + infoset.datestart + "</p>" ;
 	}
-
-	/* categories */
-	let cat_array = new Array();
-	if (infoset.cat == "*") {
-		cat_array = cat_names;
-	} else {
-		// cat_array = JSON.parse(infoset.cat); doesn't work, I don't know why (debug)
-		cat_array = JSON.parse(infoset.cat.replace(/'/g, '"')); // need to replace single quote by double quotes
-	}
-
-	let iconString = CatArrayToList (cat_names, cat_array); 
-	html_string += "</p>" + iconString + "</p>";
-	
-	/* gender */
-	let gender_array = new Array();
-	if (infoset.gender == "*") {
-		gender_array = gender_names;
-	} else {
-		gender_array = JSON.parse(infoset.gender.replace(/'/g, '"')); // see cat below to understand
-	}
-	iconString = CatArrayToList (gender_names, gender_array); 
-	html_string += "</p>" + iconString + "</p>";
-
-	/* Types */
-	let type_array = new Array();
-	if (infoset.type == "*") {
-		type_array = type_names;
-	} else {
-		type_array = JSON.parse(infoset.type.replace(/'/g, '"')); // need to replace single quote by double quotes
-	}
-	iconString = CatArrayToList (type_names, type_array); 
-	html_string += "</p>" + iconString + "</p>";
-	
-	/* rating_type + optional rating restriction */
 	let restriction_string="";
 	if (infoset.rating_restriction == 1) {
 		restriction_string = infoset.rating_comp + infoset.rating_limit;
@@ -133,9 +73,7 @@ function SubeventInfos2html (infoset){
 		//html_string += "<p>" + str['Label_link_to_sub'] + " : <a href=" + infoset.link + ">"+infoset.link+"</a></p>" ;
 		html_string += "<p> <a href=" + infoset.link + "> <img src='"+ subevent_link_icon + "'/></a></p>" ;
 	}
-	html_string += "<br/>"
-	
-	
+	// html_string += "<br/>"
 	return html_string;
 	
 }

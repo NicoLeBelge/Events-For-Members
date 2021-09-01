@@ -55,6 +55,8 @@ confirmation avant suppression
 ┌───────┐
 | To do |
 └───────┘
+Damned !! big bug in "register-search page", get-member-list... is called with empty start without action from the user !!
+Modifier les conditions d'affichage des boutons Modifier et Télécharger --> seulement si owner.
 bug sur suppression des joueurs avec un espace dans leur nom (ex bartczak guichard) à cause des guillemets ajoutés dans le onclick
 
 Sur suppression ou confirmation du joueur, mettre un call back avec message de confirmation (ou juste le reload dans le callback)
