@@ -92,7 +92,7 @@ if((isset($_POST['E4M_hidden_index']) || isset($_SESSION['sub_index'])) && isset
 	var ValidationForm = document.getElementById('ValidationForm');
 	
 	let SearchButton = document.getElementById('searchButton');
-	SearchButton.addEventListener('click', trouve());
+	SearchButton.addEventListener('click', trouve);
 
 	//ValidationForm.style.visibility = "hidden";
 	ValidationForm.style.display = "none";
