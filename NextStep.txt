@@ -55,14 +55,16 @@ articulation des pages de création d'event
 ┌───────┐
 | To do |
 └───────┘
+Empêcher l'insertion de balise dans le nom de l'event
 Permettre l'affichage des données d'un event s'il n'y a pas de subevents (et si owner : ajout)
     ou alors créer automatiquement un subevent lors de la création d'un event.
 Modifier les conditions d'affichage des boutons Modifier et Télécharger --> seulement si owner.
 bug sur suppression des joueurs avec un espace dans leur nom (ex bartczak guichard) à cause des guillemets ajoutés dans le onclick
-
+contact initialement prévu tous moyens, implémenté e-mail only, à garder mais ajoute-t-on un autre moyen de contact ? 
+NL supprimé required sur nombre maximal d'inscrits  : voir si effets de bords
 Sur suppression ou confirmation du joueur, mettre un call back avec message de confirmation (ou juste le reload dans le callback)
 Sur suppression d'un joueur, mettre à jour la liste d'attente (niveau event et/ou subevent)
-
+changer le nom "name" du formulaire create event pour ne pas laisser le browser proposer le nom de l'utilisateur. 
 fine-tuner le curseur dans le header de la liste des participants (clic fonctionne, mais curseur bof)
 Mettre les dates d'enregistrement/confirmation (si vraiment utile)
 

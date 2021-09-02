@@ -1,4 +1,6 @@
 {
+    "yes":"oui",
+    "no":"non",
     "id":"identifiant",
     "email":"📧 e-mail",
     "id_or_email":"identifiant ou e-mail",
@@ -12,6 +14,7 @@
 	"search":"chercher",
     "wrong_password":"mot de passe erroné",
     "Nb_max_participants":"⚠ Nombre maximum de participants",
+    "geoloc_lat_long":"Géolocalisation - latitude / longitude",
     "Event_secured_info":"Confirmation d'inscription par retour d'e-mail",
     "Register_before":"Inscription avant le",
     "Contact":"Contact",
@@ -37,6 +40,10 @@
     "Categories":"Catégories",
     "All_cat_accepted":"ouvert à toutes les catégories",
     "Date_of_place":"Aura lieu le",
+    "Date_until":"Jusqu'au",
+    "Registration_secured":"Inscription sécurisée",
+    "Organizer_email":"E-mail de l'organisateur",
+    "Validate":"Valider",
     "Selector_help":"Sélectionnez l'un des ",
     "Subevnent_names":"tournois",
     "No_result":"Aucun résultat, essayez une recherche moins précise",
@@ -86,9 +93,9 @@
     "event_name_label" : "Nom du tournoi / festival",
     "Error_form" : "Erreurs dans le formulaire",
     "Absence_form":"Formulaire absent",
-    "Error_modif_event" : "Vous n'êtes pas autorisé à modifier cet événement",
-    "Error_choice_event" : "Erreur dans le choix de l'event, vous n'êtes pas le propriétaire.",
+    "Error_modif_event" : "Vous n'êtes pas autorisé à modifier ce tournoi / festival",
+    "Error_choice_event" : "Erreur dans le choix du festival, vous n'êtes pas le propriétaire.",
     "Error_chargement_event" : "Erreur dans le chargement de l'event",
-    "Error_modif_subevent" : "Vous n'êtes pas autorisé à modifier cet SubEvent",
+    "Error_modif_subevent" : "Vous n'êtes pas autorisé à modifier ce tournoi",
     "Error_edition_event_id" : "Bad id ! "
 }
