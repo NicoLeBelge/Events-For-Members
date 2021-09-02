@@ -1,23 +1,23 @@
 <?php
-session_start();
+/*   - comments to update !!
+page to be included in a php page (edit-create-event.php or any name chosen by admin)
+input : none
+displays a form to enter new values for event creation
+
+*/
+
+/* lets get strings from json folder (strings displayed and configuration strings) */
+
+$str = json_decode(file_get_contents('./json/strings.json'),true);	
+$jsonstr = json_encode($str);
+
 ?>
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Création d'un évènement</title>
-		<meta charset="UTF-8" />
-		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-		<meta name="description" content="Créer un event">
-		<meta name="keywords" content="tournois, inscription, création">
 
-		<link rel="stylesheet" href="../css/E4M.css" /> 
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-		<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
-    </head>
-
-    <body >
-        <form action="createEvent-Action-core.php" method="post">
-            <label for="name">Nom de l'event :</label>  <input type="text" id="name" name="name"required/>
+<div class='E4M_maindiv'>
+    <h2><?=$str["event_creation_title"]?></h2>
+    <form action="./core/createEvent-Action-core.php" method="post">
+    
+            <label for="name"><?=$str["event_name_label"]?></label>  <input type="text" id="name" name="name"required/>
             <p>Date de début de l'évènement : <input type="date" name="datestart" required/></p>
             <p>Date de fin de l'évènement : <input type="date" name="datelim" /></p>
             <p>Sécutisation de l'évènement :
@@ -37,6 +37,7 @@ session_start();
 
             <p><input type="submit" value="OK" id="submitButton"></p>
             <input id="id" name="id" type="hidden" value=<?php echo $_SESSION['user_id'] ?>>
-        </form>
-    </body>
-</html>
+    </form>	
+	
+	
+</div>

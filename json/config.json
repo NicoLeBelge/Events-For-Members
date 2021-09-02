@@ -7,7 +7,7 @@
     "event_page":"register-event.php",
     "event_list_page":"register-event-list.php",
     "event_modification_page": "./register-event-edition.php", 
-    "create_event_page":"./core/createEvent-core.php",
+    "create_event_page":"./edit-create-event.php",
     "registration_search_page":"register-search.php",
     "registration_check_page":"register-check.php",
     "registration_confirm_page":"register-confirm.php",
