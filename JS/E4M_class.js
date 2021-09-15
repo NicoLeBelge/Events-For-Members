@@ -68,3 +68,52 @@ class IconSet {
         this.Build();
     }   
 }
+class Selector{
+    /**
+     * @param {Element} nest 
+     * @param {array} destination 
+     * @param {number} active
+     * @param {function} callback
+     * @param {string} plus_url
+     *
+     * builds a set of n div (n= sizeof [destination]), each containing the string 1, 2, ... n
+     * each div has onclick calling the function callback. 
+     * The function callback can find argument in event.currentTarget.callback_arg
+     * div of order active (1 <= active <= n) has css class E4M_on, others have E4M_off
+     * if plus_url is provided, a supplementary div (marked +, class E4M_off) leads to plus_url 
+     * required from external : css for each div
+     */
+   
+    constructor(nest, destination, active, callback, plus_url){
+        this.nest = nest;
+        this.destination = destination;
+        this.active = active;
+        this.callback = callback;
+        this.plus_url = plus_url;
+        this.Build();
+    }
+    Build(){
+        var nesting_div = document.getElementById(this.nest);
+        for ( let i = 0; i < this.destination.length ; i++ ) {
+            let newdiv = document.createElement('div');
+            newdiv.innerHTML = "<p>" + (i+1).toString(10) + "</p>";
+            //newdiv.innerHTML = (i+1).toString(10) ;
+            if (i+1 == this.active) {
+                newdiv.classList.add("E4M_on");
+            } else {
+                newdiv.classList.add("E4M_off");
+            };
+            newdiv.callback_arg = this.destination[i];
+            newdiv.addEventListener('click', this.callback, true);
+            nesting_div.appendChild(newdiv);
+        }
+        if (this.plus_url) {
+            let newdiv = document.createElement('div');  
+            newdiv.innerHTML = "<p>+</p>";
+            newdiv.classList.add("E4M_off");
+            newdiv.onclick = () => location.href = this.plus_url;
+            nesting_div.appendChild(newdiv);
+            
+        };
+    }   
+}

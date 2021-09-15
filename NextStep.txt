@@ -51,7 +51,7 @@ confirmation avant suppression
 | in progress |
 └─────────────┘
 articulation des pages de création d'event
-
+ajout class Selector
 ┌───────┐
 | To do |
 └───────┘
@@ -69,7 +69,7 @@ fine-tuner le curseur dans le header de la liste des participants (clic fonction
 Mettre les dates d'enregistrement/confirmation (si vraiment utile)
 
 Quand on clique sur "inscrire", ça met du temps, même en local --> prévoir sablier
-    
+Owner clique sur icone "check" pour joueur en attente de confirmation, faut parfois faire CTRL+F5 pour rafraichir.    
 Tester avec un subevent qui a une date différente du event
 Gérer les noms d'events ou de subevents avec des guillemets, ou s'assurer qu'ils soient sans.
 
