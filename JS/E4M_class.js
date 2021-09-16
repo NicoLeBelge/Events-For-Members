@@ -71,39 +71,46 @@ class IconSet {
 class Selector{
     /**
      * @param {Element} nest 
-     * @param {array} destination 
+     * @param {number} nbDIV
      * @param {number} active
      * @param {function} callback
      * @param {string} plus_url
      *
-     * builds a set of n div (n= sizeof [destination]), each containing the string 1, 2, ... n
+     * builds a set of nbDIV div, each containing the string 1, 2, ... n
      * each div has onclick calling the function callback. 
-     * The function callback can find argument in event.currentTarget.callback_arg
+     * The function callback can find argument in event.currentTarget.callback_arg (0, 1, ..., nbDIV-1)
      * div of order active (1 <= active <= n) has css class E4M_on, others have E4M_off
      * if plus_url is provided, a supplementary div (marked +, class E4M_off) leads to plus_url 
+     * Update method delete existing selector, and rebuild with new_active E4M_on
      * required from external : css for each div
      */
    
-    constructor(nest, destination, active, callback, plus_url){
+    constructor(nest, nbDIV, active, callback, plus_url){
         this.nest = nest;
-        this.destination = destination;
+        this.nbDIV = nbDIV;
         this.active = active;
         this.callback = callback;
         this.plus_url = plus_url;
         this.Build();
     }
+    Update(new_active){
+        let nesting_div = document.getElementById(this.nest);
+        nesting_div.innerHTML="";
+        this.active = new_active;
+        this.Build();
+    }
     Build(){
-        var nesting_div = document.getElementById(this.nest);
-        for ( let i = 0; i < this.destination.length ; i++ ) {
+        let nesting_div = document.getElementById(this.nest);
+        for ( let i = 0; i < this.nbDIV ; i++ ) {
             let newdiv = document.createElement('div');
             newdiv.innerHTML = "<p>" + (i+1).toString(10) + "</p>";
             //newdiv.innerHTML = (i+1).toString(10) ;
-            if (i+1 == this.active) {
+            if (i == this.active) {
                 newdiv.classList.add("E4M_on");
             } else {
                 newdiv.classList.add("E4M_off");
             };
-            newdiv.callback_arg = this.destination[i];
+            newdiv.callback_arg = i;
             newdiv.addEventListener('click', this.callback, true);
             nesting_div.appendChild(newdiv);
         }

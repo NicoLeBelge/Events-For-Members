@@ -143,7 +143,7 @@ function RegList2htmltable (infoset, subid){
 			sort_symbol["cat"] = str["sort_mark"];
 			break;
 		default :
-			console.log('sort_method undefined');
+			console.log("if you read this, then you should be able to contribute to this project !");
 	}
 	let nbregsub = sublist.length;
 	html_string += "<p>" + nbregsub + " <span class='E4M_css_key'>" +  str['registrations'] + "</span> </p>"  ;
@@ -235,9 +235,12 @@ function EditRegistration (reg, action, member_name) {
 	location.reload();
 }
 
-function SelectEvent(NumEvent) {
-	CurrentSubEventIndex = NumEvent;
+function SelectEvent(JS_Event) {
+	// function called when selector clicked
+	NumEvent = JS_Event.currentTarget.callback_arg;
+	console.log("NumEvent = ", NumEvent)
 	hidden_id.value = NumEvent;
+
 	/* selector rebuilt to update highlighted selection */
 	if (NbSubs > 1){
 			BuildHTMLEventSelector (NbSubs);
@@ -251,6 +254,7 @@ function SelectEvent(NumEvent) {
 	typ_set.Refresh(subs_data_set[CurrentSubEventIndex].type);
 	CurrentNbmax = subs_data_set[NumEvent]["nbmax"];
 	CurrentSubEventObj = subs_data_set[CurrentSubEventIndex];
+	subSelector.Update(NumEvent);
 	
 }
 function download() {

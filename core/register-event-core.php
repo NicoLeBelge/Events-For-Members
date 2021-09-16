@@ -92,6 +92,7 @@ if(isset($_GET['id'])){
 	</form >
 	<?php endif; ?>
 	<div id="E4M_select_event"></div>
+	<div id="new_selector" class="E4M_buttonset"></div>
 	<div id="E4M_subeventinfo" ></div>
 	<div id="E4M_subevent_cat" class="E4M_catlist" ></div>
 	<div id="E4M_subevent_gen" class="E4M_catlist" ></div>
@@ -127,11 +128,6 @@ if(isset($_GET['id'])){
 	
 	var subs_data_set = JSON.parse(`<?=$subs_data_jsonstr?>`);
 	console.log(subs_data_set);
-	//subevent_list_str =JSON.stringify(event_data_set['subs']);
-	
-	// note : we can then access subevent data (eg cat) or order n (eg 0)  with 
-	// let new_subevent_list = JSON.parse(subevent_list_str);
-	// cat_list = new_subevent_list[0]['cat']
 
 	var event_data_set = JSON.parse(`<?=$event_set_jsonstr?>`);
 	
@@ -143,12 +139,25 @@ if(isset($_GET['id'])){
 	var CurrentRating = 1; 	// default value, will later depend on rating in subevent
 	var eventinfoset; // {id="1", name = "eventname", datestart ="blabla",...}
 	var CurrentSubEventObj; // {Array for current subevent}
-	var subevent_list; // Array() of subevent_info_sets
+	// var subevent_list; // Array() of subevent_info_sets // debug ça sert à rien ?!!
 	var NbSubs; // Number of SubEvents in current events
 	var NbRegTot; // Total Number of registred members
 	var CurrentNbmax ; // max subscriptions for current subevent
-	var subevent_list_str; // will contain JSON of subevents data
+	var subevent_list_str; // will contain JSON of subevents data // debug ça sert à rien ?!!
+
 	
+	//console.log("subs_data_set = ", subevent_list)
+	let nbSubevents = subs_data_set.length;
+	
+	console.log("core / subs_data_set.length = ", subs_data_set.length)
+	console.log("nbSubevents = ", nbSubevents)
+	var subSelector = new Selector (
+		"new_selector",
+		nbSubevents,
+		CurrentSubEventIndex,
+		SelectEvent
+	);
+
 	var cat_set = new IconSet (
 		"E4M_subevent_cat", 
 		cat_names,

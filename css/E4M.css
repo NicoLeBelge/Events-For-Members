@@ -68,6 +68,12 @@ table, th, td {
 	color: white;
 	cursor: default;
 }
+.E4M_buttonset .E4M_off {
+	background-color : rgb(163, 163, 163);
+}
+.E4M_buttonset .E4M_on {
+	background-color : rgb(0, 0, 0);
+}
 .E4M_buttonset .other_sub_button {
 	background-color : rgb(163, 163, 163);
 }
