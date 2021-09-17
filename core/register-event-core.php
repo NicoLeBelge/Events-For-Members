@@ -91,8 +91,9 @@ if(isset($_GET['id'])){
 		<br/>
 	</form >
 	<?php endif; ?>
-	<div id="E4M_select_event"></div>
-	<div id="new_selector" class="E4M_buttonset"></div>
+	<div id="E4M_sub_data" ></div>
+	
+	<div id="sub_selector" class="E4M_buttonset"></div>
 	<div id="E4M_subeventinfo" ></div>
 	<div id="E4M_subevent_cat" class="E4M_catlist" ></div>
 	<div id="E4M_subevent_gen" class="E4M_catlist" ></div>
@@ -134,7 +135,7 @@ if(isset($_GET['id'])){
 	
 	var registration_search_page = `<?= $cfg['registration_search_page'] ?>`;
 	
-	var CurrentSubEventIndex = 0; 	// index of the internal table from json
+	var CurrentSubEventIndex = 0; 	// index of the internal table from json (0, 1,...)
 	var CurrentSubEventId = 0; 	// id in the database
 	var CurrentRating = 1; 	// default value, will later depend on rating in subevent
 	var eventinfoset; // {id="1", name = "eventname", datestart ="blabla",...}
@@ -144,20 +145,30 @@ if(isset($_GET['id'])){
 	var NbRegTot; // Total Number of registred members
 	var CurrentNbmax ; // max subscriptions for current subevent
 	var subevent_list_str; // will contain JSON of subevents data // debug ça sert à rien ?!!
+	var is_owner = false;
+	let is_owner_php = `<?= $is_owner ?>`;
+	let newsubURL = "";
+	if (is_owner_php == "1") { // is_owner = user connected is the owner of current event
+		is_owner=true;
+	};
+	if (is_owner){
+		newsubURL = "edit-autocreate-subevent.php?event_id=<?=$event_id ?>"
+	}
 
-	
 	//console.log("subs_data_set = ", subevent_list)
 	let nbSubevents = subs_data_set.length;
 	
 	console.log("core / subs_data_set.length = ", subs_data_set.length)
 	console.log("nbSubevents = ", nbSubevents)
-	var subSelector = new Selector (
-		"new_selector",
-		nbSubevents,
-		CurrentSubEventIndex,
-		SelectEvent
-	);
-
+	if (is_owner || nbSubevents>1) {
+		var subSelector = new Selector (
+			"sub_selector",
+			nbSubevents,
+			CurrentSubEventIndex,
+			SelectEvent,
+			newsubURL
+		);
+	}
 	var cat_set = new IconSet (
 		"E4M_subevent_cat", 
 		cat_names,
@@ -185,12 +196,7 @@ if(isset($_GET['id'])){
 	var registred_html_id = document.getElementById('E4M_regtable');
 	
 	var sort_method = "default"; // default (datereg) | name | rating | club | cat 
-	var is_owner = false;
-	let is_owner_php = `<?= $is_owner ?>`;
 	
-	if (is_owner_php == "1") { // is_owner = user connected is the owner of current event
-		is_owner=true;
-	};
 	
 
 	eventinfoset =event_data_set['infos'][0]; 

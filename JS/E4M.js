@@ -77,16 +77,15 @@ function SubeventInfos2html (infoset){
 	return html_string;
 	
 }
-function BuildHTMLEventSelector (n){
+function BuildHTMLEventSelector (n){ 
 	/* 	Builds the set of number one can click on to select subevent */
 	/* 	Should not be called if NbSubEvents =1 */
 	let html_string="";
 	html_string += str['Selector_help'] + n + " " + str['Subevnent_names'] ; 
 	html_string += "<div class='E4M_buttonset'>";
-	
-    
+	let sel = document.getElementById('E4M_sub_data');
+    /*
 	let k=0;
-	let sel = document.getElementById('E4M_select_event');
 	
 	for (k=0; k<=n-1; k++) {
 		
@@ -97,6 +96,7 @@ function BuildHTMLEventSelector (n){
 		}
 	}
 	html_string +="</div>";
+	*/
 	sel.innerHTML = html_string;
 }
 function RegList2htmltable (infoset, subid){
@@ -240,7 +240,7 @@ function SelectEvent(JS_Event) {
 	NumEvent = JS_Event.currentTarget.callback_arg;
 	console.log("NumEvent = ", NumEvent)
 	hidden_id.value = NumEvent;
-
+	CurrentSubEventIndex = NumEvent;
 	/* selector rebuilt to update highlighted selection */
 	if (NbSubs > 1){
 			BuildHTMLEventSelector (NbSubs);
