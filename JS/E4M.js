@@ -114,6 +114,7 @@ function RegList2htmltable (infoset, subid){
 		return filter.subid == CurrentSubEventId ;
 	});
 	rating_selector = "rating"+ CurrentRating;
+	console.log("rating_selector = ",rating_selector);
 	let sort_symbol = {
 		"name" : "",
 		"club" : "",

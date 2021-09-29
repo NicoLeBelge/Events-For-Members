@@ -205,6 +205,10 @@ if(isset($_GET['id'])){
 	
 	hidden_id.value = CurrentSubEventIndex;
 	CurrentSubEventObj = subs_data_set[CurrentSubEventIndex]; 
+	CurrentRating =CurrentSubEventObj.rating_type;
+	console.log(" CurrentRating : ");
+	console.log(CurrentRating);
+
 	CurrentNbmax = CurrentSubEventObj["nbmax"];
 	
 	member_list =  event_data_set['registrations'];
