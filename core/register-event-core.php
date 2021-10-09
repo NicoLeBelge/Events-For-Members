@@ -111,6 +111,9 @@ if(isset($_GET['id'])){
 	</form >
 	
 	<div id="E4M_regtable" class="E4M_regtable"></div>	
+	<br/><hr/><br/>
+	
+	<table id="reglist"></table>
 </div>
 <script src="./JS/E4M.js"></script>
 <script type="text/javascript" src="./JS/E4M_class.js"></script>
@@ -190,6 +193,9 @@ if(isset($_GET['id'])){
 		"E4M_typ",
 		false
 	);	
+	
+
+
 	/* those 3 html elements will be updated each time the user selects a subevents*/
 	var event_html_id = document.getElementById('E4M_eventinfo');
 	var subevent_html_id = document.getElementById('E4M_subeventinfo'); // icon sets added separately from Aug 30th 2021
@@ -222,4 +228,26 @@ if(isset($_GET['id'])){
 	if (NbSubs > 1){
 		BuildHTMLEventSelector (NbSubs);
 	}
+	/* constrution of the table of the registered members*/
+	console.log("member_list : ", member_list);
+	console.log("CurrentSubEventIndex : ", CurrentSubEventIndex);
+	
+	let regTableSettings = {
+		"headArray" : ["a","b","c","d","e", "🚦"],
+		//"headArray" : [str["Member"],[str["header_rating_name"],[str["cat"],[str["club_name"],[str["region_name"], "🚦"],
+		"active" : false, // to be changed if isOwner
+		"IOfieldName": "wait",
+		"activeHeader" :"",
+		"colData" : ["lastname", "rating1", "cat", "clubname", "region", "wait"]
+	}
+	console.log(regTableSettings);
+	
+	var regTable = new smartTable (
+		"reglist", 
+		member_list,
+		regTableSettings
+	);
+	
+
+	
 </script>

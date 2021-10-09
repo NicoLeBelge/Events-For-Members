@@ -124,3 +124,124 @@ class Selector{
         };
     }   
 }
+class smartTable{
+    /**
+     * @param {Element} nestingTable 
+     * @param {array} regArray 
+     * @param {object} settings 
+     * 
+     *
+     * Not fully portable class ! Pretty universal if Active mode is false
+     * fills in a table having id = nestingTable
+     * table content is taken from regArray, 
+     * settings obj allow to configure the table : 
+     *  .headArray defines the header of each column
+     *  .active : boolean to add action column (strictly dedicated to E4M)
+     *  .IOfieldName : 0/1 value purely dedicated to E4M 
+     *  .activeHeader : header for last column if active mode
+     *  .colData : array containing the property for each column
+     * Each row contains colData[0], colData[1], ...
+     * If regArray[n] has .rowLink set, clicking the row redirects to the link
+     * 
+     * required from external : css  
+     */
+   
+    constructor(nestingTable, regArray, settings){
+        this.nestingTable = nestingTable;
+        this.regArray = regArray;
+        this.settings = settings;
+        this.Build();
+    }
+    Build(){
+        var table = document.getElementById(this.nestingTable);
+        let tableData = this.regArray;
+        let Columns = this.settings.colData;
+        let nbCol = Columns.length;
+        let nbLig = this.regArray.length;
+        var isActive = this.settings.active;
+        var activeHeader = this.settings.activeHeader;
+        var IOfieldName = this.settings.IOfieldName;
+        let header = this.settings.headArray;
+        let nbHead = header.length;
+        if ( nbCol != nbHead ) {
+            throw 'header and body have different number of columns ! '
+        } 
+        let columns = this.settings.colData;
+        var tableHeader = table.createTHead();
+        let rowHead = document.createElement('tr');
+        for (let k = 0; k< nbHead; k++){
+            let headerCell = document.createElement('th');
+            headerCell.v_sortKey = Columns[k]; // puts the sort key in a variable attached to the cell
+            headerCell.appendChild(document.createTextNode(header[k]));
+            headerCell.callback_arg = Columns[k];
+            headerCell.addEventListener('click', event => {
+                let key = event.currentTarget.v_sortKey;
+                let tableData = this.regArray;
+                switch (typeof(this.regArray[0][key])) { // first data must be representative !
+                    case 'number' : 
+                        tableData.sort((a,b) => -parseFloat(a[key]) + parseFloat(b[key]));	
+                        break;
+                    case 'string' : 
+                        tableData.sort( (a,b) => a[key].toString().localeCompare(b[key].toString()) );
+                        break;	
+                    default :
+                        throw ('sort_method handles only numbers and strings');
+                }
+                this.regArray = tableData;
+                let table = document.getElementById(this.nestingTable);
+                table.deleteTHead();
+                table.removeChild(table.getElementsByTagName("tbody")[0]);
+                this.Build();
+            })
+            
+            rowHead.appendChild(headerCell);
+        }
+        if (isActive) {
+            rowHead.appendChild(document.createTextNode(activeHeader))
+        };
+        tableHeader.appendChild(rowHead);
+        let tableBody = document.createElement('tbody');
+        
+        /* from here, code is specific to RegisterList table if isActive */
+
+        tableData.forEach(function(rowData){
+            /* let's put all columns */
+            
+            console.log("rowData['wait'] = ", rowData[IOfieldName]) 
+            let isWaiting = (rowData[IOfieldName] == 1) ? true : false;
+            let row = document.createElement('tr');
+            for (let i = 0; i< nbCol; i++) {
+                let cell = document.createElement('td');
+                cell.appendChild(document.createTextNode(rowData[Columns[i]]));
+                row.appendChild(cell);
+            }
+            /* Add last colunm action (makes sense only for E4M) */
+            if (isActive) {
+                let lastCol = document.createElement('td');
+                let lastColChar = isWaiting ? "✅" : "❌";
+                lastCol.act_arg = isWaiting ? "c" : "d";
+                lastCol.char_arg = rowData.nom;
+                lastCol.numb_arg = rowData.id;
+                lastCol.appendChild(document.createTextNode(lastColChar));
+                lastCol.addEventListener("click", (event) => {
+                    // handle event click
+                    let consoleLog = ``;
+                    consoleLog += `${event.currentTarget.numb_arg} | ` 
+                    consoleLog += `${event.currentTarget.char_arg} | `
+                    consoleLog += `${event.currentTarget.act_arg} `
+                    console.log(consoleLog);
+                })
+                row.appendChild(lastCol)
+            };
+            if ( rowData.rowLink ) {
+                row.addEventListener("click", () => {
+                    document.location = rowData.rowLink;
+                })
+            }
+            tableBody.appendChild(row);
+        });
+        table.appendChild(tableBody);
+    }   
+}   
+    
+
