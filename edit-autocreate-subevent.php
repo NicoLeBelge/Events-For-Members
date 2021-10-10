@@ -23,14 +23,14 @@ session_start();
 	echo "<div class='cent_block'> \n";
 	echo "<br/> \n";
 	echo "création de subevent à faire";
-	//include ('./core/edit-create-event-core.php');
+
+	include ('./core/edit-autocreate-subevent-core.php');
     
 	echo "</div> \n";
 	
 	echo "<div class='T0P-footer'> \n";
 	include ('../head-foot/T0P-footer.php');
 	echo "</div> \n";
-	?>
-   
+	?>   
     </body>
 </html>
