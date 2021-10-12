@@ -118,7 +118,7 @@ if(isset($_GET['id'])){
 <script src="./JS/E4M.js"></script>
 <script type="text/javascript" src="./JS/E4M_class.js"></script>
 <script type="text/javascript">
-	var hidden_id= document.getElementById('E4M_hidden_id');
+	var hidden_id= document.getElementById('E4M_hidden_id'); // passes the suvevent_id to search page
 	
 	/* let's declare global variables used by external JS */
 	
@@ -131,7 +131,7 @@ if(isset($_GET['id'])){
 	
 	
 	var subs_data_set = JSON.parse(`<?=$subs_data_jsonstr?>`);
-	console.log(subs_data_set);
+	//console.log(subs_data_set);
 
 	var event_data_set = JSON.parse(`<?=$event_set_jsonstr?>`);
 	
@@ -161,8 +161,8 @@ if(isset($_GET['id'])){
 	//console.log("subs_data_set = ", subevent_list)
 	let nbSubevents = subs_data_set.length;
 	
-	console.log("core / subs_data_set.length = ", subs_data_set.length)
-	console.log("nbSubevents = ", nbSubevents)
+	//console.log("core / subs_data_set.length = ", subs_data_set.length)
+	//console.log("nbSubevents = ", nbSubevents)
 	if (is_owner || nbSubevents>1) {
 		var subSelector = new Selector (
 			"sub_selector",
@@ -212,8 +212,7 @@ if(isset($_GET['id'])){
 	hidden_id.value = CurrentSubEventIndex;
 	CurrentSubEventObj = subs_data_set[CurrentSubEventIndex]; 
 	CurrentRating =CurrentSubEventObj.rating_type;
-	console.log(" CurrentRating : ");
-	console.log(CurrentRating);
+	console.log("CurrentRating : ", CurrentRating );
 
 	CurrentNbmax = CurrentSubEventObj["nbmax"];
 	
@@ -231,20 +230,48 @@ if(isset($_GET['id'])){
 	/* constrution of the table of the registered members*/
 	console.log("member_list : ", member_list);
 	console.log("CurrentSubEventIndex : ", CurrentSubEventIndex);
+	// filtrage à faire
+	// console.log("on va maintenant filter avec sur subid = ", CurrentSubEventId)
+	
+	member_list.forEach((item) => {
+		/**
+		 * let's calculate full name to be displayed in the smartTable
+		 * status is also calculated from wait and confirmed.
+		 * determining rating to be displayed would be nonsense since it may vary with selector
+		 */
+		item.fullname = item.lastname + " " + item.firstname;
+		let StatusLegendNeeded = false;
+		if(item.wait == "1"){
+			item.status = str["wait_sign"];
+			StatusLegendNeeded ||= true;
+		} else {
+			if(item.confirmed == "0"){
+				item.status = str["mail_sign"];
+				StatusLegendNeeded ||= true;
+			} else {
+				item.status = str["OK_sign"];
+			}
+		}
+	});
+	//console.log("member_list après calcul du fullname : ", member_list);
+
+	var filteredList = member_list.filter( filter => filter.subid == CurrentSubEventId );
+	
+	filteredList.forEach( item => item.displayedRating = parseFloat(item["rating"+ CurrentRating]));
 	
 	let regTableSettings = {
-		"headArray" : ["a","b","c","d","e", "🚦"],
-		//"headArray" : [str["Member"],[str["header_rating_name"],[str["cat"],[str["club_name"],[str["region_name"], "🚦"],
+		"headArray" : ["", str["Member"],str["header_rating_name"],str["cat"],str["club_name"],str["region_name"], "🚦"],
 		"active" : false, // to be changed if isOwner
 		"IOfieldName": "wait",
 		"activeHeader" :"",
-		"colData" : ["lastname", "rating1", "cat", "clubname", "region", "wait"]
+		"colData" : ["member_grade", "fullname", "displayedRating", "cat", "clubname", "region", "status"],
+		"colSorted" : -1
 	}
-	console.log(regTableSettings);
+	
 	
 	var regTable = new smartTable (
 		"reglist", 
-		member_list,
+		filteredList,
 		regTableSettings
 	);
 	

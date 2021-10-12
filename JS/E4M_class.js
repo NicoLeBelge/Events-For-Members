@@ -140,7 +140,9 @@ class smartTable{
      *  .IOfieldName : 0/1 value purely dedicated to E4M 
      *  .activeHeader : header for last column if active mode
      *  .colData : array containing the property for each column
+     *  .colSorted : index of col sorted (-1 if none)
      * Each row contains colData[0], colData[1], ...
+     * Clicking the header of a column sorts the table alpha ASC or num DESC
      * If regArray[n] has .rowLink set, clicking the row redirects to the link
      * 
      * required from external : css  
@@ -152,6 +154,18 @@ class smartTable{
         this.settings = settings;
         this.Build();
     }
+
+    Update(new_Array){
+        /**
+         * table is deleted, and rebuilt with new Array
+         */
+        this.regArray = new_Array;
+        let table = document.getElementById(this.nestingTable);
+        table.deleteTHead();
+        table.removeChild(table.getElementsByTagName("tbody")[0]);
+        this.Build();
+    }
+    
     Build(){
         var table = document.getElementById(this.nestingTable);
         let tableData = this.regArray;
@@ -161,6 +175,7 @@ class smartTable{
         var isActive = this.settings.active;
         var activeHeader = this.settings.activeHeader;
         var IOfieldName = this.settings.IOfieldName;
+        let colSorted = this.settings.colSorted;
         let header = this.settings.headArray;
         let nbHead = header.length;
         if ( nbCol != nbHead ) {
@@ -172,10 +187,17 @@ class smartTable{
         for (let k = 0; k< nbHead; k++){
             let headerCell = document.createElement('th');
             headerCell.v_sortKey = Columns[k]; // puts the sort key in a variable attached to the cell
-            headerCell.appendChild(document.createTextNode(header[k]));
+            let sortSign = (k == colSorted) ? str["sort_mark"] :""; 
+            //let textNode = document.createTextNode(header[k]);
+            //if (k == colSorted) textNode += "!";
+            headerCell.appendChild(document.createTextNode(header[k] + sortSign));
+            //headerCell.appendChild(textNode);
             headerCell.callback_arg = Columns[k];
+            headerCell.index = k;
             headerCell.addEventListener('click', event => {
                 let key = event.currentTarget.v_sortKey;
+                let sortIndex = event.currentTarget.index;
+                this.settings.colSorted = sortIndex;
                 let tableData = this.regArray;
                 switch (typeof(this.regArray[0][key])) { // first data must be representative !
                     case 'number' : 
@@ -192,7 +214,7 @@ class smartTable{
                 table.deleteTHead();
                 table.removeChild(table.getElementsByTagName("tbody")[0]);
                 this.Build();
-            })
+            });
             
             rowHead.appendChild(headerCell);
         }
@@ -206,8 +228,6 @@ class smartTable{
 
         tableData.forEach(function(rowData){
             /* let's put all columns */
-            
-            console.log("rowData['wait'] = ", rowData[IOfieldName]) 
             let isWaiting = (rowData[IOfieldName] == 1) ? true : false;
             let row = document.createElement('tr');
             for (let i = 0; i< nbCol; i++) {
@@ -224,12 +244,6 @@ class smartTable{
                 lastCol.numb_arg = rowData.id;
                 lastCol.appendChild(document.createTextNode(lastColChar));
                 lastCol.addEventListener("click", (event) => {
-                    // handle event click
-                    let consoleLog = ``;
-                    consoleLog += `${event.currentTarget.numb_arg} | ` 
-                    consoleLog += `${event.currentTarget.char_arg} | `
-                    consoleLog += `${event.currentTarget.act_arg} `
-                    console.log(consoleLog);
                 })
                 row.appendChild(lastCol)
             };

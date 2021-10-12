@@ -50,11 +50,21 @@ confirmation avant suppression
 ┌─────────────┐
 | in progress |
 └─────────────┘
-articulation des pages de création d'event
-ajout class Selector
+smartTable montre la bonne liste de joueurs. Reste à faire : 
+- (fait) afficher NOM Prénom au lieu de nom tout court
+- (fait) afficher le bon rating
+- (fait) affichier les bons symboles wait/confirm
+- (fait) ajouter symbole de tri sur colonne triée
+- implémenter le mode owner
+- gérer le style en fonction du status
+- (fait) afficher le titre FIDE
+- afficher la légende si besoin
+
+
 ┌───────┐
 | To do |
 └───────┘
+
 Empêcher l'insertion de balise dans le nom de l'event
 Permettre l'affichage des données d'un event s'il n'y a pas de subevents (et si owner : ajout)
     ou alors créer automatiquement un subevent lors de la création d'un event.

@@ -114,7 +114,7 @@ function RegList2htmltable (infoset, subid){
 		return filter.subid == CurrentSubEventId ;
 	});
 	rating_selector = "rating"+ CurrentRating;
-	console.log("rating_selector = ",rating_selector);
+	//console.log("rating_selector = ",rating_selector);
 	let sort_symbol = {
 		"name" : "",
 		"club" : "",
@@ -163,7 +163,7 @@ function RegList2htmltable (infoset, subid){
 	html_string += "</tr>";
 	/* sublist contains the list filtered for current subevent, the html table is filled with these members */
 	let StatusLegendNeeded = false;
-	sublist.forEach(function(member){
+	sublist.forEach( member => {
 		let fullname = member.lastname + " "+ member.firstname;
 		html_string += "<tr>" ;
 		if(member.confirmed == "0" || member.wait == "1"){
@@ -237,9 +237,13 @@ function EditRegistration (reg, action, member_name) {
 }
 
 function SelectEvent(JS_Event) {
-	// function called when selector clicked
-	NumEvent = JS_Event.currentTarget.callback_arg;
-	console.log("NumEvent = ", NumEvent)
+	/**
+	 * function called when selector clicked
+	 * updates 3 iconsets, selector and smartTable
+	 */
+	
+	NumEvent = JS_Event.currentTarget.callback_arg;  // (0,1,...,nbsubevents-1)
+	//console.log("SelectEvent / NumEvent = ", NumEvent);
 	hidden_id.value = NumEvent;
 	CurrentSubEventIndex = NumEvent;
 	/* selector rebuilt to update highlighted selection */
@@ -256,7 +260,14 @@ function SelectEvent(JS_Event) {
 	CurrentNbmax = subs_data_set[NumEvent]["nbmax"];
 	CurrentSubEventObj = subs_data_set[CurrentSubEventIndex];
 	subSelector.Update(NumEvent);
+	filteredList = member_list.filter( filter => filter.subid == CurrentSubEventId );
+	filteredList.forEach( item => item.displayedRating = item["rating"+ CurrentRating]);
+	regTable.Update(filteredList);
+	//console.log(member_list); 
 	
+
+	// ici need to update smartTable
+	//console.log("end of SelectEvent function"); 
 }
 function download() {
 	let CSVstring ="";
