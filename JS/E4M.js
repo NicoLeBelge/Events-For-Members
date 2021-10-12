@@ -261,7 +261,14 @@ function SelectEvent(JS_Event) {
 	CurrentSubEventObj = subs_data_set[CurrentSubEventIndex];
 	subSelector.Update(NumEvent);
 	filteredList = member_list.filter( filter => filter.subid == CurrentSubEventId );
-	filteredList.forEach( item => item.displayedRating = item["rating"+ CurrentRating]);
+	
+	//filteredList.forEach( item => item.displayedRating = item["rating"+ CurrentRating]);
+	let StatusLegendNeeded = false;
+	filteredList.forEach( item => {
+		item.displayedRating = parseFloat(item["rating"+ CurrentRating])
+		if(item.wait == "1" || item.confirmed == "0" ) StatusLegendNeeded ||= true; 
+	});
+	document.getElementById("E4M_legend_status").innerHTML =  StatusLegendNeeded ? str["status_legend"] : "";
 	regTable.Update(filteredList);
 	//console.log(member_list); 
 	

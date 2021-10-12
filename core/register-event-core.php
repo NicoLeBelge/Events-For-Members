@@ -111,9 +111,12 @@ if(isset($_GET['id'])){
 	</form >
 	
 	<div id="E4M_regtable" class="E4M_regtable"></div>	
+
 	<br/><hr/><br/>
 	
 	<table id="reglist"></table>
+	<div id="E4M_legend_status" ></div>	
+
 </div>
 <script src="./JS/E4M.js"></script>
 <script type="text/javascript" src="./JS/E4M_class.js"></script>
@@ -237,28 +240,31 @@ if(isset($_GET['id'])){
 		/**
 		 * let's calculate full name to be displayed in the smartTable
 		 * status is also calculated from wait and confirmed.
-		 * determining rating to be displayed would be nonsense since it may vary with selector
+		 * determining displayedRating here is not appropriate since it may vary with selector
 		 */
 		item.fullname = item.lastname + " " + item.firstname;
-		let StatusLegendNeeded = false;
+		
 		if(item.wait == "1"){
 			item.status = str["wait_sign"];
-			StatusLegendNeeded ||= true;
+			item.css = "E4M_tab_not_confirmed";
 		} else {
 			if(item.confirmed == "0"){
 				item.status = str["mail_sign"];
-				StatusLegendNeeded ||= true;
+				item.css = "E4M_tab_not_confirmed";
 			} else {
 				item.status = str["OK_sign"];
+				item.css = "E4M_tab_confirmed";
 			}
 		}
 	});
-	//console.log("member_list après calcul du fullname : ", member_list);
-
+	
 	var filteredList = member_list.filter( filter => filter.subid == CurrentSubEventId );
-	
-	filteredList.forEach( item => item.displayedRating = parseFloat(item["rating"+ CurrentRating]));
-	
+	let StatusLegendNeeded = false;
+	filteredList.forEach( item => {
+		item.displayedRating = parseFloat(item["rating"+ CurrentRating])
+		if(item.wait == "1" || item.confirmed == "0" ) StatusLegendNeeded ||= true; 
+	});
+	document.getElementById("E4M_legend_status").innerHTML =  StatusLegendNeeded ? str["status_legend"] : "";
 	let regTableSettings = {
 		"headArray" : ["", str["Member"],str["header_rating_name"],str["cat"],str["club_name"],str["region_name"], "🚦"],
 		"active" : false, // to be changed if isOwner
@@ -266,7 +272,7 @@ if(isset($_GET['id'])){
 		"activeHeader" :"",
 		"colData" : ["member_grade", "fullname", "displayedRating", "cat", "clubname", "region", "status"],
 		"colSorted" : -1
-	}
+	};
 	
 	
 	var regTable = new smartTable (

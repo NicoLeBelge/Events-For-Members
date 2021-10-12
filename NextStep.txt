@@ -55,10 +55,10 @@ smartTable montre la bonne liste de joueurs. Reste à faire :
 - (fait) afficher le bon rating
 - (fait) affichier les bons symboles wait/confirm
 - (fait) ajouter symbole de tri sur colonne triée
-- implémenter le mode owner
-- gérer le style en fonction du status
+- (fait) gérer le style en fonction du status
 - (fait) afficher le titre FIDE
-- afficher la légende si besoin
+- (fait) afficher la légende si besoin
+- implémenter le mode owner
 
 
 ┌───────┐

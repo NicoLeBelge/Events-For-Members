@@ -141,6 +141,7 @@ class smartTable{
      *  .activeHeader : header for last column if active mode
      *  .colData : array containing the property for each column
      *  .colSorted : index of col sorted (-1 if none)
+     *  .setCSS : if true, then add specific style for rows not confirmed or waiting
      * Each row contains colData[0], colData[1], ...
      * Clicking the header of a column sorts the table alpha ASC or num DESC
      * If regArray[n] has .rowLink set, clicking the row redirects to the link
@@ -251,6 +252,9 @@ class smartTable{
                 row.addEventListener("click", () => {
                     document.location = rowData.rowLink;
                 })
+            }
+            if ( rowData.css ) {
+                row.classList.add(rowData.css); 
             }
             tableBody.appendChild(row);
         });
