@@ -114,7 +114,7 @@ if(isset($_GET['id'])){
 
 	<br/><hr/><br/>
 	
-	<table id="reglist"></table>
+	<table id="reglist" class="E4M_regtable"></table>
 	<div id="E4M_legend_status" ></div>	
 
 </div>
@@ -267,13 +267,13 @@ if(isset($_GET['id'])){
 	document.getElementById("E4M_legend_status").innerHTML =  StatusLegendNeeded ? str["status_legend"] : "";
 	let regTableSettings = {
 		"headArray" : ["", str["Member"],str["header_rating_name"],str["cat"],str["club_name"],str["region_name"], "🚦"],
-		"active" : false, // to be changed if isOwner
 		"IOfieldName": "wait",
-		"activeHeader" :"",
+		"activeHeader" :"⚙",
 		"colData" : ["member_grade", "fullname", "displayedRating", "cat", "clubname", "region", "status"],
 		"colSorted" : -1
 	};
-	
+	regTableSettings.active = is_owner ? true : false;
+	console.log ("is_owner = ", is_owner);
 	
 	var regTable = new smartTable (
 		"reglist", 

@@ -59,6 +59,9 @@ smartTable montre la bonne liste de joueurs. Reste à faire :
 - (fait) afficher le titre FIDE
 - (fait) afficher la légende si besoin
 - implémenter le mode owner
+in progress : debugging lasCol for owner.
+bug : un joueur qui a confirmé, mais est en liste d'attente a un owner sign "check", au lieu de "suppr"
+Click sur nouveau tableau ne fonctionne pas. Pire, clic sur ancien tableau fonctionne, mais le nouveau ne se met pas à jour !!!
 
 
 ┌───────┐

@@ -270,11 +270,7 @@ function SelectEvent(JS_Event) {
 	});
 	document.getElementById("E4M_legend_status").innerHTML =  StatusLegendNeeded ? str["status_legend"] : "";
 	regTable.Update(filteredList);
-	//console.log(member_list); 
 	
-
-	// ici need to update smartTable
-	//console.log("end of SelectEvent function"); 
 }
 function download() {
 	let CSVstring ="";

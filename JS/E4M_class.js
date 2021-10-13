@@ -216,7 +216,7 @@ class smartTable{
                 table.removeChild(table.getElementsByTagName("tbody")[0]);
                 this.Build();
             });
-            
+            headerCell.classList.add("E4M_hoverable_item");
             rowHead.appendChild(headerCell);
         }
         if (isActive) {
@@ -229,7 +229,8 @@ class smartTable{
 
         tableData.forEach(function(rowData){
             /* let's put all columns */
-            let isWaiting = (rowData[IOfieldName] == 1) ? true : false;
+            let isWaiting = (rowData.wait == "1") ? true : false;
+            let isConfirmed = (rowData.confirmed == "1") ? true : false;
             let row = document.createElement('tr');
             for (let i = 0; i< nbCol; i++) {
                 let cell = document.createElement('td');
@@ -239,12 +240,29 @@ class smartTable{
             /* Add last colunm action (makes sense only for E4M) */
             if (isActive) {
                 let lastCol = document.createElement('td');
-                let lastColChar = isWaiting ? "✅" : "❌";
-                lastCol.act_arg = isWaiting ? "c" : "d";
-                lastCol.char_arg = rowData.nom;
+                var lastColChar = "";
+                if ( isConfirmed ) {
+                    lastColChar = "❌";
+                    lastCol.act_arg = "d";
+                } else {
+                    if ( isWaiting ) {
+                        lastColChar = "✅";
+                        lastCol.act_arg = "c";
+                    }
+                }
+                lastCol.char_arg = rowData.fullname;
                 lastCol.numb_arg = rowData.id;
                 lastCol.appendChild(document.createTextNode(lastColChar));
                 lastCol.addEventListener("click", (event) => {
+                    // EditRegistration (reg, action, member_name)
+                    let reg_id = event.currentTarget.number_arg;
+                    let action = event.currentTarget.act_arg;
+                    let member_name = event.currentTarget.char_arg;
+                    console.log("reg_id = ",reg_id);
+                    console.log("action = ",action);
+                    console.log("member_name = ",member_name);
+
+                    EditRegistration (reg_id, action, member_name);
                 })
                 row.appendChild(lastCol)
             };
