@@ -229,8 +229,10 @@ class smartTable{
 
         tableData.forEach(function(rowData){
             /* let's put all columns */
-            let isWaiting = (rowData.wait == "1") ? true : false;
+            
             let isConfirmed = (rowData.confirmed == "1") ? true : false;
+            let isWaiting = (rowData.wait == "1") ? true : false;
+            
             let row = document.createElement('tr');
             for (let i = 0; i< nbCol; i++) {
                 let cell = document.createElement('td');
@@ -239,24 +241,23 @@ class smartTable{
             }
             /* Add last colunm action (makes sense only for E4M) */
             if (isActive) {
+                /*  */
                 let lastCol = document.createElement('td');
-                var lastColChar = "";
-                if ( isConfirmed ) {
-                    lastColChar = "❌";
-                    lastCol.act_arg = "d";
-                } else {
-                    if ( isWaiting ) {
-                        lastColChar = "✅";
-                        lastCol.act_arg = "c";
-                    }
+                let tempchar = "❌";
+                let tempaction = "d";
+                if ( !isConfirmed ) {
+                    tempchar = "✅";
+                    tempaction = "c";
                 }
+                let lastColChar = tempchar;
+                lastCol.action = tempaction;
                 lastCol.char_arg = rowData.fullname;
-                lastCol.numb_arg = rowData.id;
+                lastCol.number_arg = rowData.regid;
                 lastCol.appendChild(document.createTextNode(lastColChar));
                 lastCol.addEventListener("click", (event) => {
                     // EditRegistration (reg, action, member_name)
                     let reg_id = event.currentTarget.number_arg;
-                    let action = event.currentTarget.act_arg;
+                    let action = event.currentTarget.action;
                     let member_name = event.currentTarget.char_arg;
                     console.log("reg_id = ",reg_id);
                     console.log("action = ",action);

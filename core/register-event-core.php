@@ -109,11 +109,11 @@ if(isset($_GET['id'])){
 		<input id="E4M_hidden_id" name="E4M_hidden_index" type=hidden value=0>
 		<button type="submit" ><?=$str['Register']?></button>
 	</form >
-	
+	<!--
 	<div id="E4M_regtable" class="E4M_regtable"></div>	
 
 	<br/><hr/><br/>
-	
+	-->
 	<table id="reglist" class="E4M_regtable"></table>
 	<div id="E4M_legend_status" ></div>	
 
@@ -134,7 +134,6 @@ if(isset($_GET['id'])){
 	
 	
 	var subs_data_set = JSON.parse(`<?=$subs_data_jsonstr?>`);
-	//console.log(subs_data_set);
 
 	var event_data_set = JSON.parse(`<?=$event_set_jsonstr?>`);
 	
@@ -161,11 +160,8 @@ if(isset($_GET['id'])){
 		newsubURL = "edit-autocreate-subevent.php?event_id=<?=$event_id ?>"
 	}
 
-	//console.log("subs_data_set = ", subevent_list)
 	let nbSubevents = subs_data_set.length;
 	
-	//console.log("core / subs_data_set.length = ", subs_data_set.length)
-	//console.log("nbSubevents = ", nbSubevents)
 	if (is_owner || nbSubevents>1) {
 		var subSelector = new Selector (
 			"sub_selector",
@@ -215,7 +211,6 @@ if(isset($_GET['id'])){
 	hidden_id.value = CurrentSubEventIndex;
 	CurrentSubEventObj = subs_data_set[CurrentSubEventIndex]; 
 	CurrentRating =CurrentSubEventObj.rating_type;
-	console.log("CurrentRating : ", CurrentRating );
 
 	CurrentNbmax = CurrentSubEventObj["nbmax"];
 	
@@ -224,18 +219,13 @@ if(isset($_GET['id'])){
 
 	event_html_id.innerHTML = eventInfos2html(eventinfoset);
 	subevent_html_id.innerHTML = SubeventInfos2html(subs_data_set[CurrentSubEventIndex]);
-	registred_html_id.innerHTML = RegList2htmltable (member_list, CurrentSubEventIndex);
+	//registred_html_id.innerHTML = RegList2htmltable (member_list, CurrentSubEventIndex);
 	
 	NbSubs=subs_data_set.length;
 	if (NbSubs > 1){
 		BuildHTMLEventSelector (NbSubs);
 	}
 	/* constrution of the table of the registered members*/
-	console.log("member_list : ", member_list);
-	console.log("CurrentSubEventIndex : ", CurrentSubEventIndex);
-	// filtrage à faire
-	// console.log("on va maintenant filter avec sur subid = ", CurrentSubEventId)
-	
 	member_list.forEach((item) => {
 		/**
 		 * let's calculate full name to be displayed in the smartTable
@@ -268,12 +258,12 @@ if(isset($_GET['id'])){
 	let regTableSettings = {
 		"headArray" : ["", str["Member"],str["header_rating_name"],str["cat"],str["club_name"],str["region_name"], "🚦"],
 		"IOfieldName": "wait",
-		"activeHeader" :"⚙",
+		"activeHeader" :"",
 		"colData" : ["member_grade", "fullname", "displayedRating", "cat", "clubname", "region", "status"],
 		"colSorted" : -1
 	};
 	regTableSettings.active = is_owner ? true : false;
-	console.log ("is_owner = ", is_owner);
+	//console.log ("is_owner = ", is_owner);
 	
 	var regTable = new smartTable (
 		"reglist", 

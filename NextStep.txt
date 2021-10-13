@@ -47,9 +47,6 @@ Ne montrer que les tournois futurs
 afficher les titres FIDE + categorie dans la liste des inscrits
 owner : permettre de shooter des participants avec gestion de la liste d'attente /permettre à l'organisateur de valider une inscription en attente
 confirmation avant suppression
-┌─────────────┐
-| in progress |
-└─────────────┘
 smartTable montre la bonne liste de joueurs. Reste à faire : 
 - (fait) afficher NOM Prénom au lieu de nom tout court
 - (fait) afficher le bon rating
@@ -58,16 +55,17 @@ smartTable montre la bonne liste de joueurs. Reste à faire :
 - (fait) gérer le style en fonction du status
 - (fait) afficher le titre FIDE
 - (fait) afficher la légende si besoin
-- implémenter le mode owner
-in progress : debugging lasCol for owner.
-bug : un joueur qui a confirmé, mais est en liste d'attente a un owner sign "check", au lieu de "suppr"
-Click sur nouveau tableau ne fonctionne pas. Pire, clic sur ancien tableau fonctionne, mais le nouveau ne se met pas à jour !!!
+- (fait) implémenter le mode owner
 
+┌─────────────┐
+| in progress |
+└─────────────┘
+Bug during unregistration of a member : Cancel does delete the registration 
 
 ┌───────┐
 | To do |
 └───────┘
-
+activeHeader set to "" because it's uncentered if we put "⚙" --> twick CSS !
 Empêcher l'insertion de balise dans le nom de l'event
 Permettre l'affichage des données d'un event s'il n'y a pas de subevents (et si owner : ajout)
     ou alors créer automatiquement un subevent lors de la création d'un event.

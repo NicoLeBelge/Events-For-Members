@@ -220,7 +220,7 @@ function EditRegistration (reg, action, member_name) {
 	*/
 	let owner_confirmation = true;
 	if (action === 'd') {
-		let owner_confirmation = confirm (str['Unregister'] + "_"+ member_name + "_?");
+		let owner_confirmation = confirm (str['Unregister'] + " "+ member_name + "_?");
 	}
 	if (owner_confirmation){
 
@@ -253,7 +253,7 @@ function SelectEvent(JS_Event) {
 	CurrentSubEventId = subs_data_set[NumEvent]["id"];
 	CurrentRating = subs_data_set[NumEvent]["rating_type"]; 
 	subevent_html_id.innerHTML = SubeventInfos2html(subs_data_set[CurrentSubEventIndex]);
-	registred_html_id.innerHTML = RegList2htmltable (member_list, NumEvent);
+	//registred_html_id.innerHTML = RegList2htmltable (member_list, NumEvent);
 	cat_set.Refresh(subs_data_set[CurrentSubEventIndex].cat);
 	gen_set.Refresh(subs_data_set[CurrentSubEventIndex].gender);
 	typ_set.Refresh(subs_data_set[CurrentSubEventIndex].type);
