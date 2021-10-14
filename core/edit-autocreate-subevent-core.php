@@ -14,13 +14,15 @@
     {
         echo $key." ".$val."<br/>";
     }
+    echo $_GET['event_id'];
     echo '</pre>';
 
     $EMPTY_STRING = "NULL";
     $ALL_STRING='*';
     $EMPTY_INT=0;
+    $SPACE = ",";
 
-    $event_id = 3;
+    $event_id = $_GET['event_id'];
     $name = '"'.'Name of the sub-event'.'"';
     $datestart = "NULL";
     $nbmax = $EMPTY_INT;
@@ -37,7 +39,9 @@
 
 
 
-    $sql = "INSERT INTO `subevents` (event_id, name, datestart, nbmax, link, rating_type,gender,rating_restriction,rating_limit,rating_comp, cat,type) VALUES (3,\"Name of the sub-event\",NULL,0,NULL,0,\"*\",0,NULL,NULL,\"*\",\"*\")";;
+    $sql = "INSERT INTO `subevents` (event_id, name, datestart, nbmax, link, rating_type,gender,rating_restriction,rating_limit,rating_comp, cat,type) 
+    VALUES (".$event_id.$SPACE.$name.$SPACE.$datestart.$SPACE.$nbmax.$SPACE.$link.$SPACE.$rating_type.$SPACE.$gender.$SPACE.$rating_restriction
+    .$SPACE.$rating_limit.$SPACE.$rating_comp.$SPACE.$cat.$SPACE.$type.")";;
     echo $sql.'<br>';
     $res= $conn->query($sql);
 
@@ -46,6 +50,6 @@
 
 <?php
     sleep(1);
-    header('Location: register-event.php?id=3');
+    header('Location: register-event.php?id='.$_GET['event_id']);
     exit();
 ?>
