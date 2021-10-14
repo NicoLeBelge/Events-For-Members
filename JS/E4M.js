@@ -232,7 +232,17 @@ function EditRegistration (reg, action, member_name) {
 		request.open('POST', XHR);
 		request.responseType = 'json';
 		request.send(data);
-		location.reload();
+		let message = member_name + " : ";
+		if (action === 'd') {
+			message += str["Registration_cancelled"]
+		} else {
+			message += str["Confirmation_forced"]
+		}
+		alert(message);
+		setTimeout(()=>{ 
+			location.reload(); 
+		}, 
+		500);
 	}
 }
 
