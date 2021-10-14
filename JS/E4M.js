@@ -114,7 +114,7 @@ function RegList2htmltable (infoset, subid){
 		return filter.subid == CurrentSubEventId ;
 	});
 	rating_selector = "rating"+ CurrentRating;
-	console.log("rating_selector = ",rating_selector);
+	//console.log("rating_selector = ",rating_selector);
 	let sort_symbol = {
 		"name" : "",
 		"club" : "",
@@ -163,7 +163,7 @@ function RegList2htmltable (infoset, subid){
 	html_string += "</tr>";
 	/* sublist contains the list filtered for current subevent, the html table is filled with these members */
 	let StatusLegendNeeded = false;
-	sublist.forEach(function(member){
+	sublist.forEach( member => {
 		let fullname = member.lastname + " "+ member.firstname;
 		html_string += "<tr>" ;
 		if(member.confirmed == "0" || member.wait == "1"){
@@ -220,26 +220,40 @@ function EditRegistration (reg, action, member_name) {
 	*/
 	let owner_confirmation = true;
 	if (action === 'd') {
-		let owner_confirmation = confirm (str['Unregister'] + "_"+ member_name + "_?");
+		owner_confirmation = confirm (str['Unregister'] + " "+ member_name + " ?");
 	}
-	if (owner_confirmation){
-
+	console.log("owner_confirmation = ", owner_confirmation);
+	if ( owner_confirmation ){
+		let data = new FormData();
+		data.append('reg_id', reg);
+		data.append('action_code', action);
+		let request = new XMLHttpRequest();
+		let XHR = './API/set-registration-status.php';
+		request.open('POST', XHR);
+		request.responseType = 'json';
+		request.send(data);
+		let message = member_name + " : ";
+		if (action === 'd') {
+			message += str["Registration_cancelled"]
+		} else {
+			message += str["Confirmation_forced"]
+		}
+		alert(message);
+		setTimeout(()=>{ 
+			location.reload(); 
+		}, 
+		500);
 	}
-	let data = new FormData();
-	data.append('reg_id', reg);
-	data.append('action_code', action);
-	let request = new XMLHttpRequest();
-	let XHR = './API/set-registration-status.php';
-	request.open('POST', XHR);
-	request.responseType = 'json';
-	request.send(data);
-	location.reload();
 }
 
 function SelectEvent(JS_Event) {
-	// function called when selector clicked
-	NumEvent = JS_Event.currentTarget.callback_arg;
-	console.log("NumEvent = ", NumEvent)
+	/**
+	 * function called when selector clicked
+	 * updates 3 iconsets, selector and smartTable
+	 */
+	
+	NumEvent = JS_Event.currentTarget.callback_arg;  // (0,1,...,nbsubevents-1)
+	//console.log("SelectEvent / NumEvent = ", NumEvent);
 	hidden_id.value = NumEvent;
 	CurrentSubEventIndex = NumEvent;
 	/* selector rebuilt to update highlighted selection */
@@ -249,13 +263,23 @@ function SelectEvent(JS_Event) {
 	CurrentSubEventId = subs_data_set[NumEvent]["id"];
 	CurrentRating = subs_data_set[NumEvent]["rating_type"]; 
 	subevent_html_id.innerHTML = SubeventInfos2html(subs_data_set[CurrentSubEventIndex]);
-	registred_html_id.innerHTML = RegList2htmltable (member_list, NumEvent);
+	//registred_html_id.innerHTML = RegList2htmltable (member_list, NumEvent);
 	cat_set.Refresh(subs_data_set[CurrentSubEventIndex].cat);
 	gen_set.Refresh(subs_data_set[CurrentSubEventIndex].gender);
 	typ_set.Refresh(subs_data_set[CurrentSubEventIndex].type);
 	CurrentNbmax = subs_data_set[NumEvent]["nbmax"];
 	CurrentSubEventObj = subs_data_set[CurrentSubEventIndex];
 	subSelector.Update(NumEvent);
+	filteredList = member_list.filter( filter => filter.subid == CurrentSubEventId );
+	
+	//filteredList.forEach( item => item.displayedRating = item["rating"+ CurrentRating]);
+	let StatusLegendNeeded = false;
+	filteredList.forEach( item => {
+		item.displayedRating = parseFloat(item["rating"+ CurrentRating])
+		if(item.wait == "1" || item.confirmed == "0" ) StatusLegendNeeded ||= true; 
+	});
+	document.getElementById("E4M_legend_status").innerHTML =  StatusLegendNeeded ? str["status_legend"] : "";
+	regTable.Update(filteredList);
 	
 }
 function download() {

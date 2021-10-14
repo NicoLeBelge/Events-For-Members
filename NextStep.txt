@@ -47,19 +47,31 @@ Ne montrer que les tournois futurs
 afficher les titres FIDE + categorie dans la liste des inscrits
 owner : permettre de shooter des participants avec gestion de la liste d'attente /permettre à l'organisateur de valider une inscription en attente
 confirmation avant suppression
+smartTable montre la bonne liste de joueurs. Reste à faire : 
+- (fait) afficher NOM Prénom au lieu de nom tout court
+- (fait) afficher le bon rating
+- (fait) affichier les bons symboles wait/confirm
+- (fait) ajouter symbole de tri sur colonne triée
+- (fait) gérer le style en fonction du status
+- (fait) afficher le titre FIDE
+- (fait) afficher la légende si besoin
+- (fait) implémenter le mode owner
+bug sur suppression des joueurs avec un espace dans leur nom (ex bartczak guichard) à cause des guillemets ajoutés dans le onclick
+
 ┌─────────────┐
 | in progress |
 └─────────────┘
-articulation des pages de création d'event
-ajout class Selector
+Bug during unregistration of a member : Cancel does delete the registration --> solved
+
 ┌───────┐
 | To do |
 └───────┘
+activeHeader set to "" because it's uncentered if we put "⚙" --> twick CSS !
 Empêcher l'insertion de balise dans le nom de l'event
-Permettre l'affichage des données d'un event s'il n'y a pas de subevents (et si owner : ajout)
+(prévu) Permettre l'affichage des données d'un event s'il n'y a pas de subevents (et si owner : ajout)
     ou alors créer automatiquement un subevent lors de la création d'un event.
 Modifier les conditions d'affichage des boutons Modifier et Télécharger --> seulement si owner.
-bug sur suppression des joueurs avec un espace dans leur nom (ex bartczak guichard) à cause des guillemets ajoutés dans le onclick
+
 contact initialement prévu tous moyens, implémenté e-mail only, à garder mais ajoute-t-on un autre moyen de contact ? 
 NL supprimé required sur nombre maximal d'inscrits  : voir si effets de bords
 Sur suppression ou confirmation du joueur, mettre un call back avec message de confirmation (ou juste le reload dans le callback)
