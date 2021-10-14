@@ -220,20 +220,20 @@ function EditRegistration (reg, action, member_name) {
 	*/
 	let owner_confirmation = true;
 	if (action === 'd') {
-		let owner_confirmation = confirm (str['Unregister'] + " "+ member_name + "_?");
+		owner_confirmation = confirm (str['Unregister'] + " "+ member_name + " ?");
 	}
-	if (owner_confirmation){
-
+	console.log("owner_confirmation = ", owner_confirmation);
+	if ( owner_confirmation ){
+		let data = new FormData();
+		data.append('reg_id', reg);
+		data.append('action_code', action);
+		let request = new XMLHttpRequest();
+		let XHR = './API/set-registration-status.php';
+		request.open('POST', XHR);
+		request.responseType = 'json';
+		request.send(data);
+		location.reload();
 	}
-	let data = new FormData();
-	data.append('reg_id', reg);
-	data.append('action_code', action);
-	let request = new XMLHttpRequest();
-	let XHR = './API/set-registration-status.php';
-	request.open('POST', XHR);
-	request.responseType = 'json';
-	request.send(data);
-	location.reload();
 }
 
 function SelectEvent(JS_Event) {

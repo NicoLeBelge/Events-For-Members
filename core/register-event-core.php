@@ -115,7 +115,8 @@ if(isset($_GET['id'])){
 	<br/><hr/><br/>
 	-->
 	<table id="reglist" class="E4M_regtable"></table>
-	<div id="E4M_legend_status" ></div>	
+	<br/>
+	<div id="E4M_legend_status" style="font-size: 0.8em"></div>	
 
 </div>
 <script src="./JS/E4M.js"></script>
