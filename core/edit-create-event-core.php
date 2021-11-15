@@ -16,14 +16,17 @@ $jsonstr = json_encode($str);
 <div class='E4M_maindiv'>
     <h2><?=$str["event_creation_title"]?></h2>
     <form action="./core/createEvent-Action-core.php" method="post">
-    
+            
             <label for="name"><?=$str["event_name_label"]?></label><span style="color: red"> *</span>
             <input type="text" id="name" name="name" required/>
-            <label for="datestart"><?=$str["Date_of_place"]?></label>  
-            <input type="date" name="datestart" required/><span style="color: red"> *</span>
-            <label for="datelim"><?=$str["Date_until"]?></label>  
-            <input type="date" name="datelim" />
-
+            <table>
+                <tr>
+            <td><label for="datestart"><?=$str["Date_of_place"]?></label>  </td>
+            <td><input type="date" name="datestart" required/><span style="color: red"> *</span>
+            </tr>
+            <td><label for="datelim"><?=$str["Date_until"]?></label>  </td>
+            <td><input type="date" name="datelim" /></td>
+            </table>
             <p><?=$str["Event_secured_info"]?>
                 <input type="radio" id="yes" name="secured" value="yes" checked>
                 <label for="yes">yes</label>
