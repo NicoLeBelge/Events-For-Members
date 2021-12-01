@@ -135,7 +135,8 @@ if(isset($_GET['id'])){
 	
 	
 	var subs_data_set = JSON.parse(`<?=$subs_data_jsonstr?>`);
-
+	console.log(subs_data_set);
+	
 	var event_data_set = JSON.parse(`<?=$event_set_jsonstr?>`);
 	
 	

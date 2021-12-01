@@ -98,6 +98,7 @@ class Selector{
         nesting_div.innerHTML="";
         this.active = new_active;
         this.Build();
+        console.log("Hello from selector_update()");
     }
     Build(){
         let nesting_div = document.getElementById(this.nest);
