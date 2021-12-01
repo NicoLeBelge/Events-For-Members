@@ -312,3 +312,84 @@ function download() {
 	element.click();
 	document.body.removeChild(element); // necessary ??
 }
+
+function unwait (max, subs, regs) {
+	/**
+	 * inputs
+	 * max : total max amount of participants in event
+	 * subs : array of subevents [{"id": "1", "nbmax" : "5"....},{},...{}]
+	 * 	 required keys : id, nbmax
+	 * regs : array of registrations [{"id": "1", "date" : ....},{},...{}]
+	 *   required keys : regid, subid, wait
+	 * ! warning ! number passed as strings !
+	 * 
+	 * output : id of the registration who can be unwaited
+	 * 
+	 * action: find the registration to change wait = 1 --> 0 (unwait) when a place is freed
+	 * if one registration found, returns registrations id, return null if not found
+	 * registration id (regid) are supposed to be ASC with date, no need datereg to now which reg is oldest
+	 * all registrations must be from one single event_id for which a unwait situation is searched
+	 */
+
+	/**
+	 * algorythm
+	 * we initialize (to null) a candidate in each item of the array "subs"
+	 * we create digital or boolean fields to replace text values
+	 * For each sub, the candidate is a member with status wait-true wheras there is free room in the subevent
+	 * If all candidates are null --> returns null
+	 * else, returns the smallest candidate 
+	 */
+	
+
+	/* conversion + initialization of candidate */
+	let TheOne = null; // we first consider there is no one to unwait.
+	regs.forEach( (item) => {
+		item.r = parseInt(item.regid);
+		item.s = parseInt(item.subid);
+		item.c = null; // candidate
+		item.w = item.wait =="1" ? true : false;
+	});
+	/* let's check if the event is full or no */
+	let NbNotWaitingTotal = regs.filter( (filter) => { return !filter.w ; });
+	let EventFull = false; 
+	if (max) {
+		EventFull = (NbNotWaitingTotal.length >= max) ? true : false ;
+	} 
+	if (!EventFull) {
+		/* search of candidate for each subevent */
+		subs.forEach( (sub) => {
+			sub.max = parseInt(sub.nbmax);
+			/* filtering the registrations of current subevent */
+			let regsOfSub = regs.filter( (filter) => {return filter.s == sub.id; });
+			let regsOfSubWaiting = regsOfSub.filter( (filter) => { return filter.w ; });
+			sub.NbWaiting = regsOfSubWaiting.length;
+			//ordering with registrations id (smaller = older)
+			let regsOfSubWaitingSorted = regsOfSubWaiting.sort( (a,b) => parseInt(a.r)-parseInt(b.r));
+			if (regsOfSubWaitingSorted.length > 0) {
+				sub.candidate = regsOfSubWaitingSorted[0].r;
+			} else {
+				sub.candidate = null;
+			}
+			let regsOfSubNotWaiting = regsOfSub.filter( (filter) => {
+				return !filter.w ; 
+			});
+			sub.NbNotWaiting = regsOfSubNotWaiting.length;
+		});
+		/* we have the liste of candidates for each sub, let's find the one */
+		let CandidateMin = 10000; // we supposed all events will have less than 10000 registrations;
+		subs.forEach( (sub) => {
+			if (sub.candidate !== null) {
+				// let's check if subevent has available room
+				if ((sub.NbNotWaiting < sub.max) || (isNaN(sub.max))) {
+					if (sub.candidate < CandidateMin) CandidateMin = sub.candidate ;
+				}
+			} 
+		});
+		if (CandidateMin == 10000) {
+			TheOne = null;
+		} else {
+			TheOne = CandidateMin;
+		}
+	} 
+	return TheOne;
+}
