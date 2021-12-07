@@ -217,8 +217,26 @@ if(isset($_GET['id'])){
 	CurrentNbmax = CurrentSubEventObj["nbmax"];
 	
 	member_list =  event_data_set['registrations'];
+	console.log("member_list", member_list);
 	NbRegTot = member_list.length;
 
+    if ( is_owner ) {
+        let registration_to_unwait = unwait(eventinfoset.nbmax, subs_data_set, member_list);
+        if (registration_to_unwait == null) {
+            console.log("no registration to unwait")
+        } else {
+            let TheOne = member_list.find(el => el.regid == registration_to_unwait);
+			let TheOneIndex = member_list.findIndex(el => el.regid == registration_to_unwait);
+			console.log("TheOneIndex in member_list", TheOneIndex)
+			let TheOneFullName = TheOne.firstname + " " + TheOne.lastname;
+			console.log(`registration ${registration_to_unwait} ( ${TheOneFullName} )  to unwait`);
+			//console.log(`registration ${registration_to_unwait} to unwait`);
+			
+			EditRegistration (registration_to_unwait, 'u', TheOneFullName);
+
+			
+        }
+    }
 	event_html_id.innerHTML = eventInfos2html(eventinfoset);
 	subevent_html_id.innerHTML = SubeventInfos2html(subs_data_set[CurrentSubEventIndex]);
 	//registred_html_id.innerHTML = RegList2htmltable (member_list, CurrentSubEventIndex);

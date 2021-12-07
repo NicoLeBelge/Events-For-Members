@@ -217,12 +217,13 @@ function EditRegistration (reg, action, member_name) {
 	allows the change registration status 
 	action = 'c' --> set confirmed = 1
 	action = 'd' --> delete registration
+	action = 'u' --> unwait (set wait = 0)
 	*/
 	let owner_confirmation = true;
+	/* confirmation request for deletion */
 	if (action === 'd') {
 		owner_confirmation = confirm (str['Unregister'] + " "+ member_name + " ?");
 	}
-	console.log("owner_confirmation = ", owner_confirmation);
 	if ( owner_confirmation ){
 		let data = new FormData();
 		data.append('reg_id', reg);
@@ -233,11 +234,24 @@ function EditRegistration (reg, action, member_name) {
 		request.responseType = 'json';
 		request.send(data);
 		let message = member_name + " : ";
+		switch (action) {
+			case 'c' : 
+			message += str["Confirmation_forced"];
+			break;
+			case 'd' : 
+			message += str["Registration_cancelled"];
+			break;
+			case 'u' : 
+			message += str["Registration_unwaited"];
+			break;
+		}
+		/**
 		if (action === 'd') {
 			message += str["Registration_cancelled"]
 		} else {
 			message += str["Confirmation_forced"]
 		}
+		*/
 		alert(message);
 		setTimeout(()=>{ 
 			location.reload(); 
