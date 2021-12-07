@@ -5,6 +5,7 @@ input  (POST)	: registration id (reg_id)
 				action_code (c | d)
 c : confirmed = false --> true
 d  --> delete registration
+u : change registration status wait 1 --> 0
 action authorized only if user_id (SESSION) = owner
 */
 session_start();
@@ -35,6 +36,12 @@ if ($do_change){
 			case 'd':
 				/* delete registration */
 				$req=$conn->prepare("DELETE FROM registrations WHERE id = '$regid'");
+				$req->execute();
+				echo "suppression effectuée";
+				break;
+			case 'u':
+				/* unwait registration */
+				$req=$conn->prepare("UPDATE registrations SET wait=0 WHERE id = '$regid'");
 				$req->execute();
 				echo "suppression effectuée";
 				break;

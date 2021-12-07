@@ -99,5 +99,7 @@
     "Error_choice_event" : "Erreur dans le choix du festival, vous n'êtes pas le propriétaire.",
     "Error_chargement_event" : "Erreur dans le chargement de l'event",
     "Error_modif_subevent" : "Vous n'êtes pas autorisé à modifier ce tournoi",
-    "Error_edition_event_id" : "Bad id ! "
+    "Error_edition_event_id" : "Bad id ! ",
+    "Registration_unwaited" : " sorti de la liste d'attente"
+    
 }
