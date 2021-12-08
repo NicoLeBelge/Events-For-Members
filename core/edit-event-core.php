@@ -17,7 +17,7 @@
 	$array_old = $res->fetch();
 ?>
 <form action="./core/editEvent-Action-core.php" method="post">
-	<label for="name">Nom de l'event :</label>  <input type="text" id="name" name="name" onchange="validate()"  value=<?="'".$array_old['name']."'"?> />
+	<label for="name">Nom de l'event :</label>  <input type="text" id="name" name="name" onchange="validate()"/>
 	<p>Date de début de l'évènement : <input type="date" name="datestart" onchange="validate()" value=<?=$array_old['datestart'] ?> /></p>
 	<p>Date de fin d'inscription : <input type="date" name="datelim" onchange="validate()" value=<?=$array_old['datelim'] ?> /></p>
 	<p>Sécutisation de l'évènement :
@@ -42,6 +42,9 @@
 
 
 <script type="text/javascript">
+	let e=document.getElementById("name");
+	e.value=`<?=$array_old['name']?>`;
+
 	validate();
 </script> 
 <?php

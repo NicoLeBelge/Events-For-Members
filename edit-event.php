@@ -24,7 +24,7 @@
         
         echo "<div class='cent_block'> \n";
         echo "<br/> \n";
-        $path = './core/register-event-edition-core.php';
+        $path = './core/edit-event-core.php';
         if(!empty($_GET['id'])) include($path);
     
         echo "</div> \n";
