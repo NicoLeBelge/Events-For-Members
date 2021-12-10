@@ -6,7 +6,7 @@
     "e-mail_from":"chessMOOC<noreply@chessmooc.org>",
     "event_page":"register-event.php",
     "event_list_page":"register-event-list.php",
-    "event_modification_page": "./register-event-edition.php", 
+    "event_modification_page": "./edit-event.php", 
     "create_event_page":"./edit-create-event.php",
     "registration_search_page":"register-search.php",
     "registration_check_page":"register-check.php",
