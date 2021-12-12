@@ -90,11 +90,15 @@ bug sur suppression des joueurs avec un espace dans leur nom (ex bartczak guicha
 Bug during unregistration of a member : Cancel does delete the registration --> solved
 function unwait implemented
 Automatic unwait implemented - still need to be fully tested
+unwait implementation testing in progress
+auto creation of subevent
+move to event page after event creation
 ┌─────────────┐
 | in progress |
 └─────────────┘
 
-unwait implementation testing in progress
+make subevent edit page
+
 ┌───────┐
 | To do |
 └───────┘
