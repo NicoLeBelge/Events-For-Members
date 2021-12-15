@@ -81,16 +81,19 @@ if(isset($_GET['id'])){
 	echo "this page needs parameter";
 }
 ?>
+
 	<div class='E4M_maindiv'>
 	<a href = "<?=$cfg['event_list_page']?>"><button> ⬆ <?=$str['Goto_all_events']?> ⬆ </button> </a>
-	<div id="E4M_eventinfo" ></div>
-	
-	<?php if (ISSET($_SESSION['user_id'])): ?>
+	<?php if ($is_owner): ?>
 		<form action=<?= $cfg["event_modification_page"] ?> method="GET" >
 		<button type="submit" name="id" value=<?=$_GET['id']?> ><?=$str['Modify']?></button>
 		<br/>
 	</form >
 	<?php endif; ?>
+	<div id="E4M_eventinfo" ></div>
+	
+	
+	
 	<div id="E4M_sub_data" ></div>
 	
 	<div id="sub_selector" class="E4M_buttonset"></div>
@@ -99,8 +102,9 @@ if(isset($_GET['id'])){
 	<div id="E4M_subevent_gen" class="E4M_catlist" ></div>
 	<div id="E4M_subevent_typ" class="E4M_catlist" ></div>
 	
-	<?php if (ISSET($_SESSION['user_id'])): ?>
+	<?php if ($is_owner): ?>
 		<br/>
+		<button id="EditSubEventButton"><?=$str['Modify']?></button>	
 		<button onclick="download()"><?=$str['Download']?></button>	
 	</form >
 	<?php endif; ?>
@@ -109,11 +113,7 @@ if(isset($_GET['id'])){
 		<input id="E4M_hidden_id" name="E4M_hidden_index" type=hidden value=0>
 		<button type="submit" ><?=$str['Register']?></button>
 	</form >
-	<!--
-	<div id="E4M_regtable" class="E4M_regtable"></div>	
-
-	<br/><hr/><br/>
-	-->
+	
 	<table id="reglist" class="E4M_regtable"></table>
 	<br/>
 	<div id="E4M_legend_status" style="font-size: 0.8em"></div>	
@@ -147,19 +147,20 @@ if(isset($_GET['id'])){
 	var CurrentRating = 1; 	// default value, will later depend on rating in subevent
 	var eventinfoset; // {id="1", name = "eventname", datestart ="blabla",...}
 	var CurrentSubEventObj; // {Array for current subevent}
-	// var subevent_list; // Array() of subevent_info_sets // debug ça sert à rien ?!!
 	var NbSubs; // Number of SubEvents in current events
 	var NbRegTot; // Total Number of registred members
 	var CurrentNbmax ; // max subscriptions for current subevent
 	var subevent_list_str; // will contain JSON of subevents data // debug ça sert à rien ?!!
 	var is_owner = false;
 	let is_owner_php = `<?= $is_owner ?>`;
-	let newsubURL = "";
+	let newSubURL = "";
+	let editSubURL = "";
+
 	if (is_owner_php == "1") { // is_owner = user connected is the owner of current event
 		is_owner=true;
 	};
 	if (is_owner){
-		newsubURL = "edit-autocreate-subevent.php?event_id=<?=$event_id ?>"
+		newSubURL = "edit-autocreate-subevent.php?event_id=<?=$event_id ?>"
 	}
 
 	let nbSubevents = subs_data_set.length;
@@ -170,7 +171,7 @@ if(isset($_GET['id'])){
 			nbSubevents,
 			CurrentSubEventIndex,
 			SelectEvent,
-			newsubURL
+			newSubURL
 		);
 	}
 	var cat_set = new IconSet (
@@ -203,13 +204,17 @@ if(isset($_GET['id'])){
 	var registred_html_id = document.getElementById('E4M_regtable');
 	
 	var sort_method = "default"; // default (datereg) | name | rating | club | cat 
-	
+	const EditSubBnt = document.getElementById('EditSubEventButton');
 	
 
 	eventinfoset =event_data_set['infos'][0]; 
 	
 	CurrentSubEventId = subs_data_set[CurrentSubEventIndex]["id"]; 
+	if (is_owner){
+		EditSubBnt.addEventListener('click', gotoSubEventEditPage);
+	}
 	
+
 	hidden_id.value = CurrentSubEventIndex;
 	CurrentSubEventObj = subs_data_set[CurrentSubEventIndex]; 
 	CurrentRating =CurrentSubEventObj.rating_type;
