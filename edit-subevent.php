@@ -25,7 +25,12 @@
         echo "<div class='cent_block'> \n";
         echo "<br/> \n";
         $path = './core/edit-subevent-core.php';
-        if(!empty($_GET['id'])) include($path);
+        if ( ! empty($_GET['id']) ) {
+            include($path);
+        } else {
+            echo "event_id not set";
+        }
+        
     
         echo "</div> \n";
 	
