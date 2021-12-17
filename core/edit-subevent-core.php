@@ -4,9 +4,10 @@
 	include($pathbdd);
 	include($pathfunction );
 	
-	/** Let's check if event_id is valid
+	/** Let's check if event_id is valid (we're already know $_GET['id'] isset)
 	 * if not let's write an error message
 	 * if so, then let's check if current user is owner of this subevent
+	 * abnormal access to this page is unlikely --> error messages in english
 	 */
 	$message="";
 	
@@ -18,26 +19,39 @@
 	INNER JOIN subevents
 	ON subevents.event_id = events.id	
 	WHERE subevents.id=$subeventId";
-	var_dump(htmlspecialchars($requete));
 	echo "<br/>";
 	$res= $conn->query(htmlspecialchars($requete));
-	if ($res->rowCount() !== 0) { 
-		$message="event_id $subeventId found OK !!";
-	} else {
-		
+	$display_form = false;
+	if ($res->rowCount() == 0) { // subevent not found
 		$message="event_id $subeventId not found";
+	} else {
+		$owner = $res->fetch();
+		if (! isset($_SESSION['user_id'])) {
+			$message="you must be connected to access this page";
+		} else { // visitor is connected
+			if ($owner[0] <> $_SESSION['user_id']) {
+				$message="Only owner of this subevent can edit it";
+			} else { // visitor is the owner
+				if ( $_SESSION['user_ip'] <> getIp() ){	
+					$message="IP has change since last login. Log out and log back in";
+				} else {
+					$display_form = true;
+				}
+			}
+		}
+		
 	}
-	echo "<h1>".$message."</h1>";
+	if ($message <>"") {
+		echo "<h1>".$message."</h1>";
+	}
 
-
-
-//$is_owner = user_is_owner($conn);
-	$ID = $_GET['id']; 
-	$pathbdd = './../_local-connect/connect.php';
-	include($pathbdd);
-	$requete='SELECT * FROM `subevents` WHERE id='.$ID;
-	$res= $conn->query(htmlspecialchars($requete));
-	$array_old = $res->fetch();
+	if ($display_form) {
+		$requete="SELECT * FROM subevents WHERE id=$subeventId;";
+		$res= $conn->query(htmlspecialchars($requete));
+		$array_old = $res->fetch();
+		var_dump($array_old["name"]);
+	}
+	
 ?>
 <?php if($is_owner): ?>
 <h1>is_owner is true</h1>
