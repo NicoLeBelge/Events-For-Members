@@ -50,40 +50,75 @@
 		$res= $conn->query(htmlspecialchars($requete));
 		$array_old = $res->fetch();
 		var_dump($array_old["name"]);
+
 	}
 	
 ?>
-<?php if($is_owner): ?>
+<?php if($display_form): ?>
 <h1>is_owner is true</h1>
 
 <!-- debug - onchange="validate()" temporarily suppressed | should be added with JS and implemented in a customized way-->
 <form action="./core/editsubevent-action-core.php" method="post">
-	<label for="subname">Nom du subevent :</label>  <input type="text" id="subname" name="subname" />
-	<p>Date de début de l'évènement : <input type="date" name="datestart" value=<?=$array_old['datestart'] ?> /></p>
-	<p>Date de fin d'inscription : <input type="date" name="datelim" value=<?=$array_old['datelim'] ?> /></p>
-	<p>Sécurisation de l'évènement :
-		<input type="radio" id="yes" name="secured" value="yes" <?php if($array_old["secured"]) echo "checked";  ?> />
-		<label for="yes">yes</label>
+	<label for="subname">Nom du subevent :</label>  
+	<input type="text" id="subname" name="subname" />
+	
+	<p>__________________________________________</p>
+	
+	<input type="number" name="nbmax" /><label for="nbmax"> joueurs maximum</label>  
+	
+	<p>__________________________________________</p>
+	<label for="pet-select">Choose a pet:</label>
+	<select id="pet-select">
+		<option value="">--Please choose an option--</option>
+		<option value="dog">Dog</option>
+		<option value="cat">Cat</option>
+		<option value="hamster">Hamster</option>
+		<option value="parrot">Parrot</option>
+		<option value="spider">Spider</option>
+		<option value="goldfish">Goldfish</option>
+	</select>
+	<p>__________________________________________</p>
 
-		<input type="radio" id="no" name="secured" value="no" <?php if(!$array_old["secured"]) echo "checked";  ?> />
-		<label for="no">no</label>
-	</p> 
-        <label for="mail">e-mail de contact :</label>
-        <input type="email" id="mail" name="contact" value=<?=$array_old['contact'] ?>  />
+	<label for="sublink">lien</label>  
+	<input type="text" id="sublink" name="sublink" />
 
-	<p>Nombre maximal d'inscrits : <input type="number" name="nbmax" value=<?=$array_old['nbmax'] ?> /></p>
+	<p>__________________________________________</p>
+	<label for="rating_type">classement</label>  
+	<input type="text" id="rating_type" name="rating_type" />
 
-	<p>Position longitude : <input type="number" step="any" name="pos_long" value=<?=$array_old['pos_long'] ?> /></p>
-	<p>Position latitude : <input type="number" step="any" name="pos_lat" value=<?=$array_old['pos_lat'] ?> /></p>
+	<p>__________________________________________</p>
+	<p>Appliquer des restriction de classement ? </p>
+	<label for="restriction_yes">oui</label>
+	<input type="radio" id="restriction_yes" name="restriction" value="oui">
+	<label for="restriction_no">non</label>
+	<input type="radio" id="restriction_no" name="restriction" value="non">
+	
+
 
 	<p><input type="submit" value="OK" id="submitButton"></p>
-	<input id="id" name="id" type="hidden" value=<?php echo $_GET['id'] ?>>
+	
 </form>
-<p> purée ça bugge plus !! <p>
-
 
 <script type="text/javascript">
-	let e=document.getElementById("name");
+	
+	let e=document.getElementById("subname");
 	e.value=`<?=$array_old['name']?>`;
+
+	const form = document.forms[0];
+	form.addEventListener("submit", function(event) {
+		event.preventDefault();
+		const formData = new FormData(this);
+		formData.append("gender", "*");
+		const entries = formData.entries();
+		const data = Object.fromEntries(entries);
+		//console.log(formData.subname.value);
+		console.log(data);
+		// const { subname, nbmax } = this.elements;
+		
+		//console.log(subname.value, nbmax.value);
+	});
+
+	
+	
 </script> 
 <?php endif; ?>
