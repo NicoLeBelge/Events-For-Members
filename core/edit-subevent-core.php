@@ -70,20 +70,19 @@
 
 <!-- debug - onchange="validate()" temporarily suppressed | should be added with JS and implemented in a customized way-->
 <form action="./core/editsubevent-action-core.php" method="post">
-	<label for="subname">Nom du subevent :</label>  
+	<label for="subname"><?=$str["subevent_name_label"]?></label>  
 	<input type="text" id="subname" name="subname" />
-	
 
+	<label for="nbmax"> <?=$str["Max_reg"]?></label> <br/>
+	<input type="number" name="nbmax" />  <br/><br/>
 	
-	<input type="number" name="nbmax" /><label for="nbmax"> joueurs maximum</label>  
-	
-	<label for="rating-select">select rating</label>
-	<select id="rating-select">
+	<label for="rating-select"><?=$str["Rating_name"]?></label><br/>
+	<select id="rating-select"><br/>
 		
-	</select>
+	</select><br/>
 
-	<label for="sublink">lien</label>  
-	<input type="text" id="sublink" name="sublink" />
+	<label for="sublink"><?=$str["Label_link_to_sub"]?></label><br/>  
+	<input type="text" id="sublink" name="sublink" /><br/>
 
 	
 
@@ -92,21 +91,16 @@
 	<input type="radio" id="restriction_yes" name="restriction" value="oui">
 	<label for="restriction_no">non</label>
 	<input type="radio" id="restriction_no" name="restriction" value="non">
-	<div></div>
+	<div id="E4M_subevent_cat" class="E4M_catlist"></div>
 
 
 	<p><input type="submit" value="OK" id="submitButton"></p>
 	
 </form>
-
+<script type="text/javascript" src="./JS/E4M_class.js"></script>
 <script type="text/javascript">
 	let array_old = JSON.parse(`<?=$array_old_jsonstr?>`);
-	
-	
-	/**
-	let e=document.getElementById("subname");
-	e.value = array_old.name;
-	 */
+
 	document.getElementById("subname").value = array_old.name;
 	let e=document.getElementById("rating-select");
 	var ratingOption = "";
@@ -120,16 +114,18 @@
 		ratingOption += "<option value='" + i.toString(10)+1 + "'> " + rating_names[i]+ " </option>"; 
 	}
 	e.innerHTML = ratingOption;
-/*
+
+	let cat_names = JSON.parse(`<?=$cat_names_str?>`);
+
 	var cat_set = new IconSet (
 		"E4M_subevent_cat", 
 		cat_names,
-		subs_data_set[CurrentSubEventIndex].cat,
+		//subs_data_set[CurrentSubEventIndex].cat,
+		"*",
 		"E4M_cat",
 		false
 	);
 
- */
 	const form = document.forms[0];
 	form.addEventListener("submit", function(event) {
 		event.preventDefault();

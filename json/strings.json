@@ -91,6 +91,7 @@
     "Gender":"Genre",
     "event_creation_title" : "Création d'un nouveau tournoi / festival",
     "event_name_label" : "Nom du tournoi / festival",
+    "subevent_name_label" : "Nom du tournoi",
     "Registration_cancelled" : "inscription annulée",
     "Confirmation_forced" : "confirmation validée par l'organisateur",
     "Error_form" : "Erreurs dans le formulaire",
