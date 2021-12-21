@@ -3,16 +3,13 @@
 	$pathfunction = './core/editEvent-functions-core.php';
 	include($pathbdd);
 	include($pathfunction );
-	
+
 	/** Let's check if event_id is valid (we're already know $_GET['id'] isset)
 	 * if not let's write an error message
 	 * if so, then let's check if current user is owner of this subevent
 	 * abnormal access to this page is unlikely --> error messages in english
 	 */
 	$message="";
-	
-	
-
 	$subeventId = $_GET['id'];
 	$requete="SELECT owner 
 	FROM events
@@ -32,8 +29,12 @@
 			if ($owner[0] <> $_SESSION['user_id']) {
 				$message="Only owner of this subevent can edit it";
 			} else { // visitor is the owner
-				if ( $_SESSION['user_ip'] <> getIp() ){	
-					$message="IP has change since last login. Log out and log back in";
+				$current_IP = getIp();
+				if ( $_SESSION['user_ip'] <> $current_IP ){	
+					var_dump ($_SESSION['user_ip']); echo "<br/>";
+					var_dump ($current_IP);
+
+					$message="IP has change since last login. Log out and log back in ";
 				} else {
 					$display_form = true;
 				}
@@ -46,53 +47,52 @@
 	}
 
 	if ($display_form) {
+		// warning - redundant with register-event-core - putting that in a function should be better
+		$cfg = json_decode(file_get_contents('./json/config.json'),true);	
+		$subevent_link_icon_str = json_encode($cfg['subevent_link_icon']);
+		$registration_search_page = json_encode($cfg['registration_search_page']); 
+		$cat_names_str = json_encode($cfg['cat_names']);
+		$gender_names_str = json_encode($cfg['gender_names']);
+		$rating_names_str = json_encode($cfg['rating_names']);
+		$type_names_str = json_encode($cfg['type_names']);
+
+		$str = json_decode(file_get_contents('./json/strings.json'),true);	
+		$jsonstr = json_encode($str);	
 		$requete="SELECT * FROM subevents WHERE id=$subeventId;";
 		$res= $conn->query(htmlspecialchars($requete));
 		$array_old = $res->fetch();
-		var_dump($array_old["name"]);
+		$array_old_jsonstr = json_encode($array_old);
 
 	}
 	
 ?>
 <?php if($display_form): ?>
-<h1>is_owner is true</h1>
 
 <!-- debug - onchange="validate()" temporarily suppressed | should be added with JS and implemented in a customized way-->
 <form action="./core/editsubevent-action-core.php" method="post">
 	<label for="subname">Nom du subevent :</label>  
 	<input type="text" id="subname" name="subname" />
 	
-	<p>__________________________________________</p>
+
 	
 	<input type="number" name="nbmax" /><label for="nbmax"> joueurs maximum</label>  
 	
-	<p>__________________________________________</p>
-	<label for="pet-select">Choose a pet:</label>
-	<select id="pet-select">
-		<option value="">--Please choose an option--</option>
-		<option value="dog">Dog</option>
-		<option value="cat">Cat</option>
-		<option value="hamster">Hamster</option>
-		<option value="parrot">Parrot</option>
-		<option value="spider">Spider</option>
-		<option value="goldfish">Goldfish</option>
+	<label for="rating-select">select rating</label>
+	<select id="rating-select">
+		
 	</select>
-	<p>__________________________________________</p>
 
 	<label for="sublink">lien</label>  
 	<input type="text" id="sublink" name="sublink" />
 
-	<p>__________________________________________</p>
-	<label for="rating_type">classement</label>  
-	<input type="text" id="rating_type" name="rating_type" />
+	
 
-	<p>__________________________________________</p>
 	<p>Appliquer des restriction de classement ? </p>
 	<label for="restriction_yes">oui</label>
 	<input type="radio" id="restriction_yes" name="restriction" value="oui">
 	<label for="restriction_no">non</label>
 	<input type="radio" id="restriction_no" name="restriction" value="non">
-	
+	<div></div>
 
 
 	<p><input type="submit" value="OK" id="submitButton"></p>
@@ -100,10 +100,36 @@
 </form>
 
 <script type="text/javascript">
+	let array_old = JSON.parse(`<?=$array_old_jsonstr?>`);
 	
+	
+	/**
 	let e=document.getElementById("subname");
-	e.value=`<?=$array_old['name']?>`;
+	e.value = array_old.name;
+	 */
+	document.getElementById("subname").value = array_old.name;
+	let e=document.getElementById("rating-select");
+	var ratingOption = "";
+	let rating_names = JSON.parse(`<?=$rating_names_str?>`);
+	console.log(rating_names);
+	let NbRatingStr = `<?=$cfg["Nb_rating"]?>`; 
+	let NbRating = parseInt(NbRatingStr);
+	
+	console.log("NbRatingStr = ",NbRatingStr);
+	for ( let i = 0; i <NbRating ; i++) {
+		ratingOption += "<option value='" + i.toString(10)+1 + "'> " + rating_names[i]+ " </option>"; 
+	}
+	e.innerHTML = ratingOption;
+/*
+	var cat_set = new IconSet (
+		"E4M_subevent_cat", 
+		cat_names,
+		subs_data_set[CurrentSubEventIndex].cat,
+		"E4M_cat",
+		false
+	);
 
+ */
 	const form = document.forms[0];
 	form.addEventListener("submit", function(event) {
 		event.preventDefault();
@@ -112,7 +138,7 @@
 		const entries = formData.entries();
 		const data = Object.fromEntries(entries);
 		//console.log(formData.subname.value);
-		console.log(data);
+		//console.log(data);
 		// const { subname, nbmax } = this.elements;
 		
 		//console.log(subname.value, nbmax.value);

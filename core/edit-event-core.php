@@ -15,6 +15,7 @@
 	$requete='SELECT * FROM `events` WHERE id='.$ID;
 	$res= $conn->query(htmlspecialchars($requete));
 	$array_old = $res->fetch();
+	
 ?>
 <form action="./core/editEvent-Action-core.php" method="post">
 	<label for="name">Nom de l'event :</label>  <input type="text" id="name" name="name" onchange="validate()"/>
