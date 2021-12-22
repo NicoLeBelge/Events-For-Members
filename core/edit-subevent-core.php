@@ -111,6 +111,7 @@
 	}
 	
 	let array_old = JSON.parse(`<?=$array_old_jsonstr?>`);
+	console.log(array_old);
 
 	document.getElementById("subname").value = array_old.name;
 	let e=document.getElementById("rating-select");
@@ -131,26 +132,29 @@
 	var cat_set = new IconSet (
 		"E4M_subevent_cat", 
 		cat_names,
-		//subs_data_set[CurrentSubEventIndex].cat,
-		"['U10']",	
+		array_old.cat,
 		"E4M_cat",
 		true
 	);
-
+	const request = new XMLHttpRequest();
 	const form = document.forms[0];
 	form.addEventListener("submit", function(event) {
 		event.preventDefault();
+		console.log("status après validation",cat_set.Status());
 		const formData = new FormData(this);
-		formData.append("gender", "*");
+		formData.append("event_id", array_old.event_id.toString(10));
+		formData.append("subevent_id", array_old.id.toString(10));
 		const entries = formData.entries();
 		const data = Object.fromEntries(entries);
-		//console.log(formData.subname.value);
-		//console.log(data);
-		// const { subname, nbmax } = this.elements;
-		
-		//console.log(subname.value, nbmax.value);
+		request.open("POST", "./API/set-subevent-info.php");
+		request.responseType = 'text';
+		request.send(formData);
 	});
-
+	request.onreadystatechange  = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			alert (this.response);
+		}
+	}
 	
 	
 </script> 

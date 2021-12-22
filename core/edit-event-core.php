@@ -46,7 +46,7 @@
 	let e=document.getElementById("name");
 	e.value=`<?=$array_old['name']?>`;
 
-	validate();
+	//validate();
 </script> 
 <?php
 	}
