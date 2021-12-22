@@ -99,6 +99,17 @@
 </form>
 <script type="text/javascript" src="./JS/E4M_class.js"></script>
 <script type="text/javascript">
+	function Toggle_on_off_class(e) {
+		let element = e.target ;
+		if (element.classList.contains("E4M_on")) {
+			element.classList.remove("E4M_on");
+			element.classList.add("E4M_off");
+		} else {
+			element.classList.remove("E4M_off");
+			element.classList.add("E4M_on");
+		}
+	}
+	
 	let array_old = JSON.parse(`<?=$array_old_jsonstr?>`);
 
 	document.getElementById("subname").value = array_old.name;
@@ -121,9 +132,9 @@
 		"E4M_subevent_cat", 
 		cat_names,
 		//subs_data_set[CurrentSubEventIndex].cat,
-		"*",
+		"['U10']",	
 		"E4M_cat",
-		false
+		true
 	);
 
 	const form = document.forms[0];

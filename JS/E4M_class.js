@@ -16,6 +16,16 @@ class IconSet {
      * required from external :
      * - css definition for E4M_on and E4M_off classes
      * - Toggle_on_off_class function
+     * 	function Toggle_on_off_class(e) {
+		let element = e.target ;
+		if (element.classList.contains("E4M_on")) {
+			element.classList.remove("E4M_on");
+			element.classList.add("E4M_off");
+		} else {
+			element.classList.remove("E4M_off");
+			element.classList.add("E4M_on");
+		}
+	}
      * 
      */
     constructor(nest, whole_set, init_set, prefix_id, dynamic){
