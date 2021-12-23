@@ -101,6 +101,8 @@
     "Error_chargement_event" : "Erreur dans le chargement de l'event",
     "Error_modif_subevent" : "Vous n'êtes pas autorisé à modifier ce tournoi",
     "Error_edition_event_id" : "Bad id ! ",
+    "restriction_>" : "réservé aux PLUS de",
+    "restriction_<" : "réservé aux MOINS de",
     "Registration_unwaited" : " sorti de la liste d'attente"
     
 }

@@ -72,7 +72,7 @@
 	<input type="number" id="nbmax" name="nbmax" />  <br/><br/>
 	
 	<label for="rating-select"><?=$str["Rating_name"]?></label><br/>
-	<select id="rating-select"><br/>
+	<select id="rating-select" name="rating-select"><br/>
 		
 	</select><br/>
 
@@ -82,10 +82,17 @@
 	
 
 	<p>Appliquer des restriction de classement ? </p>
-	<label for="restriction_yes">oui</label>
-	<input type="radio" id="restriction_yes" name="restriction" value="oui">
+	
 	<label for="restriction_no">non</label>
-	<input type="radio" id="restriction_no" name="restriction" value="non">
+	<input type="radio" id="restriction_no" name="restriction" value="0" onchange="update_visibility()">
+	<label for="restriction_yes">oui</label>
+	<input type="radio" id="restriction_yes" name="restriction" value="1" onchange="update_visibility()">
+	
+	<select id="comparator" name="comparator"><br/>
+		<option value=">"><?=$str["restriction_>"]?></option>
+		<option value="<"><?=$str["restriction_<"]?></option>
+	</select>
+
 	<div id="E4M_subevent_cat" class="E4M_catlist"></div>
 
 
@@ -104,12 +111,38 @@
 			element.classList.add("E4M_on");
 		}
 	}
+	function update_visibility() {
+		if (document.getElementById("restriction_yes").checked) {
+			document.getElementById("comparator").style.visibility = "visible";
+		} else {
+			document.getElementById("comparator").style.visibility = "hidden";
+		}
+
+	}
 	/* let's put in fields values before modifications */
 	let array_old = JSON.parse(`<?=$array_old_jsonstr?>`);
 	console.log(array_old);
 	document.getElementById("subname").value = array_old.name;
 	document.getElementById("nbmax").value = array_old.nbmax;
 	document.getElementById("sublink").value = array_old.link;
+	const restrictionRadioYes = document.getElementById("restriction_yes")
+	const restrictionRadioNo = document.getElementById("restriction_no")
+	
+	if (array_old.rating_restriction =="0") {
+		restrictionRadioNo.checked = true;
+	} else {
+		restrictionRadioYes.checked = true;
+		if (array_old.rating_comp ==">"){
+			alert("comparator is >");
+			document.getElementById("comparator").options[0].selected = 'selected';
+		} else {
+			document.getElementById("comparator").options[1].selected = 'selected';
+			alert("comparator is <");
+		}
+	}
+	update_visibility();
+
+
 	let e=document.getElementById("rating-select");
 	var ratingOption = "";
 	let rating_names = JSON.parse(`<?=$rating_names_str?>`);
@@ -119,7 +152,7 @@
 	
 	console.log("NbRatingStr = ",NbRatingStr);
 	for ( let i = 0; i <NbRating ; i++) {
-		ratingOption += "<option value='" + i.toString(10)+1 + "'> " + rating_names[i]+ " </option>"; 
+		ratingOption += "<option value='" + (i+1).toString(10) + "'> " + rating_names[i]+ " </option>"; 
 	}
 	e.innerHTML = ratingOption;
 
@@ -135,6 +168,7 @@
 	const request = new XMLHttpRequest();
 	const form = document.forms[0];
 	form.addEventListener("submit", function(event) {
+		console.log("checked yes = ",restrictionRadioYes.checked );
 		event.preventDefault();
 		console.log("status après validation",cat_set.Status());
 		const formData = new FormData(this);
