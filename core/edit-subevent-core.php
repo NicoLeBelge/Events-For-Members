@@ -16,7 +16,6 @@
 	INNER JOIN subevents
 	ON subevents.event_id = events.id	
 	WHERE subevents.id=$subeventId";
-	echo "<br/>";
 	$res= $conn->query(htmlspecialchars($requete));
 	$display_form = false;
 	if ($res->rowCount() == 0) { // subevent not found
@@ -31,16 +30,12 @@
 			} else { // visitor is the owner
 				$current_IP = getIp();
 				if ( $_SESSION['user_ip'] <> $current_IP ){	
-					var_dump ($_SESSION['user_ip']); echo "<br/>";
-					var_dump ($current_IP);
-
 					$message="IP has change since last login. Log out and log back in ";
 				} else {
 					$display_form = true;
 				}
 			}
 		}
-		
 	}
 	if ($message <>"") {
 		echo "<h1>".$message."</h1>";
@@ -71,10 +66,10 @@
 <!-- debug - onchange="validate()" temporarily suppressed | should be added with JS and implemented in a customized way-->
 <form action="./core/editsubevent-action-core.php" method="post">
 	<label for="subname"><?=$str["subevent_name_label"]?></label>  
-	<input type="text" id="subname" name="subname" />
+	<input type="text" id="subname" name="subname" required/>
 
 	<label for="nbmax"> <?=$str["Max_reg"]?></label> <br/>
-	<input type="number" name="nbmax" />  <br/><br/>
+	<input type="number" id="nbmax" name="nbmax" />  <br/><br/>
 	
 	<label for="rating-select"><?=$str["Rating_name"]?></label><br/>
 	<select id="rating-select"><br/>
@@ -109,11 +104,12 @@
 			element.classList.add("E4M_on");
 		}
 	}
-	
+	/* let's put in fields values before modifications */
 	let array_old = JSON.parse(`<?=$array_old_jsonstr?>`);
 	console.log(array_old);
-
 	document.getElementById("subname").value = array_old.name;
+	document.getElementById("nbmax").value = array_old.nbmax;
+	document.getElementById("sublink").value = array_old.link;
 	let e=document.getElementById("rating-select");
 	var ratingOption = "";
 	let rating_names = JSON.parse(`<?=$rating_names_str?>`);
@@ -152,7 +148,7 @@
 	});
 	request.onreadystatechange  = function() {
 		if (this.readyState == 4 && this.status == 200) {
-			alert (this.response);
+			// alert (this.response);
 		}
 	}
 	

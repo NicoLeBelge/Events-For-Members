@@ -68,8 +68,6 @@
 
                 }
             }
-        //$reqEuete="INSERT INTO  `events` VALUES(NULL,'".$name."','".$datestart."','".$datelim."',".$secured.",'".$contact."',".$nbmax.",".$pos_long.",".$pos_lat.",".$owner.")";
-        /* we should use PDD prepared statements, but it seems not working with NULL values     */
 
         $reqE=$conn->prepare("INSERT INTO events (name, datestart, datelim, secured, contact, nbmax, pos_long, pos_lat, owner) 
 						VALUES (:n_name, :n_datestart, :n_datelim, :n_secured, :n_contact, :n_nbmax, :n_pos_long, :n_pos_lat, :n_owner)");

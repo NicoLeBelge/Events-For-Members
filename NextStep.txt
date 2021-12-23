@@ -97,9 +97,11 @@ move to event page after event creation
 | in progress |
 └─────────────┘
 
-make subevent edit page
-add link to this page from event page. --> Done, but page to create and code to clean
-
+(done) make subevent edit page
+(done) add link to this page from event page. 
+API/set-subevent.php fields to handle one by one : 
+subname, nbmax, link : OK
+à faire : rating_type et le reste
 ┌───────┐
 | To do |
 └───────┘
