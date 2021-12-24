@@ -3,6 +3,7 @@
     $HOUR_END = ' 23:59:59';
 	$pathbdd = '../../_local-connect/connect.php';
 	include($pathbdd);
+    $str = json_decode(file_get_contents('../json/strings.json'),true);	
 	if(!empty($_POST))
 	{
         $name = $EMPTY_STRING;
@@ -90,7 +91,7 @@
         $reqS=$conn->prepare("INSERT INTO subevents (event_id, name) VALUES (:n_event_id, :n_name)");
         $reqS->BindParam(':n_event_id', $new_event_id);
         $reqS->BindParam(':n_name', $default_subevent_name);
-        $default_subevent_name = "pipo_event";
+        $default_subevent_name = $str["default_subevent_name"];
         $reqS->execute();
         /* http://localhost/web/E4M/register-event.php?id=1 */
         echo "<script type='text/javascript'>document.location = '../register-event.php?id=$new_event_id'</script>";

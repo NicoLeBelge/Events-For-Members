@@ -106,6 +106,7 @@
     "restriction_apply?" : "Appliquer des restrictions de classement ?",
     "restriction_>" : "réservé aux PLUS de",
     "restriction_<" : "réservé aux MOINS de",
+    "default_subevent_name" : "nom du tournoi à déterminer",
     "Registration_unwaited" : " sorti de la liste d'attente"
     
 }

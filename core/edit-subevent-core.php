@@ -52,7 +52,6 @@
 		$type_names_str = json_encode($cfg['type_names']);
 
 		$str = json_decode(file_get_contents('./json/strings.json'),true);	
-		//$jsonstr = json_encode($str);	
 		
 		$requete="SELECT * FROM subevents WHERE id=$subeventId;";
 		$res= $conn->query(htmlspecialchars($requete));
