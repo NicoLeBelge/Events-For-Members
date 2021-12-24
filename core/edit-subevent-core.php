@@ -66,6 +66,7 @@
 
 <!-- debug - onchange="validate()" temporarily suppressed | should be added with JS and implemented in a customized way-->
 <form action="" method="post">
+	<!--<a href="https://www.metronic.com"><button id="back" > <?=$str["Back_to_event"]?></button></a><br/><br/>-->
 	<label for="subname"><?=$str["subevent_name_label"]?></label>  
 	<input type="text" id="subname" name="subname" required/>
 	<div id="E4M_subevent_cat" class="E4M_catlist"></div>
@@ -83,12 +84,11 @@
 	<label for="rating-select"><?=$str["Rating_name"]?></label><br/>
 	<select id="rating-select" name="rating-select"><br/>
 	</select><br/>
-
-	<p>Appliquer des restriction de classement ? </p>
+	<p><?=$str["restriction_apply?"]?></p>
 	
-	<label for="restriction_no">non</label>
+	<label for="restriction_no"><?=$str["no"]?></label>
 	<input type="radio" id="restriction_no" name="restriction" value="0" onchange="update_visibility()">
-	<label for="restriction_yes">oui</label>
+	<label for="restriction_yes"><?=$str["yes"]?></label>
 	<input type="radio" id="restriction_yes" name="restriction" value="1" onchange="update_visibility()">
 	
 	<select id="comparator" name="comparator"><br/>
@@ -97,10 +97,7 @@
 	</select>
 	<input id="limit" name="limit" type="number">
 
-	
-
-
-	<p><input type="submit" value="OK" id="submitButton"></p>
+	<p><input type="submit" value="<?=$str["Save_modications"]?>" id="submitButton"></p>
 	
 </form>
 <script type="text/javascript" src="./JS/E4M_class.js"></script>
@@ -125,6 +122,15 @@
 		}
 
 	}
+	
+	/* let's feed the button to go back to event */
+	/*  -- problem : makes submit whereas we don't want to
+	document.getElementById("back").addEventListener("click", function(e){
+		e.stopPropagation();
+		let destination = "register-event.php?id=" + array_old.event_id.toString(10);
+		document.location.replace=destination;
+	});
+	 */
 	/* let's put in fields values before modifications */
 	let array_old = JSON.parse(`<?=$array_old_jsonstr?>`);
 	console.log(array_old);
