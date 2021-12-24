@@ -52,7 +52,8 @@
 		$type_names_str = json_encode($cfg['type_names']);
 
 		$str = json_decode(file_get_contents('./json/strings.json'),true);	
-		$jsonstr = json_encode($str);	
+		//$jsonstr = json_encode($str);	
+		
 		$requete="SELECT * FROM subevents WHERE id=$subeventId;";
 		$res= $conn->query(htmlspecialchars($requete));
 		$array_old = $res->fetch();
@@ -67,19 +68,21 @@
 <form action="./core/editsubevent-action-core.php" method="post">
 	<label for="subname"><?=$str["subevent_name_label"]?></label>  
 	<input type="text" id="subname" name="subname" required/>
-
+	<div id="E4M_subevent_cat" class="E4M_catlist"></div>
+	<div id="E4M_subevent_gen" class="E4M_catlist"></div>
+	<div id="E4M_subevent_typ" class="E4M_catlist"></div>
+	<br/>
 	<label for="nbmax"> <?=$str["Max_reg"]?></label> <br/>
 	<input type="number" id="nbmax" name="nbmax" />  <br/><br/>
 	
-	<label for="rating-select"><?=$str["Rating_name"]?></label><br/>
-	<select id="rating-select" name="rating-select"><br/>
-		
-	</select><br/>
+	
 
 	<label for="sublink"><?=$str["Label_link_to_sub"]?></label><br/>  
 	<input type="text" id="sublink" name="sublink" /><br/>
 
-	
+	<label for="rating-select"><?=$str["Rating_name"]?></label><br/>
+	<select id="rating-select" name="rating-select"><br/>
+	</select><br/>
 
 	<p>Appliquer des restriction de classement ? </p>
 	
@@ -92,8 +95,9 @@
 		<option value=">"><?=$str["restriction_>"]?></option>
 		<option value="<"><?=$str["restriction_<"]?></option>
 	</select>
+	<input id="limit" name="limit" type="number">
 
-	<div id="E4M_subevent_cat" class="E4M_catlist"></div>
+	
 
 
 	<p><input type="submit" value="OK" id="submitButton"></p>
@@ -114,8 +118,10 @@
 	function update_visibility() {
 		if (document.getElementById("restriction_yes").checked) {
 			document.getElementById("comparator").style.visibility = "visible";
+			document.getElementById("limit").style.visibility = "visible";
 		} else {
 			document.getElementById("comparator").style.visibility = "hidden";
+			document.getElementById("limit").style.visibility = "hidden";
 		}
 
 	}
@@ -125,6 +131,7 @@
 	document.getElementById("subname").value = array_old.name;
 	document.getElementById("nbmax").value = array_old.nbmax;
 	document.getElementById("sublink").value = array_old.link;
+	document.getElementById("limit").value = array_old.rating_limit;
 	const restrictionRadioYes = document.getElementById("restriction_yes")
 	const restrictionRadioNo = document.getElementById("restriction_no")
 	
@@ -133,47 +140,66 @@
 	} else {
 		restrictionRadioYes.checked = true;
 		if (array_old.rating_comp ==">"){
-			alert("comparator is >");
 			document.getElementById("comparator").options[0].selected = 'selected';
 		} else {
 			document.getElementById("comparator").options[1].selected = 'selected';
-			alert("comparator is <");
 		}
 	}
 	update_visibility();
-
-
+	
+	/* rating_type selection */
 	let e=document.getElementById("rating-select");
 	var ratingOption = "";
 	let rating_names = JSON.parse(`<?=$rating_names_str?>`);
 	console.log(rating_names);
 	let NbRatingStr = `<?=$cfg["Nb_rating"]?>`; 
 	let NbRating = parseInt(NbRatingStr);
-	
-	console.log("NbRatingStr = ",NbRatingStr);
 	for ( let i = 0; i <NbRating ; i++) {
 		ratingOption += "<option value='" + (i+1).toString(10) + "'> " + rating_names[i]+ " </option>"; 
 	}
 	e.innerHTML = ratingOption;
-
+	let rating_index = parseInt(array_old.rating_type)-1; 
+	document.getElementById("rating-select").options[rating_index].selected = 'selected';
+	
 	let cat_names = JSON.parse(`<?=$cat_names_str?>`);
-
-	var cat_set = new IconSet (
+	const cat_set = new IconSet (
 		"E4M_subevent_cat", 
 		cat_names,
 		array_old.cat,
 		"E4M_cat",
 		true
 	);
+
+		
+	let gender_names = JSON.parse(`<?=$gender_names_str?>`);
+	const gen_set = new IconSet (
+		"E4M_subevent_gen", 
+		gender_names,
+		array_old.gender,
+		"E4M_gen",
+		true
+	);	
+	
+	let type_names = JSON.parse(`<?=$type_names_str?>`);
+	const typ_set = new IconSet (
+		"E4M_subevent_typ", 
+		type_names,
+		array_old.type,
+		"E4M_typ",
+		true
+	);	
+
+
 	const request = new XMLHttpRequest();
 	const form = document.forms[0];
 	form.addEventListener("submit", function(event) {
-		console.log("checked yes = ",restrictionRadioYes.checked );
 		event.preventDefault();
-		console.log("status après validation",cat_set.Status());
 		const formData = new FormData(this);
 		formData.append("event_id", array_old.event_id.toString(10));
 		formData.append("subevent_id", array_old.id.toString(10));
+		formData.append("cat_list", cat_set.Status());
+		formData.append("gen_list", gen_set.Status());
+		formData.append("typ_list", typ_set.Status());
 		const entries = formData.entries();
 		const data = Object.fromEntries(entries);
 		request.open("POST", "./API/set-subevent-info.php");
@@ -182,7 +208,8 @@
 	});
 	request.onreadystatechange  = function() {
 		if (this.readyState == 4 && this.status == 200) {
-			// alert (this.response);
+			
+			alert (`<?=$str["Modications_saved"]?>`); 
 		}
 	}
 	
