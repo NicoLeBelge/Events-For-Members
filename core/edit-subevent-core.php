@@ -65,7 +65,7 @@
 <?php if($display_form): ?>
 
 <!-- debug - onchange="validate()" temporarily suppressed | should be added with JS and implemented in a customized way-->
-<form action="./core/editsubevent-action-core.php" method="post">
+<form action="" method="post">
 	<label for="subname"><?=$str["subevent_name_label"]?></label>  
 	<input type="text" id="subname" name="subname" required/>
 	<div id="E4M_subevent_cat" class="E4M_catlist"></div>
@@ -161,6 +161,7 @@
 	let rating_index = parseInt(array_old.rating_type)-1; 
 	document.getElementById("rating-select").options[rating_index].selected = 'selected';
 	
+	/* selectors for category, gender and type */
 	let cat_names = JSON.parse(`<?=$cat_names_str?>`);
 	const cat_set = new IconSet (
 		"E4M_subevent_cat", 
@@ -170,7 +171,6 @@
 		true
 	);
 
-		
 	let gender_names = JSON.parse(`<?=$gender_names_str?>`);
 	const gen_set = new IconSet (
 		"E4M_subevent_gen", 
@@ -189,7 +189,6 @@
 		true
 	);	
 
-
 	const request = new XMLHttpRequest();
 	const form = document.forms[0];
 	form.addEventListener("submit", function(event) {
@@ -200,8 +199,8 @@
 		formData.append("cat_list", cat_set.Status());
 		formData.append("gen_list", gen_set.Status());
 		formData.append("typ_list", typ_set.Status());
-		const entries = formData.entries();
-		const data = Object.fromEntries(entries);
+		//const entries = formData.entries();
+		//const data = Object.fromEntries(entries);
 		request.open("POST", "./API/set-subevent-info.php");
 		request.responseType = 'text';
 		request.send(formData);
@@ -212,7 +211,5 @@
 			alert (`<?=$str["Modications_saved"]?>`); 
 		}
 	}
-	
-	
 </script> 
 <?php endif; ?>

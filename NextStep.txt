@@ -109,6 +109,7 @@ move to event page after event creation
 └───────┘
 page d'edition subevent --> ajout nom de event
 indiquer le nombre d'inscrits à chaque subevent
+ajout possibilité de supprimer un event ou un subevent
 activeHeader set to "" because it's uncentered if we put "⚙" --> twick CSS !
 Empêcher l'insertion de balise dans le nom de l'event
 (prévu) Permettre l'affichage des données d'un event s'il n'y a pas de subevents (et si owner : ajout)

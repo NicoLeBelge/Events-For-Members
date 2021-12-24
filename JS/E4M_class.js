@@ -51,7 +51,7 @@ class IconSet {
         }
         status_str = status_str.substring(0, status_str.length-2);
         if (all_on || all_off){
-            status_str = '"*"';
+            status_str = "*";
         }
         return status_str;
     }
