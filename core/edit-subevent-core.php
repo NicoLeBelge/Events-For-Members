@@ -154,6 +154,7 @@
 	
 	/* rating_type selection */
 	let e=document.getElementById("rating-select");
+	console.log(e);
 	var ratingOption = "";
 	let rating_names = JSON.parse(`<?=$rating_names_str?>`);
 	console.log(rating_names);

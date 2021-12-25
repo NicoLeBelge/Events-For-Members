@@ -147,7 +147,7 @@ class smartTable{
      * settings obj allow to configure the table : 
      *  .headArray defines the header of each column
      *  .active : boolean to add action column (strictly dedicated to E4M)
-     *  .IOfieldName : 0/1 value purely dedicated to E4M 
+     *  .IOfieldName : 0/1 value purely dedicated to E4M (hum... can be removed, as it seems...) ========================
      *  .activeHeader : header for last column if active mode
      *  .colData : array containing the property for each column
      *  .colSorted : index of col sorted (-1 if none)
@@ -185,7 +185,7 @@ class smartTable{
         let nbLig = this.regArray.length;
         var isActive = this.settings.active;
         var activeHeader = this.settings.activeHeader;
-        var IOfieldName = this.settings.IOfieldName;
+        //var IOfieldName = this.settings.IOfieldName;
         let colSorted = this.settings.colSorted;
         let header = this.settings.headArray;
         let nbHead = header.length;

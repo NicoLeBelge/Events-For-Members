@@ -1,33 +1,4 @@
-Skip to content
-Search or jump to…
-Pull requests
-Issues
-Marketplace
-Explore
- 
-@NicoLeBelge 
-DiveGuillaume
-/
-ProjectTest
-Private
-1
-00
-Code
-Issues
-Pull requests
-Actions
-Projects
-Security
-Insights
-ProjectTest/NextStep.txt
-@NicoLeBelge
-NicoLeBelge owner can now press cancel when deleting a registration
-Latest commit dd40ed8 on 14 Oct
- History
- 2 contributors
-@NicoLeBelge@DiveGuillaume
-95 lines (86 sloc)  5.16 KB
-   
+
 ┌──────┐
 | done |
 └──────┘
@@ -93,20 +64,22 @@ Automatic unwait implemented - still need to be fully tested
 unwait implementation testing in progress
 auto creation of subevent
 move to event page after event creation
+(done) make subevent edit page
+(done) add link to this page from event page. 
+(done) API/set-subevent.php fields to handle one by one : 
+(done) subname, nbmax, link, rating_restriction yes/no, rating_comp, rating limit, cat, gender, type : OK
 
 ┌─────────────┐
 | in progress |
 └─────────────┘
 
-(done) make subevent edit page
-(done) add link to this page from event page. 
-(done) API/set-subevent.php fields to handle one by one : 
-(done) subname, nbmax, link, rating_restriction yes/no, rating_comp, rating limit, cat, gender, type : OK
-à faire : full test
+à faire : full test création / modification subevent
+Liste des events en smartTable.
 
 ┌───────┐
 | To do |
 └───────┘
+Bug à résoudre : création de subevent supplémentaire : rating_type vaut 0 au lieu de 1.
 page d'edition subevent --> ajout nom de event
 indiquer le nombre d'inscrits à chaque subevent
 ajout possibilité de supprimer un event ou un subevent

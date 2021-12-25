@@ -1,6 +1,6 @@
 <?php
     $EMPTY_STRING = "";
-    $HOUR_END = ' 23:59:59';
+    $HOUR_END = ' 19:59:59';
 	$pathbdd = '../../_local-connect/connect.php';
 	include($pathbdd);
     $str = json_decode(file_get_contents('../json/strings.json'),true);	
