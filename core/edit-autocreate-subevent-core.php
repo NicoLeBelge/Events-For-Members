@@ -26,7 +26,7 @@
     $datestart = "NULL";
     $nbmax = $EMPTY_INT;
     $link = $EMPTY_STRING;
-    $rating_type = $EMPTY_INT;
+    $rating_type = 1;
     $gender ='"'.$ALL_STRING.'"';
     $rating_restriction = $EMPTY_INT;
     $rating_limit = "NULL";
