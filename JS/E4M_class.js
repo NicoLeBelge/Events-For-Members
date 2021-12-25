@@ -16,6 +16,16 @@ class IconSet {
      * required from external :
      * - css definition for E4M_on and E4M_off classes
      * - Toggle_on_off_class function
+     * 	function Toggle_on_off_class(e) {
+		let element = e.target ;
+		if (element.classList.contains("E4M_on")) {
+			element.classList.remove("E4M_on");
+			element.classList.add("E4M_off");
+		} else {
+			element.classList.remove("E4M_off");
+			element.classList.add("E4M_on");
+		}
+	}
      * 
      */
     constructor(nest, whole_set, init_set, prefix_id, dynamic){
@@ -41,7 +51,7 @@ class IconSet {
         }
         status_str = status_str.substring(0, status_str.length-2);
         if (all_on || all_off){
-            status_str = '"*"';
+            status_str = "*";
         }
         return status_str;
     }
@@ -137,7 +147,7 @@ class smartTable{
      * settings obj allow to configure the table : 
      *  .headArray defines the header of each column
      *  .active : boolean to add action column (strictly dedicated to E4M)
-     *  .IOfieldName : 0/1 value purely dedicated to E4M 
+     *  .IOfieldName : 0/1 value purely dedicated to E4M (hum... can be removed, as it seems...) ========================
      *  .activeHeader : header for last column if active mode
      *  .colData : array containing the property for each column
      *  .colSorted : index of col sorted (-1 if none)
@@ -175,7 +185,7 @@ class smartTable{
         let nbLig = this.regArray.length;
         var isActive = this.settings.active;
         var activeHeader = this.settings.activeHeader;
-        var IOfieldName = this.settings.IOfieldName;
+        //var IOfieldName = this.settings.IOfieldName;
         let colSorted = this.settings.colSorted;
         let header = this.settings.headArray;
         let nbHead = header.length;

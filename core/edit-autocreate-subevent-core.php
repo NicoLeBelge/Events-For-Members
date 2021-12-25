@@ -21,13 +21,12 @@
     $ALL_STRING='*';
     $EMPTY_INT=0;
     $SPACE = ",";
-
     $event_id = $_GET['event_id'];
-    $name = '"'.'Name of the sub-event'.'"';
+    $name = '"'. $str["default_subevent_name"] . '"';
     $datestart = "NULL";
     $nbmax = $EMPTY_INT;
     $link = $EMPTY_STRING;
-    $rating_type = $EMPTY_INT;
+    $rating_type = 1;
     $gender ='"'.$ALL_STRING.'"';
     $rating_restriction = $EMPTY_INT;
     $rating_limit = "NULL";

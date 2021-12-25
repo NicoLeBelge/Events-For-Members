@@ -10,7 +10,7 @@
 	<label for="name">Nom de l'event :</label>  <input type="text" id="name" name="name" onchange="validate()"  value=<?="'".$array_old['name']."'"?> />
 	<p>Date de début de l'évènement : <input type="date" name="datestart" onchange="validate()" value=<?=$array_old['datestart'] ?> /></p>
 	<p>Date de fin d'inscription : <input type="date" name="datelim" onchange="validate()" value=<?=$array_old['datelim'] ?> /></p>
-	<p>Sécutisation de l'évènement :
+	<p>Sécurisation de l'évènement :
 		<input type="radio" id="yes" name="secured" value="yes" <?php if($array_old["secured"]) echo "checked";  ?> />
 		<label for="yes">yes</label>
 

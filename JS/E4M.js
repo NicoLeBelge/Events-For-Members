@@ -327,6 +327,19 @@ function download() {
 	document.body.removeChild(element); // necessary ??
 }
 
+function setURLforEditSubEventBtn(){
+	let editsubURL = "edit-subevent.php?id=" + CurrentSubEventId;
+	// EditSubBnt.removeEventListener('click', function());
+	EditSubBnt.addEventListener('click', function(){
+			location.href=editsubURL;
+	});
+}
+
+function gotoSubEventEditPage () {
+	let editsubURL = "edit-subevent.php?id=" + CurrentSubEventId;
+	location.href=editsubURL;
+}
+
 function unwait (max, subs, regs) {
 	/**
 	 * inputs
