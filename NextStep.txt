@@ -68,13 +68,15 @@ move to event page after event creation
 (done) add link to this page from event page. 
 (done) API/set-subevent.php fields to handle one by one : 
 (done) subname, nbmax, link, rating_restriction yes/no, rating_comp, rating limit, cat, gender, type : OK
+Liste des events en smartTable.
 
 ┌─────────────┐
 | in progress |
 └─────────────┘
 
-à faire : full test création / modification subevent
-Liste des events en smartTable.
+Ajout subevent avec bouton + --> KO sur certains PC, et KO en ligne (OK Asus NL)
+Modification edit-autocreate-subevent-core
+En cours : suppression echo, PHP header --> JS location, passage en requête préparée
 
 ┌───────┐
 | To do |
