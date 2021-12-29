@@ -85,10 +85,12 @@ if(isset($_GET['id'])){
 	<div class='E4M_maindiv'>
 	<a href = "<?=$cfg['event_list_page']?>"><button> ⬆ <?=$str['Goto_all_events']?> ⬆ </button> </a>
 	<?php if ($is_owner): ?>
+		
 		<form action=<?= $cfg["event_modification_page"] ?> method="GET" >
 		<button type="submit" name="id" value=<?=$_GET['id']?> ><?=$str['Modify']?></button>
 		<br/>
-	</form >
+		</form >
+		<button id="DeleteEventButton" ><?=$str['Delete']?></button>
 	<?php endif; ?>
 	<div id="E4M_eventinfo" ></div>
 	
@@ -104,7 +106,8 @@ if(isset($_GET['id'])){
 	
 	<?php if ($is_owner): ?>
 		<br/>
-		<button id="EditSubEventButton"><?=$str['Modify']?></button>	
+		<button id="EditSubEventButton"><?=$str['Modify']?></button>
+		<button id="DeleteSubEventButton" ><?=$str['Delete']?></button>
 		<button onclick="download()"><?=$str['Download']?></button>	
 	</form >
 	<?php endif; ?>
@@ -141,7 +144,8 @@ if(isset($_GET['id'])){
 	
 	
 	var registration_search_page = `<?= $cfg['registration_search_page'] ?>`;
-	
+	var CurrentEventId = <?=$event_id ?>;
+	console.log("CurrentEventId = ",CurrentEventId);
 	var CurrentSubEventIndex = 0; 	// index of the internal table from json (0, 1,...)
 	var CurrentSubEventId = 0; 	// id in the database
 	var CurrentRating = 1; 	// default value, will later depend on rating in subevent
@@ -205,13 +209,16 @@ if(isset($_GET['id'])){
 	
 	var sort_method = "default"; // default (datereg) | name | rating | club | cat 
 	const EditSubBnt = document.getElementById('EditSubEventButton');
-	
+	const DelSubBnt = document.getElementById('DeleteSubEventButton');
+	const DelEventBnt = document.getElementById('DeleteEventButton');
 
 	eventinfoset =event_data_set['infos'][0]; 
 	
 	CurrentSubEventId = subs_data_set[CurrentSubEventIndex]["id"]; 
 	if (is_owner){
-		EditSubBnt.addEventListener('click', gotoSubEventEditPage);
+		EditSubBnt.addEventListener('click', gotoEditCurrentSubevent);
+		DelSubBnt.addEventListener('click', DeleteCurrentSubEvent);
+		DelEventBnt.addEventListener('click', DeleteCurrentEvent);
 	}
 	
 
@@ -223,10 +230,15 @@ if(isset($_GET['id'])){
 	
 	member_list =  event_data_set['registrations'];
 	console.log("member_list", member_list);
+	
+	NbSubs=subs_data_set.length;
 	NbRegTot = member_list.length;
 
     if ( is_owner ) {
-        let registration_to_unwait = unwait(eventinfoset.nbmax, subs_data_set, member_list);
+        console.log("member_list.length = ", member_list.length);
+		console.log("NbSubs = ", NbSubs);
+		DelEventBnt.disabled = (member_list.length == 0 && NbSubs == 1)? false : true ;
+		let registration_to_unwait = unwait(eventinfoset.nbmax, subs_data_set, member_list);
         if (registration_to_unwait == null) {
             console.log("no registration to unwait")
         } else {
@@ -235,18 +247,13 @@ if(isset($_GET['id'])){
 			console.log("TheOneIndex in member_list", TheOneIndex)
 			let TheOneFullName = TheOne.firstname + " " + TheOne.lastname;
 			console.log(`registration ${registration_to_unwait} ( ${TheOneFullName} )  to unwait`);
-			//console.log(`registration ${registration_to_unwait} to unwait`);
-			
 			EditRegistration (registration_to_unwait, 'u', TheOneFullName);
-
-			
         }
     }
 	event_html_id.innerHTML = eventInfos2html(eventinfoset);
 	subevent_html_id.innerHTML = SubeventInfos2html(subs_data_set[CurrentSubEventIndex]);
-	//registred_html_id.innerHTML = RegList2htmltable (member_list, CurrentSubEventIndex);
 	
-	NbSubs=subs_data_set.length;
+
 	if (NbSubs > 1){
 		BuildHTMLEventSelector (NbSubs);
 	}
@@ -274,6 +281,10 @@ if(isset($_GET['id'])){
 	});
 	
 	var filteredList = member_list.filter( filter => filter.subid == CurrentSubEventId );
+	if (is_owner) {
+		DelSubBnt.disabled = (filteredList.length == 0 && NbSubs>=2) ? false : true ;
+	}
+	
 	let StatusLegendNeeded = false;
 	filteredList.forEach( item => {
 		item.displayedRating = parseFloat(item["rating"+ CurrentRating])
@@ -288,7 +299,6 @@ if(isset($_GET['id'])){
 		"colSorted" : -1
 	};
 	regTableSettings.active = is_owner ? true : false;
-	//console.log ("is_owner = ", is_owner);
 	
 	var regTable = new smartTable (
 		"reglist", 

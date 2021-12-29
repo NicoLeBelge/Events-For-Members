@@ -263,11 +263,10 @@ function EditRegistration (reg, action, member_name) {
 function SelectEvent(JS_Event) {
 	/**
 	 * function called when selector clicked
-	 * updates 3 iconsets, selector and smartTable
+	 * updates 3 iconsets, selector, delete button status and smartTable
 	 */
 	
 	NumEvent = JS_Event.currentTarget.callback_arg;  // (0,1,...,nbsubevents-1)
-	//console.log("SelectEvent / NumEvent = ", NumEvent);
 	hidden_id.value = NumEvent;
 	CurrentSubEventIndex = NumEvent;
 	/* selector rebuilt to update highlighted selection */
@@ -277,7 +276,6 @@ function SelectEvent(JS_Event) {
 	CurrentSubEventId = subs_data_set[NumEvent]["id"];
 	CurrentRating = subs_data_set[NumEvent]["rating_type"]; 
 	subevent_html_id.innerHTML = SubeventInfos2html(subs_data_set[CurrentSubEventIndex]);
-	//registred_html_id.innerHTML = RegList2htmltable (member_list, NumEvent);
 	cat_set.Refresh(subs_data_set[CurrentSubEventIndex].cat);
 	gen_set.Refresh(subs_data_set[CurrentSubEventIndex].gender);
 	typ_set.Refresh(subs_data_set[CurrentSubEventIndex].type);
@@ -286,7 +284,11 @@ function SelectEvent(JS_Event) {
 	subSelector.Update(NumEvent);
 	filteredList = member_list.filter( filter => filter.subid == CurrentSubEventId );
 	
-	//filteredList.forEach( item => item.displayedRating = item["rating"+ CurrentRating]);
+	if ( is_owner ) {
+		DelSubBnt.disabled = (filteredList.length == 0 && NbSubs>=2) ? false : true ;
+	}
+	
+	
 	let StatusLegendNeeded = false;
 	filteredList.forEach( item => {
 		item.displayedRating = parseFloat(item["rating"+ CurrentRating])
@@ -335,11 +337,30 @@ function setURLforEditSubEventBtn(){
 	});
 }
 
-function gotoSubEventEditPage () {
+function gotoEditCurrentSubevent () {
 	let editsubURL = "edit-subevent.php?id=" + CurrentSubEventId;
 	location.href=editsubURL;
 }
-
+function DeleteCurrentSubEvent () {
+	let data = new FormData();
+	data.append('subevent_id', CurrentSubEventId);
+	let request = new XMLHttpRequest();
+	let XHR = './API/delete-event-subevent.php';
+	request.open('POST', XHR);
+	request.responseType = 'text';
+	request.send(data);
+	location.reload();
+}
+function DeleteCurrentEvent () {
+	let data = new FormData();
+	data.append('event_id', CurrentEventId);
+	let request = new XMLHttpRequest();
+	let XHR = './API/delete-event-subevent.php';
+	request.open('POST', XHR);
+	request.responseType = 'text';
+	request.send(data);
+	document.location="register-event-list.php";
+}
 function unwait (max, subs, regs) {
 	/**
 	 * inputs

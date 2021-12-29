@@ -30,6 +30,5 @@ session_start();
 	include ('../head-foot/T0P-footer.php');
 	echo "</div> \n";
 	?>
-	
     </body>
 </html>

@@ -107,6 +107,7 @@
     "restriction_>" : "réservé aux PLUS de",
     "restriction_<" : "réservé aux MOINS de",
     "default_subevent_name" : "nom du tournoi à déterminer",
-    "Registration_unwaited" : " sorti de la liste d'attente"
+    "Registration_unwaited" : " quitte la liste d'attente",
+    "Delete" : "Supprimer"
     
 }
