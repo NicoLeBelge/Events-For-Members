@@ -78,6 +78,8 @@ Modifier les conditions d'affichage des boutons Modifier et Télécharger --> se
 Sur suppression ou confirmation du joueur, mettre un call back avec message de confirmation (ou juste le reload dans le callback)
 Sur suppression d'un joueur, mettre à jour la liste d'attente (niveau event et/ou subevent)
 masquer le nom du subevent s'il n'y en a qu'un seul --> juste supprimé le required sur le champ subname
+category, gender and type reminded in seach window
+
 ┌─────────────┐
 | in progress |
 └─────────────┘

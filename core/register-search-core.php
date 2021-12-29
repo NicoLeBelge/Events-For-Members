@@ -43,6 +43,11 @@ if((isset($_POST['E4M_hidden_index']) || isset($_SESSION['sub_index'])) && isset
 ?>
 <div class='E4M_maindiv'>
 <div id="E4M_subeventinfo" class="E4M_subeventinfo"></div>
+<div id="E4M_subevent_cat" class="E4M_catlist" ></div>
+<div id="E4M_subevent_gen" class="E4M_catlist" ></div>
+<div id="E4M_subevent_typ" class="E4M_catlist" ></div>
+<br/>
+
 <img src="./img/info-picto.png" /> <span id="E4M_instruction"></span><br/><br/>
 
 <form action="<?= $cfg['registration_check_page'] ?>" id='ValidationForm' method="POST" >
@@ -69,6 +74,7 @@ if((isset($_POST['E4M_hidden_index']) || isset($_SESSION['sub_index'])) && isset
 
 <script src="./JS/E4M-search.js"></script>
 <script src="./JS/E4M.js"></script>
+<script src="./JS/E4M_class.js"></script>
 <script type="text/javascript">
 	var rating_names = JSON.parse(`<?=$rating_names_str?>`);
 	var cat_names = JSON.parse(`<?=$cat_names_str?>`);
@@ -90,7 +96,7 @@ if((isset($_POST['E4M_hidden_index']) || isset($_SESSION['sub_index'])) && isset
 	var members; // list of members matching search
 	var member; // member picked in list of member
 	var ValidationForm = document.getElementById('ValidationForm');
-	
+	var CurrentSubEventIndex = `<?=$subevent_index?>`;
 	let SearchButton = document.getElementById('searchButton');
 	SearchButton.addEventListener('click', trouve);
 
@@ -107,6 +113,28 @@ if((isset($_POST['E4M_hidden_index']) || isset($_SESSION['sub_index'])) && isset
 
 	let subevent_html_id = document.getElementById('E4M_subeventinfo');
 	subevent_html_id.innerHTML = SubeventInfos2html (currentSubEventObj);
+
+	var cat_set = new IconSet (
+		"E4M_subevent_cat", 
+		cat_names,
+		subs_data_set[CurrentSubEventIndex].cat,
+		"E4M_cat",
+		false
+	);
+	var gen_set = new IconSet (
+		"E4M_subevent_gen", 
+		gender_names,
+		subs_data_set[CurrentSubEventIndex].gender,
+		"E4M_gen",
+		false
+	);	
+	var typ_set = new IconSet (
+		"E4M_subevent_typ", 
+		type_names,
+		subs_data_set[CurrentSubEventIndex].type,
+		"E4M_typ",
+		false
+	);	
 
 	function trouve(){
 		/*
