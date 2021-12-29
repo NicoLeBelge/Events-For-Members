@@ -69,37 +69,35 @@ move to event page after event creation
 (done) API/set-subevent.php fields to handle one by one : 
 (done) subname, nbmax, link, rating_restriction yes/no, rating_comp, rating limit, cat, gender, type : OK
 Liste des events en smartTable.
-
+Ajout subevent avec bouton + --> KO sur certains PC, et KO en ligne (OK Asus NL)
+Modification edit-autocreate-subevent-core
+En cours : suppression echo, PHP header --> JS location, passage en requête préparée
+deletion of subevents and event done and tested
+Bug à résoudre : création de subevent supplémentaire : rating_type vaut 0 au lieu de 1.
+Modifier les conditions d'affichage des boutons Modifier et Télécharger --> seulement si owner.
+Sur suppression ou confirmation du joueur, mettre un call back avec message de confirmation (ou juste le reload dans le callback)
+Sur suppression d'un joueur, mettre à jour la liste d'attente (niveau event et/ou subevent)
 ┌─────────────┐
 | in progress |
 └─────────────┘
 
-Ajout subevent avec bouton + --> KO sur certains PC, et KO en ligne (OK Asus NL)
-Modification edit-autocreate-subevent-core
-En cours : suppression echo, PHP header --> JS location, passage en requête préparée
 
+masquer le nom du subevent s'il n'y en a qu'un seul.
 ┌───────┐
 | To do |
 └───────┘
-Bug à résoudre : création de subevent supplémentaire : rating_type vaut 0 au lieu de 1.
+
+
 page d'edition subevent --> ajout nom de event
 indiquer le nombre d'inscrits à chaque subevent
-ajout possibilité de supprimer un event ou un subevent
 activeHeader set to "" because it's uncentered if we put "⚙" --> twick CSS !
 Empêcher l'insertion de balise dans le nom de l'event
-(prévu) Permettre l'affichage des données d'un event s'il n'y a pas de subevents (et si owner : ajout)
-    ou alors créer automatiquement un subevent lors de la création d'un event.
-Modifier les conditions d'affichage des boutons Modifier et Télécharger --> seulement si owner.
-
 contact initialement prévu tous moyens, implémenté e-mail only, à garder mais ajoute-t-on un autre moyen de contact ? 
-NL supprimé required sur nombre maximal d'inscrits  : voir si effets de bords
-Sur suppression ou confirmation du joueur, mettre un call back avec message de confirmation (ou juste le reload dans le callback)
-Sur suppression d'un joueur, mettre à jour la liste d'attente (niveau event et/ou subevent)
+
 changer le nom "name" du formulaire create event pour ne pas laisser le browser proposer le nom de l'utilisateur et du coup changer les autres fields. 
 fine-tuner le curseur dans le header de la liste des participants (clic fonctionne, mais curseur bof)
 Mettre les dates d'enregistrement/confirmation (si vraiment utile)
 
-Quand on clique sur "inscrire", ça met du temps, même en local --> prévoir sablier
 Owner clique sur icone "check" pour joueur en attente de confirmation, faut parfois faire CTRL+F5 pour rafraichir.    
 Tester avec un subevent qui a une date différente du event
 Gérer les noms d'events ou de subevents avec des guillemets, ou s'assurer qu'ils soient sans.
