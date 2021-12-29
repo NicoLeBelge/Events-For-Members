@@ -34,10 +34,9 @@ if(isset($_GET['id'])){
 		$is_owner = ($_SESSION["user_id"] === $event_set["infos"][0]["owner"]) ? true : false;
 	}
 	
-	$_SESSION["secured"]=$event_set["infos"][0]["secured"]; // used on seach page to display e-mail input in form
+	$_SESSION["secured"]=$event_set["infos"][0]["secured"]; // used on search page to display e-mail input in form
 	$reponse = $conn->query("SELECT * from subevents where event_id=$event_id");
 	$event_set["subs"] = $reponse->fetchAll(PDO::FETCH_ASSOC);
-
 	
 	$subs_data_jsonstr = json_encode($event_set["subs"], JSON_UNESCAPED_UNICODE);
 	$_SESSION['subs_data_set']=$subs_data_jsonstr;
@@ -145,7 +144,6 @@ if(isset($_GET['id'])){
 	
 	var registration_search_page = `<?= $cfg['registration_search_page'] ?>`;
 	var CurrentEventId = <?=$event_id ?>;
-	console.log("CurrentEventId = ",CurrentEventId);
 	var CurrentSubEventIndex = 0; 	// index of the internal table from json (0, 1,...)
 	var CurrentSubEventId = 0; 	// id in the database
 	var CurrentRating = 1; 	// default value, will later depend on rating in subevent

@@ -77,12 +77,13 @@ Bug à résoudre : création de subevent supplémentaire : rating_type vaut 0 au
 Modifier les conditions d'affichage des boutons Modifier et Télécharger --> seulement si owner.
 Sur suppression ou confirmation du joueur, mettre un call back avec message de confirmation (ou juste le reload dans le callback)
 Sur suppression d'un joueur, mettre à jour la liste d'attente (niveau event et/ou subevent)
+masquer le nom du subevent s'il n'y en a qu'un seul --> juste supprimé le required sur le champ subname
 ┌─────────────┐
 | in progress |
 └─────────────┘
 
 
-masquer le nom du subevent s'il n'y en a qu'un seul.
+
 ┌───────┐
 | To do |
 └───────┘
