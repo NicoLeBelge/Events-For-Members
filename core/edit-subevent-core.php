@@ -65,9 +65,9 @@
 
 <!-- debug - onchange="validate()" temporarily suppressed | should be added with JS and implemented in a customized way-->
 <form action="" method="post">
-	<!--<a href="https://www.metronic.com"><button id="back" > <?=$str["Back_to_event"]?></button></a><br/><br/>-->
+	
 	<label for="subname"><?=$str["subevent_name_label"]?></label>  
-	<input type="text" id="subname" name="subname" required/>
+	<input type="text" id="subname" name="subname" />
 	<div id="E4M_subevent_cat" class="E4M_catlist"></div>
 	<div id="E4M_subevent_gen" class="E4M_catlist"></div>
 	<div id="E4M_subevent_typ" class="E4M_catlist"></div>
