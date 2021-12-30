@@ -1,6 +1,6 @@
 <?php
     $EMPTY_STRING = "";
-    $HOUR_END = ' 19:59:59';
+    $HOUR_END = ' 20:00:00';
 	$pathbdd = '../../_local-connect/connect.php';
 	include($pathbdd);
     $str = json_decode(file_get_contents('../json/strings.json'),true);	
@@ -11,13 +11,14 @@
         $datelim = $EMPTY_STRING;
         $secured = $EMPTY_STRING;
         $contact = $EMPTY_STRING;
-        $nbmax = $EMPTY_STRING; 
-        $pos_long =  $EMPTY_STRING;
-        $pos_lat = $EMPTY_STRING;
+        $nbmax = NULL; 
+        $pos_long =  NULL;
+        $pos_lat = NULL;
+        echo "avant foreach : "; var_dump($nbmax); echo "<br/>";
         $owner = $EMPTY_STRING;
         foreach($_POST as $key => $value)
             {
-                if($value == '') $value='NULL';
+                if($value == '') $value=NULL;
                 switch ($key) 
                 {
                     case 'name':
@@ -34,7 +35,7 @@
                     break;
 
                     case 'datelim':
-                        if($value == 'NULL')
+                        if($value == NULL)
                         {
                             $datelim = $datestart.$HOUR_END;
                         }
@@ -69,7 +70,7 @@
 
                 }
             }
-
+            echo "après foreach : "; var_dump($nbmax); echo "<br/>";
         $reqE=$conn->prepare("INSERT INTO events (name, datestart, datelim, secured, contact, nbmax, pos_long, pos_lat, owner) 
 						VALUES (:n_name, :n_datestart, :n_datelim, :n_secured, :n_contact, :n_nbmax, :n_pos_long, :n_pos_lat, :n_owner)");
 		$reqE->BindParam(':n_name', $name);
@@ -77,9 +78,9 @@
 		$reqE->BindParam(':n_datelim', $datelim);
 		$reqE->BindParam(':n_secured', $secured);
         $reqE->BindParam(':n_contact', $contact);
-		$reqE->BindParam(':n_nbmax', $nbmax, PDO::PARAM_NULL);
-		$reqE->BindParam(':n_pos_long', $pos_long, PDO::PARAM_NULL);
-		$reqE->BindParam(':n_pos_lat', $pos_lat, PDO::PARAM_NULL);
+		$reqE->BindParam(':n_nbmax', $nbmax);
+		$reqE->BindParam(':n_pos_long', $pos_long);
+		$reqE->BindParam(':n_pos_lat', $pos_lat);
 		$reqE->BindParam(':n_owner', $owner);
         $reqE->execute();
         

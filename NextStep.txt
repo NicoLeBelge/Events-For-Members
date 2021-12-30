@@ -84,7 +84,9 @@ category, gender and type reminded in seach window
 | in progress |
 └─────────────┘
 
-
+modification event avec apostrophe dans le nom : OK mais KO en création
+création event : nbmax = 0 en ligne, NULL en local ! idem geoloc (default NULL dans les deux bases)
+    createEvent-Action-core.php identique (peut-être gestion différente du PDO::PARAM_NULL)
 
 ┌───────┐
 | To do |
