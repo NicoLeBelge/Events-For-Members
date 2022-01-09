@@ -316,12 +316,12 @@ function download() {
 		CSVstring += member[rating_selector]+ ";";
 		CSVstring += member.clubname+ ";";
 		CSVstring += member.region+ ";";
-		CSVstring += "\n" ;
+		CSVstring += "\r" ;
 	});
 	
 	var filename = CurrentSubEventObj.name +".csv";
 	var element = document.createElement('a');
-	element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(CSVstring));
+	element.setAttribute('href', 'data:text/plain;charset=utf-8,' + CSVstring);
 	element.setAttribute('download', filename);
 	element.style.display = 'none';// necessary ??
 	document.body.appendChild(element);
