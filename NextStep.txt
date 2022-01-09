@@ -79,14 +79,14 @@ Sur suppression ou confirmation du joueur, mettre un call back avec message de c
 Sur suppression d'un joueur, mettre à jour la liste d'attente (niveau event et/ou subevent)
 masquer le nom du subevent s'il n'y en a qu'un seul --> juste supprimé le required sur le champ subname
 category, gender and type reminded in seach window
+modification event avec apostrophe dans le nom : OK mais KO en création
+création event : nbmax = 0 en ligne, NULL en local ! idem geoloc (default NULL dans les deux bases) --> remplacé "NULL" par NULL
 
 ┌─────────────┐
 | in progress |
 └─────────────┘
 
-modification event avec apostrophe dans le nom : OK mais KO en création
-création event : nbmax = 0 en ligne, NULL en local ! idem geoloc (default NULL dans les deux bases)
-    createEvent-Action-core.php identique (peut-être gestion différente du PDO::PARAM_NULL)
+downloads have LF instead of CR --> change and cancel conversion with encodeURIComponent
 
 ┌───────┐
 | To do |
