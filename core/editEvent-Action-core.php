@@ -31,10 +31,18 @@
 						$requete="UPDATE `events` SET ".$key."=".$value." WHERE id=".$_POST['id'];
 						break; 
 
+						case 'datelim':
+							$value .= " 20:00:00";
+							var_dump($value);
+							$requete="UPDATE `events` SET ".$key."='".$value."' WHERE id=".$_POST['id'];
+							var_dump($requete);
+							break; 
+
 						default:
 						$requete="UPDATE `events` SET ".$key."= '".$value. "' WHERE id=".$_POST['id'];
 						break;
 					}
+					// var_dump($requete);
 					$res= $conn->query(htmlspecialchars($requete));
 					echo $requete."<br />";
 				}

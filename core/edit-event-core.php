@@ -9,6 +9,7 @@
 	// echo('<br />'.modifAuthorization($conn)['message'].'<br />');
 ?>
 	<?php
+	$str = json_decode(file_get_contents('./json/strings.json'),true);	
 	$ID = $_GET['id']; 
 	$pathbdd = './../_local-connect/connect.php';
 	include($pathbdd);
@@ -17,24 +18,37 @@
 	$array_old = $res->fetch();
 	
 ?>
+<!-- onchange="validate()" temporarily removed from all fields since generating error-->
 <form action="./core/editEvent-Action-core.php" method="post">
-	<label for="name">Nom de l'event :</label>  <input type="text" id="name" name="name" onchange="validate()"/>
-	<p>Date de début de l'évènement : <input type="date" name="datestart" onchange="validate()" value=<?=$array_old['datestart'] ?> /></p>
-	<p>Date de fin d'inscription : <input type="date" name="datelim" onchange="validate()" value=<?=$array_old['datelim'] ?> /></p>
-	<p>Sécurisation de l'évènement :
+	<label for="name"><?=$str["event_name_label"] ?></label>  
+	<input type="text" id="name" name="name"/>
+	
+	<label for="datestart"><?=$str["date_label"] ?></label> 
+	<input type="date" name="datestart" value=<?=$array_old['datestart'] ?> />
+	<br>
+	<label for="datelim"><?=$str["Date_until"] ?></label> 
+	<input type="date" name="datelim" value=<?=$array_old['datelim'] ?> />
+	<br>
+	<br>
+	<label for="secured"><?=$str["Event_secured_info"] ?></label> 
+	
+	
 		<input type="radio" id="yes" name="secured" value="yes" <?php if($array_old["secured"]) echo "checked";  ?> />
-		<label for="yes">yes</label>
+		<label for="yes"><?=$str["yes"] ?> </label>
 
 		<input type="radio" id="no" name="secured" value="no" <?php if(!$array_old["secured"]) echo "checked";  ?> />
-		<label for="no">no</label>
-	</p> 
-        <label for="mail">e-mail de contact :</label>
-        <input type="email" id="mail" name="contact" onchange="validate()" value=<?=$array_old['contact'] ?>  />
+		<label for="no"><?=$str["no"] ?></label>
+	<br>
+        
+	<label for="mail"><?=$str["Organizer_email"] ?></label>
+    <input type="email" id="mail" name="contact" value=<?=$array_old['contact'] ?>  />
 
-	<p>Nombre maximal d'inscrits : <input type="number" name="nbmax" onchange="validate()" value=<?=$array_old['nbmax'] ?> /></p>
-
-	<p>Position longitude : <input type="number" step="any" name="pos_long" onchange="validate()" value=<?=$array_old['pos_long'] ?> /></p>
-	<p>Position latitude : <input type="number" step="any" name="pos_lat" onchange="validate()" value=<?=$array_old['pos_lat'] ?> /></p>
+	<label for="nbmax"><?=$str["Nb_max_participants"]?></label>   
+	<input type="number" name="nbmax" value=<?=$array_old['nbmax'] ?> />
+	<br>
+	<label for="pos_lat"><?=$str["geoloc_lat_long"]?></label>
+	<input type="number" step="any" name="pos_long" value=<?=$array_old['pos_long'] ?> />
+	<input type="number" step="any" name="pos_lat" value=<?=$array_old['pos_lat'] ?> />
 
 	<p><input type="submit" value="OK" id="submitButton"></p>
 	<input id="id" name="id" type="hidden" value=<?php echo $_GET['id'] ?>>
