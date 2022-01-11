@@ -22,7 +22,8 @@
                 switch ($key) 
                 {
                     case 'name':
-                    $name = addcslashes($value,"'");
+                    //$name = addcslashes($value,"'");
+                    $name = str_replace('"', "'", $value);
                     break;
 
                     case 'secured':
