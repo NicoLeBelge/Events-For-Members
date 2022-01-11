@@ -82,18 +82,20 @@ category, gender and type reminded in seach window
 modification event avec apostrophe dans le nom : OK mais KO en création
 création event : nbmax = 0 en ligne, NULL en local ! idem geoloc (default NULL dans les deux bases) --> remplacé "NULL" par NULL
 downloads have LF instead of CR --> change and cancel conversion with encodeURIComponent
+bug : Time limit (default 20:00:00 with event autocreate) changed to 00:00:00 after event modification
+
 
 ┌─────────────┐
 | in progress |
 └─────────────┘
-bug : Time limit (default 20:00:00 with event autocreate) changed to 00:00:00 after event modification
+event can now really support double quotes.
 
 
 ┌───────┐
 | To do |
 └───────┘
 
-
+guillemets in subevent ?
 page d'edition subevent --> ajout nom de event
 indiquer le nombre d'inscrits à chaque subevent
 activeHeader set to "" because it's uncentered if we put "⚙" --> twick CSS !
@@ -114,4 +116,4 @@ mode de publication 'brouillon' + 'my_event_list' + problème d'identifiant de s
 Nombre max de résultats sur namesearch rendre 25 paramétrable
 
 Guillaume : JSON + sécurité + github + ajout des infos existantes  + ajout de l'heure ! 
-
+alerte sécu : balises interprétées dans form edit event (et form edit subevent ?)
