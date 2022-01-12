@@ -1,5 +1,6 @@
 <?php
-    $str = json_decode(file_get_contents('./json/strings.json'),true);	
+    $str = json_decode(file_get_contents('./_json/strings.json'),true);	
+    $cfg = json_decode(file_get_contents('./_json/config.json'),true);	
     $jsonstr = json_encode($str);
     $pathbdd = '../_local-connect/connect.php';
     include($pathbdd);
@@ -27,4 +28,4 @@
     $reqS->execute();
 
     sleep(1);
-    echo "<script type='text/javascript'>document.location = 'register-event.php?id=$event_id'</script>";
+    echo "<script type='text/javascript'>document.location = '" . $cfg['event_page'] . "?id=$event_id'</script>";

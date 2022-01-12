@@ -8,7 +8,7 @@ displays a form to enter new values for event creation
 
 /* lets get strings from json folder (strings displayed and configuration strings) */
 
-$str = json_decode(file_get_contents('./json/strings.json'),true);	
+$str = json_decode(file_get_contents('./_json/strings.json'),true);	
 $jsonstr = json_encode($str);
 
 ?>

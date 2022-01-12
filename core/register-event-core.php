@@ -9,7 +9,7 @@ note : 	event data are passed to REGISTER page via session variables
 
 /* lets get strings from json folder (strings displayed and configuration strings) */
 
-$cfg = json_decode(file_get_contents('./json/config.json'),true);	
+$cfg = json_decode(file_get_contents('./_json/config.json'),true);	
 $subevent_link_icon_str = json_encode($cfg['subevent_link_icon']);
 $registration_search_page = json_encode($cfg['registration_search_page']); 
 $cat_names_str = json_encode($cfg['cat_names']);
@@ -17,7 +17,7 @@ $gender_names_str = json_encode($cfg['gender_names']);
 $rating_names_str = json_encode($cfg['rating_names']);
 $type_names_str = json_encode($cfg['type_names']);
 
-$str = json_decode(file_get_contents('./json/strings.json'),true);	
+$str = json_decode(file_get_contents('./_json/strings.json'),true);	
 $jsonstr = json_encode($str);
 
 /* this page is supposed to be called with event id, let's warn the visitor if omitted */

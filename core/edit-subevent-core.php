@@ -43,7 +43,7 @@
 
 	if ($display_form) {
 		// warning - redundant with register-event-core - putting that in a function should be better
-		$cfg = json_decode(file_get_contents('./json/config.json'),true);	
+		$cfg = json_decode(file_get_contents('./_json/config.json'),true);	
 		$subevent_link_icon_str = json_encode($cfg['subevent_link_icon']);
 		$registration_search_page = json_encode($cfg['registration_search_page']); 
 		$cat_names_str = json_encode($cfg['cat_names']);
@@ -51,7 +51,7 @@
 		$rating_names_str = json_encode($cfg['rating_names']);
 		$type_names_str = json_encode($cfg['type_names']);
 
-		$str = json_decode(file_get_contents('./json/strings.json'),true);	
+		$str = json_decode(file_get_contents('./_json/strings.json'),true);	
 		
 		$requete="SELECT * FROM subevents WHERE id=$subeventId;";
 		$res= $conn->query(htmlspecialchars($requete));
@@ -122,14 +122,7 @@
 
 	}
 	
-	/* let's feed the button to go back to event */
-	/*  -- problem : makes submit whereas we don't want to
-	document.getElementById("back").addEventListener("click", function(e){
-		e.stopPropagation();
-		let destination = "register-event.php?id=" + array_old.event_id.toString(10);
-		document.location.replace=destination;
-	});
-	 */
+
 	/* let's put in fields values before modifications */
 	let array_old = JSON.parse(`<?=$array_old_jsonstr?>`);
 	console.log(array_old);

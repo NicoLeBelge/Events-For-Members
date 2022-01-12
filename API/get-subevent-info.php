@@ -6,7 +6,7 @@ returns json of object like this  :
 Obj_sub = {id="u", name = "subeventname", ...}
 */
 
-$json = file_get_contents('../json/config.json'); // gets Nb_rating (1, 2, ... or 6)
+$json = file_get_contents('../_json/config.json'); // gets Nb_rating (1, 2, ... or 6)
 $cfg = json_decode($json,true);	
 
 include('../../_local-connect/connect.php'); // PDO connection required

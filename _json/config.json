@@ -17,5 +17,5 @@
     "cat_names": ["U08","U10", "U12","U14","U16","U18","U20","Sen", "Sen+", "Vet"],
     "gender_names": ["F","M"],
     "type_names": ["A","B","N"],
-    "subevent_link_icon": "./img/subevent_link_icon.png"
+    "subevent_link_icon": "./_img/subevent_link_icon.png"
 }

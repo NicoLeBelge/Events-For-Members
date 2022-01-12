@@ -15,9 +15,9 @@ if (!isset($_GET['code'])) {
 			if not already confirmed  --> confirmation + message
 			else --> message  
 	 */
-	$json = file_get_contents('./json/strings.json');
+	$json = file_get_contents('./_json/strings.json');
 	$str = json_decode($json,true);	
-	$json = file_get_contents('./json/config.json'); 
+	$json = file_get_contents('./_json/config.json'); 
 	$cfg = json_decode($json,true);	
 	$code = $_GET['code'];
 	include('../_local-connect/connect.php');
