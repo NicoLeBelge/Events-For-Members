@@ -1,5 +1,5 @@
 <?php
-	$pathJson = './json/strings.json';
+	$pathJson = './_json/strings.json';
 	$values = json_decode(file_get_contents($pathJson),true);
 	function getIp()
 	{

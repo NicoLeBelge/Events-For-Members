@@ -40,7 +40,7 @@ function eventInfos2html (infoset){
 		url+="/"+infoset.pos_lat;
 		url+="/="+infoset.pos_long;
 		html_string += "<p><span class='E4M_css_key'>" + str['Show_on_map'] + "</span> <a href = " + url 
-		html_string += " target='_blank'><img src='./img/geomarker.png'> </a></p>" ;
+		html_string += " target='_blank'><img src='./_img/geomarker.png'> </a></p>" ;
 		
 		/* debug niveau de zoom (#map) pas respecté, à creuser, pourquoi ? */
 	}
@@ -359,7 +359,8 @@ function DeleteCurrentEvent () {
 	request.open('POST', XHR);
 	request.responseType = 'text';
 	request.send(data);
-	document.location="register-event-list.php";
+	//document.location="register-event-list.php";
+	document.location="<?=$cfg['event_page']?>"; //ici (pb : c'est pas du php !!)
 }
 function unwait (max, subs, regs) {
 	/**

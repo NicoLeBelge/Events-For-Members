@@ -3,7 +3,8 @@
     $HOUR_END = ' 20:00:00';
 	$pathbdd = '../../_local-connect/connect.php';
 	include($pathbdd);
-    $str = json_decode(file_get_contents('../json/strings.json'),true);	
+    $str = json_decode(file_get_contents('../_json/strings.json'),true);	
+    $cfg = json_decode(file_get_contents('../_json/config.json'),true);	
 	if(!empty($_POST))
 	{
         $name = $EMPTY_STRING;
@@ -95,8 +96,7 @@
         $reqS->BindParam(':n_name', $default_subevent_name);
         $default_subevent_name = $str["default_subevent_name"];
         $reqS->execute();
-        /* http://localhost/web/E4M/register-event.php?id=1 */
-        echo "<script type='text/javascript'>document.location = '../register-event.php?id=$new_event_id'</script>";
+        echo "<script type='text/javascript'>document.location = '../" . $cfg['event_page'] . "?id=$new_event_id'</script>";
 	}
 	else echo "formulaire absent";	
 ?>

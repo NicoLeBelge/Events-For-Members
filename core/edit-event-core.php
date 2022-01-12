@@ -9,7 +9,7 @@
 	// echo('<br />'.modifAuthorization($conn)['message'].'<br />');
 ?>
 	<?php
-	$str = json_decode(file_get_contents('./json/strings.json'),true);	
+	$str = json_decode(file_get_contents('./_json/strings.json'),true);	
 	$ID = $_GET['id']; 
 	$pathbdd = './../_local-connect/connect.php';
 	include($pathbdd);

@@ -2,7 +2,7 @@
 	$ID = "id";
 	$EMPTY_STRING = "";
 	$pathbdd = '../../_local-connect/connect.php';
-	$pathJson = '../json/strings.json';
+	$pathJson = '../_json/strings.json';
 	$values = json_decode(file_get_contents($pathJson),true);
 	include($pathbdd);
 	if(!empty($_POST))

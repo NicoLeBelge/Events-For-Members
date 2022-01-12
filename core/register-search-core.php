@@ -11,7 +11,7 @@ He is then redirected to registration page, for confirmation or error report.
 
 /* lets get strings from json folder (strings displayed and configuration strings) */
 
-$json = file_get_contents('./json/config.json'); 
+$json = file_get_contents('./_json/config.json'); 
 $cfg = json_decode($json,true);	
 
 $subevent_link_icon_str = json_encode($cfg['subevent_link_icon']);
@@ -20,7 +20,7 @@ $cat_names_str = json_encode($cfg['cat_names']);
 $gender_names_str = json_encode($cfg['gender_names']);
 $rating_names_str = json_encode($cfg['rating_names']);
 $type_names_str = json_encode($cfg['type_names']);
-$json = file_get_contents('./json/strings.json');
+$json = file_get_contents('./_json/strings.json');
 $str = json_decode($json,true);	
 $jsonstr = json_encode($str);	
 
@@ -48,7 +48,7 @@ if((isset($_POST['E4M_hidden_index']) || isset($_SESSION['sub_index'])) && isset
 <div id="E4M_subevent_typ" class="E4M_catlist" ></div>
 <br/>
 
-<img src="./img/info-picto.png" /> <span id="E4M_instruction"></span><br/><br/>
+<img src="./_img/info-picto.png" /> <span id="E4M_instruction"></span><br/><br/>
 
 <form action="<?= $cfg['registration_check_page'] ?>" id='ValidationForm' method="POST" >
 	<label  for="member_name" id="E4M_register_name_label"><?= $str['Member'] ?></label>

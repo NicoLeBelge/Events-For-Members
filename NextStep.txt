@@ -83,18 +83,20 @@ modification event avec apostrophe dans le nom : OK mais KO en création
 création event : nbmax = 0 en ligne, NULL en local ! idem geoloc (default NULL dans les deux bases) --> remplacé "NULL" par NULL
 downloads have LF instead of CR --> change and cancel conversion with encodeURIComponent
 bug : Time limit (default 20:00:00 with event autocreate) changed to 00:00:00 after event modification
-
+event can now really support double quotes.
 
 ┌─────────────┐
 | in progress |
 └─────────────┘
-event can now really support double quotes.
 
-
+change all URL that can be called by root file as parameters
+register-search / register-event / register event list / register-confirm / register-check.php
 ┌───────┐
 | To do |
 └───────┘
 
+disable le bouton télécharger si pas d'inscrits
+limiter le nombre de subevents à 10
 guillemets in subevent ?
 page d'edition subevent --> ajout nom de event
 indiquer le nombre d'inscrits à chaque subevent

@@ -1,7 +1,7 @@
 <?php
 include ('../_local-connect/connect.php');
-$str = json_decode(file_get_contents('./json/strings.json'),true);	
-$cfg = json_decode(file_get_contents('./json/config.json'),true);	
+$str = json_decode(file_get_contents('./_json/strings.json'),true);	
+$cfg = json_decode(file_get_contents('./_json/config.json'),true);	
 echo "<h3>" . $str['event_list_title'] . "</h3>";
 $yesterday = new DateTime("now");
 $yesterday->sub(new DateInterval('P1D'));
@@ -31,7 +31,7 @@ $reponse->closeCursor();
 $reponse = $conn->query($qtxt);
 $event_list = $reponse->fetchAll(PDO::FETCH_ASSOC);
 $event_list_str = json_encode ($event_list);
-$str = json_decode(file_get_contents('./json/strings.json'),true);	
+$str = json_decode(file_get_contents('./_json/strings.json'),true);	
 $jsonstr = json_encode($str);
 ?>
 
@@ -52,7 +52,13 @@ $jsonstr = json_encode($str);
 	};
 	/* let's add .rowLink to allow click on a row */
 	event_list.forEach((element) =>{
-		element.rowLink="register-event.php?id=" + element.id.toString(10);
+		let dest = "<?=$cfg['event_page']?>?id=" + element.id.toString(10);
+		element.rowLink=dest;
+		/**
+		 * element.rowLink="<!=$str['event_page']?>?id=" + element.id.toString(10);
+		 */
+		 
+		//
 	});
 	var EventsTable = new smartTable (
 		"event_list", 

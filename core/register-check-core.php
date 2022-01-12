@@ -10,7 +10,7 @@ constraints checked : number of registrations for event/subevent + member not re
 // debug --> enlever ce qui est inutile
 
 include('./include/str-tools.php');
-$json = file_get_contents('./json/config.json'); 
+$json = file_get_contents('./_json/config.json'); 
 $cfg = json_decode($json,true);	
 
 $registration_check_page = json_encode($cfg['registration_check_page']); // debug --> à garder
@@ -20,7 +20,7 @@ $cat_names_str = json_encode($cfg['cat_names']);
 $gender_names_str = json_encode($cfg['gender_names']);
 $rating_names_str = json_encode($cfg['rating_names']);
 $type_names_str = json_encode($cfg['type_names']);
-$json = file_get_contents('./json/strings.json');
+$json = file_get_contents('./_json/strings.json');
 $str = json_decode($json,true);	
 $jsonstr = json_encode($str);	
 
@@ -115,7 +115,6 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 				$sub_almost_full = ($s_nbmax > 0 && ($tot_sub >= $s_nbmax - $full_margin)) ? true : false;
 				$evt_almost_full = ($e_nbmax > 0 && ($tot_evt >= $e_nbmax - $full_margin)) ? true : false;
 				if ($sub_almost_full || $evt_almost_full){
-					echo "on devrait passer ici puisque almost full";
 					$html_message.= "<p>" . $str["Almost_full"]."</p>";
 					$html_message.= "<p>" . $str["Hurry_up"]."</p>";
 				}
