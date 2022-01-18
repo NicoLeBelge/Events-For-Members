@@ -136,3 +136,11 @@ table, th, td {
 .E4M_maindiv form{
 	margin-top: 10px;
 }	
+.sharelink{
+	padding: 5px 10px 5px;
+	display :inline-block;
+	color:blue;
+	border: 0.5px solid gray;
+	border-radius: 5px;
+	background-color: white;
+}
