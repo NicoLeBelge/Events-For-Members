@@ -90,6 +90,9 @@ if(isset($_GET['id'])){
 		<br/>
 		</form >
 		<button id="DeleteEventButton" ><?=$str['Delete']?></button>
+		<button  id="ShareEventButton" ><?=$str['Share']?></button>
+		<div class='sharelink' id="sharelink"></div>
+		
 	<?php endif; ?>
 	<div id="E4M_eventinfo" ></div>
 	
@@ -209,7 +212,27 @@ if(isset($_GET['id'])){
 	const EditSubBnt = document.getElementById('EditSubEventButton');
 	const DelSubBnt = document.getElementById('DeleteSubEventButton');
 	const DelEventBnt = document.getElementById('DeleteEventButton');
-
+	const ShareEventBnt = document.getElementById('ShareEventButton'); // keep that ??
+	const sharetext = document.getElementById('sharelink');
+	
+	if (is_owner) {
+		sharetext.style.visibility = "collapse";	
+		let destination = "<?=$cfg['short_url']?>" + "?id=" + CurrentEventId.toString(10);
+		sharetext.innerHTML = destination;
+		
+		ShareEventBnt.addEventListener("click", function(){
+			sharetext.style.visibility = "visible";
+			let message = "<?=$str['Share_hint']?>";
+			alert(message);
+		});
+		
+		
+		
+		
+	}
+	
+	
+	
 	eventinfoset =event_data_set['infos'][0]; 
 	
 	CurrentSubEventId = subs_data_set[CurrentSubEventIndex]["id"]; 
@@ -217,6 +240,7 @@ if(isset($_GET['id'])){
 		EditSubBnt.addEventListener('click', gotoEditCurrentSubevent);
 		DelSubBnt.addEventListener('click', DeleteCurrentSubEvent);
 		DelEventBnt.addEventListener('click', DeleteCurrentEvent);
+		
 	}
 	
 

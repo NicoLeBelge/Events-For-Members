@@ -108,6 +108,8 @@
     "restriction_<" : "réservé aux MOINS de",
     "default_subevent_name" : "nom du tournoi à déterminer",
     "Registration_unwaited" : " quitte la liste d'attente",
+    "Share" : "Partager",
+    "Share_hint" : "Le lien qui s'affichera permet d'accéder à votre festival",
     "Delete" : "Supprimer"
     
 }

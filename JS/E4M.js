@@ -351,7 +351,7 @@ function DeleteCurrentSubEvent () {
 	request.send(data);
 	location.reload();
 }
-function DeleteCurrentEvent () {
+function DeleteCurrentEvent (nextpage) {
 	let data = new FormData();
 	data.append('event_id', CurrentEventId);
 	let request = new XMLHttpRequest();
@@ -360,8 +360,9 @@ function DeleteCurrentEvent () {
 	request.responseType = 'text';
 	request.send(data);
 	//document.location="register-event-list.php";
-	document.location="<?=$cfg['event_page']?>"; //ici (pb : c'est pas du php !!)
+	document.location=global_nextpage; //ici (pb : c'est pas du php !!)
 }
+
 function unwait (max, subs, regs) {
 	/**
 	 * inputs

@@ -84,13 +84,14 @@ création event : nbmax = 0 en ligne, NULL en local ! idem geoloc (default NULL 
 downloads have LF instead of CR --> change and cancel conversion with encodeURIComponent
 bug : Time limit (default 20:00:00 with event autocreate) changed to 00:00:00 after event modification
 event can now really support double quotes.
+change all URL that can be called by root file as parameters
 
 ┌─────────────┐
 | in progress |
 └─────────────┘
+Add "Share" button that shows short URL
 
-change all URL that can be called by root file as parameters
-register-search / register-event / register event list / register-confirm / register-check.php
+
 ┌───────┐
 | To do |
 └───────┘
