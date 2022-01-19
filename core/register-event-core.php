@@ -83,14 +83,12 @@ if(isset($_GET['id'])){
 
 	<div class='E4M_maindiv'>
 	<a href = "<?=$cfg['event_list_page']?>"><button> ⬆ <?=$str['Goto_all_events']?> ⬆ </button> </a>
+	<br>
 	<?php if ($is_owner): ?>
 		
-		<form action=<?= $cfg["event_modification_page"] ?> method="GET" >
-		<button type="submit" name="id" value=<?=$_GET['id']?> ><?=$str['Modify']?></button>
-		<br/>
-		</form >
+		<button id="EditEventButton" ><?=$str['Modify']?></button>
 		<button id="DeleteEventButton" ><?=$str['Delete']?></button>
-		<button  id="ShareEventButton" ><?=$str['Share']?></button>
+		<button id="ShareEventButton" ><?=$str['Share']?></button>
 		<div class='sharelink' id="sharelink"></div>
 		
 	<?php endif; ?>
@@ -210,6 +208,7 @@ if(isset($_GET['id'])){
 	
 	var sort_method = "default"; // default (datereg) | name | rating | club | cat 
 	const EditSubBnt = document.getElementById('EditSubEventButton');
+	const EditEvtBnt = document.getElementById('EditEventButton');
 	const DelSubBnt = document.getElementById('DeleteSubEventButton');
 	const DelEventBnt = document.getElementById('DeleteEventButton');
 	const ShareEventBnt = document.getElementById('ShareEventButton'); // keep that ??
@@ -219,32 +218,26 @@ if(isset($_GET['id'])){
 		sharetext.style.visibility = "collapse";	
 		let destination = "<?=$cfg['short_url']?>" + "?id=" + CurrentEventId.toString(10);
 		sharetext.innerHTML = destination;
-		
+		EditEvtBnt.addEventListener("click", GotoEditEventPage);
+		EditEvtBnt.destination = CurrentEventId;
 		ShareEventBnt.addEventListener("click", function(){
 			sharetext.style.visibility = "visible";
 			let message = "<?=$str['Share_hint']?>";
 			alert(message);
 		});
-		
-		
-		
-		
 	}
-	
-	
-	
+
 	eventinfoset =event_data_set['infos'][0]; 
 	
 	CurrentSubEventId = subs_data_set[CurrentSubEventIndex]["id"]; 
 	if (is_owner){
 		EditSubBnt.addEventListener('click', gotoEditCurrentSubevent);
 		DelSubBnt.addEventListener('click', DeleteCurrentSubEvent);
+		DelSubBnt.message = "<?=$str['Deletion_done']?>";
 		DelEventBnt.addEventListener('click', DeleteCurrentEvent);
 		DelEventBnt.nextpage = "<?=$cfg['event_list_page']?>";
-		DelEventBnt.message = "<?=$str['Event_deletion_done']?>";
-		
+		DelEventBnt.message = "<?=$str['Deletion_done']?>";
 	}
-	
 
 	hidden_id.value = CurrentSubEventIndex;
 	CurrentSubEventObj = subs_data_set[CurrentSubEventIndex]; 

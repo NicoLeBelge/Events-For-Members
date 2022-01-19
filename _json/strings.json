@@ -29,7 +29,7 @@
     "Nb_tot_reg":"Nombre total d'inscrits",
     "Max_reg":"Nombre d'inscriptions limité à ",
     "Nb_reg":"Nombre d'inscrits",
-    "Download":"Télécharger",
+    "Download":"Télécharger 📥",
     "Register":"S'inscrire",
     "Register_confirm":"Inscrire",
     "Unregister":"Désinscrire",
@@ -87,7 +87,7 @@
     "Gender_header":"F/M",
     "Type_header":"Lic.",
     "Goto_all_events":"Voir tous les tournois",
-    "Modify":"Modifier",
+    "Modify":"Modifier ⚙",
     "Save_modications":"Enregistrer les modifications",
     "Modications_saved":"Modifications sauvegardées",
     "Gender":"Genre",
@@ -108,9 +108,9 @@
     "restriction_<" : "réservé aux MOINS de",
     "default_subevent_name" : "nom du tournoi à déterminer",
     "Registration_unwaited" : " quitte la liste d'attente",
-    "Share" : "Partager",
+    "Share" : "Partager 🌍",
     "Share_hint" : "Le lien qui s'affichera permet d'accéder à votre festival",
-    "Event_deletion_done" : "Festival supprimé !",
-    "Delete" : "Supprimer"
+    "Deletion_done" : "Suppression effectuée. Rafraîchir la page si besoin.",
+    "Delete" : "Supprimer ❌"
     
 }
