@@ -225,26 +225,19 @@ if(isset($_GET['id'])){
 			let message = "<?=$str['Share_hint']?>";
 			alert(message);
 		});
-		
-		
-		
-		
 	}
-	
-	
-	
+
 	eventinfoset =event_data_set['infos'][0]; 
 	
 	CurrentSubEventId = subs_data_set[CurrentSubEventIndex]["id"]; 
 	if (is_owner){
 		EditSubBnt.addEventListener('click', gotoEditCurrentSubevent);
 		DelSubBnt.addEventListener('click', DeleteCurrentSubEvent);
+		DelSubBnt.message = "<?=$str['Deletion_done']?>";
 		DelEventBnt.addEventListener('click', DeleteCurrentEvent);
 		DelEventBnt.nextpage = "<?=$cfg['event_list_page']?>";
-		DelEventBnt.message = "<?=$str['Event_deletion_done']?>";
-		
+		DelEventBnt.message = "<?=$str['Deletion_done']?>";
 	}
-	
 
 	hidden_id.value = CurrentSubEventIndex;
 	CurrentSubEventObj = subs_data_set[CurrentSubEventIndex]; 

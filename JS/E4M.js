@@ -341,7 +341,8 @@ function gotoEditCurrentSubevent () {
 	let editsubURL = "edit-subevent.php?id=" + CurrentSubEventId;
 	location.href=editsubURL;
 }
-function DeleteCurrentSubEvent () {
+function DeleteCurrentSubEvent (JSevent) {
+	console.log("Hello from DeleteCurrentSubEvent");
 	let data = new FormData();
 	data.append('subevent_id', CurrentSubEventId);
 	let request = new XMLHttpRequest();
@@ -349,6 +350,7 @@ function DeleteCurrentSubEvent () {
 	request.open('POST', XHR);
 	request.responseType = 'text';
 	request.send(data);
+	alert(JSevent.target.message);
 	location.reload();
 }
 function DeleteCurrentEvent (JSevent) {
