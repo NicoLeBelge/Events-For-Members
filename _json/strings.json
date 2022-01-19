@@ -110,6 +110,7 @@
     "Registration_unwaited" : " quitte la liste d'attente",
     "Share" : "Partager",
     "Share_hint" : "Le lien qui s'affichera permet d'accéder à votre festival",
+    "Event_deletion_done" : "Festival supprimé !",
     "Delete" : "Supprimer"
     
 }

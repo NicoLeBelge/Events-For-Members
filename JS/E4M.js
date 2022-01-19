@@ -351,7 +351,7 @@ function DeleteCurrentSubEvent () {
 	request.send(data);
 	location.reload();
 }
-function DeleteCurrentEvent (nextpage) {
+function DeleteCurrentEvent (JSevent) {
 	let data = new FormData();
 	data.append('event_id', CurrentEventId);
 	let request = new XMLHttpRequest();
@@ -359,8 +359,9 @@ function DeleteCurrentEvent (nextpage) {
 	request.open('POST', XHR);
 	request.responseType = 'text';
 	request.send(data);
-	//document.location="register-event-list.php";
-	document.location=global_nextpage; //ici (pb : c'est pas du php !!)
+	console.log(JSevent.target.nextpage);
+	alert(JSevent.target.message);
+	document.location=JSevent.target.nextpage;
 }
 
 function unwait (max, subs, regs) {
