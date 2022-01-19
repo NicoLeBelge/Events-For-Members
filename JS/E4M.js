@@ -336,6 +336,11 @@ function setURLforEditSubEventBtn(){
 			location.href=editsubURL;
 	});
 }
+function GotoEditEventPage (JSevent) {
+	let destination = JSevent.target.destination;
+	// alert(destination);
+	document.location = "edit-event.php?id=" + destination;
+}
 
 function gotoEditCurrentSubevent () {
 	let editsubURL = "edit-subevent.php?id=" + CurrentSubEventId;
