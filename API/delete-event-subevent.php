@@ -66,4 +66,5 @@ if ($do_delete){
     $req->execute();
 	$response = "deletion done";
 }
+sleep(1);
 echo $response;

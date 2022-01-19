@@ -240,6 +240,8 @@ if(isset($_GET['id'])){
 		EditSubBnt.addEventListener('click', gotoEditCurrentSubevent);
 		DelSubBnt.addEventListener('click', DeleteCurrentSubEvent);
 		DelEventBnt.addEventListener('click', DeleteCurrentEvent);
+		DelEventBnt.nextpage = "<?=$cfg['event_list_page']?>";
+		DelEventBnt.message = "<?=$str['Event_deletion_done']?>";
 		
 	}
 	

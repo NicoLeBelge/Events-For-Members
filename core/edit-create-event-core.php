@@ -19,14 +19,14 @@ $jsonstr = json_encode($str);
             
             <label for="name"><?=$str["event_name_label"]?></label><span style="color: red"> *</span>
             <input type="text" id="name" name="name" required/>
-            <table>
-                <tr>
-            <td><label for="datestart"><?=$str["Date_of_place"]?></label>  </td>
-            <td><input type="date" name="datestart" required/><span style="color: red"> *</span>
-            </tr>
-            <td><label for="datelim"><?=$str["Date_until"]?></label>  </td>
-            <td><input type="date" name="datelim" /></td>
-            </table>
+            <div class="dategrid">
+                <div><label for="datestart"><?=$str["Date_of_place"]?></label></div>
+                <div><input type="date" name="datestart" required/><span style="color: red"> *</span></div>
+                <div><label for="datelim"><?=$str["Date_until"]?></label> </div>
+                <div><input type="date" name="datelim" required/><span style="color: red"> *</span></div>
+            </div>
+            <br>
+            
             <p><?=$str["Event_secured_info"]?>
                 <input type="radio" id="yes" name="secured" value="yes" checked>
                 <label for="yes">yes</label>
@@ -34,19 +34,19 @@ $jsonstr = json_encode($str);
                 <input type="radio" id="no" name="secured" value="no">
                 <label for="no">no</label>
             </p> 
-                <label for="mail"><?=$str["Organizer_email"]?></label><span style="color: red"> *</span>
-                <input type="email" id="mail" name="contact" required/>
-                
+            <br>
+            <label for="mail"><?=$str["Organizer_email"]?></label><span style="color: red"> *</span>
+            <input type="email" id="mail" name="contact" required/>
+            <br>   
             <label for="nbmax"><?=$str["Nb_max_participants"]?></label>   
             <input type="number" name="nbmax" />
             <br/>
-            
             <label for="pos_lat"><?=$str["geoloc_lat_long"]?></label>   
             <input type="number" step="any" name="pos_lat" />
             <input type="number" step="any" name="pos_long" />
-            
-
-            <p><input type="submit" value="<?=$str["Validate"]?>" id="submitButton"></p>
+            <br>
+            <br><br>
+            <input type="submit" value="<?=$str["Validate"]?>" id="submitButton">
             <input id="id" name="id" type="hidden" value=<?php echo $_SESSION['user_id'] ?>>
     </form>	
 	
