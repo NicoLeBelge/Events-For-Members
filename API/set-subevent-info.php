@@ -48,7 +48,8 @@ if (isset($_POST['event_id'])  && isset($_SESSION['user_id'])) {
 if ($do_change){
 	var_dump($_POST);
 	
-	$new_name = $_POST["subname"];
+	//$new_name = $_POST["subname"];
+	$new_name = str_replace('"', "'", $_POST['subname']);
 	$new_nbmax = ($_POST["nbmax"] == "") ? NULL : intval($_POST["nbmax"],10);
 	$new_link = ($_POST["sublink"] == "") ? NULL : $_POST["sublink"];
 	$new_rating = $_POST["rating-select"];

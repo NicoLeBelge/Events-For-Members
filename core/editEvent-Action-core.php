@@ -14,45 +14,6 @@
 			|| !empty($_POST['name']) || !empty($_POST['contact'])
 		)
 		{
-			
-			foreach($_POST as $key => $value)
-			{
-				if($value != $EMPTY_STRING && $key != $ID)
-				{
-					/*
-					switch ($key) 
-					{
-						case 'name':
-						//$value = addcslashes($value,"'");
-						$name = str_replace('"', "'", $value);
-						$requete="UPDATE `events` SET `.$key.`=`".$value. "` WHERE id=".$_POST['id'];
-						break;
-
-						case 'secured':
-						if($value =='no') $value = 0;
-						else $value = 1;
-						$secured = ($value =='no') ? 0 : 1 ;
-						$requete="UPDATE `events` SET ".$key."=".$value." WHERE id=".$_POST['id'];
-						break; 
-
-						case 'datelim':
-							$value .= " 20:00:00";
-							var_dump($value);
-							$requete="UPDATE `events` SET ".$key."='".$value."' WHERE id=".$_POST['id'];
-							var_dump($requete);
-							break; 
-
-						default:
-						$requete="UPDATE `events` SET ".$key."= '".$value. "' WHERE id=".$_POST['id'];
-						break;
-					}
-					 */
-					// var_dump($requete);
-					
-					// $res= $conn->query(htmlspecialchars($requete));  (qu'on va remplacer par un execute de prepare)
-					//echo $requete."<br />";
-				}
-			}
 			/* let's prepare and execute the update request */
 			$name = str_replace('"', "'", $_POST['name']);
 			$datestart = $_POST['datestart'];

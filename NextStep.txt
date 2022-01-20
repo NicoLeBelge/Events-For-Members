@@ -85,38 +85,27 @@ downloads have LF instead of CR --> change and cancel conversion with encodeURIC
 bug : Time limit (default 20:00:00 with event autocreate) changed to 00:00:00 after event modification
 event can now really support double quotes.
 change all URL that can be called by root file as parameters
+Add "Share" button that shows short URL
 
 ┌─────────────┐
 | in progress |
 └─────────────┘
-Add "Share" button that shows short URL
-
-
+Allow double quotes in subevent !!
+dates in grid also in Edit Event page
+disable le bouton télécharger si pas d'inscrits
 ┌───────┐
 | To do |
 └───────┘
 
-disable le bouton télécharger si pas d'inscrits
+
 limiter le nombre de subevents à 10
-guillemets in subevent ?
+
 page d'edition subevent --> ajout nom de event
 indiquer le nombre d'inscrits à chaque subevent
 activeHeader set to "" because it's uncentered if we put "⚙" --> twick CSS !
-Empêcher l'insertion de balise dans le nom de l'event
 contact initialement prévu tous moyens, implémenté e-mail only, à garder mais ajoute-t-on un autre moyen de contact ? 
-
 changer le nom "name" du formulaire create event pour ne pas laisser le browser proposer le nom de l'utilisateur et du coup changer les autres fields. 
-fine-tuner le curseur dans le header de la liste des participants (clic fonctionne, mais curseur bof)
-Mettre les dates d'enregistrement/confirmation (si vraiment utile)
-
-Owner clique sur icone "check" pour joueur en attente de confirmation, faut parfois faire CTRL+F5 pour rafraichir.    
 Tester avec un subevent qui a une date différente du event
-Gérer les noms d'events ou de subevents avec des guillemets, ou s'assurer qu'ils soient sans.
-
-
 mode de publication 'brouillon' + 'my_event_list' + problème d'identifiant de session 
--> Ajouter un module de gestion des users ? 
 Nombre max de résultats sur namesearch rendre 25 paramétrable
 
-Guillaume : JSON + sécurité + github + ajout des infos existantes  + ajout de l'heure ! 
-alerte sécu : balises interprétées dans form edit event (et form edit subevent ?)
