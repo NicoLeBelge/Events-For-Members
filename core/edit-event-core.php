@@ -22,30 +22,33 @@
 <form action="./core/editEvent-Action-core.php" method="post">
 	<label for="name"><?=$str["event_name_label"] ?></label>  
 	<input type="text" id="name" name="name"/>
-	
-	<label for="datestart"><?=$str["date_label"] ?></label> 
-	<input type="date" name="datestart" value=<?=$array_old['datestart'] ?> />
-	<br>
-	<label for="datelim"><?=$str["Date_until"] ?></label> 
-	<input type="date" name="datelim" value=<?=$array_old['datelim'] ?> />
-	<br>
-	<br>
-	<label for="secured"><?=$str["Event_secured_info"] ?></label> 
-	
-	
-		<input type="radio" id="yes" name="secured" value="yes" <?php if($array_old["secured"]) echo "checked";  ?> />
-		<label for="yes"><?=$str["yes"] ?> </label>
 
-		<input type="radio" id="no" name="secured" value="no" <?php if(!$array_old["secured"]) echo "checked";  ?> />
-		<label for="no"><?=$str["no"] ?></label>
+
+	<div class="dategrid">
+		<div><label for="datestart"><?=$str["date_label"] ?></label> </div>
+		<div><input type="date" name="datestart" value=<?=$array_old['datestart'] ?> /></div>
+		<div><label for="datelim"><?=$str["Date_until"] ?></label> </div>
+		<div><input type="date" name="datelim" value=<?=$array_old['datelim'] ?> /></div>
+	</div>
+	
 	<br>
-        
+	
+	<label for="secured"><?=$str["Event_secured_info"] ?></label> 
+	<br>
+	
+	<input type="radio" id="yes" name="secured" value="yes" <?php if($array_old["secured"]) echo "checked";  ?> />
+	<label for="yes"><?=$str["yes"] ?> </label>
+
+	<input type="radio" id="no" name="secured" value="no" <?php if(!$array_old["secured"]) echo "checked";  ?> />
+	<label for="no"><?=$str["no"] ?></label>
+	<br>
+	<br>
 	<label for="mail"><?=$str["Organizer_email"] ?></label>
     <input type="email" id="mail" name="contact" value=<?=$array_old['contact'] ?>  />
-
+	<br>
 	<label for="nbmax"><?=$str["Nb_max_participants"]?></label>   
 	<input type="number" name="nbmax" value=<?=$array_old['nbmax'] ?> />
-	<br>
+	<br/><br/>
 	<label for="pos_lat"><?=$str["geoloc_lat_long"]?></label>
 	<input type="number" step="any" name="pos_long" value=<?=$array_old['pos_long'] ?> />
 	<input type="number" step="any" name="pos_lat" value=<?=$array_old['pos_lat'] ?> />
