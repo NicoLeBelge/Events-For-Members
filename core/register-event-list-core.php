@@ -2,7 +2,7 @@
 include ('../_local-connect/connect.php');
 $str = json_decode(file_get_contents('./_json/strings.json'),true);	
 $cfg = json_decode(file_get_contents('./_json/config.json'),true);	
-echo "<h3>" . $str['event_list_title'] . "</h3>";
+// echo "<h3>" . $str['event_list_title'] . "</h3>";
 $yesterday = new DateTime("now");
 $yesterday->sub(new DateInterval('P1D'));
 $yesterdayTXT = $yesterday->format("Y-m-d h:i:s");
@@ -14,20 +14,12 @@ if ( isset($_SESSION['user_id']) ) {
 $qtxt="SELECT * FROM events 
 WHERE datestart >= '$yesterdayTXT' 
 OR owner = $user_id
-ORDER BY datestart ASC";
+ORDER BY datestart DESC";
 
 $reponse = $conn->query($qtxt);
-
-?>
-
-
-
-
-
-
-<?php
 $reponse->closeCursor();	
-/* let's do it with other method */
+
+
 $reponse = $conn->query($qtxt);
 $event_list = $reponse->fetchAll(PDO::FETCH_ASSOC);
 $event_list_str = json_encode ($event_list);
@@ -44,7 +36,6 @@ $jsonstr = json_encode($str);
 	console.log (event_list);
 	let EventsTableSettings = {
 		"headArray" : [str["date_label"], str["event_label"]],
-		//"headArray" : ["date", "name"],
 		"activeHeader" :"",
 		"colData" : ["datestart", "name"],
 		"active" : false,
@@ -57,8 +48,6 @@ $jsonstr = json_encode($str);
 		/**
 		 * element.rowLink="<!=$str['event_page']?>?id=" + element.id.toString(10);
 		 */
-		 
-		//
 	});
 	var EventsTable = new smartTable (
 		"event_list", 

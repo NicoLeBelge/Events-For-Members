@@ -210,7 +210,10 @@ class smartTable{
                 let sortIndex = event.currentTarget.index;
                 this.settings.colSorted = sortIndex;
                 let tableData = this.regArray;
+                console.log(this.regArray[0][key]);
+                console.log(typeof(this.regArray[0][key]));
                 switch (typeof(this.regArray[0][key])) { // first data must be representative !
+
                     case 'number' : 
                         tableData.sort((a,b) => -parseFloat(a[key]) + parseFloat(b[key]));	
                         break;

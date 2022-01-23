@@ -80,48 +80,38 @@ if(isset($_GET['id'])){
 	echo "this page needs parameter";
 }
 ?>
-
 	<div class='E4M_maindiv'>
-	<a href = "<?=$cfg['event_list_page']?>"><button> ⬆ <?=$str['Goto_all_events']?> ⬆ </button> </a>
-	<br>
-	<?php if ($is_owner): ?>
+		<a href = "<?=$cfg['event_list_page']?>"><button> ⬆ <?=$str['Goto_all_events']?> ⬆ </button> </a>
+		<br>
+		<?php if ($is_owner): ?>
+			<button id="EditEventButton" ><?=$str['Modify']?></button>
+			<button id="DeleteEventButton" ><?=$str['Delete']?></button>
+			<button id="ShareEventButton" ><?=$str['Share']?></button>
+			<div class='sharelink' id="sharelink"></div>
+		<?php endif; ?>
+		<div id="E4M_eventinfo" ></div>
+		<div id="E4M_sub_data" ></div>
+		<div id="sub_selector" class="E4M_buttonset"></div>
+		<div id="E4M_subeventinfo" ></div>
+		<div id="E4M_subevent_cat" class="E4M_catlist" ></div>
+		<div id="E4M_subevent_gen" class="E4M_catlist" ></div>
+		<div id="E4M_subevent_typ" class="E4M_catlist" ></div>
 		
-		<button id="EditEventButton" ><?=$str['Modify']?></button>
-		<button id="DeleteEventButton" ><?=$str['Delete']?></button>
-		<button id="ShareEventButton" ><?=$str['Share']?></button>
-		<div class='sharelink' id="sharelink"></div>
-		
-	<?php endif; ?>
-	<div id="E4M_eventinfo" ></div>
-	
-	
-	
-	<div id="E4M_sub_data" ></div>
-	
-	<div id="sub_selector" class="E4M_buttonset"></div>
-	<div id="E4M_subeventinfo" ></div>
-	<div id="E4M_subevent_cat" class="E4M_catlist" ></div>
-	<div id="E4M_subevent_gen" class="E4M_catlist" ></div>
-	<div id="E4M_subevent_typ" class="E4M_catlist" ></div>
-	
-	<?php if ($is_owner): ?>
+		<?php if ($is_owner): ?>
+			<br/>
+			<button id="EditSubEventButton"><?=$str['Modify']?></button>
+			<button id="DeleteSubEventButton" ><?=$str['Delete']?></button>
+			<button onclick="download()"><?=$str['Download']?></button>	
+		</form >
+		<?php endif; ?>
+
+		<br/>	
+		<button id="RegisterButton" ><?=$str['Register']?>(new)</button>
+		<br/>	<br/>	
+		<table id="reglist" class="E4M_regtable"></table>
 		<br/>
-		<button id="EditSubEventButton"><?=$str['Modify']?></button>
-		<button id="DeleteSubEventButton" ><?=$str['Delete']?></button>
-		<button onclick="download()"><?=$str['Download']?></button>	
-	</form >
-	<?php endif; ?>
-
-	<form action="<?=$cfg['registration_search_page']?>" method="POST">
-		<input id="E4M_hidden_id" name="E4M_hidden_index" type=hidden value=0>
-		<button type="submit" ><?=$str['Register']?></button>
-	</form >
-	
-	<table id="reglist" class="E4M_regtable"></table>
-	<br/>
-	<div id="E4M_legend_status" style="font-size: 0.8em"></div>	
-
-</div>
+		<div id="E4M_legend_status" style="font-size: 0.8em"></div>	
+	</div>
 <script src="./JS/E4M.js"></script>
 <script type="text/javascript" src="./JS/E4M_class.js"></script>
 <script type="text/javascript">
@@ -136,13 +126,10 @@ if(isset($_GET['id'])){
 	var str = JSON.parse(`<?=$jsonstr?>`);
 	var subevent_link_icon = JSON.parse(`<?=$subevent_link_icon_str?>`);
 	
-	
 	var subs_data_set = JSON.parse(`<?=$subs_data_jsonstr?>`);
 	console.log(subs_data_set);
 	
 	var event_data_set = JSON.parse(`<?=$event_set_jsonstr?>`);
-	
-	
 	var registration_search_page = `<?= $cfg['registration_search_page'] ?>`;
 	var CurrentEventId = <?=$event_id ?>;
 	var CurrentSubEventIndex = 0; 	// index of the internal table from json (0, 1,...)
@@ -213,10 +200,20 @@ if(isset($_GET['id'])){
 	const DelEventBnt = document.getElementById('DeleteEventButton');
 	const ShareEventBnt = document.getElementById('ShareEventButton'); // keep that ??
 	const sharetext = document.getElementById('sharelink');
+	const RegisterBtn = document.getElementById('RegisterButton');
+
+	RegisterBtn.addEventListener("click", GoToRegisterPage);
+	// hidden_id.value = CurrentSubEventIndex;// à effacer quand l'autre méthode (pas de form dans le html) est opérationnelle
+	RegisterBtn.SubIndex = CurrentSubEventIndex;
+	let AddEventPage = "<?=$cfg['registration_search_page']?>";
+
+	RegisterBtn.nextPage = AddEventPage;
 	
+	console.log("la page de destination du bouton est censée être", AddEventPage); 
+
 	if (is_owner) {
 		sharetext.style.visibility = "collapse";	
-		let destination = "<?=$cfg['short_url']?>" + "?id=" + CurrentEventId.toString(10);
+		let destination = "<?=$cfg['short_url']?>" + CurrentEventId.toString(10);
 		sharetext.innerHTML = destination;
 		EditEvtBnt.addEventListener("click", GotoEditEventPage);
 		EditEvtBnt.destination = CurrentEventId;
@@ -239,7 +236,7 @@ if(isset($_GET['id'])){
 		DelEventBnt.message = "<?=$str['Deletion_done']?>";
 	}
 
-	hidden_id.value = CurrentSubEventIndex;
+	
 	CurrentSubEventObj = subs_data_set[CurrentSubEventIndex]; 
 	CurrentRating =CurrentSubEventObj.rating_type;
 

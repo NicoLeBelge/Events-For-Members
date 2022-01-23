@@ -245,13 +245,6 @@ function EditRegistration (reg, action, member_name) {
 			message += str["Registration_unwaited"];
 			break;
 		}
-		/**
-		if (action === 'd') {
-			message += str["Registration_cancelled"]
-		} else {
-			message += str["Confirmation_forced"]
-		}
-		*/
 		alert(message);
 		setTimeout(()=>{ 
 			location.reload(); 
@@ -267,7 +260,8 @@ function SelectEvent(JS_Event) {
 	 */
 	
 	NumEvent = JS_Event.currentTarget.callback_arg;  // (0,1,...,nbsubevents-1)
-	hidden_id.value = NumEvent;
+	// hidden_id.value = NumEvent; // à effacer quand l'autre méthode (pas de form dans le html) est opérationnelle
+	RegisterBtn.SubIndex = NumEvent;
 	CurrentSubEventIndex = NumEvent;
 	/* selector rebuilt to update highlighted selection */
 	if (NbSubs > 1){
@@ -298,6 +292,32 @@ function SelectEvent(JS_Event) {
 	regTable.Update(filteredList);
 	
 }
+function GoToRegisterPage(JS_Event) {
+	let SubIndex = JS_Event.target.SubIndex;
+	let data = new FormData();
+	data.append('E4M_hidden_index', SubIndex);
+	let request = new XMLHttpRequest();
+	//let XHR = JS_Event.target.SubIndex;
+	console.log("POST vers ",JS_Event.target.nextPage);
+	
+	request.open('POST', JS_Event.target.nextPage);
+	request.responseType = 'text';
+	request.send(data);
+	document.location = JS_Event.target.nextPage;
+	
+	//alert("tu vas t'enregistrer sur le subevent ", destination.toString(10));
+}
+/*
+	let data = new FormData();
+	data.append('subevent_id', CurrentSubEventId);
+	let request = new XMLHttpRequest();
+	let XHR = './API/delete-event-subevent.php';
+	request.open('POST', XHR);
+	request.responseType = 'text';
+	request.send(data);
+	alert(JSevent.target.message);
+	location.reload();
+	*/ 
 function download() {
 	let CSVstring ="";
 	let member_count=0;
@@ -347,7 +367,6 @@ function gotoEditCurrentSubevent () {
 	location.href=editsubURL;
 }
 function DeleteCurrentSubEvent (JSevent) {
-	console.log("Hello from DeleteCurrentSubEvent");
 	let data = new FormData();
 	data.append('subevent_id', CurrentSubEventId);
 	let request = new XMLHttpRequest();
