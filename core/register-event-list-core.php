@@ -14,7 +14,7 @@ if ( isset($_SESSION['user_id']) ) {
 $qtxt="SELECT * FROM events 
 WHERE datestart >= '$yesterdayTXT' 
 OR owner = $user_id
-ORDER BY datestart DESC";
+ORDER BY datestart ASC";
 
 $reponse = $conn->query($qtxt);
 $reponse->closeCursor();	
@@ -32,12 +32,10 @@ $jsonstr = json_encode($str);
 <script type="text/javascript">
 	let event_list = JSON.parse(`<?=$event_list_str?>`);
 	let str = JSON.parse(`<?=$jsonstr?>`);
-	
-	console.log (event_list);
 	let EventsTableSettings = {
 		"headArray" : [str["date_label"], str["event_label"]],
 		"activeHeader" :"",
-		"colData" : ["datestart", "name"],
+		"colData" : ["datestart_typed", "name"],
 		"active" : false,
 		"colSorted" : -1
 	};
@@ -45,6 +43,8 @@ $jsonstr = json_encode($str);
 	event_list.forEach((element) =>{
 		let dest = "<?=$cfg['event_page']?>?id=" + element.id.toString(10);
 		element.rowLink=dest;
+		let truedate = new Date(element.datestart);
+        element.datestart_typed = truedate;
 		/**
 		 * element.rowLink="<!=$str['event_page']?>?id=" + element.id.toString(10);
 		 */

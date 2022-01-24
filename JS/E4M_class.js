@@ -213,13 +213,15 @@ class smartTable{
                 console.log(this.regArray[0][key]);
                 console.log(typeof(this.regArray[0][key]));
                 switch (typeof(this.regArray[0][key])) { // first data must be representative !
-
                     case 'number' : 
                         tableData.sort((a,b) => -parseFloat(a[key]) + parseFloat(b[key]));	
                         break;
                     case 'string' : 
                         tableData.sort( (a,b) => a[key].toString().localeCompare(b[key].toString()) );
                         break;	
+                    case 'object' :
+                        tableData.sort( (a,b) => + new Date(b[key]) - new Date(a[key]) );
+                    break;     
                     default :
                         throw ('sort_method handles only numbers and strings');
                 }
@@ -249,7 +251,11 @@ class smartTable{
             let row = document.createElement('tr');
             for (let i = 0; i< nbCol; i++) {
                 let cell = document.createElement('td');
-                cell.appendChild(document.createTextNode(rowData[Columns[i]]));
+                let cell_content = rowData[Columns[i]];
+                if (typeof(cell_content) == 'object') {
+                    cell_content = cell_content.toLocaleDateString()
+                }
+                cell.appendChild(document.createTextNode(cell_content));
                 row.appendChild(cell);
             }
             /* Add last colunm action (makes sense only for E4M) */

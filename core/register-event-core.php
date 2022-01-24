@@ -105,8 +105,8 @@ if(isset($_GET['id'])){
 		</form >
 		<?php endif; ?>
 
-		<br/>	
-		<button id="RegisterButton" ><?=$str['Register']?>(new)</button>
+		<br/>	<br/>
+		<button id="RegisterButton" ><?=$str['Register']?></button>
 		<br/>	<br/>	
 		<table id="reglist" class="E4M_regtable"></table>
 		<br/>
@@ -127,7 +127,7 @@ if(isset($_GET['id'])){
 	var subevent_link_icon = JSON.parse(`<?=$subevent_link_icon_str?>`);
 	
 	var subs_data_set = JSON.parse(`<?=$subs_data_jsonstr?>`);
-	console.log(subs_data_set);
+	
 	
 	var event_data_set = JSON.parse(`<?=$event_set_jsonstr?>`);
 	var registration_search_page = `<?= $cfg['registration_search_page'] ?>`;
