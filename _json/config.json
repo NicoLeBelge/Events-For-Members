@@ -6,7 +6,7 @@
     "e-mail_from":"chessMOOC<noreply@chessmooc.org>",
     "event_page":"register-event.php",
     "event_list_page":"register-event-list.php",
-    "short_url":"https://www.chessmooc.org/web/E4M/register-event.php",
+    "short_url":"https://www.chessmooc.org/t.php?t=",
     "event_modification_page": "./edit-event.php", 
     "create_event_page":"./edit-create-event.php",
     "registration_search_page":"register-search.php",
