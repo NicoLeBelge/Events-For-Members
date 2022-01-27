@@ -209,7 +209,7 @@ if(isset($_GET['id'])){
 
 	RegisterBtn.nextPage = AddEventPage;
 	
-	console.log("la page de destination du bouton est censée être", AddEventPage); 
+	//console.log("la page de destination du bouton est censée être", AddEventPage); 
 
 	if (is_owner) {
 		sharetext.style.visibility = "collapse";	
@@ -225,7 +225,9 @@ if(isset($_GET['id'])){
 	}
 
 	eventinfoset =event_data_set['infos'][0]; 
-	
+
+	let datelim = new Date(eventinfoset.datelim);
+	RegisterBtn.disabled = ( datelim-Date.now() > 0 ) ? false : true; 
 	CurrentSubEventId = subs_data_set[CurrentSubEventIndex]["id"]; 
 	if (is_owner){
 		EditSubBnt.addEventListener('click', gotoEditCurrentSubevent);
