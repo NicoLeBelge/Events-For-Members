@@ -303,21 +303,14 @@ function GoToRegisterPage(JS_Event) {
 	request.open('POST', JS_Event.target.nextPage);
 	request.responseType = 'text';
 	request.send(data);
-	document.location = JS_Event.target.nextPage;
-	
-	//alert("tu vas t'enregistrer sur le subevent ", destination.toString(10));
+	/** going immediately to nextpage is not OK (Firefox box) we need to wait request completion */
+	request.onreadystatechange = function () {
+        if (request.readyState === 4 && request.status === 200) {
+            document.location = JS_Event.target.nextPage;
+        }
+    }
 }
-/*
-	let data = new FormData();
-	data.append('subevent_id', CurrentSubEventId);
-	let request = new XMLHttpRequest();
-	let XHR = './API/delete-event-subevent.php';
-	request.open('POST', XHR);
-	request.responseType = 'text';
-	request.send(data);
-	alert(JSevent.target.message);
-	location.reload();
-	*/ 
+
 function download() {
 	let CSVstring ="";
 	let member_count=0;

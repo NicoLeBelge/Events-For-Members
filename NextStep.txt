@@ -86,17 +86,18 @@ bug : Time limit (default 20:00:00 with event autocreate) changed to 00:00:00 af
 event can now really support double quotes.
 change all URL that can be called by root file as parameters
 Add "Share" button that shows short URL
+Allow double quotes in subevent !!
+dates in grid also in Edit Event page
+disable le bouton télécharger si pas d'inscrits
 
 ┌─────────────┐
 | in progress |
 └─────────────┘
-Allow double quotes in subevent !!
-dates in grid also in Edit Event page
-disable le bouton télécharger si pas d'inscrits
+Firefox issue
 ┌───────┐
 | To do |
 └───────┘
-
+Problème de datelim sur Safari --> bouton "S'inscrire" systématiquement désactivé
 
 limiter le nombre de subevents à 10
 
