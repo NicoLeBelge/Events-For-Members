@@ -226,7 +226,9 @@ if(isset($_GET['id'])){
 
 	eventinfoset =event_data_set['infos'][0]; 
 
-	let datelim = new Date(eventinfoset.datelim);
+	// as long as datetime will be stored with space in database, replacement by T is required for iOS
+	let datelim = new Date(eventinfoset.datelim.replace(" ", "T"));
+	
 	RegisterBtn.disabled = ( datelim-Date.now() > 0 ) ? false : true; 
 	CurrentSubEventId = subs_data_set[CurrentSubEventIndex]["id"]; 
 	if (is_owner){

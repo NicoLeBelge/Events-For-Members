@@ -7,13 +7,15 @@ function eventInfos2html (infoset){
 	html_string += "<h3>" + infoset.name + "</h3>" ;
 	
 	let DateEvent = new Date(infoset.datestart);
-	let DateLim = new Date(infoset.datelim);
+	
+	// as long as datetime will be stored with space in database, replacement by T is required for iOS
+	let DateLim = new Date(eventinfoset.datelim.replace(" ", "T"));
 
 	//html_string += "<p> Le" + DateEvent.toLocaleDateString() + "</p>" ;
 	html_string += "<p><span class='E4M_css_key'>" + str['Date_of_place'] + "</span> " + DateEvent.toLocaleDateString() + "</p>" ;
 
 	
-	html_string += "<p><span class='E4M_css_key'>" + str['Register_before'] + "</span> "  +DateLim.toLocaleString() + "</p>" ;
+	html_string += "<p><span class='E4M_css_key'>" + str['Register_before'] + "</span> "  + DateLim.toLocaleString() + "</p>" ;
 	if (infoset.secured =="1"){
 		html_string += str['Event_secured_info'] + "</p>" ;
 	} 
