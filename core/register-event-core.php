@@ -4,7 +4,7 @@ page to be included in a php page (register-event.php or any name chosen by admi
 input : event id | eg register-event.php?id=12
 Defines 4 div elements showing event information, subevent selector, info about selected event, list of registred members
 note : 	event data are passed to REGISTER page via session variables
-		subevent is selected by user --> must be passed to next page via hidden field
+		subevent is selected by user --> must be passed to next page via property (SubIndex) of REGISTER button
 */
 
 /* lets get strings from json folder (strings displayed and configuration strings) */
@@ -56,6 +56,7 @@ if(isset($_GET['id'])){
 					members.lastname,
 					members.firstname,
 					members.member_grade,
+					members.member_type,
 					members.cat,
 					$ratinglist
 					clubs.name as clubname,
@@ -115,7 +116,6 @@ if(isset($_GET['id'])){
 <script src="./JS/E4M.js"></script>
 <script type="text/javascript" src="./JS/E4M_class.js"></script>
 <script type="text/javascript">
-	var hidden_id= document.getElementById('E4M_hidden_id'); // passes the suvevent_id to search page
 	
 	/* let's declare global variables used by external JS */
 	
@@ -275,12 +275,15 @@ if(isset($_GET['id'])){
 	if (NbSubs > 1){
 		BuildHTMLEventSelector (NbSubs);
 	}
-	/* constrution of the table of the registered members*/
+	/* constrution of the table of the registered members */
+	/* this table will be display thanks to SmartTable class */
+	
 	member_list.forEach((item) => {
 		/**
 		 * let's calculate full name to be displayed in the smartTable
 		 * status is also calculated from wait and confirmed.
 		 * determining displayedRating here is not appropriate since it may vary with selector
+		 * this will be added later
 		 */
 		item.fullname = item.lastname + " " + item.firstname;
 		
@@ -299,21 +302,24 @@ if(isset($_GET['id'])){
 	});
 	
 	var filteredList = member_list.filter( filter => filter.subid == CurrentSubEventId );
+	/* For owner, if no registration and if at least 2 subevents, Delete Subevent Button is enabled*/
 	if (is_owner) {
 		DelSubBnt.disabled = (filteredList.length == 0 && NbSubs>=2) ? false : true ;
 	}
 	
+	/* If there is at least one wait or at least one confirmation needed, then legend is displayed  */
 	let StatusLegendNeeded = false;
 	filteredList.forEach( item => {
 		item.displayedRating = parseFloat(item["rating"+ CurrentRating])
 		if(item.wait == "1" || item.confirmed == "0" ) StatusLegendNeeded ||= true; 
 	});
 	document.getElementById("E4M_legend_status").innerHTML =  StatusLegendNeeded ? str["status_legend"] : "";
+	
 	let regTableSettings = {
-		"headArray" : ["", str["Member"],str["header_rating_name"],str["cat"],str["club_name"],str["region_name"], "🚦"],
+		"headArray" : ["", str["Member"],str["Type_header"] ,str["header_rating_name"],str["cat"],str["club_name"],str["region_name"], "🚦"],
 		"IOfieldName": "wait",
 		"activeHeader" :"",
-		"colData" : ["member_grade", "fullname", "displayedRating", "cat", "clubname", "region", "status"],
+		"colData" : ["member_grade", "fullname", "member_type","displayedRating", "cat", "clubname", "region", "status"],
 		"colSorted" : -1
 	};
 	regTableSettings.active = is_owner ? true : false;
