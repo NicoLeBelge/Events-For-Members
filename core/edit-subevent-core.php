@@ -67,18 +67,18 @@
 <form action="" method="post">
 	
 	<label for="subname"><?=$str["subevent_name_label"]?></label>  
-	<input type="text" id="subname" name="subname" />
+	<input type="text" id="subname" name="subname" maxlength="80" />
 	<div id="E4M_subevent_cat" class="E4M_catlist"></div>
 	<div id="E4M_subevent_gen" class="E4M_catlist"></div>
 	<div id="E4M_subevent_typ" class="E4M_catlist"></div>
 	<br/>
 	<label for="nbmax"> <?=$str["Max_reg"]?></label> <br/>
-	<input type="number" id="nbmax" name="nbmax" />  <br/><br/>
+	<input type="number" id="nbmax" name="nbmax" max="9999"/>  <br/><br/>
 	
 	
 
 	<label for="sublink"><?=$str["Label_link_to_sub"]?></label><br/>  
-	<input type="text" id="sublink" name="sublink" /><br/>
+	<input type="text" id="sublink" name="sublink" maxlength="80"/><br/>
 
 	<label for="rating-select"><?=$str["Rating_name"]?></label><br/>
 	<select id="rating-select" name="rating-select"><br/>
