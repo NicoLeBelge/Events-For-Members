@@ -128,7 +128,7 @@ table, th, td {
 	position:relative;
 	width:1024px;
 	min-height:700px;
-	margin: auto;
+	margin: 10px auto auto;
 }	
 .footer-spacer{
 	min-height:40px;
@@ -147,4 +147,8 @@ table, th, td {
 .dategrid{
 	display: grid;
 	grid: auto / 170px auto ;
+}
+.E4M_bigbutton button {
+	font-size: 1.5em;
+	font-weight: bold;
 }

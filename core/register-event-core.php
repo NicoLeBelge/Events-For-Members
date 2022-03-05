@@ -107,7 +107,9 @@ if(isset($_GET['id'])){
 		<?php endif; ?>
 
 		<br/>	<br/>
-		<button id="RegisterButton" ><?=$str['Register']?></button>
+		<div class="E4M_bigbutton">
+			<button id="RegisterButton" ><?=$str['Register']?></button>
+		</div>
 		<br/>	<br/>	
 		<table id="reglist" class="E4M_regtable"></table>
 		<br/>

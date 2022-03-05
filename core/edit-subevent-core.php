@@ -12,10 +12,10 @@
 	$message="";
 	$subeventId = $_GET['id'];
 	$requete="SELECT owner 
-	FROM events
-	INNER JOIN subevents
-	ON subevents.event_id = events.id	
-	WHERE subevents.id=$subeventId";
+			FROM events
+			INNER JOIN subevents
+			ON subevents.event_id = events.id	
+			WHERE subevents.id=$subeventId";
 	$res= $conn->query(htmlspecialchars($requete));
 	$display_form = false;
 	if ($res->rowCount() == 0) { // subevent not found
