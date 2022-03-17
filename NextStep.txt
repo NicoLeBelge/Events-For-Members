@@ -91,12 +91,13 @@ dates in grid also in Edit Event page
 disable le bouton télécharger si pas d'inscrits
 Firefox issue (add callback after posting FormData)
 iOS bug fixed (space replaced by T in datetime)
-┌─────────────┐
-| in progress |
-└─────────────┘
 fix crash when string length > max or values exceeds limit --> add limits in forms
 long / lat inversion in edit event form 
 Add type in registration table
+┌─────────────┐
+| in progress |
+└─────────────┘
+adding header in donwload file (hard !)
 
 ┌───────┐
 | To do |
