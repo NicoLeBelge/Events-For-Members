@@ -59,14 +59,18 @@ if((isset($_POST['E4M_hidden_index']) || isset($_SESSION['sub_index'])) && isset
 	<?php endif; ?>
 	<input type="hidden" autocomplete="off" name="member_id" id="member_id" required>
 	<input type="hidden" autocomplete="off" name="sub_id" id="sub_id" required>
-	<button type="submit" id="register_btn" disabled><?= $str["Register_confirm"] ?></button>
+	<div class="E4M_bigbutton">
+		<button type="submit" id="register_btn" disabled><?= $str["Register_confirm"] ?></button>
+	</div>
 </form> 
 <br/><br/>
 <form action="#" onsubmit="intercept(event)">
 	<label for="namestart"><?= $str['enter_start_name'] ?></label>
 	<input type="text" autocomplete="off" name="identifier" id="namestart" required>
 </form> 
-<button id="searchButton"><?= $str['search'] ?></button>
+<div class="E4M_bigbutton">
+	<button id="searchButton"><?= $str['search'] ?></button>
+</div>
 <br/><br/>
 <div id="E4M_members_table" class="E4M_hoverable_list"></div>
 </div>
