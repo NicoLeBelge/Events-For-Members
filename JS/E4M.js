@@ -314,7 +314,9 @@ function GoToRegisterPage(JS_Event) {
 }
 
 function download() {
+	
 	let CSVstring ="";
+	CSVstring += "n°;id;fede_id;lastname;firstname;rating;club;region;\r"; 
 	let member_count=0;
 	let sublist = member_list.filter(function(filter){
 		return filter.subid == CurrentSubEventId ;
@@ -332,6 +334,7 @@ function download() {
 		CSVstring += member.clubname+ ";";
 		CSVstring += member.region+ ";";
 		CSVstring += "\r" ;
+		
 	});
 	
 	var filename = CurrentSubEventObj.name +".csv";
