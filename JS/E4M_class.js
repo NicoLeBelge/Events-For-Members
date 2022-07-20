@@ -278,10 +278,6 @@ class smartTable{
                     let reg_id = event.currentTarget.number_arg;
                     let action = event.currentTarget.action;
                     let member_name = event.currentTarget.char_arg;
-                    console.log("reg_id = ",reg_id);
-                    console.log("action = ",action);
-                    console.log("member_name = ",member_name);
-
                     EditRegistration (reg_id, action, member_name);
                 })
                 row.appendChild(lastCol)

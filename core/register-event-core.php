@@ -317,6 +317,7 @@ if(isset($_GET['id'])){
 	});
 	document.getElementById("E4M_legend_status").innerHTML =  StatusLegendNeeded ? str["status_legend"] : "";
 	
+	/* let's display the list of registered member for current subevent */
 	let regTableSettings = {
 		"headArray" : ["", str["Member"],str["Type_header"] ,str["header_rating_name"],str["cat"],str["club_name"],str["region_name"], "🚦"],
 		"IOfieldName": "wait",

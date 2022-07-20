@@ -94,15 +94,18 @@ iOS bug fixed (space replaced by T in datetime)
 fix crash when string length > max or values exceeds limit --> add limits in forms
 long / lat inversion in edit event form 
 Add type in registration table
+adding header in donwload file
 ┌─────────────┐
 | in progress |
 └─────────────┘
-adding header in donwload file (hard !)
+Adding form to create member
 
 ┌───────┐
 | To do |
 └───────┘
-Problème de datelim sur Safari --> bouton "S'inscrire" systématiquement désactivé
+
+
+!!! empêcher l'accès à la page edit-create-event.php si pas membre connecté !!!!!!!! (hereusement, ça crash car user NULL)
 
 limiter le nombre de subevents à 10
 
@@ -115,3 +118,4 @@ Tester avec un subevent qui a une date différente du event
 mode de publication 'brouillon' + 'my_event_list' + problème d'identifiant de session 
 Nombre max de résultats sur namesearch rendre 25 paramétrable
 
+NumEvent déclaré nulle part et semble désigner un numéro de SUBevent !!
