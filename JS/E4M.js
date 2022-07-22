@@ -262,7 +262,6 @@ function SelectEvent(JS_Event) {
 	 */
 	
 	NumEvent = JS_Event.currentTarget.callback_arg;  // (0,1,...,nbsubevents-1)
-	// hidden_id.value = NumEvent; // à effacer quand l'autre méthode (pas de form dans le html) est opérationnelle
 	RegisterBtn.SubIndex = NumEvent;
 	CurrentSubEventIndex = NumEvent;
 	/* selector rebuilt to update highlighted selection */
@@ -299,8 +298,6 @@ function GoToRegisterPage(JS_Event) {
 	let data = new FormData();
 	data.append('E4M_hidden_index', SubIndex);
 	let request = new XMLHttpRequest();
-	//let XHR = JS_Event.target.SubIndex;
-	console.log("POST vers ",JS_Event.target.nextPage);
 	
 	request.open('POST', JS_Event.target.nextPage);
 	request.responseType = 'text';
@@ -384,7 +381,7 @@ function DeleteCurrentEvent (JSevent) {
 	request.responseType = 'text';
 	request.send(data);
 	console.log(JSevent.target.nextpage);
-	alert(JSevent.target.message);
+	alert(JSevent.target.message); // allows delay to avoid problem if going immediately to nextpage
 	document.location=JSevent.target.nextpage;
 }
 

@@ -2,8 +2,15 @@
 include ('../_local-connect/connect.php');
 $str = json_decode(file_get_contents('./_json/strings.json'),true);	
 $cfg = json_decode(file_get_contents('./_json/config.json'),true);	
-// echo "<h3>" . $str['event_list_title'] . "</h3>";
-$yesterday = new DateTime("now");
+
+/** handles date to display only future events if settings are such */
+
+if ($cfg["show_only_future"]) {
+	$yesterday = new DateTime("now");
+}
+else {
+	$yesterday = new DateTime("2000-01-01");
+}
 $yesterday->sub(new DateInterval('P1D'));
 $yesterdayTXT = $yesterday->format("Y-m-d h:i:s");
 $user_id="0";
@@ -12,9 +19,9 @@ if ( isset($_SESSION['user_id']) ) {
 }
 
 $qtxt="SELECT * FROM events 
-WHERE datestart >= '$yesterdayTXT' 
-OR owner = $user_id
-ORDER BY datestart ASC";
+	WHERE datestart >= '$yesterdayTXT' 
+	OR owner = $user_id
+	ORDER BY datestart DESC";
 
 $reponse = $conn->query($qtxt);
 $reponse->closeCursor();	
@@ -45,9 +52,6 @@ $jsonstr = json_encode($str);
 		element.rowLink=dest;
 		let truedate = new Date(element.datestart);
         element.datestart_typed = truedate;
-		/**
-		 * element.rowLink="<!=$str['event_page']?>?id=" + element.id.toString(10);
-		 */
 	});
 	var EventsTable = new smartTable (
 		"event_list", 
