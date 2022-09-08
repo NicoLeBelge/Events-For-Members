@@ -294,20 +294,29 @@ function SelectEvent(JS_Event) {
 	
 }
 function GoToRegisterPage(JS_Event) {
-	let SubIndex = JS_Event.target.SubIndex;
-	let data = new FormData();
-	data.append('E4M_hidden_index', SubIndex);
-	let request = new XMLHttpRequest();
-	
-	request.open('POST', JS_Event.target.nextPage);
-	request.responseType = 'text';
-	request.send(data);
-	/** going immediately to nextpage is not OK (Firefox box) we need to wait request completion */
-	request.onreadystatechange = function () {
-        if (request.readyState === 4 && request.status === 200) {
-            document.location = JS_Event.target.nextPage;
-        }
-    }
+	/** going to paylink if exists AND user is not owner */
+	console.log('is_paylink=', is_paylink);
+	console.log('is_owner=', is_owner);
+	if (is_paylink && !is_owner) 
+	{
+		console.log ('going directly to paylink');
+		document.location = JS_Event.target.nextPage;
+	} else {
+		console.log ('no paylink or owner --> internal XHR');
+		let SubIndex = JS_Event.target.SubIndex;
+		let data = new FormData();
+		data.append('E4M_hidden_index', SubIndex);
+		let request = new XMLHttpRequest();
+		request.open('POST', JS_Event.target.nextPage);
+		request.responseType = 'text';
+		request.send(data);
+		/** going immediately to nextpage is not OK (Firefox box) we need to wait request completion */
+		request.onreadystatechange = function () {
+			if (request.readyState === 4 && request.status === 200) {
+				document.location = JS_Event.target.nextPage;
+			}
+		}
+	}
 }
 
 function download() {
