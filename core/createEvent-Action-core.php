@@ -66,15 +66,19 @@
                     case 'id':
                         $owner = $value;
                     break;
-
+                    
+                    case 'paylink':
+                        $paylink = $value;
+                    break;
+                    
                     default:
                     break;
 
                 }
             }
             echo "après foreach : "; var_dump($nbmax); echo "<br/>";
-        $reqE=$conn->prepare("INSERT INTO events (name, datestart, datelim, secured, contact, nbmax, pos_long, pos_lat, owner) 
-						VALUES (:n_name, :n_datestart, :n_datelim, :n_secured, :n_contact, :n_nbmax, :n_pos_long, :n_pos_lat, :n_owner)");
+        $reqE=$conn->prepare("INSERT INTO events (name, datestart, datelim, secured, contact, nbmax, pos_long, pos_lat, owner, paylink) 
+						VALUES (:n_name, :n_datestart, :n_datelim, :n_secured, :n_contact, :n_nbmax, :n_pos_long, :n_pos_lat, :n_owner, :n_paylink)");
 		$reqE->BindParam(':n_name', $name);
 		$reqE->BindParam(':n_datestart', $datestart);
 		$reqE->BindParam(':n_datelim', $datelim);
@@ -84,6 +88,7 @@
 		$reqE->BindParam(':n_pos_long', $pos_long);
 		$reqE->BindParam(':n_pos_lat', $pos_lat);
 		$reqE->BindParam(':n_owner', $owner);
+        $reqE->BindParam(':n_paylink', $paylink);
         $reqE->execute();
         
         /* let's get from the database the id of the event created */

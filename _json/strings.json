@@ -111,6 +111,7 @@
     "Share" : "Partager 🌍",
     "Share_hint" : "Le lien qui s'affichera permet d'accéder à votre festival",
     "Deletion_done" : "Suppression effectuée. Rafraîchir la page si besoin.",
-    "Delete" : "Supprimer ❌"
+    "Delete" : "Supprimer ❌",
+    "paylink_label" : "lien vers le site paiement (beta-test / helloasso uniquement)"
     
 }

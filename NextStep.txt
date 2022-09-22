@@ -104,7 +104,8 @@ adding field to allow paylink url for "Register button"
 ┌───────┐
 | To do |
 └───────┘
-
+Add varchar(120) paylink in all live databases
+add paylink_label
 
 !!! empêcher l'accès à la page edit-create-event.php si pas membre connecté !!!!!!!! (hereusement, ça crash car user NULL)
 
