@@ -98,7 +98,8 @@ adding header in donwload file
 ┌─────────────┐
 | in progress |
 └─────────────┘
-Adding form to create member
+(Adding form to create member) paused in branch paylink
+adding field to allow paylink url for "Register button"
 
 ┌───────┐
 | To do |

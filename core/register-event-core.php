@@ -22,17 +22,21 @@ $jsonstr = json_encode($str);
 
 /* this page is supposed to be called with event id, let's warn the visitor if omitted */
 include('../_local-connect/connect.php'); // PDO connection required
-if(isset($_GET['id'])){ 
+if(isset($_GET['id']))
+{ 
 	$event_id = $_GET['id'];
 	$event_set = array();
 	
 	$reponse = $conn->query("SELECT * from events where id=$event_id");
-	$event_set["infos"] = $reponse->fetchAll(PDO::FETCH_ASSOC);
-	if (!isset($_SESSION["user_id"])){
+	$event_set["infos"] = $reponse->fetchAll(PDO::FETCH_ASSOC); // improvement expected fetchAll --> fetch (only one record in reponse)
+	if (!isset($_SESSION["user_id"]))
+	{
 		$is_owner = false;
 	} else {
 		$is_owner = ($_SESSION["user_id"] === $event_set["infos"][0]["owner"]) ? true : false;
 	}
+	
+	$paylink = (!is_null($event_set["infos"][0]["paylink"])) ? $event_set["infos"][0]["paylink"] : "";
 	
 	$_SESSION["secured"]=$event_set["infos"][0]["secured"]; // used on search page to display e-mail input in form
 	$reponse = $conn->query("SELECT * from subevents where event_id=$event_id");
@@ -144,6 +148,9 @@ if(isset($_GET['id'])){
 	var CurrentNbmax ; // max subscriptions for current subevent
 	var subevent_list_str; // will contain JSON of subevents data // debug ça sert à rien ?!!
 	var is_owner = false;
+	var paylink = `<?= $paylink ?>`
+	var is_paylink = (paylink=="") ? false : true;
+	
 	let is_owner_php = `<?= $is_owner ?>`;
 	let newSubURL = "";
 	let editSubURL = "";
@@ -207,9 +214,11 @@ if(isset($_GET['id'])){
 	RegisterBtn.addEventListener("click", GoToRegisterPage);
 	// hidden_id.value = CurrentSubEventIndex;// à effacer quand l'autre méthode (pas de form dans le html) est opérationnelle
 	RegisterBtn.SubIndex = CurrentSubEventIndex;
-	let AddEventPage = "<?=$cfg['registration_search_page']?>";
+	let RegisterPage = (is_paylink && !is_owner) ? paylink : "<?=$cfg['registration_search_page']?>";
+	console.log (RegisterPage)
+	
 
-	RegisterBtn.nextPage = AddEventPage;
+	RegisterBtn.nextPage = RegisterPage;
 	
 	//console.log("la page de destination du bouton est censée être", AddEventPage); 
 
