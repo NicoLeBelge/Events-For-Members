@@ -45,6 +45,11 @@ $jsonstr = json_encode($str);
             <input type="number" step="any" name="pos_lat" min="-90" max="90"/>
             <input type="number" step="any" name="pos_long" min="-180" max="180" />
             <br>
+            <br>
+            <label for="paylink"><?=$str["paylink_label"]?></label>   
+            <input type="text" id="paylink" name="paylink"/>
+            
+            <br>
             <br><br>
             <input type="submit" value="<?=$str["Validate"]?>" id="submitButton">
             <input id="id" name="id" type="hidden" value=<?php echo $_SESSION['user_id'] ?>>
