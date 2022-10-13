@@ -112,6 +112,9 @@
     "Share_hint" : "Le lien qui s'affichera permet d'accéder à votre festival",
     "Deletion_done" : "Suppression effectuée. Rafraîchir la page si besoin.",
     "Delete" : "Supprimer ❌",
+    "Clone" : "Dupliquer 🧬",
+    "Clone_confirm" : "Le festival a été correctement cloné",
+    "Cloned_mark" : " (cloné)",
     "paylink_label" : "lien vers le site paiement (beta-test / helloasso uniquement)"
     
 }

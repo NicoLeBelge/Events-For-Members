@@ -76,7 +76,7 @@
 
                 }
             }
-            echo "après foreach : "; var_dump($nbmax); echo "<br/>";
+            
         $reqE=$conn->prepare("INSERT INTO events (name, datestart, datelim, secured, contact, nbmax, pos_long, pos_lat, owner, paylink) 
 						VALUES (:n_name, :n_datestart, :n_datelim, :n_secured, :n_contact, :n_nbmax, :n_pos_long, :n_pos_lat, :n_owner, :n_paylink)");
 		$reqE->BindParam(':n_name', $name);

@@ -16,6 +16,7 @@
 	$requete='SELECT * FROM `events` WHERE id='.$ID;
 	$res= $conn->query(htmlspecialchars($requete));
 	$array_old = $res->fetch();
+	echo "<pre>"; var_dump($array_old);echo "</pre>";
 	
 ?>
 <!-- onchange="validate()" temporarily removed from all fields since generating error-->
@@ -52,7 +53,7 @@
 	<input type="number" step="any" name="pos_long" value=<?=$array_old['pos_long'] ?> min="-180" max="180" />
 	<br><br>
 	<label for="paylink"><?=$str["paylink_label"]?></label>   
-	<input type="text" id="paylink" value= <?=$array_old['paylink'] ?> name="paylink"/>
+	<input type="text" id="paylink" value= "<?=$array_old['paylink'] ?>" name="paylink"/>
 	
 	<br>
 
@@ -61,13 +62,11 @@
 </form>
 
 
-
 <script type="text/javascript">
 	let e=document.getElementById("name");
 	e.value=`<?=$array_old['name']?>`;
-
-	//validate();
 </script> 
+
 <?php
 	}
 	else echo('<br />'.modifAuthorization($conn)['message'].'<br />');

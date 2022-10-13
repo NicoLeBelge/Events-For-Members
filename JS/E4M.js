@@ -1,4 +1,5 @@
-function eventInfos2html (infoset){
+function eventInfos2html (infoset)
+{
 	/* 	
 	constructs a HTML bloc from the object containing events infos 	
 	input : infoset = associative array with event information (name, datestart,...)
@@ -49,7 +50,9 @@ function eventInfos2html (infoset){
 	
 	return html_string;
 }
-function SubeventInfos2html (infoset){
+
+function SubeventInfos2html (infoset)
+{
 	/*
 	constructs a HTML bloc from the object containing subevents infos 	
 	input : infoset = associative array with subevent information (name, rating_type,...)
@@ -79,7 +82,9 @@ function SubeventInfos2html (infoset){
 	return html_string;
 	
 }
-function BuildHTMLEventSelector (n){ 
+
+function BuildHTMLEventSelector (n)
+{ 
 	/* 	Builds the set of number one can click on to select subevent */
 	/* 	Should not be called if NbSubEvents =1 */
 	let html_string="";
@@ -101,7 +106,9 @@ function BuildHTMLEventSelector (n){
 	*/
 	sel.innerHTML = html_string;
 }
-function RegList2htmltable (infoset, subid){
+
+function RegList2htmltable (infoset, subid)
+{
 	/* 	
 	constructs a HTML table bloc from the object containing the list of registered members for a specific subevent	
 	input1 : infoset = array of members registred to the selected subevent
@@ -210,11 +217,15 @@ function RegList2htmltable (infoset, subid){
 	}
 	return html_string;
 }
-function SortUpdate (method) {
+
+function SortUpdate (method) 
+{
 	sort_method = method;
 	registred_html_id.innerHTML = RegList2htmltable (member_list, CurrentSubEventIndex);
 }
-function EditRegistration (reg, action, member_name) {
+
+function EditRegistration (reg, action, member_name)
+{
 	/* 
 	allows the change registration status 
 	action = 'c' --> set confirmed = 1
@@ -255,7 +266,8 @@ function EditRegistration (reg, action, member_name) {
 	}
 }
 
-function SelectEvent(JS_Event) {
+function SelectEvent(JS_Event)
+{
 	/**
 	 * function called when selector clicked
 	 * updates 3 iconsets, selector, delete button status and smartTable
@@ -293,7 +305,9 @@ function SelectEvent(JS_Event) {
 	regTable.Update(filteredList);
 	
 }
-function GoToRegisterPage(JS_Event) {
+
+function GoToRegisterPage(JS_Event) 
+{
 	/** going to paylink if exists AND user is not owner */
 	console.log('is_paylink=', is_paylink);
 	console.log('is_owner=', is_owner);
@@ -319,8 +333,8 @@ function GoToRegisterPage(JS_Event) {
 	}
 }
 
-function download() {
-	
+function download()
+{
 	let CSVstring ="";
 	CSVstring += "n°;id;fede_id;lastname;firstname;rating;club;region;\r"; 
 	let member_count=0;
@@ -340,7 +354,6 @@ function download() {
 		CSVstring += member.clubname+ ";";
 		CSVstring += member.region+ ";";
 		CSVstring += "\r" ;
-		
 	});
 	
 	var filename = CurrentSubEventObj.name +".csv";
@@ -353,24 +366,30 @@ function download() {
 	document.body.removeChild(element); // necessary ??
 }
 
-function setURLforEditSubEventBtn(){
+function setURLforEditSubEventBtn()
+{
 	let editsubURL = "edit-subevent.php?id=" + CurrentSubEventId;
 	// EditSubBnt.removeEventListener('click', function());
 	EditSubBnt.addEventListener('click', function(){
 			location.href=editsubURL;
 	});
 }
-function GotoEditEventPage (JSevent) {
+
+function GotoEditEventPage (JSevent) 
+{
 	let destination = JSevent.target.destination;
 	// alert(destination);
 	document.location = "edit-event.php?id=" + destination;
 }
 
-function gotoEditCurrentSubevent () {
+function gotoEditCurrentSubevent () 
+{
 	let editsubURL = "edit-subevent.php?id=" + CurrentSubEventId;
 	location.href=editsubURL;
 }
-function DeleteCurrentSubEvent (JSevent) {
+
+function DeleteCurrentSubEvent (JSevent)
+{
 	let data = new FormData();
 	data.append('subevent_id', CurrentSubEventId);
 	let request = new XMLHttpRequest();
@@ -381,7 +400,8 @@ function DeleteCurrentSubEvent (JSevent) {
 	alert(JSevent.target.message);
 	location.reload();
 }
-function DeleteCurrentEvent (JSevent) {
+
+function DeleteCurrentEvent (JSevent) { // ici
 	let data = new FormData();
 	data.append('event_id', CurrentEventId);
 	let request = new XMLHttpRequest();
@@ -389,12 +409,31 @@ function DeleteCurrentEvent (JSevent) {
 	request.open('POST', XHR);
 	request.responseType = 'text';
 	request.send(data);
-	console.log(JSevent.target.nextpage);
 	alert(JSevent.target.message); // allows delay to avoid problem if going immediately to nextpage
 	document.location=JSevent.target.nextpage;
 }
 
-function unwait (max, subs, regs) {
+function CloneCurrentEvent (JSevent)
+{
+	let destination_page = JSevent.target.destination
+	console.log("hello from CloneCurrentEvent function" , destination_page)
+	let data = new FormData();
+	data.append('event_id', CurrentEventId);
+	let request = new XMLHttpRequest();
+	let XHR = './API/clone-event.php';
+	request.open('POST', XHR);
+	request.responseType = 'text';
+	request.send(data);
+	request.onreadystatechange  = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			destination_page += "?id=" + request.response;
+			document.location = destination_page; 
+		}
+	}
+}
+
+function unwait (max, subs, regs)
+{
 	/**
 	 * inputs
 	 * max : total max amount of participants in event
@@ -433,10 +472,12 @@ function unwait (max, subs, regs) {
 	/* let's check if the event is full or no */
 	let NbNotWaitingTotal = regs.filter( (filter) => { return !filter.w ; });
 	let EventFull = false; 
-	if (max) {
+	if (max) 
+	{
 		EventFull = (NbNotWaitingTotal.length >= max) ? true : false ;
 	} 
-	if (!EventFull) {
+	if (!EventFull) 
+	{
 		/* search of candidate for each subevent */
 		subs.forEach( (sub) => {
 			sub.max = parseInt(sub.nbmax);
@@ -446,7 +487,8 @@ function unwait (max, subs, regs) {
 			sub.NbWaiting = regsOfSubWaiting.length;
 			//ordering with registrations id (smaller = older)
 			let regsOfSubWaitingSorted = regsOfSubWaiting.sort( (a,b) => parseInt(a.r)-parseInt(b.r));
-			if (regsOfSubWaitingSorted.length > 0) {
+			if (regsOfSubWaitingSorted.length > 0) 
+			{
 				sub.candidate = regsOfSubWaitingSorted[0].r;
 			} else {
 				sub.candidate = null;
@@ -466,7 +508,8 @@ function unwait (max, subs, regs) {
 				}
 			} 
 		});
-		if (CandidateMin == 10000) {
+		if (CandidateMin == 10000) 
+		{
 			TheOne = null;
 		} else {
 			TheOne = CandidateMin;

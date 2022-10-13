@@ -91,6 +91,7 @@ if(isset($_GET['id']))
 		<?php if ($is_owner): ?>
 			<button id="EditEventButton" ><?=$str['Modify']?></button>
 			<button id="DeleteEventButton" ><?=$str['Delete']?></button>
+			<button id="CloneEventButton" ><?=$str['Clone']?></button>
 			<button id="ShareEventButton" ><?=$str['Share']?></button>
 			<div class='sharelink' id="sharelink"></div>
 		<?php endif; ?>
@@ -155,16 +156,17 @@ if(isset($_GET['id']))
 	let newSubURL = "";
 	let editSubURL = "";
 
-	if (is_owner_php == "1") { // is_owner = user connected is the owner of current event
-		is_owner=true;
-	};
-	if (is_owner){
+	if (is_owner_php == "1") is_owner=true; // is_owner = user connected is the owner of current event
+	
+	if (is_owner)
+	{
 		newSubURL = "edit-autocreate-subevent.php?event_id=<?=$event_id ?>"
 	}
 
 	let nbSubevents = subs_data_set.length;
 	
-	if (is_owner || nbSubevents>1) {
+	if (is_owner || nbSubevents>1) 
+	{
 		var subSelector = new Selector (
 			"sub_selector",
 			nbSubevents,
@@ -173,21 +175,24 @@ if(isset($_GET['id']))
 			newSubURL
 		);
 	}
-	var cat_set = new IconSet (
+	var cat_set = new IconSet 
+	(
 		"E4M_subevent_cat", 
 		cat_names,
 		subs_data_set[CurrentSubEventIndex].cat,
 		"E4M_cat",
 		false
 	);
-	var gen_set = new IconSet (
+	var gen_set = new IconSet 
+	(
 		"E4M_subevent_gen", 
 		gender_names,
 		subs_data_set[CurrentSubEventIndex].gender,
 		"E4M_gen",
 		false
 	);	
-	var typ_set = new IconSet (
+	var typ_set = new IconSet 
+	(
 		"E4M_subevent_typ", 
 		type_names,
 		subs_data_set[CurrentSubEventIndex].type,
@@ -207,27 +212,34 @@ if(isset($_GET['id']))
 	const EditEvtBnt = document.getElementById('EditEventButton');
 	const DelSubBnt = document.getElementById('DeleteSubEventButton');
 	const DelEventBnt = document.getElementById('DeleteEventButton');
+	const CloneEventBnt = document.getElementById('CloneEventButton');
 	const ShareEventBnt = document.getElementById('ShareEventButton'); // keep that ??
 	const sharetext = document.getElementById('sharelink');
 	const RegisterBtn = document.getElementById('RegisterButton');
 
 	RegisterBtn.addEventListener("click", GoToRegisterPage);
-	// hidden_id.value = CurrentSubEventIndex;// à effacer quand l'autre méthode (pas de form dans le html) est opérationnelle
+
 	RegisterBtn.SubIndex = CurrentSubEventIndex;
 	let RegisterPage = (is_paylink && !is_owner) ? paylink : "<?=$cfg['registration_search_page']?>";
-	console.log (RegisterPage)
-	
-
 	RegisterBtn.nextPage = RegisterPage;
 	
-	//console.log("la page de destination du bouton est censée être", AddEventPage); 
 
-	if (is_owner) {
+	/** Prepares buttons for Event and subevent (if viewed by owner) [part 1/2]*/
+	if (is_owner) 
+	{
+		EditEvtBnt.addEventListener("click", GotoEditEventPage);
+		EditEvtBnt.destination = CurrentEventId;
+	
+		// ici
+		CloneEventBnt.destination="<?=$cfg['event_page']?>";
+		//console.log("hello")
+		//console.log(CloneEventBnt.destination)
+		CloneEventBnt.addEventListener("click", CloneCurrentEvent);
+
 		sharetext.style.visibility = "collapse";	
 		let destination = "<?=$cfg['short_url']?>" + CurrentEventId.toString(10);
 		sharetext.innerHTML = destination;
-		EditEvtBnt.addEventListener("click", GotoEditEventPage);
-		EditEvtBnt.destination = CurrentEventId;
+		
 		ShareEventBnt.addEventListener("click", function(){
 			sharetext.style.visibility = "visible";
 			let message = "<?=$str['Share_hint']?>";
@@ -242,7 +254,9 @@ if(isset($_GET['id']))
 	
 	RegisterBtn.disabled = ( datelim-Date.now() > 0 ) ? false : true; 
 	CurrentSubEventId = subs_data_set[CurrentSubEventIndex]["id"]; 
-	if (is_owner){
+	/** Prepares buttons for Event and subevent (if viewed by owner) [part 2/2]*/
+	if (is_owner)
+	{
 		EditSubBnt.addEventListener('click', gotoEditCurrentSubevent);
 		DelSubBnt.addEventListener('click', DeleteCurrentSubEvent);
 		DelSubBnt.message = "<?=$str['Deletion_done']?>";

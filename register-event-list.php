@@ -25,7 +25,7 @@ session_start();
 	echo "<div class='T0P-footer'> \n";
 	include ('../head-foot/T0P-footer.php');
 	echo "</div> \n";
-
+	$_SESSION["comeback"] = "../ProjectTest/register-event-list.php";
 	?>
     </body>
 </html>
