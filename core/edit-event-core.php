@@ -3,12 +3,6 @@
 	$pathfunction = './core/editEvent-functions-core.php';
 	include($pathbdd);
 	include($pathfunction );
-	
-	if(modifAuthorization($conn)['success'])
-	{
-	// echo('<br />'.modifAuthorization($conn)['message'].'<br />');
-?>
-	<?php
 	$str = json_decode(file_get_contents('./_json/strings.json'),true);	
 	$ID = $_GET['id']; 
 	$pathbdd = './../_local-connect/connect.php';
@@ -18,15 +12,15 @@
 	$array_old = $res->fetch();
 	
 ?>
-<!-- onchange="validate()" temporarily removed from all fields since generating error-->
+
 <form action="./core/editEvent-Action-core.php" method="post">
 	<label for="name"><?=$str["event_name_label"] ?></label>  
-	<input type="text" id="name" name="name" maxlength="80"/>
+	<input type="text" id="name" name="name" value="<?=$array_old["name"] ?>" maxlength="80"/>
 	<div class="dategrid">
 		<div><label for="datestart"><?=$str["date_label"] ?></label> </div>
-		<div><input type="date" name="datestart" value=<?=$array_old['datestart'] ?> /></div>
+		<div><input type="date" id="datestart" name="datestart" value="<?=$array_old["datestart"] ?>"/></div>
 		<div><label for="datelim"><?=$str["Date_until"] ?></label> </div>
-		<div><input type="date" name="datelim" value=<?=$array_old['datelim'] ?> /></div>
+		<div><input type="date" id="datelim" name="datelim" value= <?=$array_old['datelim'] ?>/></div>
 	</div>
 	
 	<br>
@@ -52,24 +46,10 @@
 	<input type="number" step="any" name="pos_long" value=<?=$array_old['pos_long'] ?> min="-180" max="180" />
 	<br><br>
 	<label for="paylink"><?=$str["paylink_label"]?></label>   
-	<input type="text" id="paylink" value= <?=$array_old['paylink'] ?> name="paylink"/>
+	<input type="text" id="paylink" value= "<?=$array_old['paylink'] ?>" name="paylink"/>
 	
 	<br>
 
 	<p><input type="submit" value="OK" id="submitButton"></p>
 	<input id="id" name="id" type="hidden" value=<?php echo $_GET['id'] ?>>
 </form>
-
-
-
-<script type="text/javascript">
-	let e=document.getElementById("name");
-	e.value=`<?=$array_old['name']?>`;
-
-	//validate();
-</script> 
-<?php
-	}
-	else echo('<br />'.modifAuthorization($conn)['message'].'<br />');
-?>
-
