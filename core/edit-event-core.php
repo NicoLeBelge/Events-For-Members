@@ -16,7 +16,7 @@
 <form action="./core/editEvent-Action-core.php" method="post">
 	<label for="name"><?=$str["event_name_label"] ?></label>  
 	<input type="text" id="name" name="name" value="<?=$array_old["name"] ?>" maxlength="80"/>
-	<div class="dategrid">
+	<div class="E4M_dategrid">
 		<div><label for="datestart"><?=$str["date_label"] ?></label> </div>
 		<div><input type="date" id="datestart" name="datestart" value="<?=$array_old["datestart"] ?>"/></div>
 		<div><label for="datelim"><?=$str["Date_until"] ?></label> </div>

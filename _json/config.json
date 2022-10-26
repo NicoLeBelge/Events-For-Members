@@ -12,7 +12,7 @@
     "registration_search_page":"register-search.php",
     "registration_check_page":"register-check.php",
     "registration_confirm_page":"register-confirm.php",
-    "rating_names": ["Elo lent","Elo rapide", "Elo blitz","","",""],
+    "rating_names": ["standard","Rapid", "Blitz","","",""],
     "self_create": true,
     "super_user_id": 1,
     "cat_names": ["U08","U10", "U12","U14","U16","U18","U20","Sen", "Sen+", "Vet"],

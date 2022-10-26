@@ -95,29 +95,27 @@ fix crash when string length > max or values exceeds limit --> add limits in for
 long / lat inversion in edit event form 
 Add type in registration table
 adding header in donwload file
+add paylink_label
+(Adding form to create member) paused in branch paylink
+adding field to allow paylink url for "Register button"
 ┌─────────────┐
 | in progress |
 └─────────────┘
-(Adding form to create member) paused in branch paylink
-adding field to allow paylink url for "Register button"
 
+removing all specific css / string customizations
 ┌───────┐
 | To do |
 └───────┘
 Add varchar(120) paylink in all live databases
-add paylink_label
-
 !!! empêcher l'accès à la page edit-create-event.php si pas membre connecté !!!!!!!! (hereusement, ça crash car user NULL)
-
 limiter le nombre de subevents à 10
-
-page d'edition subevent --> ajout nom de event
 indiquer le nombre d'inscrits à chaque subevent
 activeHeader set to "" because it's uncentered if we put "⚙" --> twick CSS !
-contact initialement prévu tous moyens, implémenté e-mail only, à garder mais ajoute-t-on un autre moyen de contact ? 
 changer le nom "name" du formulaire create event pour ne pas laisser le browser proposer le nom de l'utilisateur et du coup changer les autres fields. 
 Tester avec un subevent qui a une date différente du event
-mode de publication 'brouillon' + 'my_event_list' + problème d'identifiant de session 
 Nombre max de résultats sur namesearch rendre 25 paramétrable
-
 NumEvent déclaré nulle part et semble désigner un numéro de SUBevent !!
+ checker dans ./core/edit-subevent-core.php l'absence de GET (et pas dans edit-subevent-core.php)
+ smartTable plante si objet pas de type date (eg NULL)
+ Add checker that detects missing string key during update process.
+ git rid of page edit-autocreate-subevent.php

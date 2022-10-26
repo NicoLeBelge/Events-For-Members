@@ -26,7 +26,7 @@
 	<label for="name"><?=$str["event_name_label"] ?></label>  
 	<p>max 80</p>
 	<input type="text" id="name" name="name" maxlength="80"/>
-	<div class="dategrid">
+	<div class="E4M_dategrid">
 		<div><label for="datestart"><?=$str["date_label"] ?></label> </div>
 		<div><input type="date" name="datestart" value=<?=$array_old['datestart'] ?> /></div>
 		<div><label for="datelim"><?=$str["Date_until"] ?></label> </div>
