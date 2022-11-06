@@ -1,15 +1,3 @@
-.E4M_maindiv *, .E4M_hoverable_list *{
-	font-family: Quicksand;
-}
-tr:nth-child(even) {
-	background: white;
-}
-table, th, td {
-	color : #505050;
-	border-collapse: collapse;
-	padding-left: 10px;
-	padding-right: 10 px;
-}
 .E4M_regtable td:nth-child(3) {
 	text-align: right;
 }
@@ -22,29 +10,6 @@ table, th, td {
 #E4M_members_table td:nth-child(5) {
 	text-align: right;
 }
-.E4M_maindiv p{
-	margin-top: 2px;
-	margin-bottom: 2px;
-}
-
-.E4M_maindiv h3{
-	margin-top: 8px;
-	margin-bottom: 8px;
-	font-size: 1.7em;
-	color : blue;
-}
-.E4M_maindiv h4{
-	margin-top: 2px;
-	margin-bottom: 2px;
-	font-size: 1.4em;
-	color : blue;
-}
-.E4M_maindiv h5{
-	margin-top: 2px;
-	margin-bottom: 2px;
-	font-size: 1.2em;
-	color : black;
-}
 .E4M_hoverable_item {
 	cursor: pointer;
 }
@@ -55,7 +20,7 @@ table, th, td {
 	cursor: pointer;
 }
 .E4M_hoverable_list tr:hover {
-	background-color: lightblue;
+	background-color:lightgray;
 }
 .E4M_buttonset {
 	margin-top: 5px;
@@ -65,46 +30,42 @@ table, th, td {
 	width : 35px;
 	height: 35px;
 	padding-top: 0px;
-	border-radius: 50%;
+	
 	margin-left: 0px;
-	margin-right: 8px;
+	margin-right: 5px;
 	text-align : center;	
 	display: inline-block;
 }
 .E4M_buttonset div p{
 	margin-top: 8px;
 	padding-top: 0px;
-	color: white;
+	//color: white;
 	cursor: default;
 }
 .E4M_buttonset .E4M_off {
-	background-color : rgb(163, 163, 163);
+	background-color :white;
+	color : blue;
 }
 .E4M_buttonset .E4M_on {
-	background-color : rgb(0, 0, 0);
+	
+	border : 2px solid black;
 }
 .E4M_buttonset .other_sub_button {
 	background-color : rgb(163, 163, 163);
 }
-.E4M_buttonset .current_sub_button {
-	background-color : rgb(0, 0, 0);
-}
+
 .E4M_buttonset div:hover{
-	background-color : rgb(63, 62, 62);
+	border : 2px solid grey;
 }
 .E4M_buttonset p {
-	color: blue;
+	color: black;
 	vertical-align:middle;
 }
-#eventinfo a{
-	font-size: 1.5em;
-	text-decoration: none;
-}
+
 .E4M_catlist div{
-	width : 40px;
+	width : 60px;
 	height: 22px;
 	padding-top: 5px;
-	border-radius: 10%;
 	margin-right: 5px;
 	margin-top: 5px;
 	text-align : center;	
@@ -112,43 +73,36 @@ table, th, td {
 	color: white;
 }
 .E4M_catlist .E4M_on{
-	background-color : green;
+	background-color : lightgray;
+	border : 2px solid black;
+	color : black;
 }
 .E4M_catlist .E4M_off{
-	background-color : red;
+	background-color : white;
+	color : grey;
+	border : 2px solid grey;
 }
 .E4M_css_key {
-	font-size: 0.8em;
-	color:rgb(38, 48, 163);
+	color: gray;
 }
 .E4M_tab_not_confirmed td{
-	color: rgb(167, 167, 167);
+	color: grey;
 }
-.cent_block{
-	position:relative;
-	width:1024px;
-	min-height:700px;
-	margin: 10px auto auto;
-}	
-.footer-spacer{
-	min-height:40px;
-}	
+	
 .E4M_maindiv form{
 	margin-top: 10px;
 }	
-.sharelink{
+.E4M_sharelink{
 	padding: 5px 10px 5px;
 	display :inline-block;
-	color:blue;
-	border: 0.5px solid gray;
-	border-radius: 5px;
-	background-color: white;
+	color:gray;
+	border: 0.5px solid black;
+	
 }
-.dategrid{
+.E4M_dategrid{
 	display: grid;
 	grid: auto / 170px auto ;
 }
 .E4M_bigbutton button {
-	font-size: 1.5em;
-	font-weight: bold;
+	color: black;
 }

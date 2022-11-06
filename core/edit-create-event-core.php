@@ -19,7 +19,7 @@ $jsonstr = json_encode($str);
             
             <label for="name"><?=$str["event_name_label"]?></label><span style="color: red"> *</span>
             <input type="text" id="name" name="name" maxlength="80" required/>
-            <div class="dategrid">
+            <div class="E4M_dategrid">
                 <div><label for="datestart"><?=$str["Date_of_place"]?></label></div>
                 <div><input type="date" name="datestart" required/><span style="color: red"> *</span></div>
                 <div><label for="datelim"><?=$str["Date_until"]?></label> </div>

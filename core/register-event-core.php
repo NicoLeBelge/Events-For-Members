@@ -93,9 +93,11 @@ if(isset($_GET['id']))
 			<button id="DeleteEventButton" ><?=$str['Delete']?></button>
 			<button id="CloneEventButton" ><?=$str['Clone']?></button>
 			<button id="ShareEventButton" ><?=$str['Share']?></button>
-			<div class='sharelink' id="sharelink"></div>
+			<div class='E4M_sharelink' id="E4M_sharelink"></div>
 		<?php endif; ?>
-		<div id="E4M_eventinfo" ></div>
+		
+		<div id="E4M_eventinfo"></div>
+		
 		<div id="E4M_sub_data" ></div>
 		<div id="sub_selector" class="E4M_buttonset"></div>
 		<div id="E4M_subeventinfo" ></div>
@@ -214,7 +216,7 @@ if(isset($_GET['id']))
 	const DelEventBnt = document.getElementById('DeleteEventButton');
 	const CloneEventBnt = document.getElementById('CloneEventButton');
 	const ShareEventBnt = document.getElementById('ShareEventButton'); // keep that ??
-	const sharetext = document.getElementById('sharelink');
+	const sharetext = document.getElementById('E4M_sharelink');
 	const RegisterBtn = document.getElementById('RegisterButton');
 
 	RegisterBtn.addEventListener("click", GoToRegisterPage);
