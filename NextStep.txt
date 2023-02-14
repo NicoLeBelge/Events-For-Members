@@ -98,15 +98,19 @@ adding header in donwload file
 add paylink_label
 (Adding form to create member) paused in branch paylink
 adding field to allow paylink url for "Register button"
+removing all specific css / string customizations
 ┌─────────────┐
 | in progress |
 └─────────────┘
+API check-in done but needs to have parametric response
+check-in page done but needs headers/footer
+still to be done : add input code in event-edit page
+still to be done : modify registration list to display check-in status and allow link to check-in page.
 
-removing all specific css / string customizations
 ┌───────┐
 | To do |
 └───────┘
-Add varchar(120) paylink in all live databases
+ajouter champs 'present' bool dans registrations et check-in-code (varchar 6) dans events
 !!! empêcher l'accès à la page edit-create-event.php si pas membre connecté !!!!!!!! (hereusement, ça crash car user NULL)
 limiter le nombre de subevents à 10
 indiquer le nombre d'inscrits à chaque subevent

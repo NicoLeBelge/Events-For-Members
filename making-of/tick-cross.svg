@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg8"
+   inkscape:version="1.0.2-2 (e86c870879, 2021-01-15)"
+   sodipodi:docname="tick-cross.svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.7"
+     inkscape:cx="-92.740374"
+     inkscape:cy="408.34819"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     inkscape:document-rotation="0"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="991"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#00ad05;fill-opacity:1;fill-rule:evenodd;stroke-width:4.99999;stroke-linejoin:bevel"
+       id="rect833"
+       width="82.398804"
+       height="85.422623"
+       x="46.869045"
+       y="58.208332"
+       ry="10.583333"
+       inkscape:export-filename="C:\Program Files\Ampps\www\chessMOOC\Events-For-Members\_img\tick.png"
+       inkscape:export-xdpi="61.650002"
+       inkscape:export-ydpi="61.650002" />
+    <path
+       style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;font-feature-settings:normal;font-variation-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;shape-margin:0;inline-size:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.898793;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate;stop-color:#000000;stop-opacity:1"
+       d="M 111.56414,69.777065 C 98.034897,88.001883 90.372416,107.11533 86.861382,118.4962 82.507449,112.5166 74.935973,103.4203 63.09779,95.013484 l -4.069145,5.729806 c 17.67442,12.55139 26.063238,27.53782 26.063238,27.53782 1.549574,2.7676 5.683139,2.2282 6.470607,-0.84437 0,0 7.977161,-32.285404 27.88682,-51.548101 z"
+       id="path835"
+       sodipodi:nodetypes="cccccccc"
+       inkscape:export-filename="C:\Program Files\Ampps\www\chessMOOC\Events-For-Members\_img\tick.png"
+       inkscape:export-xdpi="61.650002"
+       inkscape:export-ydpi="61.650002" />
+    <rect
+       style="fill:#c53200;fill-opacity:1;fill-rule:evenodd;stroke-width:4.99999;stroke-linejoin:bevel"
+       id="rect1123"
+       width="82.398804"
+       height="85.422623"
+       x="46.869045"
+       y="161.39583"
+       ry="10.583333"
+       inkscape:export-filename="C:\Program Files\Ampps\www\chessMOOC\Events-For-Members\_img\cross.png"
+       inkscape:export-xdpi="61.650002"
+       inkscape:export-ydpi="61.650002" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:68.8094px;line-height:1.25;font-family:'Segoe Print';-inkscape-font-specification:'Segoe Print Bold';fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.72024"
+       x="65.346466"
+       y="229.05357"
+       id="text1129"
+       inkscape:export-filename="C:\Program Files\Ampps\www\chessMOOC\Events-For-Members\_img\cross.png"
+       inkscape:export-xdpi="61.650002"
+       inkscape:export-ydpi="61.650002"><tspan
+         sodipodi:role="line"
+         id="tspan1127"
+         x="65.346466"
+         y="229.05357"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Segoe Print';-inkscape-font-specification:'Segoe Print Bold';fill:#ffffff;fill-opacity:1;stroke-width:1.72024">X</tspan></text>
+  </g>
+</svg>
