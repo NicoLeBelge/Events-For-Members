@@ -29,6 +29,16 @@ if(isset($_GET['id']))
 	
 	$reponse = $conn->query("SELECT * from events where id=$event_id");
 	$event_set["infos"] = $reponse->fetchAll(PDO::FETCH_ASSOC); // improvement expected fetchAll --> fetch (only one record in reponse)
+	
+	// echo "<pre>";
+	// var_dump($event_set["infos"][0]["code"]);
+	// echo "</pre>";
+	// if (isset($event_set["infos"][0]["code"])) {
+	// 	echo "on a un code <br>";
+	// } else {
+	// 	echo "on n'a pas de code <br>";
+	// }
+	$is_check_in = (isset($event_set["infos"][0]["code"])) ? true : false;
 	if (!isset($_SESSION["user_id"]))
 	{
 		$is_owner = false;
@@ -56,6 +66,7 @@ if(isset($_GET['id']))
 					registrations.datereg as datereg,
 					registrations.confirmed,
 					registrations.wait,
+					registrations.present,
 					members.fede_id,
 					members.lastname,
 					members.firstname,
@@ -155,6 +166,7 @@ if(isset($_GET['id']))
 	var is_paylink = (paylink=="") ? false : true;
 	
 	let is_owner_php = `<?= $is_owner ?>`;
+	let is_check_in = (`<?= $is_check_in ?>` == 1) ? true : false ;
 	let newSubURL = "";
 	let editSubURL = "";
 
@@ -167,7 +179,7 @@ if(isset($_GET['id']))
 
 	let nbSubevents = subs_data_set.length;
 	
-	if (is_owner || nbSubevents>1) 
+	if (is_owner || nbSubevents>1) // subevent selector is displayed if there are more than one subevent or (if 1) for the owner to add one
 	{
 		var subSelector = new Selector (
 			"sub_selector",
@@ -232,7 +244,6 @@ if(isset($_GET['id']))
 		EditEvtBnt.addEventListener("click", GotoEditEventPage);
 		EditEvtBnt.destination = CurrentEventId;
 	
-		// ici
 		CloneEventBnt.destination="<?=$cfg['event_page']?>";
 		//console.log("hello")
 		//console.log(CloneEventBnt.destination)
@@ -325,6 +336,21 @@ if(isset($_GET['id']))
 				item.status = str["OK_sign"];
 				item.css = "E4M_tab_confirmed";
 			}
+		}
+		/* in check-in mode, attribute .rowLink set to correct link for members not yet checked in */
+		if (is_check_in) {
+			
+			if (item.present == "0") 
+			{
+				item.rowLink =  "./check-in.php?id=" + item.regid.toString(10); 
+				//item.fullname += ' C';
+			} 
+			// item.checkable = (item.present == "1") ? false : true;
+			// if (item.checkable) {
+			// 	item.fullname += "C";
+			// } else {
+			// 	item.fullname += "v";
+			// }
 		}
 	});
 	

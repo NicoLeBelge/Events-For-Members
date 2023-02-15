@@ -24,7 +24,7 @@ $qtxt="SELECT * FROM events
 	ORDER BY datestart DESC";
 
 $reponse = $conn->query($qtxt);
-$reponse->closeCursor();	
+$reponse->closeCursor();	// Hum ... what for ??
 
 
 $reponse = $conn->query($qtxt);
