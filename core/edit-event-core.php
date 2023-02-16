@@ -5,8 +5,6 @@
 	include($pathfunction );
 	$str = json_decode(file_get_contents('./_json/strings.json'),true);	
 	$ID = $_GET['id']; 
-	$pathbdd = './../_local-connect/connect.php';
-	include($pathbdd);
 	$requete='SELECT * FROM `events` WHERE id='.$ID;
 	$res= $conn->query(htmlspecialchars($requete));
 	$array_old = $res->fetch();

@@ -98,15 +98,30 @@ adding header in donwload file
 add paylink_label
 (Adding form to create member) paused in branch paylink
 adding field to allow paylink url for "Register button"
+removing all specific css / string customizations
 ┌─────────────┐
 | in progress |
 └─────────────┘
+done : in check-in mode, registration rows are clickabe when not present
 
-removing all specific css / string customizations
+API check-in done but needs to have parametric response
+check-in page done but needs headers/footer
+still to be done : add input code in event-edit page
+still to be done : modify registration list to display check-in status and allow link to check-in page.
+
+
+make sure that event cloning does not clone check-in-code
+
 ┌───────┐
 | To do |
 └───────┘
-Add varchar(120) paylink in all live databases
+register-event-core.php --> $event_set["infos"] = $reponse->fetch() instead of fetchAll
+register-event-core.php --> is_owner_php can be calculated more concisely.
+
+register-check-core.php --> $member_email = $_POST['member_email'] causes php error (luckyly only in local mode)
+
+
+ajouter champs 'present' bool dans registrations et check-in-code (varchar 6) dans events
 !!! empêcher l'accès à la page edit-create-event.php si pas membre connecté !!!!!!!! (hereusement, ça crash car user NULL)
 limiter le nombre de subevents à 10
 indiquer le nombre d'inscrits à chaque subevent
