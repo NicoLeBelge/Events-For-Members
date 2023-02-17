@@ -103,11 +103,12 @@ removing all specific css / string customizations
 | in progress |
 └─────────────┘
 done : in check-in mode, registration rows are clickabe when not present
+done : modify registration list to display check-in status and allow link to check-in page.
 
 API check-in done but needs to have parametric response
 check-in page done but needs headers/footer
 still to be done : add input code in event-edit page
-still to be done : modify registration list to display check-in status and allow link to check-in page.
+still to be done : add oops button in check-in page
 
 
 make sure that event cloning does not clone check-in-code

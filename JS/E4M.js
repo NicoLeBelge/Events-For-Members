@@ -401,7 +401,7 @@ function DeleteCurrentSubEvent (JSevent)
 	location.reload();
 }
 
-function DeleteCurrentEvent (JSevent) { // ici
+function DeleteCurrentEvent (JSevent) { 
 	let data = new FormData();
 	data.append('event_id', CurrentEventId);
 	let request = new XMLHttpRequest();

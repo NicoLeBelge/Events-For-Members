@@ -325,32 +325,33 @@ if(isset($_GET['id']))
 		 */
 		item.fullname = item.lastname + " " + item.firstname;
 		
-		if(item.wait == "1"){
-			item.status = str["wait_sign"];
-			item.css = "E4M_tab_not_confirmed";
-		} else {
-			if(item.confirmed == "0"){
-				item.status = str["mail_sign"];
-				item.css = "E4M_tab_not_confirmed";
-			} else {
-				item.status = str["OK_sign"];
-				item.css = "E4M_tab_confirmed";
-			}
-		}
+		
 		/* in check-in mode, attribute .rowLink set to correct link for members not yet checked in */
 		if (is_check_in) {
-			
 			if (item.present == "0") 
 			{
 				item.rowLink =  "./check-in.php?id=" + item.regid.toString(10); 
-				//item.fullname += ' C';
-			} 
-			// item.checkable = (item.present == "1") ? false : true;
-			// if (item.checkable) {
-			// 	item.fullname += "C";
-			// } else {
-			// 	item.fullname += "v";
-			// }
+				item.status = str["wait_sign"];
+			} else {
+				item.status = str["OK_sign"];
+			}
+			/* adds class E4M_hoverable_list to the table */
+			document.getElementById("reglist").classList.add("E4M_hoverable_list");
+		} else {
+			if(item.wait == "1")
+			{
+				item.status = str["wait_sign"];
+				item.css = "E4M_tab_not_confirmed";
+			} else {
+				if(item.confirmed == "0")
+				{
+					item.status = str["mail_sign"];
+					item.css = "E4M_tab_not_confirmed";
+				} else {
+					item.status = str["OK_sign"];
+					item.css = "E4M_tab_confirmed";
+				}
+			}
 		}
 	});
 	

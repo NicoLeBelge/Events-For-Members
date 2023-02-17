@@ -112,5 +112,7 @@
     "Clone" : "Clone",
     "Clone_confirm" : "The event has been cloned successfully",
     "Cloned_mark" : " (cloned)",
-    "paylink_label" : "link to pay website (beta-test / Helloasso only)"
+    "paylink_label" : "link to pay website (beta-test / Helloasso only)",
+    "wrong_code" : "Wrong code !",
+    "you_are_in" : "You're in !"
 }
