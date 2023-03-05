@@ -54,8 +54,8 @@ if (!isset($_GET['code'])) {
 		$html_message ="<h3>" . $data["evtname"] ."</h3>";
 		$html_message .="<h4>" . $data["subname"] . "</h3>";
 		$html_message.= "<h5>" . $data["first"] . " " . $data["last"] ."</h5>";
-		$confirmed = ($data["confirmed"]=="0") ? false : true;
-		$wait = ($data["wait"]=="0") ? false : true;
+		$confirmed = ($data["confirmed"]<>"0");
+		$wait = ($data["wait"]<>"0");
 		$database_update=false;
 		if ($confirmed){
 			if ($wait){

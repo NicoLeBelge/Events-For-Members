@@ -245,8 +245,8 @@ class smartTable{
         tableData.forEach(function(rowData){
             /* let's put all columns */
             
-            let isConfirmed = (rowData.confirmed == "1") ? true : false;
-            let isWaiting = (rowData.wait == "1") ? true : false;
+            let isConfirmed = (rowData.confirmed == "1");
+            let isWaiting = (rowData.wait == "1");
             
             let row = document.createElement('tr');
             for (let i = 0; i< nbCol; i++) {

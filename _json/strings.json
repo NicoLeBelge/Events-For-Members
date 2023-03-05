@@ -92,7 +92,7 @@
     "event_creation_title" : "Create new event",
     "event_name_label" : "Event name",
     "Error_form" : "Errors in form", 
-    "Absence_form":"Form not found ??????????????????????????????????????",
+    "Absence_form":"Form not found",
     "Error_modif_event" : "You are not allowed to modify this event",
     "Error_choice_event" : "Wrong event id, you are not the owner.",
     "Error_chargement_event" : "Load event error",
@@ -113,6 +113,8 @@
     "Clone_confirm" : "The event has been cloned successfully",
     "Cloned_mark" : " (cloned)",
     "paylink_label" : "link to pay website (beta-test / Helloasso only)",
+    "enter_code" : "Enter check-in code",
+    "I_am_here" : "I am present",
     "wrong_code" : "Wrong code !",
     "you_are_in" : "You're in !"
 }

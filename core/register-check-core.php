@@ -74,7 +74,7 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 	if ($result->rowCount() !== 0) { 
 		//member already registered in this subevent
 		$data = $result->fetchAll(PDO::FETCH_ASSOC);
-		$confirmed=($data[0]["confirmed"]=="1") ? true : false;
+		$confirmed=($data[0]["confirmed"]=="1");
 		if ($confirmed) {
 			$html_message.= "<p>" . $str["Already_confirmed_OK"]."</p>";
 		} else {
@@ -102,8 +102,8 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 		$data = $result->fetchAll(PDO::FETCH_ASSOC);
 		$tot_evt=intval($data[0]["count_members"],10);
 		
-		$sub_full = ($s_nbmax > 0 && ($tot_sub >= $s_nbmax)) ? true : false;
-		$evt_full = ($e_nbmax > 0 && ($tot_evt >= $e_nbmax)) ? true : false;
+		$sub_full = ($s_nbmax > 0 && ($tot_sub >= $s_nbmax));
+		$evt_full = ($e_nbmax > 0 && ($tot_evt >= $e_nbmax));
 		
 		if ($sub_full || $evt_full){
 			$wait=true;
@@ -112,8 +112,8 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 			// maybe almost full --> warning if secured event
 			$wait=false;
 			if ($secured){
-				$sub_almost_full = ($s_nbmax > 0 && ($tot_sub >= $s_nbmax - $full_margin)) ? true : false;
-				$evt_almost_full = ($e_nbmax > 0 && ($tot_evt >= $e_nbmax - $full_margin)) ? true : false;
+				$sub_almost_full = ($s_nbmax > 0 && ($tot_sub >= $s_nbmax - $full_margin));
+				$evt_almost_full = ($e_nbmax > 0 && ($tot_evt >= $e_nbmax - $full_margin));
 				if ($sub_almost_full || $evt_almost_full){
 					$html_message.= "<p>" . $str["Almost_full"]."</p>";
 					$html_message.= "<p>" . $str["Hurry_up"]."</p>";

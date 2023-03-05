@@ -38,12 +38,12 @@ if(isset($_GET['id']))
 	// } else {
 	// 	echo "on n'a pas de code <br>";
 	// }
-	$is_check_in = (isset($event_set["infos"][0]["code"])) ? true : false;
+	$is_check_in = (isset($event_set["infos"][0]["code"]));
 	if (!isset($_SESSION["user_id"]))
 	{
 		$is_owner = false;
 	} else {
-		$is_owner = ($_SESSION["user_id"] === $event_set["infos"][0]["owner"]) ? true : false;
+		$is_owner = ($_SESSION["user_id"] === $event_set["infos"][0]["owner"]);
 	}
 	
 	$paylink = (!is_null($event_set["infos"][0]["paylink"])) ? $event_set["infos"][0]["paylink"] : "";
@@ -163,10 +163,10 @@ if(isset($_GET['id']))
 	var subevent_list_str; // will contain JSON of subevents data // debug ça sert à rien ?!!
 	var is_owner = false;
 	var paylink = `<?= $paylink ?>`
-	var is_paylink = (paylink=="") ? false : true;
+	var is_paylink = !(paylink == "");
 	
 	let is_owner_php = `<?= $is_owner ?>`;
-	let is_check_in = (`<?= $is_check_in ?>` == 1) ? true : false ;
+	let is_check_in = (`<?= $is_check_in ?>` == 1);
 	let newSubURL = "";
 	let editSubURL = "";
 
@@ -265,7 +265,7 @@ if(isset($_GET['id']))
 	// as long as datetime will be stored with space in database, replacement by T is required for iOS
 	let datelim = new Date(eventinfoset.datelim.replace(" ", "T"));
 	
-	RegisterBtn.disabled = ( datelim-Date.now() > 0 ) ? false : true; 
+	RegisterBtn.disabled = !( datelim-Date.now() > 0 ); 
 	CurrentSubEventId = subs_data_set[CurrentSubEventIndex]["id"]; 
 	/** Prepares buttons for Event and subevent (if viewed by owner) [part 2/2]*/
 	if (is_owner)
@@ -293,7 +293,7 @@ if(isset($_GET['id']))
     if ( is_owner ) {
         console.log("member_list.length = ", member_list.length);
 		console.log("NbSubs = ", NbSubs);
-		DelEventBnt.disabled = (member_list.length == 0 && NbSubs == 1)? false : true ;
+		DelEventBnt.disabled = !(member_list.length == 0 && NbSubs == 1);
 		let registration_to_unwait = unwait(eventinfoset.nbmax, subs_data_set, member_list);
         if (registration_to_unwait == null) {
             console.log("no registration to unwait")
@@ -358,7 +358,7 @@ if(isset($_GET['id']))
 	var filteredList = member_list.filter( filter => filter.subid == CurrentSubEventId );
 	/* For owner, if no registration and if at least 2 subevents, Delete Subevent Button is enabled*/
 	if (is_owner) {
-		DelSubBnt.disabled = (filteredList.length == 0 && NbSubs>=2) ? false : true ;
+		DelSubBnt.disabled = !(filteredList.length == 0 && NbSubs>=2);
 	}
 	
 	/* If there is at least one wait or at least one confirmation needed, then legend is displayed  */
@@ -377,7 +377,7 @@ if(isset($_GET['id']))
 		"colData" : ["member_grade", "fullname", "member_type","displayedRating", "cat", "clubname", "region", "status"],
 		"colSorted" : -1
 	};
-	regTableSettings.active = is_owner ? true : false;
+	regTableSettings.active = is_owner;
 	
 	var regTable = new smartTable (
 		"reglist", 
