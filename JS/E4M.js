@@ -292,7 +292,7 @@ function SelectEvent(JS_Event)
 	filteredList = member_list.filter( filter => filter.subid == CurrentSubEventId );
 	
 	if ( is_owner ) {
-		DelSubBnt.disabled = (filteredList.length == 0 && NbSubs>=2) ? false : true ;
+		DelSubBnt.disabled = !(filteredList.length == 0 && NbSubs>=2);
 	}
 	
 	
@@ -401,7 +401,7 @@ function DeleteCurrentSubEvent (JSevent)
 	location.reload();
 }
 
-function DeleteCurrentEvent (JSevent) { // ici
+function DeleteCurrentEvent (JSevent) { 
 	let data = new FormData();
 	data.append('event_id', CurrentEventId);
 	let request = new XMLHttpRequest();
@@ -467,14 +467,14 @@ function unwait (max, subs, regs)
 		item.r = parseInt(item.regid);
 		item.s = parseInt(item.subid);
 		item.c = null; // candidate
-		item.w = item.wait =="1" ? true : false;
+		item.w = (item.wait =="1");
 	});
 	/* let's check if the event is full or no */
 	let NbNotWaitingTotal = regs.filter( (filter) => { return !filter.w ; });
 	let EventFull = false; 
 	if (max) 
 	{
-		EventFull = (NbNotWaitingTotal.length >= max) ? true : false ;
+		EventFull = (NbNotWaitingTotal.length >= max);
 	} 
 	if (!EventFull) 
 	{

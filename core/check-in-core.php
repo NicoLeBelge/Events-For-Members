@@ -3,6 +3,10 @@
 	include($pathbdd);
 	$str = json_decode(file_get_contents('./_json/strings.json'),true);	
 	$ID = $_GET['id']; 
+	if (strlen($ID) > 6) {
+		$ID= "1"; 
+		echo "weird value for id ...";
+	}	
 	$requete="SELECT members.firstname, members.lastname
 			FROM members
 			INNER JOIN registrations
@@ -17,11 +21,12 @@
 ?>
 
 <form id="form" action="#" >
-	<label for="code">Entrez le code de pointage</label>
+	<label for="code"><?=$str["enter_code"]?></label>
+	<br>
 	<input type="text" autocomplete="off" name="code" id="code" required>
 </form> 
 <div class="E4M_bigbutton">
-	<button id="checkinButton">Je suis présent !</button>
+	<button id="checkinButton"><?=$str["I_am_here"]?></button>
 </div>
 <br>
 <h1 id="result"></h1>
@@ -40,12 +45,12 @@
 			if (this.readyState == 4 && this.status == 200) {
 				let result = document.getElementById("result");
 				
-				let resultOK = (request.response == "OK" ) ? true : false;
+				let resultOK = (request.response == "OK" );
 				if (resultOK) {
 					document.getElementById("form").hidden = true;
 					document.getElementById("checkinButton").hidden = true;
 					document.getElementById("picto").src = "./_img/tick.png";
-					result.innerHTML = "Vous êtes pointé !";
+					result.innerHTML = `<?=$str["you_are_in"]?>`;
 					
 				} else {
 					result.innerHTML = request.response;
