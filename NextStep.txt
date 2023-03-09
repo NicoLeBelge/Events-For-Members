@@ -104,18 +104,16 @@ removing all specific css / string customizations
 └─────────────┘
 done : in check-in mode, registration rows are clickabe when not present
 done : modify registration list to display check-in status and allow link to check-in page.
+done : API check-in now has parametric response
+done : add input code in event-edit page
 
-API check-in done but needs to have parametric response
-check-in page done but needs headers/footer
-still to be done : add input code in event-edit page
-still to be done : add oops button in check-in page
-
-
-make sure that event cloning does not clone check-in-code
 
 ┌───────┐
 | To do |
 └───────┘
+make sure that event cloning does not clone check-in-code
+add oops button in check-in page
+fix bug events max 4 (max 2 + max 2) register 3+2, wrong message exiting the waiting list.
 register-event-core.php --> $event_set["infos"] = $reponse->fetch() instead of fetchAll
 register-event-core.php --> is_owner_php can be calculated more concisely.
 

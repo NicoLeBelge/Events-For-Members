@@ -24,10 +24,12 @@
 			$pos_long = empty($_POST['pos_long']) ? NULL : floatval($_POST['pos_long']);
 			$pos_lat = empty($_POST['pos_lat']) ? NULL : floatval($_POST['pos_lat']);
 			$paylink = $_POST['paylink'];
+			$code = empty($_POST['code']) ? NULL : strtoupper($_POST['code']);
+		
 
 			$reqE=$conn->prepare("UPDATE events SET name = :n_name, datestart=:n_datestart, 
 			datelim=:n_datelim, secured=:n_secured, contact=:n_contact, nbmax=:n_nbmax, 
-			pos_long=:n_pos_long, pos_lat=:n_pos_lat, paylink=:n_paylink    
+			pos_long=:n_pos_long, pos_lat=:n_pos_lat, paylink=:n_paylink, code=:n_code    
 			WHERE id=:searched_id;");
 			$reqE->BindParam(':n_name', $name);
 			$reqE->BindParam(':n_datestart', $datestart);
@@ -38,6 +40,7 @@
 			$reqE->BindParam(':n_pos_long', $pos_long);
 			$reqE->BindParam(':n_pos_lat', $pos_lat);
 			$reqE->BindParam(':n_paylink', $paylink);
+			$reqE->BindParam(':n_code', $code);
 			$reqE->BindParam(':searched_id', $_POST['id']);
 			$reqE->execute();
 		}

@@ -11,8 +11,9 @@
 			FROM members
 			INNER JOIN registrations
 			ON members.id = registrations.member_id
-			WHERE registrations.id=$ID;";
-	$res= $conn->query(htmlspecialchars($requete));
+			WHERE registrations.id=?;";
+	$res=$conn->prepare($requete);
+	$res->execute([$ID]);
 	$member = $res->fetch();
 	$firstname = $member["firstname"];
 	echo "<h1>$firstname</h1>";

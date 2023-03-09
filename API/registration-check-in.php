@@ -22,11 +22,11 @@ if ((isset($_POST['code']) && isset($_POST['reg_id']))) // if we have POST, we c
 	$res= $conn->query(htmlspecialchars($requete));
 	if ($res->rowCount() == 0) 
 	{ // event not found
-		$response="registration_id not found";
+		$response = $str["reg_not_found"];
 	} else {
 		$dataset = $res->fetch();
-		if ($dataset["code"] !== $_POST['code']) {
-			$response = "Le code ne correspond pas !";
+		if ($dataset["code"] !== strtoupper($_POST['code'])) {
+			$response = $str["wrong_code"];
 		} else {
 			$response = "OK";
 		}
