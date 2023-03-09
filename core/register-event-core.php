@@ -28,6 +28,8 @@ if(isset($_GET['id']))
 	$event_set = array();
 	
 	$reponse = $conn->query("SELECT * from events where id=$event_id");
+	
+	
 	$event_set["infos"] = $reponse->fetchAll(PDO::FETCH_ASSOC); // improvement expected fetchAll --> fetch (only one record in reponse)
 	
 	// echo "<pre>";

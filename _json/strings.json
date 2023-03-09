@@ -114,7 +114,9 @@
     "Cloned_mark" : " (cloned)",
     "paylink_label" : "link to pay website (beta-test / Helloasso only)",
     "enter_code" : "Enter check-in code",
+    "checkin_code" : "check-in code",
     "I_am_here" : "I am present",
     "wrong_code" : "Wrong code !",
+    "reg_not_found" : "Registration ID not found",
     "you_are_in" : "You're in !"
 }

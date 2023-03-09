@@ -5,10 +5,17 @@
 	include($pathfunction );
 	$str = json_decode(file_get_contents('./_json/strings.json'),true);	
 	$ID = $_GET['id']; 
-	$requete='SELECT * FROM `events` WHERE id='.$ID;
-	$res= $conn->query(htmlspecialchars($requete));
+	// $requete='SELECT * FROM `events` WHERE id='.$ID;
+	$requete='SELECT * FROM `events` WHERE id=?';
+	$res= $conn->prepare($requete);
+	$res->execute([$ID]);
 	$array_old = $res->fetch();
-	
+	/*check if datelime is past and if so, add `code` field */
+	$datelim = $array_old["datelim"];
+	$datelimit = new DateTime($array_old["datelim"]);
+	$now = new DateTime();
+	$datelim_past = !($datelimit > $now);
+
 ?>
 
 <form action="./core/editEvent-Action-core.php" method="post">
@@ -45,7 +52,12 @@
 	<br><br>
 	<label for="paylink"><?=$str["paylink_label"]?></label>   
 	<input type="text" id="paylink" value= "<?=$array_old['paylink'] ?>" name="paylink"/>
-	
+	<?php if($datelim_past): ?>
+		<br>
+		<label for="code"><?=$str["checkin_code"]?></label>   
+		
+		<input type="text" id="code" value= "<?=$array_old['code'] ?>" name="code"/>
+	<?php endif; ?>
 	<br>
 
 	<p><input type="submit" value="OK" id="submitButton"></p>
