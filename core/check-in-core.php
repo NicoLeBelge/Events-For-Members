@@ -20,11 +20,12 @@
 	$lastname = $member["lastname"];
 	echo "<h1>$lastname</h1>";
 ?>
-
+<button onclick="history.back()"><?=$str["oops_check_in"]?></button>
 <form id="form" action="#" >
 	<label for="code"><?=$str["enter_code"]?></label>
 	<br>
 	<input type="text" autocomplete="off" name="code" id="code" required>
+	<br>
 </form> 
 <div class="E4M_bigbutton">
 	<button id="checkinButton"><?=$str["I_am_here"]?></button>
@@ -35,7 +36,8 @@
 <script>
 	let CheckinButton = document.getElementById('checkinButton');
 	const request = new XMLHttpRequest();
-	CheckinButton.addEventListener("click", function(event) {
+	CheckinButton.addEventListener("click", function(event) 
+	{
 		const formData = new FormData();
 		formData.append("reg_id", <?=$ID?>);
 		formData.append("code", document.getElementById("code").value);
@@ -52,7 +54,6 @@
 					document.getElementById("checkinButton").hidden = true;
 					document.getElementById("picto").src = "./_img/tick.png";
 					result.innerHTML = `<?=$str["you_are_in"]?>`;
-					
 				} else {
 					result.innerHTML = request.response;
 					document.getElementById("picto").src = "./_img/cross.png";

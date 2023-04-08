@@ -191,6 +191,9 @@ if(isset($_GET['id']))
 			newSubURL
 		);
 	}
+	
+	
+	
 	var cat_set = new IconSet 
 	(
 		"E4M_subevent_cat", 
@@ -215,7 +218,12 @@ if(isset($_GET['id']))
 		"E4M_typ",
 		false
 	);	
-	
+	// let's hide iconsets and register button in check-in mode
+	document.getElementById('E4M_subevent_cat').style.display = is_check_in ? "none" : "inherit";
+	document.getElementById('E4M_subevent_gen').style.display = is_check_in ? "none" : "inherit";
+	document.getElementById('E4M_subevent_typ').style.display = is_check_in ? "none" : "inherit";
+	document.getElementById('RegisterButton').style.display = is_check_in ? "none" : "inherit";
+
 
 
 	/* those 3 html elements will be updated each time the user selects a subevents*/

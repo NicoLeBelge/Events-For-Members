@@ -106,11 +106,14 @@ done : in check-in mode, registration rows are clickabe when not present
 done : modify registration list to display check-in status and allow link to check-in page.
 done : API check-in now has parametric response
 done : add input code in event-edit page
-
-
+to be done : check-in code restored in edit event
+test check-in with multiple subs in one event
+helloasso : test when subevent is not identified (we suspect it causes a bug)
 ┌───────┐
 | To do |
 └───────┘
+Update Helloasso API with file modified and stored separately
+In opensource version, delete players shows "undefined" message
 make sure that event cloning does not clone check-in-code
 add oops button in check-in page
 fix bug events max 4 (max 2 + max 2) register 3+2, wrong message exiting the waiting list.

@@ -25,13 +25,22 @@ if ((isset($_POST['code']) && isset($_POST['reg_id']))) // if we have POST, we c
 		$response = $str["reg_not_found"];
 	} else {
 		$dataset = $res->fetch();
+		//echo "code dans base = " . $dataset["code"] . "<br>"; //debug
+		//echo "code saisi = " . $_POST['code'] . "<br>";//debug
 		if ($dataset["code"] !== strtoupper($_POST['code'])) {
 			$response = $str["wrong_code"];
+			$match = false;
+			//echo "ca matche PAS <br>";//debug
 		} else {
 			$response = "OK";
+			$match = true;
+			//echo "ca matche";//debug
 		}
-		$requete="UPDATE `registrations` SET `present`=1 where id=$reg_id;";
-		$res= $conn->query(htmlspecialchars($requete));
+		if ($match) 
+		{
+			$requete="UPDATE `registrations` SET `present`=1 where id=$reg_id;";
+			$res= $conn->query(htmlspecialchars($requete));
+		}
 	}
 } else {
 	$response =  "wrong call to this API";
