@@ -20,20 +20,29 @@
 	$lastname = $member["lastname"];
 	echo "<h1>$lastname</h1>";
 ?>
-<button onclick="history.back()"><?=$str["oops_check_in"]?></button>
-<form id="form" action="#" >
-	<label for="code"><?=$str["enter_code"]?></label>
-	<br>
-	<input type="text" autocomplete="off" name="code" id="code" required>
-	<br>
-</form> 
-<div class="E4M_bigbutton">
+<div class="E4M_check-in E4M_bigbutton">
+	<form id="form" action="#" >
+		<label for="code"><?=$str["enter_code"]?></label>
+		<br>
+		<input type="text" autocomplete="off" name="code" id="code" onkeyup="EnableDisable(this)" required>
+		<br>
+	</form> 
+	
 	<button id="checkinButton"><?=$str["I_am_here"]?></button>
+	<br>
+	<button id="Oops_btn" onclick="history.back()"><?=$str["oops_check_in"]?></button>
+
+	<br>
+	<h1 id="result"></h1>
+	<img id="picto" src="" alt="">
 </div>
-<br>
-<h1 id="result"></h1>
-<img id="picto" src="" alt="">
 <script>
+	window.onload = () => document.getElementById("checkinButton").disabled=true; // disables check-in button
+	function EnableDisable(text_input) 
+	{
+ 		document.getElementById("checkinButton").disabled = (text_input.value.trim() == "");
+    };
+
 	let CheckinButton = document.getElementById('checkinButton');
 	const request = new XMLHttpRequest();
 	CheckinButton.addEventListener("click", function(event) 
@@ -58,6 +67,7 @@
 					result.innerHTML = request.response;
 					document.getElementById("picto").src = "./_img/cross.png";
 				}
+				document.getElementById("Oops_btn").hidden = true;
 			}
 		}
 	});
