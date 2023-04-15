@@ -30,7 +30,9 @@ $jsonstr = json_encode($str);
 if(isset($_POST['member_id']) && isset($_POST['sub_id'])){ 
 	$subevent_id = $_POST['sub_id'];
 	$member_id = $_POST['member_id'];
-	$member_email = $_POST['member_email'];
+	if (isset($_POST['member_email'])) {
+		$member_email = $_POST['member_email'];
+	}
 	
 	include('../_local-connect/connect.php'); 
 	
@@ -141,13 +143,16 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 		$req->BindParam(':new_email', $newemail);
 		$newmember = $member_id;
 		$newsub = $subevent_id;
+		// si je mets $newconfirmed à 0, ça va pas quand y'a pas besoin de e-mail.
 		if($secured){
 			$newcode = RandomString(10);
+			$newconfirmed=0;
 		} else {
 			$newcode = "--";
+			$newconfirmed=1;
 		}
-		$newemail=$member_email;
-		$newconfirmed = $secured? 0 : 1;
+		$newemail=isset($member_email) ? $member_email : null;
+		 
 		$newwait = $wait? 1 : 0;
 		$req->execute();	
 		if ($wait) {
@@ -207,7 +212,8 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 </div>
 <script src="./JS/E4M.js"></script>
 <script type="text/javascript">
-
+	let link = `<?=$link?>`;
+	console.log(link);
 	var html_message = `<?=$html_message?>`;
 	
 	document.getElementById('E4M_message').innerHTML = html_message;
