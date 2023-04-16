@@ -23,9 +23,9 @@ if (!isset($_GET['code'])) {
 	include('../_local-connect/connect.php');
 	
 	$qtxt = "SELECT registrations.id, 
-					confirmed,
-					code,
-					wait,
+					registrations.confirmed,
+					registrations.code,
+					registrations.wait,
 					members.firstname as first,
 					members.lastname as last,
 					subevents.name as subname,
@@ -38,8 +38,8 @@ if (!isset($_GET['code'])) {
 			ON subevents.id = registrations.subevent_id
 			INNER JOIN events
 			ON events.id = subevents.event_id
-			WHERE code='$code'";
-	/**WHERE ; */
+			WHERE registrations.code='$code'";
+	
 	$result = $conn->query($qtxt);
 	if ($result->rowCount() == 0) { 
 		echo "<p>Code de confirmation inconnu </p>";
