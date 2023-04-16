@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Event modification</title>
+        <title>check-in</title>
 		<meta charset="UTF-8" />
 		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 		<link rel="stylesheet" href="./_css/E4M.css" /> 

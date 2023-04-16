@@ -21,7 +21,7 @@
 	echo "<h1>$lastname</h1>";
 ?>
 <div class="E4M_check-in E4M_bigbutton">
-	<form id="form" action="#" >
+	<form id="form" action="#" onsubmit="intercept(event)">
 		<label for="code"><?=$str["enter_code"]?></label>
 		<br>
 		<input type="text" autocomplete="off" name="code" id="code" onkeyup="EnableDisable(this)" required>
@@ -71,4 +71,9 @@
 			}
 		}
 	});
+	function intercept(e){
+		/* form enter check-in code : don't reload page on ENTER + click on check-in button*/
+		e.preventDefault();
+		document.getElementById("checkinButton").click();
+	}
 </script>
