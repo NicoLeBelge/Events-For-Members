@@ -116,7 +116,7 @@ Update Helloasso API with file modified and stored separately
 In opensource version, delete players shows "undefined" message
 make sure that event cloning does not clone check-in-code
 add oops button in check-in page
-fix bug events max 4 (max 2 + max 2) register 3+2, wrong message exiting the waiting list.
+fix bug events max 4 (max 2 + max 2) register 3+2, wrong message exiting the waitlist.
 register-event-core.php --> $event_set["infos"] = $reponse->fetch() instead of fetchAll
 register-event-core.php --> is_owner_php can be calculated more concisely.
 

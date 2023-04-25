@@ -47,6 +47,11 @@ if(isset($_GET['id']))
 	} else {
 		$is_owner = ($_SESSION["user_id"] === $event_set["infos"][0]["owner"]);
 	}
+	if ($is_owner) {
+		$registerBTN_label = $str['Register_so'];
+	} else {
+		$registerBTN_label = $str['Register'];
+	}
 	
 	$paylink = (!is_null($event_set["infos"][0]["paylink"])) ? $event_set["infos"][0]["paylink"] : "";
 	
@@ -97,6 +102,8 @@ if(isset($_GET['id']))
 } else {
 	echo "this page needs parameter";
 }
+
+
 ?>
 	<div class='E4M_maindiv'>
 		<a href = "<?=$cfg['event_list_page']?>"><button> ⬆ <?=$str['Goto_all_events']?> ⬆ </button> </a>
@@ -128,7 +135,7 @@ if(isset($_GET['id']))
 
 		<br/>	<br/>
 		<div class="E4M_bigbutton">
-			<button id="RegisterButton" ><?=$str['Register']?></button>
+			<button id="RegisterButton" ><?=$registerBTN_label?></button>
 		</div>
 		<br/>	<br/>	
 		<table id="reglist" class="E4M_regtable"></table>

@@ -184,7 +184,7 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 		$mailmessage .= "<p> $conf_message </p>";
 		if ($wait) {
 			$mailmessage .= "<p>" . $str["Full"] . "</p>";
-			$mailmessage .= "<p>" . $str["Waiting_list"] . "</p>";
+			$mailmessage .= "<p>" . $str["Waitlist"] . "</p>";
 		}
 		$mailmessage .="<a href='$link'>$link</a>";
 		$mail_Data = $mailmessage;

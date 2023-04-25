@@ -30,7 +30,7 @@ function eventInfos2html (infoset)
 		html_string += "<p><span class='E4M_css_key'> " + str['Max_reg'] + " </span> " + infoset.nbmax + " </p>";
 		if (NbRegTot >= infoset.nbmax){
 			html_string += "</p>"+ str['Full'] +"<p>";
-			html_string += "</p>"+ str['Waiting_list'] +"<p>";
+			html_string += "</p>"+ str['Waitlist'] +"<p>";
 		}
 	}
 
