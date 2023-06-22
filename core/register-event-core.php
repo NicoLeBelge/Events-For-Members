@@ -106,7 +106,9 @@ if(isset($_GET['id']))
 			<button id="DeleteEventButton" ><?=$str['Delete']?></button>
 			<button id="CloneEventButton" ><?=$str['Clone']?></button>
 			<button id="ShareEventButton" ><?=$str['Share']?></button>
+			
 			<div class='E4M_sharelink' id="E4M_sharelink"></div>
+			<span class="E4M_formicon" ><img id="E4M_shareicon" src="./_img/copy-icon.svg" alt="copy icon" height="18"></span>
 		<?php endif; ?>
 		
 		<div id="E4M_eventinfo"></div>
@@ -239,6 +241,7 @@ if(isset($_GET['id']))
 	const CloneEventBnt = document.getElementById('CloneEventButton');
 	const ShareEventBnt = document.getElementById('ShareEventButton'); // keep that ??
 	const sharetext = document.getElementById('E4M_sharelink');
+	const ShareIcon = document.getElementById('E4M_shareicon');
 	const RegisterBtn = document.getElementById('RegisterButton');
 
 	RegisterBtn.addEventListener("click", GoToRegisterPage);
@@ -255,21 +258,35 @@ if(isset($_GET['id']))
 		EditEvtBnt.destination = CurrentEventId;
 	
 		CloneEventBnt.destination="<?=$cfg['event_page']?>";
-		//console.log("hello")
-		//console.log(CloneEventBnt.destination)
 		CloneEventBnt.addEventListener("click", CloneCurrentEvent);
 
 		sharetext.style.visibility = "collapse";	
+		ShareIcon.style.visibility = "collapse";	
 		let destination = "<?=$cfg['short_url']?>" + CurrentEventId.toString(10);
 		sharetext.innerHTML = destination;
 		
 		ShareEventBnt.addEventListener("click", function(){
 			sharetext.style.visibility = "visible";
+			ShareIcon.style.visibility = "visible";	
+			
+			// const copyText = sharetext.innerHTML;
+			// copyText.select();
+  			// copyText.setSelectionRange(0, 99999); // For mobile devices
+			navigator.clipboard.writeText(sharetext.innerHTML);
+			console.log (sharetext.innerHTML);
 			let message = "<?=$str['Share_hint']?>";
 			alert(message);
 		});
+		ShareIcon.addEventListener("click", function(){
+			
+			ShareIcon.style.visibility = "visible";	
+			ShareIcon.src = "./_img/copied-icon.svg";	
+			navigator.clipboard.writeText(sharetext.innerHTML);
+			
+			
+		});
 	}
-
+	
 	eventinfoset =event_data_set['infos'][0]; 
 
 	// as long as datetime will be stored with space in database, replacement by T is required for iOS

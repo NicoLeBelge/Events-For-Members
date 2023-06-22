@@ -97,7 +97,6 @@
 	display :inline-block;
 	color:gray;
 	border: 0.5px solid black;
-	
 }
 .E4M_dategrid{
 	display: grid;
@@ -105,4 +104,13 @@
 }
 .E4M_bigbutton button {
 	color: black;
+}
+
+.E4M_formicon{
+	position: relative;
+	top: 5px;
+	opacity: 50%;
+}
+.E4M_formicon:hover{
+	opacity: 100%;
 }
