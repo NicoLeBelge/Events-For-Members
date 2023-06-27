@@ -394,6 +394,14 @@ if(isset($_GET['id']))
 		item.displayedRating = parseFloat(item["rating"+ CurrentRating])
 		if(item.wait == "1" || item.confirmed == "0" ) StatusLegendNeeded ||= true; 
 	});
+	// for check-in, alphabetical sort is more convenient (OK for main subvent, but does not work for others)
+	if (is_check_in) {
+		console.log ("tri alpha");
+		filteredList.sort( (a,b) => a.fullname.toString().localeCompare(b.fullname.toString())) ;
+	} else {
+		console.log ("pas de tri");
+	}
+
 	document.getElementById("E4M_legend_status").innerHTML =  StatusLegendNeeded ? str["status_legend"] : "";
 	
 	/* let's display the list of registered member for current subevent */

@@ -1,108 +1,65 @@
 <?php
 /**
- * problème en cours (apparemment)
- * si le subevent n'est pas identifié, ça chie.
+ * API qui reçoit le JSON envoyé par Helloasso. 
+ * Les data à traiter sont dans un JSON envoyé dans le body du POST (1).
+ * On vérifie qu'on a bien le numéro du tournoi (t) en paramètre GET (2). Si oui, on suppose que ça correspond bien au tournoi de l'organisateur.
+ * On crée un tableau p_arr (3) contentant chaque joueur présent dans le JSON, ainsi que le subevent destinataire ("" si non défini)
+ * On récupère (4) dans $subevent_arr la liste des subevents pour l'event passé en paramètre.
+ * Pour chaque joueur de p_arr (5)
+ * - on construit un message qui sera envoyé dans le mail.
+ * - on cherche (6) dans la base PUCE le joueur qui correspond au numéro de licence
+ * - Si le joueur n'est pas trouvé
+ *  	alors info dans message {{{ à compléter par lien permettant d'ajouter le joueur }}}
+ * 		sinon on évalue le degré de match (7) entre le nom saisi et le nom dans la base puis
+ * 		on valide l'insertion dans le tournoi si ça match à plus de 0.5 (picto OK ou warning), on rejete sinon.
+ * 		Si validé, on cherche (8) l'id du subevent où le joueur est à inscrire puis
+ * 		si le subevent n'est pas trouvé (9a)
+ *			alors on indique un message d'erreur
+ *			sinon vérifie (9b) qu'il n'y est pas déjà inscrit. 
+ * 			Si c'est bien le cas, on l'ajoute (10)
+ * 
  */
-include ('hello-tools.php');
-$Message = "";
-// $Message .=  file_get_contents('php://input');
-// echo "<pre>";
-// var_dump(json_decode($Message));
-// echo "</pre>";
 
+
+ include ('hello-tools.php');
+$debugmode = true;
+$Message = "";
 $BR = "<br />";
 $one = 1;
-$event_OK = true;
+$is_event_GET = true; 
+$event_OK = true; // event GET parameter correspond à un event avec un nom (mandatory)
 
-if (is_null($_GET['t'])) 
+if (is_null($_GET['t'])) //  (2)
 {
 	$Message .= 'Error : URL called without event id as a parameter'. $BR;
-	$event_OK = false;
+	$is_event_GET = false;
 } else {
 	$event_id_str = $_GET['t'];
 }
 
-if ($event_OK) {
-	$items_arr = json_decode(file_get_contents('php://input'))->data->items;
-
-	$p_arr = array();
-	//$player = array();
-	/* chaque item représente un inscrit, on va chercher le nom (objet "user") et les données (array customFields)) */
-
-
-	foreach ($items_arr as $item) 
-	{
-		/**
-		 * Attention, on dirait qu'il y a une inversion entre firstName et lastName dans le json qui vient de Helloasso
-		 */
-		$player = array(); // on réinitialise un nouveau player
-		$player += ["firstName"=>$item->user->firstName];
-		$player += ["lastName"=>$item->user->lastName];
-		$player += ["licence"=>""];
-		$player += ["subevent"=>""];
-
-		$custfielsobj = $item->customFields;
-		/* on balaye tous les objets de l'array customFields pour récupérer le numéro de licence, et éventuellement le tournoi*/
-		foreach ($custfielsobj as $customField) 
-		{
-			if (stripos($customField->name, 'licence') <>0 ) $player["licence"] = $customField->answer;
-			if (stripos($customField->name, 'tournoi') <>0 ) $player["subevent"] = $customField->answer;
-		}
-		array_push($p_arr, $player);
-	}
-
-	// echo "<pre>" ; var_dump($p_arr); echo "</pre>" ;
-
-	/* Attention BUG Helloasso -> on inverse nom et prénom pour gérer */
-	// $p1 = array("firstName" => "LAMBLAIN", "lastName" => "Nicolas", "licence" => "G04507", "subevent" => "Tournoi A"); // à restaurer si inversion Helloasso corrigée
-	/* Pour Vitré
-	$p1 = array("firstName" => "Nicolas", "lastName" => "LAMBLAIN", "licence" => "G04507", "subevent" => "Open A"); // à restaurer si inversion Helloasso corrigée
-	array_push($p_arr, $p1);
-	$p2 = array("firstName" => "Clément", "lastName" => "LAMBLAIN", "licence" => "K51245", "subevent" => "Open B");
-	array_push($p_arr, $p2);
-	$event_id_str = '43';
-	*/
-	/* Pour Tauxigny */
-	// $p1 = array("firstName" => "Nicolas", "lastName" => "LAMBLAIN", "licence" => "G04508", "subevent" => "Master - Mixte"); // à restaurer si inversion Helloasso corrigée
-	// array_push($p_arr, $p1);
-	// $p2 = array("firstName" => "Clément", "lastName" => "LAMBLAIN", "licence" => "K51245", "subevent" => "Tournoi B");
-	// array_push($p_arr, $p2);
-	// $event_id_str = '3';
-
-	/* Pour St Av (un seul subevent) */
-	// $p1 = array("firstName" => "Nicolas", "lastName" => "LAMBLAIN", "licence" => "G04507", "subevent" => ""); // à restaurer si inversion Helloasso corrigée
-	// array_push($p_arr, $p1);
-	// $p2 = array("firstName" => "Clément", "lastName" => "LAMBLAIN", "licence" => "K51245", "subevent" => "");
-	// array_push($p_arr, $p2);
-	// $event_id_str = '20';
-	
+if ($is_event_GET) 
+{
 	include('../../_local-connect/connect.php'); // PDO connection required
-
+	/* construisons l'array p_arr à partir du json */
+	$items_arr = json_decode(file_get_contents('php://input'))->data->items;  // (1)
+	//var_dump($items_arr);
+	$p_arr = item_array_to_player_array($items_arr);
 	/* récupérons les données de l'event à traiter */
-
-	
-	$reponse = $conn->query("SELECT name, contact FROM events WHERE id=$event_id_str LIMIT 1;");
-
-	// $event_name = $reponse->fetch(PDO::FETCH_ASSOC)['name']; // ça va vite, mais ça permet pas de récupérer le @
-	$event_data = $reponse->fetch(PDO::FETCH_ASSOC);
+	$stmt = $conn->prepare("SELECT name, contact FROM events WHERE id=:event_id_str LIMIT 1;");
+	$stmt->bindParam(':event_id_str', $event_id_str);
+	$stmt->execute();
+	$event_data = $stmt->fetch(PDO::FETCH_ASSOC);
 	$event_name = $event_data['name']; 
 	$event_contact = $event_data['contact']; 
-	
-	// var_dump($event_name, $event_contact); echo "<BR />";
-
 	if (is_null ($event_name)){
 		$Message .= "Festival non trouvé (event=" . $event_id_str . ") -> abandon <br />";
 		$event_OK = false;
 	} else {
 		/* récupérons les données des subevents */
-		$reponse = $conn->query("SELECT id, event_id, name FROM subevents WHERE event_id=$event_id_str;");
-		$subevent_arr = $reponse->fetchAll(PDO::FETCH_ASSOC);
-		// echo "récupération des données des subevents (loc1)" . $BR;
-		// if ()is_null ()
-		// foreach ($subevent_arr as $sub) { // debug
-		// 	echo  . $BR;
-		// }
-
+		$stmt = $conn->prepare("SELECT id, event_id, name FROM subevents WHERE event_id=:event_id_str;");
+		$stmt->bindParam(':event_id_str', $event_id_str);
+		$stmt->execute();
+		$subevent_arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		$NbSubs = sizeof($subevent_arr);
 		if ($NbSubs == 0) 
 		{
@@ -114,119 +71,114 @@ if ($event_OK) {
 	if ($event_OK)
 	{
 		/* let's loop on each player from Helloasso*/
-		foreach($p_arr as $p)
+		
+		$mail_obj = "";
+		if ($debugmode) echo "\n** event OK, on va maintenant boucler sur chaque joueur  ******\n";
+		foreach($p_arr as $p) // (5)
 		{
 			$Message .= "<hr>";
 			$ValidPlayer = true;
 			$AddPlayer = true;
-
-			$Message .= "HelloAsso demande d'ajouter " . $p["firstName"] . " " . $p["lastName"];
-			$Message .= " (" . $p["licence"] . ") dans <b>" . $event_name ;
+			$mail_obj .= $p["firstName"] . " " . $p["lastName"];
+			$Message .= "$event_name : " . $p["firstName"] . " " . $p["lastName"];
+			$Message .= " (" . $p["licence"] . ") à ajouter " ;
 			if ($p["subevent"] != "") 
 			{
-				$Message .= " / " . $p["subevent"] . "</b>" . $BR;
+				$Message .= " dans " . $p["subevent"] .  $BR;
 			} else {
-				$Message .= "</b>" . $BR;
+				$Message .=  $BR;
 			}
 			
 			/* let's check if licence exists and name matches */
+			/* parameters come from the database, no need to use prepared statement for security */
+			/* but we never know, licence might be corrupted ! */
 			$qtxt = "SELECT id, fede_id, firstname, lastname from members where fede_id='" . $p["licence"] . "';";
+
 			// echo $qtxt; echo "<br />";
 			$reponse = $conn->query($qtxt);
-			//$player = array();
 			$ffe_player = $reponse->fetch(PDO::FETCH_ASSOC);
-			//var_dump($ffe_player);
-
 			
-			if (is_null($ffe_player))  // debug avant c'était sizeof
+			// if ($debugmode) var_dump($ffe_player); // false si joueur pas trouvé dans la base
+			$matching_sign = ""; // deviendra ✅ | ❌ | ⚠️
+			
+			if (!$ffe_player)  // ffe_player false si rien trouvé
+			
 			{
+				/* licence pas trouvée dans la base PUCE */
 				$ValidPlayer = false;
-				$Message .= "Numéro de licence " . $p["licence"] . " non trouvé. Si le numéro de licence est valide, attendre une mise à jour de la base PUCE.";
+				$AddPlayer = false;
+				$matching_sign = "❌"; 
+				$add_url = "https://www.chessmooc.org/web/PUCE-ins/edit-create-member.php?";
+				$add_url .= "ffe=" . $p["licence"];
+				$add_url .= "&first=" . $p["firstName"];
+				$add_url .= "&last=" . $p["lastName"];
+				$add_url = urlencode($add_url);
+				$Message .= "Numéro de licence " . $p["licence"] . " non trouvé". $BR;
+				$Message .= "Vous pouvez ajouter le joueur dans la base PUCE". $BR;
+				$Message .= "① Vérifiez sur le <a href='http://www.echecs.asso.fr/ListeJoueurs.aspx?Action=FFE'>site FFE</a> que le numéro de licence saisi est correct". $BR;
+				$Message .= "② Connectez-vous sur le <a href='https://chessmooc.org/web/user/login.php'>site PUCE</a>". $BR;
+				$Message .= "③ Cliquez sur <a href='$add_url'>ce lien </a> pour accéder au formulaire d'ajout". $BR;
+				/* TBD : préparer le message d'ajout  */
 			} else {
 				/* ------------- Numéro de licence existe, on vérifie que les noms correspondent ------------------ */
-				$ffe_p = $ffe_player;
-				$player_id = $ffe_p['id'];
-				if ($p["firstName"] == $ffe_p['firstname'] && $p["lastName"] == $ffe_p['lastname'])
-				{
-					$Message .= "Nom et Prénom concordent parfaitement avec le numéro de licence " . $BR;
-				} else {
-					/* matching problem, let's compare without case, without and accents, and with (firstname/lastname) inversion */
-					
-					$FIRSTLAST = unaccent_up($p["firstName"]) . unaccent_up($p["lastName"]);
-					$LASTFIRST = unaccent_up($p["lastName"]) . unaccent_up($p["firstName"]);
-					$FFE_FIRSTLAST = unaccent_up($ffe_p['firstname']) . unaccent_up($ffe_p['lastname']);
-					if ($FIRSTLAST == $FFE_FIRSTLAST || $LASTFIRST == $FFE_FIRSTLAST )
-					{
-						$Message .= "Nom et Prénom concordent approximativement avec le numéro de licence " . $p["licence"] . $BR;
-					} else {
-						$ValidPlayer = false;
-						$Message .= "Nom et Prénom ne concordent pas avec le numéro de licence " . $p["licence"] . $BR;
-						$Message .= "Formulaire Helloasso = " . $p["firstName"] . " " .  $p["lastName"]. $BR;
-						$Message .= "Base FFE = " . $ffe_p['firstname'] . " " . $ffe_p['lastname'] . $BR;
-					}
+				// ici comparaison à mettre en fonction qui retourne un score levenshtein
+				// echo "from helloasso.php : " . $p["firstName"] ."|". $p["lastName"]."|".  $ffe_player['firstname']."|".   $ffe_player['lastname'] ."\n";
+				//$ffe_p = $ffe_player;
+				$score_match = person_match( $p["firstName"], $p["lastName"], $ffe_player['firstname'],  $ffe_player['lastname'] );
+				
+				$player_id = $ffe_player['id'];
+				if ($debugmode) {
+					$debugstring = $p["firstName"] . " " . $p["lastName"] . " vs " . $ffe_player['firstname'] . " " . $ffe_player['lastname'];
+					$debugstring .= " --> scorematch = $score_match" ."\n";
+					echo $debugstring;
 				}
+				
+				$matching_sign = match_rate_to_match_sign($score_match);
+				if ($debugmode) echo $matching_sign;
+				$ValidPlayer = ($score_match >= 0.5 ); // Attention, doit être en cohérence avec la limite basse de la fonction
 				/* ------------- si pas de problème trouvé sur le nom, on vérifie que le joueur n'est pas déjà inscrit ------------------ */
 				if ($ValidPlayer)
 				{
-					
 					/* détermination de l'id du subevent */
 					$target_sub = 0;
 					if ($NbSubs == 1) 
 					{
 						/* on prend l'unique subevent comme cible*/
-						// echo "un seul subevent dans PUCE : " . $subevent_arr[0]['name'] . "(id=" . $subevent_arr[0]['id'] . ")" .$BR ;
+						if ($debugmode) echo "un seul subevent dans PUCE : " . $subevent_arr[0]['name'] . "(id=" . $subevent_arr[0]['id'] . ")" .$BR ; // debug
 						$target_sub = $subevent_arr[0]['id'];
-						// echo "target sub of unique sub = " . $target_sub . $BR;
+						if ($debugmode) echo "target sub of unique sub = " . $target_sub . $BR;
 					} 
 					if ($NbSubs !=0)
 					{
-						/* on cherche le subevent cible*/
-						
+						/* on cherche le subevent cible (8)*/
+						if ($debugmode) echo "au moins deux subevents dans PUCE : " .$BR ; // debug
 						// echo "au moins deux subevents dans PUCE dont le premier : id= " . $subevent_arr[0]['id'] . $BR ;
 						foreach ($subevent_arr as $sub) 
 						{
-							
-							// if (is_null($sub['name'])) {
-							// 	echo "sub sans nom" . $BR;
-							// } else {
-							//  var_dump ($sub['name']); echo $BR ;
-							// }
-							
-							// echo "comparing " . $sub['name'] . " and ".  $p['subevent'] . $BR;
 							if (unaccent_up($sub['name']) == unaccent_up($p['subevent'])) 
 							{
-								
 								$target_sub = $sub['id'];
 								$Message .= "tournoi correctement identifé" . $BR;
 							}
 						}
-						
+						if ($debugmode) echo "target_sub = $target_sub \n";
 						if ($target_sub == 0) 
 						{
-							$Message .= "Impossible d'identifier le tournoi <b>" . $p["subevent"] . "</b> dans PUCE-inscription" . $BR;
+							/* tournoi non identfié */
+							$tournoi_non_trouvé = $p["subevent"];
+							$Message .= "Impossible d'identifier le tournoi <b>" . $tournoi_non_trouvé . "</b> dans PUCE-inscription" . $BR;
 							$AddPlayer = false;
-							echo "target_sub = 0 c'est pas normal";
 						} else {
-							//echo "considering target_sub = " . $target_sub . $BR;
-							/* tournoi trouvé, on regarde si le joueur n'y est pas déjà inscrit */
-							//echo "on va regarder si l'id " . $player_id . " est déjà inscrit<br />";
-							//echo $sub['name'] . " match " . $p['subevent'] . " (" . $target_sub . ")" . $BR ;
-							$qtxt= "";
-							$qtxt .= "SELECT id FROM registrations ";
-							$qtxt .= "WHERE member_id=" . $player_id ;
-							$qtxt .= " AND subevent_id=" . $target_sub . ";";
-							//echo $qtxt . $BR;						
+							/* regardons si le joueur est déjà inscrit dans le tournoi identifié (9b) */
+							$qtxt = "SELECT id FROM registrations WHERE member_id=" . $player_id . " AND subevent_id=" . $target_sub . ";";
+							
 							$reponse = $conn->query($qtxt);
 							$existing_reg = $reponse->fetch(PDO::FETCH_ASSOC);
-							//var_dump($existing_reg) ; echo $BR ; // euh, t'est sûr que c'est sain ??? ça peut me donner false résultat requête vide !!
 							// var_dump($existing_reg);
-							
-							// $Nbreg = count($existing_reg);
-							// echo "Nbreg = $Nbreg" . $BR;
 							if (!$existing_reg)
 							{ 
 								/* registration not found in this subevent for this player */
-								$Message .= "Ce joueur n'était pas déjà inscrit dans ce tournoi, tout va bien" . $BR;
+								$Message .= "Ce joueur a correctement été inscrit dans le tournoi" . $BR;
 
 							} else {
 								$AddPlayer = false;
@@ -237,51 +189,53 @@ if ($event_OK) {
 					}
 				} else {
 					$AddPlayer = false;
+					$Message .= "Nom / Prénom ne correspondent pas au numéro de licence" .$BR;
+					if ($debugmode) echo "score_match plus petit que 0.5 !!"; // à enlever après debug
 				}
 			}
-			//$AddPlayer = false;
-
+			// echo "should we add player : "; var_dump($AddPlayer); echo "\n";
 			if ($AddPlayer) 
 			{
-				//echo "ajoute dans la base " . $BR;
+				/* ajoutons le joueur dans le tournoi (10) */
 				$add_req=$conn->prepare("INSERT INTO registrations (member_id, subevent_id, confirmed)
-										VALUES (:n_member_id, :n_sub_id ,:n_confirmed);
-										");
+										VALUES (:n_member_id, :n_sub_id ,:n_confirmed);"
+										);
 				$add_req->BindParam(':n_member_id', $player_id);
 				$add_req->BindParam(':n_sub_id', $target_sub);
 				$add_req->BindParam(':n_confirmed', $one);
 				if ($add_req->execute()){
 					$Message .= "L'inscription a bien été prise en compte" .$BR;
-				
 				} else {
 					$Message .= "La tentative d'inscription a échoué. Contactez l'administrateur" .$BR;
 				}
 			} else {
 				$Message .= "La demande d'inscription est ignorée" .$BR;
+				$matching_sign = "❌";
 			}
-			
+			//if ($debugmode) echo "\n- $matching_sign  -----------------------------\n";
+			$mail_obj .= $matching_sign . " ";
 		}
-		
 	}
+	echo $mail_obj . "\n". $Message; // à enlever après debug
+	$Message .= $BR . $BR . $BR . $BR . $BR;
+
+	$Message .=  "POST data <br /><hr>" . file_get_contents('php://input');
+
+
+	$mailto= "lamblain@gmail.com, $event_contact";
+
+	$from  = "PUCE<noreply@chessmooc.org>";  // adresse MAIL OVH liée à ton hébergement.
+	$ReplyTo = "noreply@chessmooc.org";
+	$mail_Data = $Message;
+	$headers  = "MIME-Version: 1.0 \n";
+	$headers .= "Content-type: text/html; charset=UTF-8 \n";
+	$headers .= "From: $from  \n";
+	$headers .= "Reply-To: $ReplyTo  \n";
+	$CR_Mail = TRUE;
+	$CR_Mail = @mail ($mailto, $mail_obj, $mail_Data, $headers);
+
 }
 
-$Message .= $BR . $BR . $BR . $BR . $BR;
-echo $Message; // à enlever après debug
-$Message .=  "POST data <br /><hr>" . file_get_contents('php://input');
-
-// $mailto= "echecsclubcorbas@free.fr, nicolas@lamblain.fr";
-$mailto= "lamblain@gmail.com, $event_contact";
-// echo $mailto . $BR;
-$from  = "chessMOOC<noreply@chessmooc.org>";  // adresse MAIL OVH liée à ton hébergement.
-$mailobject = "notification from HelloAsso"; 
-$ReplyTo = "noreply@chessmooc.org";
-$mail_Data = $Message;
-$headers  = "MIME-Version: 1.0 \n";
-$headers .= "Content-type: text/html; charset=UTF-8 \n";
-$headers .= "From: $from  \n";
-$headers .= "Reply-To: $ReplyTo  \n";
-$CR_Mail = TRUE;
-$CR_Mail = @mail ($mailto, $mailobject, $mail_Data, $headers);
 /**
  * Attention, pour l'instant, ça inscrit quand c'est déjà inscrit.
  * apparaît visitblement si le nom du subevent est null.
