@@ -99,20 +99,21 @@ add paylink_label
 (Adding form to create member) paused in branch paylink
 adding field to allow paylink url for "Register button"
 removing all specific css / string customizations
-┌─────────────┐
-| in progress |
-└─────────────┘
 done : in check-in mode, registration rows are clickabe when not present
 done : modify registration list to display check-in status and allow link to check-in page.
 done : API check-in now has parametric response
 done : add input code in event-edit page
-to be done : check-in code restored in edit event
-test check-in with multiple subs in one event
-helloasso : test when subevent is not identified (we suspect it causes a bug)
+┌─────────────┐
+| in progress |
+└─────────────┘
+Modification of edit_subevent.php so that the event is displayed after changes are saved
+
+
 ┌───────┐
 | To do |
 └───────┘
-Update Helloasso API with file modified and stored separately
+edit event : handle preset value when long/lat not set.
+to be done : check-in code restored in edit event
 In opensource version, delete players shows "undefined" message
 make sure that event cloning does not clone check-in-code
 add oops button in check-in page
