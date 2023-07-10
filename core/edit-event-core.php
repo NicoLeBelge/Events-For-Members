@@ -16,6 +16,7 @@
 	$now = new DateTime();
 	$datelim_past = !($datelimit > $now);
 
+
 ?>
 
 <form action="./core/editEvent-Action-core.php" method="post">
@@ -49,6 +50,7 @@
 	<label for="pos_lat"><?=$str["geoloc_lat_long"]?></label>
 	<input type="number" step="any" name="pos_lat" value=<?=$array_old['pos_lat'] ?> min="-90" max="90"/>
 	<input type="number" step="any" name="pos_long" value=<?=$array_old['pos_long'] ?> min="-180" max="180" />
+	
 	<br><br>
 	<label for="paylink"><?=$str["paylink_label"]?></label>   
 	<input type="text" id="paylink" value= "<?=$array_old['paylink'] ?>" name="paylink"/>

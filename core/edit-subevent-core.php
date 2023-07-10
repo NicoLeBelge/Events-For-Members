@@ -1,4 +1,5 @@
 <?php
+	
 	$pathbdd = './../_local-connect/connect.php';
 	$pathfunction = './core/editEvent-functions-core.php';
 	include($pathbdd);
@@ -11,17 +12,25 @@
 	 */
 	$message="";
 	$subeventId = $_GET['id'];
-	$requete="SELECT owner 
-			FROM events
-			INNER JOIN subevents
-			ON subevents.event_id = events.id	
-			WHERE subevents.id=$subeventId";
-	$res= $conn->query(htmlspecialchars($requete));
-	$display_form = false;
+	// for the redirection at the end of this page, we need to get the event_id 
+
+	$requete="SELECT events.owner as ow, subevents.event_id as e_id 
+		FROM events
+		INNER JOIN subevents
+		ON subevents.event_id = events.id	
+		WHERE subevents.id=:sub_id";
+	$res= $conn->prepare($requete);
+	$res->bindParam(':sub_id', $subeventId);// can also be done witout explicit bind like below
+	$res->execute();
+	
 	if ($res->rowCount() == 0) { // subevent not found
 		$message="event_id $subeventId not found";
 	} else {
-		$owner = $res->fetch();
+		
+		$res_array = $res->fetch(PDO::FETCH_ASSOC);
+		$owner = $res_array["ow"];
+		$event_id = $res_array["e_id"];
+		
 		if (! isset($_SESSION['user_id'])) {
 			$message="you must be connected to access this page";
 		} else { // visitor is connected
@@ -37,12 +46,13 @@
 			}
 		}
 	}
-	if ($message <>"") {
+	if ($message <>"") 
+	{
 		echo "<h1>".$message."</h1>";
 	}
 
-	if ($display_form) {
-		// warning - redundant with register-event-core - putting that in a function should be better
+	if ($display_form) 
+	{
 		$cfg = json_decode(file_get_contents('./_json/config.json'),true);	
 		$subevent_link_icon_str = json_encode($cfg['subevent_link_icon']);
 		$registration_search_page = json_encode($cfg['registration_search_page']); 
@@ -50,14 +60,11 @@
 		$gender_names_str = json_encode($cfg['gender_names']);
 		$rating_names_str = json_encode($cfg['rating_names']);
 		$type_names_str = json_encode($cfg['type_names']);
-
 		$str = json_decode(file_get_contents('./_json/strings.json'),true);	
-		
-		$requete="SELECT * FROM subevents WHERE id=$subeventId;";
-		$res= $conn->query(htmlspecialchars($requete));
+		$res= $conn->prepare("SELECT * FROM subevents WHERE id=?;");
+		$res->execute([$subeventId]);
 		$array_old = $res->fetch();
 		$array_old_jsonstr = json_encode($array_old);
-
 	}
 	
 ?>
@@ -198,17 +205,18 @@
 		formData.append("cat_list", cat_set.Status());
 		formData.append("gen_list", gen_set.Status());
 		formData.append("typ_list", typ_set.Status());
-		//const entries = formData.entries();
-		//const data = Object.fromEntries(entries);
 		request.open("POST", "./API/set-subevent-info.php");
 		request.responseType = 'text';
 		request.send(formData);
 	});
 	request.onreadystatechange  = function() {
 		if (this.readyState == 4 && this.status == 200) {
-			
-			alert (`<?=$str["Modications_saved"]?>`); 
+			let destination = `<?=$cfg["event_page"]?>` + `?id=` +`<?=$event_id?>`;
+			console.log(destination),
+			document.location = destination;
 		}
 	}
 </script> 
 <?php endif; ?>
+
+

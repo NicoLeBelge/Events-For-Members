@@ -14,6 +14,7 @@
 			|| !empty($_POST['name']) || !empty($_POST['contact'])
 		)
 		{
+			echo "en cours de traitement";
 			/* let's prepare and execute the update request */
 			$name = str_replace('"', "'", $_POST['name']);
 			$datestart = $_POST['datestart'];
@@ -52,6 +53,6 @@
 
 <?php
 	sleep(1);
-	header('Location: ..');
+	header('Location: ..'); // redirection to upper folder
 	exit();
 ?>
