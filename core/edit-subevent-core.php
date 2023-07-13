@@ -34,7 +34,8 @@
 		if (! isset($_SESSION['user_id'])) {
 			$message="you must be connected to access this page";
 		} else { // visitor is connected
-			if ($owner[0] <> $_SESSION['user_id']) {
+			if ($owner <> $_SESSION['user_id']) {
+				//note that previous $owner[0] works in localhost, but not on production !
 				$message="Only owner of this subevent can edit it";
 			} else { // visitor is the owner
 				$current_IP = getIp();
