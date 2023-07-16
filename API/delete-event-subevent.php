@@ -21,21 +21,23 @@ $response="";
 
 $do_delete = false;
 if ((isset($_POST['event_id']) || isset($_POST['subevent_id']) )  && isset($_SESSION['user_id'])) { 
-	/* we have data to check if deleteion request is made by the owner */
+	/* we have data to check if deletion request is made by the owner */
 	$pathbdd = '../../_local-connect/connect.php';
 	include($pathbdd);
 	if (isset($_POST['event_id'])){
 		$eventId = $_POST['event_id'];
-		$requete="SELECT owner FROM events WHERE id=$eventId;";
+		$requete="SELECT owner FROM events WHERE id=?;";
 	} else {
 		$subeventId = $_POST['subevent_id'];
 		$requete="SELECT owner FROM events 
 					INNER JOIN subevents
 					ON subevents.event_id = events.id		
-					WHERE subevents.id=$subeventId;";
+					WHERE subevents.id=?;";
 	}
 	
-	$res= $conn->query(htmlspecialchars($requete));
+	$res= $conn->prepare($requete);
+	if (isset($_POST['event_id'])) $res->execute ([$eventId]); else $res->execute ([$subeventId]);
+
 	if ($res->rowCount() == 0) { // event not found
 		$response="event or subevent not found";
 	} else {

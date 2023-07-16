@@ -103,10 +103,11 @@ done : in check-in mode, registration rows are clickabe when not present
 done : modify registration list to display check-in status and allow link to check-in page.
 done : API check-in now has parametric response
 done : add input code in event-edit page
+Modification of edit_subevent.php so that the event is displayed after changes are saved
 ┌─────────────┐
 | in progress |
 └─────────────┘
-Modification of edit_subevent.php so that the event is displayed after changes are saved
+change statements to prepare statements (clone-event, delete-event-subevent, get-memberlist-by-namestart)
 
 
 ┌───────┐
@@ -120,10 +121,7 @@ add oops button in check-in page
 fix bug events max 4 (max 2 + max 2) register 3+2, wrong message exiting the waiting list.
 register-event-core.php --> $event_set["infos"] = $reponse->fetch() instead of fetchAll
 register-event-core.php --> is_owner_php can be calculated more concisely.
-
 register-check-core.php --> $member_email = $_POST['member_email'] causes php error (luckyly only in local mode)
-
-
 ajouter champs 'present' bool dans registrations et check-in-code (varchar 6) dans events
 !!! empêcher l'accès à la page edit-create-event.php si pas membre connecté !!!!!!!! (hereusement, ça crash car user NULL)
 limiter le nombre de subevents à 10
@@ -136,4 +134,4 @@ NumEvent déclaré nulle part et semble désigner un numéro de SUBevent !!
  checker dans ./core/edit-subevent-core.php l'absence de GET (et pas dans edit-subevent-core.php)
  smartTable plante si objet pas de type date (eg NULL)
  Add checker that detects missing string key during update process.
- git rid of page edit-autocreate-subevent.php
+ $nauth = array(1,2,3,4,5,6) not OK with parametric NbRating !!

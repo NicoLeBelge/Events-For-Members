@@ -15,15 +15,9 @@ $do_clone = false;
 if ((isset($_POST['event_id']) && isset($_SESSION['user_id'])))
 { 
 	include('../../_local-connect/connect.php');
-	if (isset($_POST['event_id']))
-	{
-		$eventId = $_POST['event_id'];
-		$requete="SELECT * FROM events WHERE id=$eventId;";
-	} 
-	
-	
-	// ici   {c'est bon, ça affiche les données de la requête}
-	$res= $conn->query(htmlspecialchars($requete));
+	$eventId = $_POST['event_id'];
+	$res= $conn->prepare("SELECT * FROM events WHERE id=?;");
+	$res->execute([$eventId]);
 	if ($res->rowCount() == 0) 
 	{ // event not found
 		$response="event not found";
@@ -55,9 +49,10 @@ if ((isset($_POST['event_id']) && isset($_SESSION['user_id'])))
 
 		/* let's browse all subevents of cloned event */
 		
-		$old_subs_req = $conn->query("SELECT * from subevents WHERE event_id=$eventId;");
+		$old_subs_req = $conn->prepare("SELECT * from subevents WHERE event_id=?;");
+		$old_subs_req->execute([$eventId]);
+
 		$old_subs = $old_subs_req->fetchAll(PDO::FETCH_ASSOC);
-		
 		
 		$req_TXT = "INSERT INTO subevents (event_id, name, nbmax, rating_type, gender, cat, type) ";
 		$req_TXT .= "VALUES (:n_event_id, :n_name, :n_nbmax, :n_rating_type, :n_gender, :n_cat, :n_type);";
@@ -79,7 +74,6 @@ if ((isset($_POST['event_id']) && isset($_SESSION['user_id'])))
 			$sub_gender = $old_sub["gender"];
 			$sub_cat = $old_sub["cat"];
 			$sub_type = $old_sub["type"];
-			
 			$req_new_sub->execute();
 		}
 		$response =  strval($new_event_id);
