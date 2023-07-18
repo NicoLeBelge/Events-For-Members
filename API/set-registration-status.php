@@ -21,31 +21,33 @@ if (isset($_POST['reg_id'])  && isset($_SESSION['user_id'])) {
 }
 if ($do_change){
 	include('../../_local-connect/connect.php');
-	$reponse = $conn->query("SELECT id, wait, confirmed FROM registrations WHERE id = '$regid'");
-	if ($reponse->rowCount() !== 0) { 
-		$regline = $reponse->fetchAll(PDO::FETCH_ASSOC);
-		var_dump($regline); echo"<br/>";
-		var_dump($regline[0]["confirmed"]); echo"<br/>";
+	$stmt = $conn->prepare("SELECT id, wait, confirmed FROM registrations WHERE id = ?");
+	$stmt->execute([$regid]);
+	
+	if ($regline = $stmt->fetch(PDO::FETCH_ASSOC)) 
+	{ 
 		switch ($action){
 			case 'c':
 				/* change status confirmed to 1 */
-				$req=$conn->prepare("UPDATE registrations SET confirmed=1 WHERE id = '$regid'");
-				$req->execute();
+				$req=$conn->prepare("UPDATE registrations SET confirmed=1 WHERE id = ?");
+				$req->execute([$regid]);
 				echo "$regid confirmation effectuée";
 				break;
 			case 'd':
 				/* delete registration */
-				$req=$conn->prepare("DELETE FROM registrations WHERE id = '$regid'");
-				$req->execute();
+				$req=$conn->prepare("DELETE FROM registrations WHERE id = ?");
+				$req->execute([$regid]);
 				echo "suppression effectuée";
 				break;
 			case 'u':
 				/* unwait registration */
-				$req=$conn->prepare("UPDATE registrations SET wait=0 WHERE id = '$regid'");
-				$req->execute();
+				$req=$conn->prepare("UPDATE registrations SET wait=0 WHERE id = ?");
+				$req->execute([$regid]);
 				echo "suppression effectuée";
 				break;
 		}
+	} else {
+		echo "registration not found";
 	}
 }
 

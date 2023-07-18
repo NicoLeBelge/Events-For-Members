@@ -12,8 +12,9 @@ $cfg = json_decode($json,true);
 include('../../_local-connect/connect.php'); // PDO connection required
 if (isset($_GET['sub'])) { 
 	$subevent_id = $_GET['sub'];
-	$qtxt = "SELECT * from subevents where id=$subevent_id";
-	$reponse = $conn->query($qtxt);
+	//$qtxt = "SELECT * from subevents where id=$subevent_id";
+	$reponse = $conn->prepare("SELECT * from subevents where id=$subevent_id");
+	$reponse->execute([$subevent_id]);
 	$subevent_set = $reponse->fetchAll(PDO::FETCH_ASSOC);
 }
 echo json_encode($subevent_set);

@@ -24,13 +24,13 @@ if (isset($_POST['event_id'])  && isset($_SESSION['user_id'])) {
 	include($pathbdd);
 	$eventId = $_POST['event_id'];
 	$subeventId = $_POST['subevent_id'];
-	$requete="SELECT owner FROM events WHERE id=$eventId";
-	$res= $conn->query(htmlspecialchars($requete));
-	if ($res->rowCount() == 0) { // event not found
-		$response="event_id $eventId not found";
-	} else {
-		$owner = $res->fetch();
-		if ($owner[0] <> $_SESSION['user_id']) {
+	$stmt= $conn->prepare("SELECT owner FROM events WHERE id=?");
+	$stmt->execute([$eventId]);
+	
+	if ($result = $stmt->fetch(PDO::FETCH_ASSOC)) 
+	{
+		$owner = $result["owner"];
+		if ($owner <> $_SESSION['user_id']) {
 			$response="Only owner of this subevent can edit it";
 		} else { // visitor is the owner
 			$current_IP = getIp();
@@ -41,14 +41,13 @@ if (isset($_POST['event_id'])  && isset($_SESSION['user_id'])) {
 				$response = "OK";
 			}
 		}
+	} else {
+		$response="event_id $eventId not found";
 	}
 } else {
 	$response =  "wrong call to this API";
 }
 if ($do_change){
-	var_dump($_POST);
-	
-	//$new_name = $_POST["subname"];
 	$new_name = str_replace('"', "'", $_POST['subname']);
 	$new_nbmax = ($_POST["nbmax"] == "") ? NULL : intval($_POST["nbmax"],10);
 	$new_link = ($_POST["sublink"] == "") ? NULL : $_POST["sublink"];
@@ -62,8 +61,7 @@ if ($do_change){
 	$new_type = $_POST["typ_list"];
 
 	$req=$conn->prepare("UPDATE subevents 
-						SET 
-							name = :new_name,
+						SET name = :new_name,
 							nbmax=:new_nbmax,
 							rating_type=:new_rating,
 							rating_restriction=:new_rating_restriction,
@@ -77,19 +75,19 @@ if ($do_change){
 						WHERE id = :target_id
 						LIMIT 1;");  
 	
-		$req->BindParam(':new_name', $new_name);
-		$req->BindParam(':new_link', $new_link);// no need to add PDO::PARAM_NULL, 
-		$req->BindParam(':new_nbmax', $new_nbmax);  
-		$req->BindParam(':target_id', $subeventId);
-		$req->BindParam(':new_rating', $new_rating);
-		$req->BindParam(':new_rating_restriction', $new_restriction);
-		$req->BindParam(':new_comp', $new_comp);
-		$req->BindParam(':new_limit', $new_limit);
-		$req->BindParam(':new_rating_type', $new_rating_type);
-		$req->BindParam(':new_cat', $new_cat);
-		$req->BindParam(':new_gender', $new_gender);
-		$req->BindParam(':new_type', $new_type);
+	$req->BindParam(':new_name', $new_name);
+	$req->BindParam(':new_link', $new_link);// no need to add PDO::PARAM_NULL, 
+	$req->BindParam(':new_nbmax', $new_nbmax);  
+	$req->BindParam(':target_id', $subeventId);
+	$req->BindParam(':new_rating', $new_rating);
+	$req->BindParam(':new_rating_restriction', $new_restriction);
+	$req->BindParam(':new_comp', $new_comp);
+	$req->BindParam(':new_limit', $new_limit);
+	$req->BindParam(':new_rating_type', $new_rating_type);
+	$req->BindParam(':new_cat', $new_cat);
+	$req->BindParam(':new_gender', $new_gender);
+	$req->BindParam(':new_type', $new_type);
 
-        $req->execute();
+	$req->execute();
 	}
 echo $response;

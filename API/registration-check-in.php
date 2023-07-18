@@ -12,34 +12,35 @@ if ((isset($_POST['code']) && isset($_POST['reg_id']))) // if we have POST, we c
 { 
 	include('../../_local-connect/connect.php');
 	$reg_id = $_POST['reg_id'];
-	$requete="	SELECT registrations.member_id, subevents.name, events.name, events.code
+	$sql="	SELECT registrations.member_id, subevents.name, events.name, events.code
 				FROM registrations
 				INNER JOIN subevents
 				ON subevents.id = registrations.subevent_id
 				INNER JOIN events
 				ON events.id = subevents.event_id
-				WHERE registrations.id=$reg_id;";
-	$res= $conn->query(htmlspecialchars($requete));
-	if ($res->rowCount() == 0) 
+				WHERE registrations.id=?;";
+	$stmt = $conn->prepare(htmlspecialchars($sql));
+	$stmt->execute([$reg_id]);
+	//$res= $conn->query(htmlspecialchars($requete)); //before prepare
+
+	if ($stmt->rowCount() == 0) 
 	{ // event not found
 		$response = $str["reg_not_found"];
 	} else {
-		$dataset = $res->fetch();
-		//echo "code dans base = " . $dataset["code"] . "<br>"; //debug
-		//echo "code saisi = " . $_POST['code'] . "<br>";//debug
+		$dataset = $stmt->fetch();
 		if ($dataset["code"] !== strtoupper($_POST['code'])) {
 			$response = $str["wrong_code"];
 			$match = false;
-			//echo "ca matche PAS <br>";//debug
 		} else {
 			$response = "OK";
 			$match = true;
-			//echo "ca matche";//debug
 		}
 		if ($match) 
 		{
-			$requete="UPDATE `registrations` SET `present`=1 where id=$reg_id;";
-			$res= $conn->query(htmlspecialchars($requete));
+			//$requete="UPDATE `registrations` SET `present`=1 where id=$reg_id;";  //before prepare
+			$res= $conn->prepare(htmlspecialchars("UPDATE `registrations` SET `present`=1 where id=?;"));
+			$res->execute([$reg_id]);
+
 		}
 	}
 } else {
