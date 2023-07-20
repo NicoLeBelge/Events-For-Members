@@ -9,7 +9,7 @@ if ($cfg["show_only_future"]) {
 	$yesterday = new DateTime("now");
 }
 else {
-	$yesterday = new DateTime("2000-01-01");
+	$yesterday = new DateTime("2022-01-01");
 }
 $yesterday->sub(new DateInterval('P1D'));
 $yesterdayTXT = $yesterday->format("Y-m-d h:i:s");
@@ -19,16 +19,17 @@ if ( isset($_SESSION['user_id']) ) {
 }
 
 $qtxt="SELECT * FROM events 
-	WHERE datestart >= '$yesterdayTXT' 
-	OR owner = $user_id
+	WHERE datestart >= :yesterday 
+	OR owner = :u_id
 	ORDER BY datestart DESC";
 
-$reponse = $conn->query($qtxt);
-$reponse->closeCursor();	// Hum ... what for ??
+$stmt = $conn->prepare($qtxt);
+$stmt -> bindValue('yesterday', $yesterdayTXT, PDO::PARAM_STR);
+$stmt -> bindValue('u_id', $user_id, PDO::PARAM_STR);
+$stmt -> execute();
 
-
-$reponse = $conn->query($qtxt);
-$event_list = $reponse->fetchAll(PDO::FETCH_ASSOC);
+$event_list = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$stmt->closeCursor();
 $event_list_str = json_encode ($event_list);
 $str = json_decode(file_get_contents('./_json/strings.json'),true);	
 $jsonstr = json_encode($str);

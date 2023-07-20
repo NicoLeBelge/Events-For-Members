@@ -48,7 +48,6 @@ if ((isset($_POST['event_id']) && isset($_SESSION['user_id'])))
 		$new_event_id = $new_event["id"];
 
 		/* let's browse all subevents of cloned event */
-		
 		$old_subs_req = $conn->prepare("SELECT * from subevents WHERE event_id=?;");
 		$old_subs_req->execute([$eventId]);
 

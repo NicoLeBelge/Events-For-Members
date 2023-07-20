@@ -7,7 +7,7 @@ constraints checked : number of registrations for event/subevent + member not re
 */
 
 /* lets get strings from json folder (strings displayed and configuration strings) */
-// debug --> enlever ce qui est inutile
+
 
 include('./include/str-tools.php');
 $json = file_get_contents('./_json/config.json'); 
@@ -45,9 +45,10 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 			FROM subevents
 			INNER JOIN events
 			ON events.id = subevents.event_id
-			WHERE subevents.id=$subevent_id";
-	$result = $conn->query($qtxt);
-	$data = $result->fetchAll(PDO::FETCH_ASSOC);
+			WHERE subevents.id=?";
+	$stmt = $conn->prepare($qtxt);
+	$stmt->execute([$subevent_id]);
+	$data = $stmt->fetchAll(PDO::FETCH_ASSOC); // to be changed by fetch since only one record expected
 	$eventname = $data[0]["eventname"];
 	$subname = $data[0]["subname"];
 	$secured = $data[0]["secured"];
@@ -59,8 +60,9 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 	$html_message ="<h3>" . $eventname ."</h3>";
 	$html_message .="<h4>" . $subname . "</h3>";
 	
-	$result = $conn->query("SELECT firstname, lastname FROM members WHERE id=$member_id");
-	$data = $result->fetchAll(PDO::FETCH_ASSOC);
+	$stmt = $conn->prepare("SELECT firstname, lastname FROM members WHERE id=?");
+	$stmt->execute([$member_id]);
+	$data = $stmt->fetchAll(PDO::FETCH_ASSOC); // to be replaced by fetch since only one record expected
 	$fullname = $data[0]["firstname"] . " " . $data[0]["lastname"];
 	$html_message.= "<h5>" . $fullname ."</h5>";
 	$qtxt = "SELECT registrations.id, 
@@ -70,13 +72,17 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 			ON members.id = registrations.member_id
 			INNER JOIN subevents
 			ON subevents.id = registrations.subevent_id
-			WHERE member_id=$member_id 
-			AND subevent_id=$subevent_id";
-	$result = $conn->query($qtxt);
-	if ($result->rowCount() !== 0) { 
+			WHERE member_id=:bind_member_id 
+			AND subevent_id=:bind_subevent_id";
+	$stmt = $conn->prepare($qtxt);
+	$stmt->bindParam('bind_member_id', $member_id, PDO::PARAM_INT); 
+	$stmt->bindParam('bind_subevent_id', $subevent_id, PDO::PARAM_INT); 
+	$stmt->execute(); 
+	$result = $stmt->fetchAll(PDO::FETCH_ASSOC); // to be replaced by fetch since only one record expected
+	if (count($result) <>0 ) 
+	{ 
 		//member already registered in this subevent
-		$data = $result->fetchAll(PDO::FETCH_ASSOC);
-		$confirmed=($data[0]["confirmed"]=="1");
+		$confirmed=($result[0]["confirmed"]=="1");
 		if ($confirmed) {
 			$html_message.= "<p>" . $str["Already_confirmed_OK"]."</p>";
 		} else {
@@ -85,11 +91,11 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 			$html_message.= "<p>" . $str["Check_spams"]."</p>";
 			$html_message.= "<p>" . $str["Pb_contact_organizer"]."</p>";
 		}
-
 	} else {
 		/* Before registering the member, we check if there is room in the event / subents */
-		$result = $conn->query("SELECT COUNT(id) as tot_sub FROM registrations WHERE subevent_id=$subevent_id");
-		$data = $result->fetchAll(PDO::FETCH_ASSOC);
+		$stmt = $conn->prepare("SELECT COUNT(id) as tot_sub FROM registrations WHERE subevent_id=?");
+		$stmt->execute([$subevent_id]);
+		$data = $stmt->fetchAll(PDO::FETCH_ASSOC);  // to be replaced by fetch since only one record expected
 		$tot_sub=intval($data[0]["tot_sub"],10);
 		
 		$qtxt = "SELECT	count(member_id) as count_members 
@@ -98,10 +104,11 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 				ON subevents.id = registrations.subevent_id	
 				INNER JOIN events
 				ON events.id = subevents.event_id	
-				WHERE events.id=$e_id ";
-		$result = $conn->query($qtxt);
+				WHERE events.id=?";
+		$stmt = $conn->prepare($qtxt);
+		$stmt->execute([$e_id]);
 		
-		$data = $result->fetchAll(PDO::FETCH_ASSOC);
+		$data = $stmt->fetchAll(PDO::FETCH_ASSOC); // to be replaced by fetch since only one record expected
 		$tot_evt=intval($data[0]["count_members"],10);
 		
 		$sub_full = ($s_nbmax > 0 && ($tot_sub >= $s_nbmax));
@@ -143,7 +150,6 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 		$req->BindParam(':new_email', $newemail);
 		$newmember = $member_id;
 		$newsub = $subevent_id;
-		// si je mets $newconfirmed à 0, ça va pas quand y'a pas besoin de e-mail.
 		if($secured){
 			$newcode = RandomString(10);
 			$newconfirmed=0;
