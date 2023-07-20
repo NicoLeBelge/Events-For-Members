@@ -26,20 +26,9 @@ if(isset($_GET['id']))
 { 
 	$event_id = $_GET['id'];
 	$event_set = array();
-	
-	$reponse = $conn->query("SELECT * from events where id=$event_id");
-	
-	
-	$event_set["infos"] = $reponse->fetchAll(PDO::FETCH_ASSOC); // improvement expected fetchAll --> fetch (only one record in reponse)
-	
-	// echo "<pre>";
-	// var_dump($event_set["infos"][0]["code"]);
-	// echo "</pre>";
-	// if (isset($event_set["infos"][0]["code"])) {
-	// 	echo "on a un code <br>";
-	// } else {
-	// 	echo "on n'a pas de code <br>";
-	// }
+	$stmt = $conn->prepare("SELECT * from events where id=?");
+	$stmt->execute([$event_id]);
+	$event_set["infos"] = $stmt->fetchAll(PDO::FETCH_ASSOC); // improvement expected fetchAll --> fetch (only one record in reponse)
 	$is_check_in = (isset($event_set["infos"][0]["code"]));
 	if (!isset($_SESSION["user_id"]))
 	{
@@ -47,12 +36,11 @@ if(isset($_GET['id']))
 	} else {
 		$is_owner = ($_SESSION["user_id"] === $event_set["infos"][0]["owner"]);
 	}
-	
 	$paylink = (!is_null($event_set["infos"][0]["paylink"])) ? $event_set["infos"][0]["paylink"] : "";
-	
 	$_SESSION["secured"]=$event_set["infos"][0]["secured"]; // used on search page to display e-mail input in form
-	$reponse = $conn->query("SELECT * from subevents where event_id=$event_id");
-	$event_set["subs"] = $reponse->fetchAll(PDO::FETCH_ASSOC);
+	$stmt = $conn->prepare("SELECT * from subevents where event_id=?");
+	$stmt->execute([$event_id]);
+	$event_set["subs"] = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	
 	$subs_data_jsonstr = json_encode($event_set["subs"], JSON_UNESCAPED_UNICODE);
 	$_SESSION['subs_data_set']=$subs_data_jsonstr;
@@ -87,12 +75,11 @@ if(isset($_GET['id']))
 	ON events.id = subevents.event_id
 	INNER JOIN clubs
 	ON members.club_id = clubs.club_id
-	WHERE subevents.event_id = $event_id
+	WHERE subevents.event_id = ?
 	ORDER BY datereg ASC";
-	$reponse = $conn->query($qtxt);
-	
-	$event_set["registrations"] = $reponse->fetchAll(PDO::FETCH_ASSOC);
-
+	$stmt = $conn->prepare($qtxt);
+	$stmt->execute([$event_id]);
+	$event_set["registrations"] = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	$event_set_jsonstr = json_encode($event_set);
 } else {
 	echo "this page needs parameter";

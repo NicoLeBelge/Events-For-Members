@@ -38,16 +38,13 @@ if (!isset($_GET['code'])) {
 			ON subevents.id = registrations.subevent_id
 			INNER JOIN events
 			ON events.id = subevents.event_id
-			WHERE registrations.code='$code'";
+			WHERE registrations.code=?";
 	
-	$result = $conn->query($qtxt);
-	if ($result->rowCount() == 0) { 
-		echo "<p>Code de confirmation inconnu </p>";
-		} 
-	else {
-		// code found. Let's get data from the database
-		// and set confirm=1 if not yet confirmed, else print message
-		$data = $result->fetch();
+	$stmt = $conn->prepare($qtxt);
+	$stmt->execute([$code]);
+	if ($data = $stmt->fetch()) 
+	{
+		// code found. Let's set confirm=1 if not yet confirmed, else print message
 		$e_id = $data["e_id"];
 		$destination=$cfg["event_page"] . "?id=" .$e_id;
 		
@@ -80,7 +77,10 @@ if (!isset($_GET['code'])) {
 			$newconfirmed = 1;
 			$req->execute();	
 		}
-	}
+	} else
+	{ 
+		echo "<p>Code de confirmation inconnu </p>";
+	} 
 }
 
 ?>

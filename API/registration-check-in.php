@@ -21,7 +21,6 @@ if ((isset($_POST['code']) && isset($_POST['reg_id']))) // if we have POST, we c
 				WHERE registrations.id=?;";
 	$stmt = $conn->prepare(htmlspecialchars($sql));
 	$stmt->execute([$reg_id]);
-	//$res= $conn->query(htmlspecialchars($requete)); //before prepare
 
 	if ($stmt->rowCount() == 0) 
 	{ // event not found
