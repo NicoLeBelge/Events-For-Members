@@ -106,11 +106,11 @@ done : add input code in event-edit page
 Modification of edit_subevent.php so that the event is displayed after changes are saved
 change statements to prepare statements (clone-event, delete-event-subevent, get-memberlist-by-namestart)
 change statements to prepare statements (registration-check-in, ...)
+change statements to prepare statements (register-check-core, ...)
 ┌─────────────┐
 | in progress |
 └─────────────┘
-change statements to prepare statements (register-check-core, ...)
-damned ! check that member is not already register is broken :-( 
+work on edit-member form - namely when no parameter is provided
 
 
 ┌───────┐
