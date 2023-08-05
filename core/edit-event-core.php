@@ -62,6 +62,6 @@
 	<?php endif; ?>
 	<br>
 
-	<p><input type="submit" value="OK" id="submitButton"></p>
+	<p><input type="submit" value="<?=$str["Save"]?>" id="submitButton"></p>
 	<input id="id" name="id" type="hidden" value=<?php echo $_GET['id'] ?>>
 </form>

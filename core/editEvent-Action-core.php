@@ -4,6 +4,7 @@
 	$pathbdd = '../../_local-connect/connect.php';
 	$pathJson = '../_json/strings.json';
 	$values = json_decode(file_get_contents($pathJson),true);
+	$cfg = json_decode(file_get_contents('../_json/config.json'),true);	
 	include($pathbdd);
 	if(!empty($_POST))
 	{
@@ -52,7 +53,10 @@
 ?>
 
 <?php
-	sleep(1);
-	header('Location: ..'); // redirection to upper folder
+	
+	$destination = "Location: ../" . $cfg["event_page"] . "?id=" . $_POST['id'];
+	echo $destination;
+	sleep(0.5);
+	header($destination); 
 	exit();
 ?>
