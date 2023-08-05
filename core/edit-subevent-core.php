@@ -75,6 +75,7 @@
 <form action="" method="post">
 	
 	<label for="subname"><?=$str["subevent_name_label"]?></label>  
+	<br>
 	<input type="text" id="subname" name="subname" maxlength="80" />
 	<div id="E4M_subevent_cat" class="E4M_catlist"></div>
 	<div id="E4M_subevent_gen" class="E4M_catlist"></div>
@@ -104,7 +105,7 @@
 	</select>
 	<input id="limit" name="limit" type="number">
 
-	<p><input type="submit" value="<?=$str["Save_modications"]?>" id="submitButton"></p>
+	<p><input type="submit" value="<?=$str["Save"]?>" id="submitButton"></p>
 	
 </form>
 <script type="text/javascript" src="./JS/E4M_class.js"></script>

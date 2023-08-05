@@ -88,7 +88,7 @@ function BuildHTMLEventSelector (n)
 	/* 	Builds the set of number one can click on to select subevent */
 	/* 	Should not be called if NbSubEvents =1 */
 	let html_string="";
-	html_string += str['Selector_help'] + n + " " + str['Subevnent_names'] ; 
+	html_string += str['Selector_help'] + n + " " + str['Subevent_names'] ; 
 	html_string += "<div class='E4M_buttonset'>";
 	let sel = document.getElementById('E4M_sub_data');
     /*
