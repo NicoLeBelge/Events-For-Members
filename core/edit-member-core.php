@@ -18,11 +18,11 @@ $NbRating = $cfg["Nb_rating"];
 if (isset($_GET['id']))
 {
 	$id = $_GET['id'];
-	$mode = 'e';
-	$edit_mode = true;
+	$mode = 'u';
+	$update_mode = true;
 } else {
 	$mode = 'c'; // with our without default parameters
-	$edit_mode = false;
+	$update_mode = false;
 	$fede_id = isset($_GET['fede_id']) ? $_GET['fede_id'] : "";
 	$firstname = isset($_GET['firstname']) ? $_GET['firstname'] : "";
 	$lastname = isset($_GET['lastname']) ? $_GET['lastname'] : "";
@@ -82,7 +82,7 @@ $gender=$cfg["gender_names"][0];
 $mtype=$cfg["type_names"][0];
 
 
-if ($edit_mode) 
+if ($update_mode) 
 {
 	/* we get data from selected member and we overwrite default values*/
 	$stmt= $conn->prepare("SELECT *  FROM `members` WHERE id=?;");

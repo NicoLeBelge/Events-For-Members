@@ -32,6 +32,7 @@ foreach ($_POST as $key => $value)
 	}
 }
 if ($_POST['mode'] == 'e')
+echo "euh, y'a pas crash, là ?";
 $rating_update_str="";
 $rating_insert_str_name="";
 $rating_insert_str_value="";
