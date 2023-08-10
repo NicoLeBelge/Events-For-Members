@@ -85,6 +85,7 @@ if ($update_mode)
 			WHERE fede_id=:old_fede_id;
 			";
 	$stmt = $conn->prepare ($sql);
+	$stmt -> BindParam(':old_fede_id', $fede_id); 
 	// echo $sql . "<br/>";	
 	
 	// $stmt->execute(); //let's see if we can execute outside the if
@@ -93,17 +94,19 @@ if ($update_mode)
 	$sql = "INSERT INTO members (fede_id, firstname,lastname, $rating_insert_str_name m_owner, member_type, gender, upd_date, club_id) 
 			VALUES (:new_fede_id, :newfirstname, :newlastname, $rating_insert_str_value :newm_owner, :new_mtype, :new_gender, :new_date, :new_club )
 			";
+	$dummy_club = 0;
 	$stmt = $conn->prepare ($sql);
+	$stmt -> BindParam(':new_club', $dummy_club); 
 	$stmt -> BindParam(':new_fede_id', $fede_id); 
 }
-$dummy_club = 0;
+
 $stmt -> BindParam(':newfirstname', $firstname); 
 $stmt -> BindParam(':newlastname', $lastname); 
 $stmt -> BindParam(':newm_owner', $user_id); 
 $stmt -> BindParam(':new_mtype', $member_type); 
 $stmt -> BindParam(':new_gender', $gender); 
 $stmt -> BindParam(':new_date', $today_now_TXT); 
-$stmt -> BindParam(':new_club', $dummy_club); 
+
 
 for ($i=0; $i<$cfg['Nb_rating'];$i++)
 {
@@ -114,25 +117,8 @@ for ($i=0; $i<$cfg['Nb_rating'];$i++)
 }
 $today_now = new DateTime("now");
 $today_now_TXT = $today_now->format("Y-m-d h:i:s");
-$stmt->execute();
-
-// L'update est OK, reste à faire la création, en veillant à ne pas créer de doublon sur le fede_id.
+$success = $stmt->execute();
 
 
-/*
-case update
-UPDATE members SET 
-firstname = :newfirstname,
-...
-WHERE fede_id=?
-
-case insert
-INSERT INTO events (name, datestart, datelim, secured, contact, nbmax, pos_long, pos_lat, owner) ";
-$req_TXT .= "VALUES (:n_name, :n_datestart, :n_datelim, :n_secured, :n_contact, :n_nbmax, :n_pos_long, :n_pos_lat, :n_owner);";
-*/
-
-
-// echo "<pre>";
-// var_dump($_POST);	
-// echo "</pre>";
+// reste à veiller à ne pas créer de doublon sur le fede_id.
 
