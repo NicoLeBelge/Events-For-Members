@@ -14,12 +14,9 @@ $pathbdd = './../_local-connect/connect.php';
 include($pathbdd );
 $str = json_decode(file_get_contents('./_json/strings.json'),true);	
 $cfg = json_decode(file_get_contents('./_json/config.json'),true);	
-/*
-comment
-*/
+
 foreach ($_POST as $key => $value)
 {
-	//echo "$key = $value <br/>";
 	if ($value == '') $value=NULL;
 	switch ($key) 
 	{
@@ -87,31 +84,38 @@ if ($update_mode)
 			upd_date = :new_date
 			WHERE fede_id=:old_fede_id;
 			";
-
-	echo $sql . "<br/>";	
 	$stmt = $conn->prepare ($sql);
-	$stmt -> BindParam(':newfirstname', $firstname); 
-	$stmt -> BindParam(':newlastname', $lastname); 
-	$stmt -> BindParam(':newm_owner', $user_id); 
-	$stmt -> BindParam(':new_mtype', $member_type); 
-	$stmt -> BindParam(':new_gender', $gender); 
-	$stmt -> BindParam(':new_date', $today_now_TXT); 
-	$stmt -> BindParam(':old_fede_id', $fede_id); 
-
-	$today_now = new DateTime("now");
-	$today_now_TXT = $today_now->format("Y-m-d h:i:s");
+	// echo $sql . "<br/>";	
 	
-
-
-	for ($i=0; $i<$cfg['Nb_rating'];$i++)
-	{
-		$rating_n = 'rating' . strval($i+1);
-		$param_to_bind = ':new' . $rating_n;
-		$stmt -> BindParam($param_to_bind, $_POST[$rating_n]); 
-		echo $param_to_bind . " = " . $_POST[$rating_n] . "<br>";
-	}
-	$stmt->execute();
+	// $stmt->execute(); //let's see if we can execute outside the if
+} else {
+	/* creation mode */
+	$sql = "INSERT INTO members (fede_id, firstname,lastname, $rating_insert_str_name m_owner, member_type, gender, upd_date, club_id) 
+			VALUES (:new_fede_id, :newfirstname, :newlastname, $rating_insert_str_value :newm_owner, :new_mtype, :new_gender, :new_date, :new_club )
+			";
+	$stmt = $conn->prepare ($sql);
+	$stmt -> BindParam(':new_fede_id', $fede_id); 
 }
+$dummy_club = 0;
+$stmt -> BindParam(':newfirstname', $firstname); 
+$stmt -> BindParam(':newlastname', $lastname); 
+$stmt -> BindParam(':newm_owner', $user_id); 
+$stmt -> BindParam(':new_mtype', $member_type); 
+$stmt -> BindParam(':new_gender', $gender); 
+$stmt -> BindParam(':new_date', $today_now_TXT); 
+$stmt -> BindParam(':new_club', $dummy_club); 
+
+for ($i=0; $i<$cfg['Nb_rating'];$i++)
+{
+	$rating_n = 'rating' . strval($i+1);
+	$param_to_bind = ':new' . $rating_n;
+	$stmt -> BindParam($param_to_bind, $_POST[$rating_n]); 
+	echo $param_to_bind . " = " . $_POST[$rating_n] . "<br>";
+}
+$today_now = new DateTime("now");
+$today_now_TXT = $today_now->format("Y-m-d h:i:s");
+$stmt->execute();
+
 // L'update est OK, reste à faire la création, en veillant à ne pas créer de doublon sur le fede_id.
 
 

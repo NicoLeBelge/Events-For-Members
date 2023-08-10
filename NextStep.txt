@@ -107,11 +107,14 @@ Modification of edit_subevent.php so that the event is displayed after changes a
 change statements to prepare statements (clone-event, delete-event-subevent, get-memberlist-by-namestart)
 change statements to prepare statements (registration-check-in, ...)
 change statements to prepare statements (register-check-core, ...)
+work on edit-member form - namely when no parameter is provided
+edit and save works well
 ┌─────────────┐
 | in progress |
 └─────────────┘
-work on edit-member form - namely when no parameter is provided
 
+make fede_id unchangeable in update mode
+add create mode
 
 ┌───────┐
 | To do |
