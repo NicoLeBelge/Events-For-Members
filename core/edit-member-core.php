@@ -1,12 +1,12 @@
 <?php
 /*
-This page allows to create (from scratch or from GET parameters) or edit new member 
+This page allows to create (from scratch or from GET parameters) new member or edit existing member (id=?)
 if GET parameters 'id' provided
  	then existing member with id is used for default values.
-	else we use hardcode defined parameters unless GET is specified (f=firstname, l=lastname, fid=fede_id)
-action is called with POST parameter 'mode' = e for edit or c for create (destination page will check if fede_id does not already exist)
-if called by non connected user, cancel and display error message
-the page is process if the user is connected / user_id is put in hidden field of form to store origin of member
+	else we use defined parameters unless GET is specified (f=firstname, l=lastname, fid=fede_id)
+action is called with POST parameter 'mode' = u for edit or c (anything but u) for create (destination page will check if fede_id does not already exist)
+if called by non connected user, no action and displays error message
+the page is processed if the user is connected / user_id is put in hidden field of form to store origin of member
 */
 
 $pathbdd = './../_local-connect/connect.php';
@@ -19,9 +19,11 @@ if (isset($_GET['id']))
 {
 	$id = $_GET['id'];
 	$mode = 'u';
+	$fede_id_status = "disabled";
 	$update_mode = true;
 } else {
 	$mode = 'c'; // with our without default parameters
+	$fede_id_status = "required";
 	$update_mode = false;
 	$fede_id = isset($_GET['fede_id']) ? $_GET['fede_id'] : "";
 	$firstname = isset($_GET['firstname']) ? $_GET['firstname'] : "";
@@ -148,7 +150,7 @@ if ($update_mode)
 
 <form action="./edit-member-action.php" method="post">
 	<div><label for="fede_id"><?=$str["fede_id"] ?></label></div>
-	<div><input type="text" id="fede_id" name="fede_id" value="<?=$fede_id?>"required ></div>
+	<div><input type="text" id="fede_id" name="fede_id" value="<?=$fede_id?>" <?=$fede_id_status?> ></div>
 	
 	<div><label for="member_firstname"><?=$str["firstname"] ?></label></div>
 	<div><input type="text" id="member_firstname" name="member_firstname" maxlength="80" value="<?=$firstname ?>"required ></div>
@@ -158,7 +160,7 @@ if ($update_mode)
 
 <?php foreach ($rating_arr as $rating): ?>
 	<div><label for="<?=$rating["database_id"] ?>"><?=$rating["rating_name"] ?></label>   </div>
-	<div><input type="number" name="<?=$rating["database_id"] ?>" value=<?=$rating["rating_value"] ?> max="3000" /> </div>
+	<div><input type="number" name="<?=$rating["database_id"] ?>" value=<?=$rating["rating_value"] ?> max="3000" required/> </div>
 <?php endforeach; ?>
 
 <div><label for="cat"><?=$str["Category"] ?></label>  </div>
