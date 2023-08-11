@@ -9,7 +9,7 @@ echo "this code can only be run by a connected user";
 exit();
 }
 $user_id = $_SESSION['user_id'];
-echo "user = ". $user_id . "<br>";
+//echo "user = ". $user_id . "<br>";
 $pathbdd = './../_local-connect/connect.php';
 include($pathbdd );
 $str = json_decode(file_get_contents('./_json/strings.json'),true);	
@@ -22,25 +22,25 @@ foreach ($_POST as $key => $value)
 	{
 		case 'fede_id': 
 			$fede_id = htmlspecialchars($value);
-			echo "fede_id = $fede_id <br/>"; //debug
+			//echo "fede_id = $fede_id <br/>"; //debug
 			break;
 		case 'member_firstname':
 			$firstname = htmlspecialchars($value);
-			echo "firstname = $firstname <br/>";//debug
+			//echo "firstname = $firstname <br/>";//debug
 			break;
 		case 'member_lastname':
 			$lastname = htmlspecialchars($value);
-			echo "lastname = $lastname <br/>";//debug
+			//echo "lastname = $lastname <br/>";//debug
 			break;
 		case 'mtype':
 			$index = strval($value) - 1 ;
 			$member_type = $cfg["type_names"][$index];
-			echo "type = $member_type <br/>";//debug
+			//echo "type = $member_type <br/>";//debug
 			break;
 		case 'gender':
 			$index = strval($value) - 1 ;
 			$gender = $cfg["gender_names"][$index];
-			echo "type = $gender <br/>";//debug
+			//echo "type = $gender <br/>";//debug
 			break;
 		default:
 		break;
@@ -48,16 +48,30 @@ foreach ($_POST as $key => $value)
 	}
 }
 
+$update_mode = ($_POST['mode'] == 'u');
+// {
+// 	echo "<b>update mode </b><br/>";
+// 	$update_mode=true;
+// } else {
+// 	echo "<b>create mode </b><br/>";
+// 	$update_mode=false;
+// }
 
+if (!$update_mode) {
+	/* check that provided fede_id does not already exist */
+	$sql = "SELECT fede_id, lastname, firstname FROM members WHERE fede_id = ?";
+	$stmt = $conn->prepare ($sql);
+	$stmt -> execute ([$_POST['fede_id']]);
+	if ($member = $stmt->fetch(PDO::FETCH_ASSOC)) {
+		$member_fede_id = $_POST['fede_id'];
+		$member_firstname = $member["firstname"];
+		$member_lastname = $member["lastname"];
+		echo "Federal ID $member_fede_id already exists for $member_firstname $member_lastname ";
+	} 
+exit();
 
-if ($_POST['mode'] == 'u') 
-{
-	echo "<b>update mode </b><br/>";
-	$update_mode=true;
-} else {
-	echo "<b>create mode </b><br/>";
-	$update_mode=false;
 }
+
 
 $rating_update_str="";
 $rating_insert_str_name="";
@@ -68,9 +82,9 @@ for ($i=0; $i<$cfg['Nb_rating'];$i++)
 	$rating_insert_str_name .= "rating" . strval($i+1) . ", ";
 	$rating_insert_str_value .= ":newrating" . strval($i+1) . ", ";
 }
-echo $rating_update_str . "<br/>";
-echo $rating_insert_str_name . "<br/>";
-echo $rating_insert_str_value . "<br/>";
+// echo $rating_update_str . "<br/>";
+// echo $rating_insert_str_name . "<br/>";
+// echo $rating_insert_str_value . "<br/>";
 
 if ($update_mode) 
 { /* owner can change everything but fede_id */
@@ -113,12 +127,17 @@ for ($i=0; $i<$cfg['Nb_rating'];$i++)
 	$rating_n = 'rating' . strval($i+1);
 	$param_to_bind = ':new' . $rating_n;
 	$stmt -> BindParam($param_to_bind, $_POST[$rating_n]); 
-	echo $param_to_bind . " = " . $_POST[$rating_n] . "<br>";
+	//echo $param_to_bind . " = " . $_POST[$rating_n] . "<br>";
 }
 $today_now = new DateTime("now");
 $today_now_TXT = $today_now->format("Y-m-d h:i:s");
 $success = $stmt->execute();
-
+if ($success)
+{
+	echo "OK";
+} else {
+	echo "not saved";
+}
 
 // reste à veiller à ne pas créer de doublon sur le fede_id.
 
