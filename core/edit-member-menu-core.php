@@ -7,13 +7,13 @@ $pathbdd = './../_local-connect/connect.php';
 include($pathbdd );
 $str = json_decode(file_get_contents('./_json/strings.json'),true);	
 $cfg = json_decode(file_get_contents('./_json/config.json'),true);	
-
+$jsonstr = json_encode($str);
 
 
 /* creates array with rating names */
 
 ?>
-
+<h1><?= $str['create_edit_member'] ?></h1>
 <form action="#" onsubmit="intercept(event)">
 <label for="namestart"><?= $str['enter_start_name'] ?></label>
 	<input type="text" autocomplete="off" name="identifier" id="namestart" required>
@@ -21,35 +21,19 @@ $cfg = json_decode(file_get_contents('./_json/config.json'),true);
 <div class="E4M_bigbutton">
 	<button id="searchButton"><?= $str['search'] ?></button>
 </div>
-<br/><br/>
+<br/>
+<a href='./edit-member.php'><button ><?= $str['new_member'] ?></button></a>
 <div id="E4M_members_table" class="E4M_hoverable_list"></div>
-
+<table id="member_list" class="E4M_regtable E4M_hoverable_list"></table>
 </div>
 
 <script type="text/javascript" src="./JS/E4M_class.js"></script>
 <script type="text/javascript">
+	let str = JSON.parse(`<?=$jsonstr?>`);
 	var request = new XMLHttpRequest();
 	let SearchButton = document.getElementById('searchButton');
 	SearchButton.addEventListener('click', trouve);
-	// let EventsTableSettings = {
-	// 	"headArray" : [str["date_label"], str["event_label"]],
-	// 	"activeHeader" :"",
-	// 	"colData" : ["datestart_typed", "name"],
-	// 	"active" : false,
-	// 	"colSorted" : -1
-	// };
-	// /* let's add .rowLink to allow click on a row */
-	// event_list.forEach((element) =>{
-	// 	let dest = "<?=$cfg['event_page']?>?id=" + element.id.toString(10);
-	// 	element.rowLink=dest;
-	// 	let truedate = new Date(element.datestart);
-    //     element.datestart_typed = truedate;
-	// });
-	// var EventsTable = new smartTable (
-	// 	"event_list", 
-	// 	event_list,
-	// 	EventsTableSettings
-	// );
+
 	function trouve(){
 		/*
 		Gets the string in the field 'namestart' of the form, pass it to API that returns the list of members
@@ -65,21 +49,29 @@ $cfg = json_decode(file_get_contents('./_json/config.json'),true);
 	}
 	request.onreadystatechange  = function() {
 		if (this.readyState == 4 && this.status == 200) {
-			// var members = this.response;
-			
+			var members = this.response;
 			let e = document.getElementById('E4M_members_table');
-			members = this.response;
-			let tch = MembersObjToTable(members);
-			if(members.length==0){
-				Instruction.innerHTML=str["No_result"];
-			} else {
-				if(members.length==25){
-					Instruction.innerHTML=str["Too_many_answers"];
-				} else {
-					Instruction.innerHTML=str["Select_in_list"];
-				}
-			}
-			e.innerHTML = tch;
+			
+			console.log(members)
+			let MembersTableSettings = {
+				"headArray" : [str["fede_id"], str["firstname"], str["lastname"]],
+				"activeHeader" :"acth",
+				"colData" : ["fede_id", "firstname", "lastname"],
+				"active" : false,
+				"colSorted" : -1
+			};
+			/* let's add .rowLink to allow click on a row */
+			
+			members.forEach((element) =>{
+				let dest = "./edit-member.php?id=" + element.id.toString(10);
+				element.rowLink=dest;
+			});
+			var MembersTable = new smartTable (
+				"member_list", 
+				members,
+				MembersTableSettings
+			);
+			
 		}
 	}
 	function intercept(e){

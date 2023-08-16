@@ -121,5 +121,7 @@
     "wrong_code" : "Wrong code !",
     "reg_not_found" : "Registration ID not found",
     "oops_check_in" : "Oops, it's not me !",
-    "you_are_in" : "You're in !"
+    "you_are_in" : "You're in !",
+    "create_edit_member" : "Create or Edit member",
+    "new_member" : "new member"
 }
