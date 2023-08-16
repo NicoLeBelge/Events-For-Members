@@ -87,6 +87,9 @@ if(isset($_GET['id']))
 ?>
 	<div class='E4M_maindiv'>
 		<a href = "<?=$cfg['event_list_page']?>"><button> ⬆ <?=$str['Goto_all_events']?> ⬆ </button> </a>
+		<?php if(isset($_SESSION["user_id"])): ?>
+			<a href = "./edit-member-menu.php"><button><?=$str['Goto_all_events']?>  </button> </a>
+		<?php endif; ?>
 		<br>
 		<?php if ($is_owner): ?>
 			<button id="EditEventButton" ><?=$str['Modify']?></button>
