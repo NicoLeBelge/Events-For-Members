@@ -184,8 +184,8 @@ if ($update_mode)
 	<option <?=$gender['select'] ?> value="<?=$gender['number'] ?>"><?=$gender['name'] ?></option>
 <?php endforeach; ?>
 </select>
-
-<div><input type="submit" value="Sauvegarder" id="submitButton"></div>
+<br><br>
+<div><input type="submit" value="<?=$str["Save"] ?>" id="submitButton"></div>
 <div><input id="owner_id" name="owner_id" type="hidden" value=12></div>
 <div><input id="mode" name="mode" type="hidden" value=<?=$mode ?>></div>
 </form>

@@ -25,6 +25,7 @@ include('../_local-connect/connect.php'); // PDO connection required
 if(isset($_GET['id']))
 { 
 	$event_id = $_GET['id'];
+	$_SESSION['return_page'] = $cfg['event_page'] . "?id=" . $event_id;
 	$event_set = array();
 	$stmt = $conn->prepare("SELECT * from events where id=?");
 	$stmt->execute([$event_id]);
@@ -88,7 +89,7 @@ if(isset($_GET['id']))
 	<div class='E4M_maindiv'>
 		<a href = "<?=$cfg['event_list_page']?>"><button> ⬆ <?=$str['Goto_all_events']?> ⬆ </button> </a>
 		<?php if(isset($_SESSION["user_id"])): ?>
-			<a href = "./edit-member-menu.php"><button><?=$str['Goto_all_events']?>  </button> </a>
+			<a href = "./edit-member-menu.php"><button><?=$str['create_edit_member']?>  </button> </a>
 		<?php endif; ?>
 		<br>
 		<?php if ($is_owner): ?>
