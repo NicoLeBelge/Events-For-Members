@@ -49,13 +49,6 @@ foreach ($_POST as $key => $value)
 }
 
 $update_mode = ($_POST['mode'] == 'u');
-// {
-// 	echo "<b>update mode </b><br/>";
-// 	$update_mode=true;
-// } else {
-// 	echo "<b>create mode </b><br/>";
-// 	$update_mode=false;
-// }
 
 if (!$update_mode) {
 	/* check that provided fede_id does not already exist */
@@ -69,9 +62,7 @@ if (!$update_mode) {
 		echo "Federal ID $member_fede_id already exists for $member_firstname $member_lastname ";
 	} 
 exit();
-
 }
-
 
 $rating_update_str="";
 $rating_insert_str_name="";
@@ -82,9 +73,6 @@ for ($i=0; $i<$cfg['Nb_rating'];$i++)
 	$rating_insert_str_name .= "rating" . strval($i+1) . ", ";
 	$rating_insert_str_value .= ":newrating" . strval($i+1) . ", ";
 }
-// echo $rating_update_str . "<br/>";
-// echo $rating_insert_str_name . "<br/>";
-// echo $rating_insert_str_value . "<br/>";
 
 if ($update_mode) 
 { /* owner can change everything but fede_id */
@@ -100,9 +88,6 @@ if ($update_mode)
 			";
 	$stmt = $conn->prepare ($sql);
 	$stmt -> BindParam(':old_fede_id', $fede_id); 
-	// echo $sql . "<br/>";	
-	
-	// $stmt->execute(); //let's see if we can execute outside the if
 } else {
 	/* creation mode */
 	$sql = "INSERT INTO members (fede_id, firstname,lastname, $rating_insert_str_name m_owner, member_type, gender, upd_date, club_id) 
@@ -127,16 +112,24 @@ for ($i=0; $i<$cfg['Nb_rating'];$i++)
 	$rating_n = 'rating' . strval($i+1);
 	$param_to_bind = ':new' . $rating_n;
 	$stmt -> BindParam($param_to_bind, $_POST[$rating_n]); 
-	//echo $param_to_bind . " = " . $_POST[$rating_n] . "<br>";
 }
 $today_now = new DateTime("now");
 $today_now_TXT = $today_now->format("Y-m-d h:i:s");
 $success = $stmt->execute();
 if ($success)
 {
-	echo "OK";
+	$message = $str['Modications_saved'];
+	
 } else {
-	echo "not saved";
+	$message = 'Error : contact administrator';
 }
+echo $message;
 
-// reste à veiller à ne pas créer de doublon sur le fede_id.
+$return_page = $_SESSION['return_page'];
+?>
+<script type='text/javascript'>
+	// alert ("pipo");
+	alert("<?=$message?>");
+	let destination = "<?=$return_page?>";
+	document.location = destination;
+</script>
