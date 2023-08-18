@@ -19,7 +19,7 @@ if (isset($_GET['id']))
 {
 	$id = $_GET['id'];
 	$mode = 'u';
-	$fede_id_status = "disabled";
+	$fede_id_status = "readonly"; // if 'disabled', then not passed in $_POST !
 	$update_mode = true;
 } else {
 	$mode = 'c'; // with our without default parameters
