@@ -60,7 +60,9 @@ if (!$update_mode)
 		echo "Federal ID $member_fede_id already exists for $member_firstname $member_lastname ";
 		exit();
 	} 
+
 } 
+
 
 $rating_update_str="";
 $rating_insert_str_name="";
@@ -87,7 +89,7 @@ if ($update_mode)
 	//echo "sql : "; var_dump($sql); echo "<br/>"; //debug
 	$stmt = $conn->prepare ($sql);
 	$stmt -> BindParam(':old_fede_id', $fede_id); 
-	//echo "fede_id : "; var_dump($fede_id); echo "<br/>"; //debug
+
 } else {
 	/* creation mode */
 	$sql = "INSERT INTO members (fede_id, firstname,lastname, $rating_insert_str_name m_owner, member_type, gender, upd_date, club_id) 
@@ -123,11 +125,14 @@ if ($success)
 } else {
 	$message = 'Error : contact administrator';
 }
+
 //echo $message;
+
 
 $return_page = $_SESSION['return_page'];
 ?>
 <script type='text/javascript'>
+
 	alert("<?=$message?>");
 	let destination = "<?=$return_page?>";
 	document.location = destination;
