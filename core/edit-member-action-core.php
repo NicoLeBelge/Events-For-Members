@@ -15,7 +15,7 @@ $pathbdd = './../_local-connect/connect.php';
 include($pathbdd );
 $str = json_decode(file_get_contents('./_json/strings.json'),true);	
 $cfg = json_decode(file_get_contents('./_json/config.json'),true);	
-echo"<pre>";var_dump($_POST); echo"</pre>";
+
 foreach ($_POST as $key => $value)
 {
 	if ($value == '') $value=NULL;
@@ -84,10 +84,10 @@ if ($update_mode)
 			upd_date = :new_date
 			WHERE fede_id=:old_fede_id;
 			";
-	echo "sql : "; var_dump($sql); echo "<br/>"; //debug
+	//echo "sql : "; var_dump($sql); echo "<br/>"; //debug
 	$stmt = $conn->prepare ($sql);
 	$stmt -> BindParam(':old_fede_id', $fede_id); 
-	echo "fede_id : "; var_dump($fede_id); echo "<br/>"; //debug
+	//echo "fede_id : "; var_dump($fede_id); echo "<br/>"; //debug
 } else {
 	/* creation mode */
 	$sql = "INSERT INTO members (fede_id, firstname,lastname, $rating_insert_str_name m_owner, member_type, gender, upd_date, club_id) 
@@ -123,7 +123,7 @@ if ($success)
 } else {
 	$message = 'Error : contact administrator';
 }
-echo $message;
+//echo $message;
 
 $return_page = $_SESSION['return_page'];
 ?>
