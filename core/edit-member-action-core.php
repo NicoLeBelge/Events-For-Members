@@ -8,6 +8,7 @@ if (!isset($_SESSION['user_id']))
 echo "this code can only be run by a connected user";
 exit();
 }
+
 $user_id = $_SESSION['user_id'];
 //echo "user = ". $user_id . "<br>";
 $pathbdd = './../_local-connect/connect.php';
@@ -22,25 +23,20 @@ foreach ($_POST as $key => $value)
 	{
 		case 'fede_id': 
 			$fede_id = htmlspecialchars($value);
-			//echo "fede_id = $fede_id <br/>"; //debug
 			break;
 		case 'member_firstname':
 			$firstname = htmlspecialchars($value);
-			//echo "firstname = $firstname <br/>";//debug
 			break;
 		case 'member_lastname':
 			$lastname = htmlspecialchars($value);
-			//echo "lastname = $lastname <br/>";//debug
 			break;
 		case 'mtype':
 			$index = strval($value) - 1 ;
 			$member_type = $cfg["type_names"][$index];
-			//echo "type = $member_type <br/>";//debug
 			break;
 		case 'gender':
 			$index = strval($value) - 1 ;
 			$gender = $cfg["gender_names"][$index];
-			//echo "type = $gender <br/>";//debug
 			break;
 		default:
 		break;
@@ -48,21 +44,25 @@ foreach ($_POST as $key => $value)
 	}
 }
 
+
 $update_mode = ($_POST['mode'] == 'u');
 
-if (!$update_mode) {
-	/* check that provided fede_id does not already exist */
+if (!$update_mode) 
+{	/* check that provided fede_id does not already exist */
 	$sql = "SELECT fede_id, lastname, firstname FROM members WHERE fede_id = ?";
 	$stmt = $conn->prepare ($sql);
 	$stmt -> execute ([$_POST['fede_id']]);
-	if ($member = $stmt->fetch(PDO::FETCH_ASSOC)) {
+	if ($member = $stmt->fetch(PDO::FETCH_ASSOC)) 
+	{	/* write a message (not translatable) and exits */
 		$member_fede_id = $_POST['fede_id'];
 		$member_firstname = $member["firstname"];
 		$member_lastname = $member["lastname"];
 		echo "Federal ID $member_fede_id already exists for $member_firstname $member_lastname ";
+		exit();
 	} 
-exit();
-}
+
+} 
+
 
 $rating_update_str="";
 $rating_insert_str_name="";
@@ -86,8 +86,10 @@ if ($update_mode)
 			upd_date = :new_date
 			WHERE fede_id=:old_fede_id;
 			";
+	//echo "sql : "; var_dump($sql); echo "<br/>"; //debug
 	$stmt = $conn->prepare ($sql);
 	$stmt -> BindParam(':old_fede_id', $fede_id); 
+
 } else {
 	/* creation mode */
 	$sql = "INSERT INTO members (fede_id, firstname,lastname, $rating_insert_str_name m_owner, member_type, gender, upd_date, club_id) 
@@ -123,12 +125,14 @@ if ($success)
 } else {
 	$message = 'Error : contact administrator';
 }
-echo $message;
+
+//echo $message;
+
 
 $return_page = $_SESSION['return_page'];
 ?>
 <script type='text/javascript'>
-	// alert ("pipo");
+
 	alert("<?=$message?>");
 	let destination = "<?=$return_page?>";
 	document.location = destination;
