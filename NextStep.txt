@@ -119,6 +119,9 @@ add create mode
 ┌───────┐
 | To do |
 └───────┘
+bug : selection of Sen and/or Sen+ doesnt' work
+bug : searching multiple times for member edit → duplicated.
+bug : rename Jerome LAMBERT → LAMBERT2 : recherche "LAMBERT" ne trouve plus !! En fait, pas un bug, normal, mais troublant, on ne sait pas que la liste est limitée.
 edit event : handle preset value when long/lat not set (see warning in JS console)
 to be done : check-in code restored in edit event
 In opensource version, delete players (or confirm) shows "undefined" message
