@@ -42,7 +42,7 @@ $jsonstr = json_encode($str);
 		*/
 		
 		let start = document.getElementById('namestart').value;
-		var XHR = './API/get-memberlist-by-namestart.php?start=' + start + "&ratn=1"; // API needs a rating...
+		var XHR = './API/get-memberlist-by-namestart.php?start=' + start + "&ratn=1"; // API needs a rating, lets take rating1...
 		request.open('GET', XHR);
 		request.responseType = 'json';
 		request.send();
@@ -54,9 +54,9 @@ $jsonstr = json_encode($str);
 			
 			console.log(members)
 			let MembersTableSettings = {
-				"headArray" : [str["fede_id"], str["firstname"], str["lastname"]],
-				"activeHeader" :"acth",
-				"colData" : ["fede_id", "firstname", "lastname"],
+				"headArray" : [str["fede_id"], str["lastname"], str["firstname"]],
+				"activeHeader" :"acth", // ???
+				"colData" : ["fede_id", "lastname", "firstname"],
 				"active" : false,
 				"colSorted" : -1
 			};

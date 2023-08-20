@@ -1,8 +1,7 @@
 <?php
 session_start();
-// echo "<pre>";
-// var_dump($_POST);	
-// echo "</pre>";
+
+
 if (!isset($_SESSION['user_id']))
 {
 echo "this code can only be run by a connected user";
@@ -38,6 +37,10 @@ foreach ($_POST as $key => $value)
 			$index = strval($value) - 1 ;
 			$gender = $cfg["gender_names"][$index];
 			break;
+		case 'cat':
+			$index = strval($value) - 1 ;
+			$cat = $cfg["cat_names"][$index];
+			break;
 		default:
 		break;
 
@@ -60,7 +63,6 @@ if (!$update_mode)
 		echo "Federal ID $member_fede_id already exists for $member_firstname $member_lastname ";
 		exit();
 	} 
-
 } 
 
 
@@ -83,6 +85,7 @@ if ($update_mode)
 			m_owner = :newm_owner,
 			member_type = :new_mtype,
 			gender = :new_gender,
+			cat = :new_cat,
 			upd_date = :new_date
 			WHERE fede_id=:old_fede_id;
 			";
@@ -92,9 +95,10 @@ if ($update_mode)
 
 } else {
 	/* creation mode */
-	$sql = "INSERT INTO members (fede_id, firstname,lastname, $rating_insert_str_name m_owner, member_type, gender, upd_date, club_id) 
-			VALUES (:new_fede_id, :newfirstname, :newlastname, $rating_insert_str_value :newm_owner, :new_mtype, :new_gender, :new_date, :new_club )
+	$sql = "INSERT INTO members (fede_id, firstname,lastname, $rating_insert_str_name m_owner, member_type, gender, cat, upd_date, club_id) 
+			VALUES (:new_fede_id, :newfirstname, :newlastname, $rating_insert_str_value :newm_owner, :new_mtype, :new_gender, :new_cat, :new_date, :new_club )
 			";
+	/** database must have member_grade default value = space*/
 	$dummy_club = 0;
 	$stmt = $conn->prepare ($sql);
 	$stmt -> BindParam(':new_club', $dummy_club); 
@@ -106,6 +110,7 @@ $stmt -> BindParam(':newlastname', $lastname);
 $stmt -> BindParam(':newm_owner', $user_id); 
 $stmt -> BindParam(':new_mtype', $member_type); 
 $stmt -> BindParam(':new_gender', $gender); 
+$stmt -> BindParam(':new_cat', $cat); 
 $stmt -> BindParam(':new_date', $today_now_TXT); 
 
 

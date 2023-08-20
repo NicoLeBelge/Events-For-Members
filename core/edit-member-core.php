@@ -50,6 +50,7 @@ for ($i=0; $i<count($cfg["type_names"]); $i++)
 	$type_data=array();
 	$type_data["number"]=$i+1;
 	$type_data["name"] = $cfg["type_names"][$i];
+	$type_data["select"] = "";
 	array_push($type_arr, $type_data);
 }
 // echo "<pre>";
@@ -63,6 +64,7 @@ for ($i=0; $i<count($cfg["gender_names"]); $i++)
 	$gender_data=array();
 	$gender_data["number"]=$i+1;
 	$gender_data["name"] = $cfg["gender_names"][$i];
+	$gender_data["select"] = "";
 	array_push($gender_arr, $gender_data);
 }
 
@@ -73,16 +75,15 @@ for ($i=0; $i<count($cfg["cat_names"]); $i++)
 	$cat_data=array();
 	$cat_data["number"] = $i+1;
 	$cat_data["name"] = $cfg["cat_names"][$i];
-	// if ( $cat == $cfg["cat_names"][$i]) {
-	// 	$cat_data["select"] = "selected";
-	// } else {
-	// 	$cat_data["select"] = "";
-	// }
+	$cat_data["select"] = "";
 	array_push($cat_arr, $cat_data);
 }
+// echo "<pre>";
+// var_dump($cat_arr);
+// echo "</pre>";
 $gender=$cfg["gender_names"][0];
 $mtype=$cfg["type_names"][0];
-
+$cat=$cfg["cat_names"][0];
 
 if ($update_mode) 
 {
@@ -129,9 +130,9 @@ if ($update_mode)
 		for ($i=0; $i<count($cfg["type_names"]); $i++) 
 		{
 			if ( $cfg["type_names"][$i] == $mtype) {
-				$cat_arr[$i]["select"] = "selected";
+				$type_arr[$i]["select"] = "selected";
 			} else {
-				$cat_arr[$i]["select"] = "";
+				$type_arr[$i]["select"] = "";
 			}
 		}
 
@@ -145,7 +146,15 @@ if ($update_mode)
 	if (isset($_GET['first'])) $firstname=urldecode($_GET['first']);
 	if (isset($_GET['last'])) $lastname=urldecode($_GET['last']);
 	if (isset($_GET['fid'])) $fede_id=urldecode($_GET['fid']);
+	
 }
+// foreach ($cat_arr as $cat){
+// 	echo $cat['select'] ." | " .  $cat['number'] ." | " . $cat['name'] . "<br/>";
+// }
+
+
+
+
 ?>
 
 <form action="./edit-member-action.php" method="post">
@@ -164,9 +173,10 @@ if ($update_mode)
 <?php endforeach; ?>
 
 <div><label for="cat"><?=$str["Category"] ?></label>  </div>
+
 <select name="cat" id="cat"> 
-<?php foreach ($cat_arr as $cat): ?>
-	<option <?=$cat['select'] ?> value="<?=$cat['number'] ?>"><?=$cat['name'] ?></option>
+<?php foreach ($cat_arr as $cat_item): ?>
+	<option <?=$cat_item['select'] ?> value="<?=$cat_item['number'] ?>"> <?=$cat_item['name'] ?> </option>
 <?php endforeach; ?>
 </select>
 
