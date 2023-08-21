@@ -1,7 +1,4 @@
 <?php
-session_start();
-
-
 if (!isset($_SESSION['user_id']))
 {
 echo "this code can only be run by a connected user";
@@ -9,11 +6,11 @@ exit();
 }
 
 $user_id = $_SESSION['user_id'];
-//echo "user = ". $user_id . "<br>";
 $pathbdd = './../_local-connect/connect.php';
 include($pathbdd );
 $str = json_decode(file_get_contents('./_json/strings.json'),true);	
 $cfg = json_decode(file_get_contents('./_json/config.json'),true);	
+//echo "<pre>";var_dump($_POST); echo "<pre>";
 
 foreach ($_POST as $key => $value)
 {
@@ -130,11 +127,19 @@ if ($success)
 } else {
 	$message = 'Error : contact administrator';
 }
+// $return_page = $_SESSION['return_page'];
+// echo $return_page;
 
 //echo $message;
+if (isset($_SESSION['return_page']))
+{ /* just in case the page is called directly */
+	$return_page = $_SESSION['return_page'];
+} else {
+	$return_page = $cfg['event_list_page'];
+}
 
-
-$return_page = $_SESSION['return_page'];
+echo "return_page : ";
+var_dump($return_page);
 ?>
 <script type='text/javascript'>
 
