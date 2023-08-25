@@ -1,5 +1,6 @@
 <?php
 /**
+ * Helloasso est utilisé principalement en France → commentaire en Français permis !
  * API qui reçoit le JSON envoyé par Helloasso. 
  * Les data à traiter sont dans un JSON envoyé dans le body du POST (1).
  * On vérifie qu'on a bien le numéro du tournoi (t) en paramètre GET (2). Si oui, on suppose que ça correspond bien au tournoi de l'organisateur.
@@ -9,7 +10,7 @@
  * - on construit un message qui sera envoyé dans le mail.
  * - on cherche (6) dans la base PUCE le joueur qui correspond au numéro de licence
  * - Si le joueur n'est pas trouvé
- *  	alors info dans message {{{ à compléter par lien permettant d'ajouter le joueur }}}
+ *  	alors info dans message {{{ à compléter par lien permettant d'ajouter le joueur -------- }}}
  * 		sinon on évalue le degré de match (7) entre le nom saisi et le nom dans la base puis
  * 		on valide l'insertion dans le tournoi si ça match à plus de 0.5 (picto OK ou warning), on rejete sinon.
  * 		Si validé, on cherche (8) l'id du subevent où le joueur est à inscrire puis
@@ -108,11 +109,11 @@ if ($is_event_GET)
 				$ValidPlayer = false;
 				$AddPlayer = false;
 				$matching_sign = "❌"; 
-				$add_url = "https://www.chessmooc.org/web/PUCE-ins/edit-create-member.php?";
-				$add_url .= "ffe=" . $p["licence"];
-				$add_url .= "&first=" . $p["firstName"];
-				$add_url .= "&last=" . $p["lastName"];
-				$add_url = urlencode($add_url);
+				$add_url = "https://www.chessmooc.org/web/PUCE-ins/edit-member.php?";
+				$add_url .= "fid=" . urlencode($p["licence"]);
+				$add_url .= "&first=" . urlencode($p["firstName"]);
+				$add_url .= "&last=" . urlencode($p["lastName"]);
+				
 				$Message .= "Numéro de licence " . $p["licence"] . " non trouvé". $BR;
 				$Message .= "Vous pouvez ajouter le joueur dans la base PUCE". $BR;
 				$Message .= "① Vérifiez sur le <a href='http://www.echecs.asso.fr/ListeJoueurs.aspx?Action=FFE'>site FFE</a> que le numéro de licence saisi est correct". $BR;
@@ -122,8 +123,6 @@ if ($is_event_GET)
 			} else {
 				/* ------------- Numéro de licence existe, on vérifie que les noms correspondent ------------------ */
 				// ici comparaison à mettre en fonction qui retourne un score levenshtein
-				// echo "from helloasso.php : " . $p["firstName"] ."|". $p["lastName"]."|".  $ffe_player['firstname']."|".   $ffe_player['lastname'] ."\n";
-				//$ffe_p = $ffe_player;
 				$score_match = person_match( $p["firstName"], $p["lastName"], $ffe_player['firstname'],  $ffe_player['lastname'] );
 				
 				$player_id = $ffe_player['id'];
