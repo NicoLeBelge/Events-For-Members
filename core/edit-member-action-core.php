@@ -92,13 +92,15 @@ if ($update_mode)
 
 } else {
 	/* creation mode */
-	$sql = "INSERT INTO members (fede_id, firstname,lastname, $rating_insert_str_name m_owner, member_type, gender, cat, upd_date, club_id) 
-			VALUES (:new_fede_id, :newfirstname, :newlastname, $rating_insert_str_value :newm_owner, :new_mtype, :new_gender, :new_cat, :new_date, :new_club )
+	$sql = "INSERT INTO members (fede_id, firstname,lastname, $rating_insert_str_name m_owner, member_type, gender, cat, upd_date, club_id, member_grade) 
+			VALUES (:new_fede_id, :newfirstname, :newlastname, $rating_insert_str_value :newm_owner, :new_mtype, :new_gender, :new_cat, :new_date, :new_club, :new_grade )
 			";
 	/** database must have member_grade default value = space*/
 	$dummy_club = 0;
+	$member_grade=" ";
 	$stmt = $conn->prepare ($sql);
 	$stmt -> BindParam(':new_club', $dummy_club); 
+	$stmt -> BindParam(':new_grade', $member_grade); 
 	$stmt -> BindParam(':new_fede_id', $fede_id); 
 }
 
