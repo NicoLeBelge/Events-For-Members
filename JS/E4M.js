@@ -336,7 +336,7 @@ function GoToRegisterPage(JS_Event)
 function download()
 {
 	let CSVstring ="";
-	CSVstring += "n°;id;fede_id;lastname;firstname;rating;club;region;\r"; 
+	CSVstring += "n°;id;fede_id;lastname;firstname;rating;club;region;\n"; 
 	let member_count=0;
 	let sublist = member_list.filter(function(filter){
 		return filter.subid == CurrentSubEventId ;
@@ -353,12 +353,13 @@ function download()
 		CSVstring += member[rating_selector]+ ";";
 		CSVstring += member.clubname+ ";";
 		CSVstring += member.region+ ";";
-		CSVstring += "\r" ;
+		CSVstring += "\n" ;
 	});
 	
 	var filename = CurrentSubEventObj.name +".csv";
 	var element = document.createElement('a');
-	element.setAttribute('href', 'data:text/plain;charset=utf-8,' + CSVstring);
+	/* call to encodeURIComponents requires to have Firefox putting LF after each line */
+	element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(CSVstring));
 	element.setAttribute('download', filename);
 	element.style.display = 'none';// necessary ??
 	document.body.appendChild(element);
