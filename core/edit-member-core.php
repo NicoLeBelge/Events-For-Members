@@ -143,17 +143,10 @@ if ($update_mode)
 	}
 } else {
 	/* set default values from GET if provided */
-	if (isset($_GET['first'])) $firstname=urldecode($_GET['first']);
-	if (isset($_GET['last'])) $lastname=urldecode($_GET['last']);
+	if (isset($_GET['f'])) $firstname=urldecode($_GET['f']);
+	if (isset($_GET['l'])) $lastname=urldecode($_GET['l']);
 	if (isset($_GET['fid'])) $fede_id=urldecode($_GET['fid']);
-	
 }
-// foreach ($cat_arr as $cat){
-// 	echo $cat['select'] ." | " .  $cat['number'] ." | " . $cat['name'] . "<br/>";
-// }
-
-
-
 
 ?>
 
