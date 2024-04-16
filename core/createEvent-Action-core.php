@@ -1,8 +1,9 @@
 <?php
     $EMPTY_STRING = "";
     $HOUR_END = ' 20:00:00';
-	$pathbdd = '../../_local-connect/connect.php';
-	include($pathbdd);
+	
+	include('../../_local-connect/connect.php');
+    include('../include/str-tools.php');
     $str = json_decode(file_get_contents('../_json/strings.json'),true);	
     $cfg = json_decode(file_get_contents('../_json/config.json'),true);	
 	if(!empty($_POST))
@@ -15,6 +16,7 @@
         $nbmax = NULL; 
         $pos_long =  NULL;
         $pos_lat = NULL;
+        $random = RandomString(10);
         echo "avant foreach : "; var_dump($nbmax); echo "<br/>";
         $owner = $EMPTY_STRING;
         foreach($_POST as $key => $value)
@@ -77,8 +79,8 @@
                 }
             }
             
-        $reqE=$conn->prepare("INSERT INTO events (name, datestart, datelim, secured, contact, nbmax, pos_long, pos_lat, owner, paylink) 
-						VALUES (:n_name, :n_datestart, :n_datelim, :n_secured, :n_contact, :n_nbmax, :n_pos_long, :n_pos_lat, :n_owner, :n_paylink)");
+        $reqE=$conn->prepare("INSERT INTO events (name, datestart, datelim, secured, contact, nbmax, pos_long, pos_lat, owner, paylink, api_key) 
+						VALUES (:n_name, :n_datestart, :n_datelim, :n_secured, :n_contact, :n_nbmax, :n_pos_long, :n_pos_lat, :n_owner, :n_paylink, :n_rnd)");
 		$reqE->BindParam(':n_name', $name);
 		$reqE->BindParam(':n_datestart', $datestart);
 		$reqE->BindParam(':n_datelim', $datelim);
@@ -89,6 +91,7 @@
 		$reqE->BindParam(':n_pos_lat', $pos_lat);
 		$reqE->BindParam(':n_owner', $owner);
         $reqE->BindParam(':n_paylink', $paylink);
+        $reqE->BindParam(':n_rnd', $random);
         $reqE->execute();
         
         /* let's get from the database the id of the event created */
