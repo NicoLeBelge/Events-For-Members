@@ -28,10 +28,10 @@ $jsonstr = json_encode($str);
             <br>
             
             <p><?=$str["Event_secured_info"]?>
-                <input type="radio" id="yes" name="secured" value="yes" checked>
+                <input type="radio" id="yes" name="secured" value="yes" >
                 <label for="yes"><?=$str['yes']?></label>
 
-                <input type="radio" id="no" name="secured" value="no">
+                <input type="radio" id="no" name="secured" value="no" checked>
                 <label for="no"><?=$str['no']?></label>
             </p> 
             <br>
