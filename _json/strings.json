@@ -123,5 +123,6 @@
     "oops_check_in" : "Oops, it's not me !",
     "you_are_in" : "You're in !",
     "create_edit_member" : "Create or Edit member",
+    "url_callback" : "Callback URL",
     "new_member" : "new member"
 }
