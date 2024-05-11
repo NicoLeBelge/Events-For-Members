@@ -1,3 +1,4 @@
+
 <?php
 	$str = json_decode(file_get_contents('./_json/strings.json'),true);	
 	if (isset($_GET['url'])) {
@@ -8,7 +9,10 @@
 	}
 ?>
     <div id="qrcode"></div>
+	<br>
+	<a href="<?=$return_page?>"><button><?=$str["Back_to_event"]?></button></a>
 <script type="text/javascript" src="./JS/qrcode.min.js"></script>
 <script>
-	new QRCode(document.getElementById("qrcode"), "https://www.chessmooc.org/t.php?t=119");
+	const url="<?=$url?>";
+	new QRCode(document.getElementById("qrcode"), url);
 </script>

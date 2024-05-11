@@ -97,7 +97,7 @@ if(isset($_GET['id']))
 			<button id="DeleteEventButton" ><?=$str['Delete']?></button>
 			<button id="CloneEventButton" ><?=$str['Clone']?></button>
 			<button id="ShareEventButton" ><?=$str['Share']?></button>
-			
+			<img id="E4M_qr_icon" src="./_img/qr-code-picto.svg" alt="picto QR code" height="25" style="vertical-align:middle;">
 			<div class='E4M_sharelink' id="E4M_sharelink"></div>
 			<span class="E4M_formicon" ><img id="E4M_shareicon" src="./_img/copy-icon.svg" alt="copy icon" height="18"></span>
 		<?php endif; ?>
@@ -233,6 +233,7 @@ if(isset($_GET['id']))
 	const ShareEventBnt = document.getElementById('ShareEventButton'); // keep that ??
 	const sharetext = document.getElementById('E4M_sharelink');
 	const ShareIcon = document.getElementById('E4M_shareicon');
+	const QR_icon = document.getElementById('E4M_qr_icon');
 	const RegisterBtn = document.getElementById('RegisterButton');
 
 	RegisterBtn.addEventListener("click", GoToRegisterPage);
@@ -252,29 +253,34 @@ if(isset($_GET['id']))
 		CloneEventBnt.addEventListener("click", CloneCurrentEvent);
 
 		sharetext.style.visibility = "collapse";	
-		ShareIcon.style.visibility = "collapse";	
+		ShareIcon.style.visibility = "collapse";
+		QR_icon.style.visibility = "collapse";
+
 		let destination = "<?=$cfg['short_url']?>" + CurrentEventId.toString(10);
 		sharetext.innerHTML = destination;
 		
 		ShareEventBnt.addEventListener("click", function(){
 			sharetext.style.visibility = "visible";
 			ShareIcon.style.visibility = "visible";	
-			
-			// const copyText = sharetext.innerHTML;
-			// copyText.select();
-  			// copyText.setSelectionRange(0, 99999); // For mobile devices
+			QR_icon.style.visibility = "visible";	
 			navigator.clipboard.writeText(sharetext.innerHTML);
 			console.log (sharetext.innerHTML);
 			let message = "<?=$str['Share_hint']?>";
 			alert(message);
 		});
+
+		QR_icon.addEventListener("click", function(){
+			var url = "<?=$cfg['short_url']?>" + "<?=$event_id?>";
+			//var url = "https://chessmooc.org/web/PUCE-ins/tournoi.php?id=" + "<?=$event_id?>";
+			var eurl = encodeURI(url);
+			var destination = "http://localhost/chessmooc/events-for-members/qrcode.php?url=" + eurl;
+			document.location=destination;
+		});
+
 		ShareIcon.addEventListener("click", function(){
-			
 			ShareIcon.style.visibility = "visible";	
 			ShareIcon.src = "./_img/copied-icon.svg";	
 			navigator.clipboard.writeText(sharetext.innerHTML);
-			
-			
 		});
 	}
 	

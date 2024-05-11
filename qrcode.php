@@ -1,3 +1,8 @@
+<?php
+	session_start();
+    $return_page = $_SESSION['return_page'];
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
