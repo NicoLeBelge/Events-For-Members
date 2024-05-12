@@ -55,10 +55,11 @@
 	<input type="text" id="paylink" value= "<?=$array_old['paylink'] ?>" name="paylink"/>
 	<img src="./_img/helloasso-h25.png" alt="cliquez pour copier le lien à communiquer à Helloasso" style="display : none;"/> <span id="E4M_instruction"></span><br/><br/>
 	
-	<label ><?=$str["url_callback"]?></label> <br/>  
-	<p id="url_callback"> <?=$url_back ?>
+	<label id="label_url_callback"><?=$str["url_callback"]?></label> 
+	<br/>  
+	<span class="E4M_url_callback" id="url_callback"> <?=$url_back ?></span>
 	<img id="copy_icon" src="./_img/copy-icon.svg" alt="cliquez pour copier le lien à communiquer à Helloasso" height="18" style="display : none;"/> <span id="E4M_instruction"></span><br/><br/>
-	</p>
+	
 	
 
 	<?php if($datelim_past): ?>
@@ -74,30 +75,36 @@
 </form>
 <script type='text/javascript'> 
 const Hello_input = document.getElementById("paylink")
-const icon = document.getElementById("url_callback");
+const label_url_callback = document.getElementById("label_url_callback");
+const url_callback = document.getElementById("url_callback");
 const copy_icon = document.getElementById("copy_icon");
 display_hello_if_needed();
 
 Hello_input.addEventListener ('keyup', e => {
+	// call display_hello_if_needed();
 	let targetstring="helloasso";
 	let contains_target = e.target.value.includes(targetstring);
-	icon.style.display = contains_target ? "inline-block" : "none";
-	}); 
-icon.addEventListener ('click', () => {
-	let callback_url = "<?=$url_back ?>";
+	url_callback.style.display = contains_target ? "inline-block" : "none";
+	copy_icon.style.display = contains_target ? "inline-block" : "none";
+	label_url_callback.style.display = contains_target ? "inline-block" : "none";
 
+	}); 
+
+copy_icon.addEventListener ('click', () => {
+	let callback_url = "<?=$url_back ?>";
 	document.getElementById("copy_icon").src = "./_img/copied-icon.svg";
-	
 	navigator.clipboard.writeText(callback_url).then(function(){
 		alert(callback_url + " copié dans le presse papier");
 	});
 });
+
 function display_hello_if_needed() {
 	let targetstring="helloasso";
 	let contains_target = Hello_input.value.includes(targetstring);
 	
-	icon.style.display = contains_target ? "inline-block" : "none";
+	url_callback.style.display = contains_target ? "inline-block" : "none";
 	copy_icon.style.display = contains_target ? "inline-block" : "none";
+	label_url_callback.style.display = contains_target ? "inline-block" : "none";
 	
 }
 </script>
