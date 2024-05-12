@@ -114,3 +114,7 @@
 .E4M_formicon:hover{
 	opacity: 100%;
 }
+
+.E4M_url_callback{
+	background-color: lightgray;
+}
