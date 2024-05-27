@@ -9,12 +9,16 @@
 	$res= $conn->prepare($requete);
 	$res->execute([$ID]);
 	$array_old = $res->fetch();
+	
 	/*check if datelim is past and if so, add `code` field for check-in*/
 	$datelim = $array_old["datelim"];
 	$datelimit = new DateTime($array_old["datelim"]);
 	$now = new DateTime();
 	$datelim_past = !($datelimit > $now);
 	$url_back = "https://www.chessmooc.org/web/PUCE-ins/API/helloasso2.php?t=" . $ID . "&key=" . $array_old['api_key'];
+	$nbmax_txt = isset($array_old['nbmax']) ? 'value='.$array_old['nbmax'] : '' ;
+	$old_lat_txt = isset($array_old['pos_lat']) ? 'value='.$array_old['pos_lat'] : '' ;
+	$old_long_txt = isset($array_old['pos_long']) ? 'value='.$array_old['pos_long'] : '' ;
 	
 ?>
 
@@ -41,18 +45,18 @@
 	<br>
 	<br>
 	<label for="mail"><?=$str["Organizer_email"] ?></label>
-    <input type="email" id="mail" name="contact" value=<?=$array_old['contact'] ?> maxlength="80" />
+    <input type="email" id="mail" name="contact" <?=$array_old['contact'] ?> maxlength="80" />
 	<br>
-	<label for="nbmax"><?=$str["Nb_max_participants"]?></label>   
-	<input type="number" name="nbmax" value=<?=$array_old['nbmax'] ?> max="9999" />
+	<label for="nbmax"><?=$str["Nb_max_participants"]?> </label>   
+	<input type="number" name="nbmax" <?=$nbmax_txt ?> max="9999"/>
 	<br/><br/>
 	<label for="pos_lat"><?=$str["geoloc_lat_long"]?></label>
-	<input type="number" step="any" name="pos_lat" value=<?=$array_old['pos_lat'] ?> min="-90" max="90"/>
-	<input type="number" step="any" name="pos_long" value=<?=$array_old['pos_long'] ?> min="-180" max="180" />
+	<input type="number" step="any" name="pos_lat" <?=$old_lat_txt ?> min="-90" max="90"/>
+	<input type="number" step="any" name="pos_long" <?=$old_long_txt ?> min="-180" max="180" />
 	
 	<br><br>
 	<label for="paylink"><?=$str["paylink_label"]?></label>   
-	<input type="text" id="paylink" value= "<?=$array_old['paylink'] ?>" name="paylink"/>
+	<input type="text" id="paylink" value= "<?=$array_old['paylink'] ?>" name="paylink" maxlength="150"/>
 	<img src="./_img/helloasso-h25.png" alt="cliquez pour copier le lien à communiquer à Helloasso" style="display : none;"/> <span id="E4M_instruction"></span><br/><br/>
 	
 	<label id="label_url_callback"><?=$str["url_callback"]?></label> 

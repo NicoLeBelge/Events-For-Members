@@ -109,16 +109,18 @@ change statements to prepare statements (registration-check-in, ...)
 change statements to prepare statements (register-check-core, ...)
 work on edit-member form - namely when no parameter is provided
 edit and save works well
+added QR code. 
+set destination page as parameter
 ┌─────────────┐
 | in progress |
 └─────────────┘
-
-added QR code. 
-set destination page as parameter
+set maxlength=150 for paylink
+debug old values in edit event form
 
 ┌───────┐
 | To do |
 └───────┘
+debug old values in edit subevent form
 bug : selection of Sen and/or Sen+ doesnt' work
 bug : searching multiple times for member edit → duplicated.
 bug : rename Jerome LAMBERT → LAMBERT2 : recherche "LAMBERT" ne trouve plus !! En fait, pas un bug, normal, mais troublant, on ne sait pas que la liste est limitée.
