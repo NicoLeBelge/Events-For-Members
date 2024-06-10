@@ -19,6 +19,8 @@
 	$nbmax_txt = isset($array_old['nbmax']) ? 'value='.$array_old['nbmax'] : '' ;
 	$old_lat_txt = isset($array_old['pos_lat']) ? 'value='.$array_old['pos_lat'] : '' ;
 	$old_long_txt = isset($array_old['pos_long']) ? 'value='.$array_old['pos_long'] : '' ;
+	$old_contact = isset($array_old['contact']) ? 'value="'.$array_old['contact'].'"' : '' ; // could not be unset since it's mandatory data
+	
 	
 ?>
 
@@ -44,8 +46,8 @@
 	<label for="no"><?=$str["no"] ?></label>
 	<br>
 	<br>
-	<label for="mail"><?=$str["Organizer_email"] ?></label>
-    <input type="email" id="mail" name="contact" <?=$array_old['contact'] ?> maxlength="80" />
+	<label for="contact"><?=$str["Organizer_email"] ?></label>
+    <input type="email" id="mail" name="contact" <?=$old_contact ?> maxlength="80" />
 	<br>
 	<label for="nbmax"><?=$str["Nb_max_participants"]?> </label>   
 	<input type="number" name="nbmax" <?=$nbmax_txt ?> max="9999"/>
