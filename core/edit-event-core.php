@@ -46,14 +46,14 @@
 	<label for="no"><?=$str["no"] ?></label>
 	<br>
 	<br>
-	<label for="contact"><?=$str["Organizer_email"] ?></label>
+	<label for="mail"><?=$str["Organizer_email"] ?></label>
     <input type="email" id="mail" name="contact" <?=$old_contact ?> maxlength="80" />
 	<br>
 	<label for="nbmax"><?=$str["Nb_max_participants"]?> </label>   
-	<input type="number" name="nbmax" <?=$nbmax_txt ?> max="9999"/>
+	<input type="number" id="nbmax" name="nbmax" <?=$nbmax_txt ?> max="9999"/>
 	<br/><br/>
 	<label for="pos_lat"><?=$str["geoloc_lat_long"]?></label>
-	<input type="number" step="any" name="pos_lat" <?=$old_lat_txt ?> min="-90" max="90"/>
+	<input type="number" step="any" id="pos_lat" name="pos_lat" <?=$old_lat_txt ?> min="-90" max="90"/>
 	<input type="number" step="any" name="pos_long" <?=$old_long_txt ?> min="-180" max="180" />
 	
 	<br><br>
@@ -61,7 +61,7 @@
 	<input type="text" id="paylink" value= "<?=$array_old['paylink'] ?>" name="paylink" maxlength="150"/>
 	<img src="./_img/helloasso-h25.png" alt="cliquez pour copier le lien à communiquer à Helloasso" style="display : none;"/> <span id="E4M_instruction"></span><br/><br/>
 	
-	<label id="label_url_callback"><?=$str["url_callback"]?></label> 
+	<label for="url_callback"><?=$str["url_callback"]?></label> 
 	<br/>  
 	<span class="E4M_url_callback" id="url_callback"> <?=$url_back ?></span>
 	<img id="copy_icon" src="./_img/copy-icon.svg" alt="cliquez pour copier le lien à communiquer à Helloasso" height="18" style="display : none;"/> <span id="E4M_instruction"></span><br/><br/>
