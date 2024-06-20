@@ -7,8 +7,6 @@ constraints checked : number of registrations for event/subevent + member not re
 */
 
 /* lets get strings from json folder (strings displayed and configuration strings) */
-
-
 include('./include/str-tools.php');
 $json = file_get_contents('./_json/config.json'); 
 $cfg = json_decode($json,true);	
@@ -25,17 +23,17 @@ $str = json_decode($json,true);
 $jsonstr = json_encode($str);	
 
 /* this page must be called with event id and member id */
-/** Registration_of */
 
 if(isset($_POST['member_id']) && isset($_POST['sub_id'])){ 
 	$subevent_id = $_POST['sub_id'];
 	$member_id = $_POST['member_id'];
+	//var_dump($_POST);
 	if (isset($_POST['member_email'])) {
 		$member_email = $_POST['member_email'];
 	}
 	
 	include('../_local-connect/connect.php'); 
-	
+	// get information about selected subevent
 	$qtxt = "SELECT subevents.name as subname, 
 					events.nbmax as e_nbmax,
 					subevents.nbmax as s_nbmax,
@@ -59,12 +57,13 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 	
 	$html_message ="<h3>" . $eventname ."</h3>";
 	$html_message .="<h4>" . $subname . "</h3>";
-	
+	// catch name of member 
 	$stmt = $conn->prepare("SELECT firstname, lastname FROM members WHERE id=?");
 	$stmt->execute([$member_id]);
 	$data = $stmt->fetchAll(PDO::FETCH_ASSOC); // to be replaced by fetch since only one record expected
 	$fullname = $data[0]["firstname"] . " " . $data[0]["lastname"];
 	$html_message.= "<h5>" . $fullname ."</h5>";
+	// select registrations of this member in the selecte subevent to ensure single registration
 	$qtxt = "SELECT registrations.id, 
 					confirmed 
 			FROM registrations
@@ -97,7 +96,7 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 		$stmt->execute([$subevent_id]);
 		$data = $stmt->fetchAll(PDO::FETCH_ASSOC);  // to be replaced by fetch since only one record expected
 		$tot_sub=intval($data[0]["tot_sub"],10);
-		
+		// count the number of registration in the event (and in the subevent ??)
 		$qtxt = "SELECT	count(member_id) as count_members 
 				FROM registrations
 				INNER JOIN subevents
@@ -157,7 +156,14 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 			$newcode = "--";
 			$newconfirmed=1;
 		}
-		$newemail=isset($member_email) ? $member_email : null;
+		if (isset($_POST["email_to_owner"]))
+		{
+			$allow = ($_POST["email_to_owner"] == "on") ;
+		} else {
+			$allow = false;
+		}
+		
+		$newemail = (isset($member_email) && $allow) ? $member_email : null;
 		 
 		$newwait = $wait? 1 : 0;
 		$req->execute();	
@@ -173,7 +179,7 @@ if(isset($_POST['member_id']) && isset($_POST['sub_id'])){
 		// send e-mail if event secured
 		if($secured){
 			// $newcode = RandomString(10);
-			$mailto= $newemail;
+			$mailto= $member_email;
 			
 			
 		$from  = $cfg["e-mail_from"];  // adresse MAIL related to webhosting.

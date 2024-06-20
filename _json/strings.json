@@ -124,5 +124,6 @@
     "you_are_in" : "You're in !",
     "create_edit_member" : "Create or Edit member",
     "url_callback" : "Callback URL",
+    "allow_email_owner" : "Allow the organiser to contact me",
     "new_member" : "new member"
 }
