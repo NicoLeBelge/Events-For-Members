@@ -4,7 +4,7 @@ session_start();
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Registration confirmation</title>
+		<title>Registration confirmation</title>	
 		<meta charset="UTF-8" />
 		<link rel="stylesheet" href="./_css/E4M.css" /> 
     </head>

@@ -56,6 +56,9 @@ if((isset($_POST['E4M_hidden_index']) || isset($_SESSION['sub_index'])) && isset
 	<?php if ($_SESSION["secured"]=="1"): ?>
 		<label for="member_email"><?= $str['email'] ?></label>
 		<input type="email" autocomplete="on" name="member_email" id="member_email" placeholder="<?=$str["email_required"]?>"required>
+		<label for="email_to_owner"><?= $str['allow_email_owner'] ?></label>
+		<input type="checkbox" id="email_to_owner" name="email_to_owner" checked >
+		<br><br>
 	<?php endif; ?>
 	<input type="hidden" autocomplete="off" name="member_id" id="member_id" required>
 	<input type="hidden" autocomplete="off" name="sub_id" id="sub_id" required>
