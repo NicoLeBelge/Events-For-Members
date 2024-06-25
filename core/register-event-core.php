@@ -58,6 +58,7 @@ if(isset($_GET['id']))
 					registrations.confirmed,
 					registrations.wait,
 					registrations.present,
+					registrations.email,
 					members.fede_id,
 					members.lastname,
 					members.firstname,
@@ -80,7 +81,11 @@ if(isset($_GET['id']))
 	ORDER BY datereg ASC";
 	$stmt = $conn->prepare($qtxt);
 	$stmt->execute([$event_id]);
-	$event_set["registrations"] = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	$event_set["registrations"] = $stmt->fetchAll(PDO::FETCH_ASSOC); 
+	// hide e-mail for non owner
+	foreach ($event_set["registrations"] as $k => $v) {
+		if (!$is_owner) $event_set["registrations"][$k]["email"]="";
+	}
 	$event_set_jsonstr = json_encode($event_set);
 } else {
 	echo "this page needs parameter";
@@ -264,7 +269,6 @@ if(isset($_GET['id']))
 			ShareIcon.style.visibility = "visible";	
 			QR_icon.style.visibility = "visible";	
 			navigator.clipboard.writeText(sharetext.innerHTML);
-			console.log (sharetext.innerHTML);
 			let message = "<?=$str['Share_hint']?>";
 			alert(message);
 		});
@@ -273,7 +277,7 @@ if(isset($_GET['id']))
 			var url = "<?=$cfg['short_url']?>" + "<?=$event_id?>";
 			//var url = "https://chessmooc.org/web/PUCE-ins/tournoi.php?id=" + "<?=$event_id?>";
 			var eurl = encodeURI(url);
-			var destination = "http://localhost/chessmooc/events-for-members/qrcode.php?url=" + eurl;
+			var destination = "./qrcode.php?url=" + eurl;
 			document.location=destination;
 		});
 
@@ -315,8 +319,6 @@ if(isset($_GET['id']))
 	NbRegTot = member_list.length;
 
     if ( is_owner ) {
-        console.log("member_list.length = ", member_list.length);
-		console.log("NbSubs = ", NbSubs);
 		DelEventBnt.disabled = !(member_list.length == 0 && NbSubs == 1);
 		let registration_to_unwait = unwait(eventinfoset.nbmax, subs_data_set, member_list);
         if (registration_to_unwait == null) {
