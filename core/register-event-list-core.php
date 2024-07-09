@@ -1,4 +1,5 @@
 <?php
+
 include ('../_local-connect/connect.php');
 $str = json_decode(file_get_contents('./_json/strings.json'),true);	
 $cfg = json_decode(file_get_contents('./_json/config.json'),true);	

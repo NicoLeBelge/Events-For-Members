@@ -3,7 +3,7 @@
 comments to complete
 */
 
-$pathbdd = './../_local-connect/connect.php';
+$pathbdd = '../_local-connect/connect.php';
 include($pathbdd );
 $str = json_decode(file_get_contents('./_json/strings.json'),true);	
 $cfg = json_decode(file_get_contents('./_json/config.json'),true);	

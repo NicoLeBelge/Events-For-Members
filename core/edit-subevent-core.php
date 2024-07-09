@@ -1,6 +1,6 @@
 <?php
 	
-	$pathbdd = './../_local-connect/connect.php';
+	$pathbdd = '../_local-connect/connect.php';
 	$pathfunction = './core/editEvent-functions-core.php';
 	include($pathbdd);
 	include($pathfunction );
