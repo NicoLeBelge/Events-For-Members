@@ -73,10 +73,21 @@ function person_match( $FirstName1 =" ", $LastName1=" ", $FirstName2=" ", $LastN
   }
   return $score;
 }
+function looks_like_licence ($chaine)
+{
+  // retourne vrai si la chaine a la tronche d'une licence, à savoir longueur de 6 ou 7 (on anticipe...) caractères, commence par une lettre et finit par un chiffre
+  $chlen = strlen($chaine);
+  $L3 = ($chlen == 6 || $chlen == 7); 
+  $firstchar = substr($chaine, 0, 1) ; 
+  $lastchar = substr($chaine, $chlen-1, 1) ; 
+  $L3 &= (preg_match('/^[a-z]$/', $firstchar) || preg_match('/^[A-Z]$/', $firstchar));
+  $L3 &= preg_match('/^[0-9]$/', $lastchar);
+  return $L3;
+}
+
 function item_array_to_player_array ($items_array)
 {
   $player_arr = array();
-  
   foreach ($items_array as $item) // (3)
 	{
 		$player = array(); // on réinitialise un nouveau player
@@ -86,12 +97,31 @@ function item_array_to_player_array ($items_array)
 		$player += ["subevent"=>""];
 
 		$custfielsobj = $item->customFields;
+    echo $player["firstName"] . " " . $player["lastName"] . " ----------------\n"; // debug
+    
 		/* on balaye tous les objets de l'array customFields pour récupérer le numéro de licence, et éventuellement le tournoi*/
-		foreach ($custfielsobj as $customField) 
-		{
-			if (stripos($customField->name, 'licence') <>0 ) $player["licence"] = $customField->answer;
+    $i=0;
+		$candidate = "";
+    foreach ($custfielsobj as $customField) 
+
+    // Il faut gérer les cas où l'organisateur a plusieurs champs contenant 'licence' 
+    // on initialise une variable à candidat_licence='' et, si candidat_licence <> '' et champ lu a la forme d'une licence, on remplace.
+		
+    {
+      $is_licence_field = !(stripos($customField->name, 'licence') === false) ;
+      if ($is_licence_field) 
+      {
+        echo "found field with licence - value = " . $customField->answer;
+        if (looks_like_licence($customField->answer)) {
+          echo " looks like licence\n";
+          $candidate = $customField->answer;
+        } else {
+          echo " DOES NOT look like licence\n";
+        }
+      }
 			if (stripos($customField->name, 'tournoi') <>0 ) $player["subevent"] = $customField->answer;
 		}
+    $player["licence"] = $candidate ;
 		array_push($player_arr, $player);
 	}
   return $player_arr;
