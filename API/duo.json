@@ -1,0 +1,174 @@
+{
+    "data": {
+      "payer": {
+        "email": "mt.charpentier@wanadoo.fr",
+        "address": "10 rue jean Morvan",
+        "city": "BAUD",
+        "zipCode": "56150",
+        "country": "FRA",
+        "firstName": "Marie",
+        "lastName": "Charpentier"
+      },
+      "items": [
+        {
+          "payments": [
+            {
+              "id": 43272471,
+              "shareAmount": 1500
+            }
+          ],
+          "name": "Tarif Adulte",
+          "user": {
+            "firstName": "alain",
+            "lastName": "Germès"
+          },
+          "priceCategory": "Fixed",
+          "customFields": [
+            {
+              "id": 16856828,
+              "name": "Numéro de téléphone pour pouvoir vous joindre",
+              "type": "TextInput",
+              "answer": "0645925701"
+            },
+            {
+              "id": 16904357,
+              "name": "Etes-vous licencié? (Licence B Offerte pour les non licenciés)",
+              "type": "YesNo",
+              "answer": "Oui"
+            },
+            {
+              "id": 16904282,
+              "name": "Numéro de licence FFE (Si vous êtes licencié)",
+              "type": "TextInput",
+              "answer": "F02844"
+            },
+            {
+              "id": 16904386,
+              "name": "Date de naissance (obligatoire pour les non licenciés, l'information est nécessaire pour créer la licence)",
+              "type": "Date",
+              "answer": "12/10/1948"
+            },
+            {
+              "id": 16856838,
+              "name": "Choix Sandwich compris dans l'inscription",
+              "type": "ChoiceList",
+              "answer": "Jambon Beurre Fromage"
+            }
+          ],
+          "qrCode": "OTQ2NjIwMzY6NjM4NTQwNDM1MDQ1NjMwNTA4",
+          "tierDescription": "",
+          "tierId": 11066801,
+          "id": 94662036,
+          "amount": 1500,
+          "type": "Registration",
+          "initialAmount": 1500,
+          "state": "Processed"
+        },
+        {
+          "payments": [
+            {
+              "id": 43272471,
+              "shareAmount": 400
+            }
+          ],
+          "name": "Sandwich(es) Supplémetaire(s)",
+          "user": {
+            "firstName": "Marie",
+            "lastName": "Charpentier"
+          },
+          "priceCategory": "Fixed",
+          "customFields": [
+            {
+              "id": 16856831,
+              "name": "Numéro de téléphone pour pouvoir vous joindre",
+              "type": "TextInput",
+              "answer": "0631254524"
+            },
+            {
+              "id": 16856839,
+              "name": "Choix Sandwich Supplémentaire",
+              "type": "ChoiceList",
+              "answer": "Américain Jambon"
+            }
+          ],
+          "qrCode": "OTQ2NjIwMzc6NjM4NTQwNDM1MDQ1NjMwNTA4",
+          "tierDescription": "Vous indiquerez le choix du/des sandwiches à la page de vos coordonnées.\n(Américain/Jambon Beurre etc.)",
+          "tierId": 11066804,
+          "id": 94662037,
+          "amount": 400,
+          "type": "Registration",
+          "initialAmount": 400,
+          "state": "Processed"
+        },
+        {
+          "payments": [
+            {
+              "id": 43272471,
+              "shareAmo unt": 500
+            }
+          ],
+          "priceCategory": "Fixed",
+          "qrCode": "OTQ2NjIwMzg6NjM4NTQwNDM1MDQ1NjMwNTA4",
+          "id": 94662038,
+          "amount": 500,
+          "type": "Donation",
+          "state": "Processed"
+        }
+      ],
+      "payments": [
+        {
+          "items": [
+            {
+              "id": 94662036,
+              "shareAmount": 1500,
+              "shareItemAmount": 1500
+            },
+            {
+              "id": 94662037,
+              "shareAmount": 400,
+              "shareItemAmount": 400
+            },
+            {
+              "id": 94662038,
+              "shareAmount": 500,
+              "shareItemAmount": 500
+            }
+          ],
+          "cashOutState": "Transfered",
+          "paymentReceiptUrl": "https://www.helloasso.com/associations/l-echiquier-des-templiers/evenements/tournoi-des-templiers-le-dimanche-16-juin-2024/paiement-attestation/94662036",
+          "fiscalReceiptUrl": "https://www.helloasso.com/get-fisc.aspx?dau=43272471",
+          "id": 43272471,
+          "amount": 2400,
+          "date": "2024-06-15T10:19:42.7636281+02:00",
+          "paymentMeans": "Card",
+          "installmentNumber": 1,
+          "state": "Authorized",
+          "meta": {
+            "createdAt": "2024-06-15T10:18:24.5630508+02:00",
+            "updatedAt": "2024-06-15T10:19:42.9743126+02:00"
+          },
+          "refundOperations": []
+        }
+      ],
+      "amount": {
+        "total": 2400,
+        "vat": 0,
+        "discount": 0
+      },
+      " id": 94662036,
+      "date": "2024-06-15T10:19:43.0677269+02:00",
+      "formSlug": "tournoi-des-templiers-le-dimanche-16-juin-2024",
+      "formType": "Event",
+      "organizationName": "L'échiquier des Templiers",
+      "organizationSlug": "l-echiquier-des-templiers",
+      "organizationType": "Association1901Rig",
+      "organizationIsUnderColucheLaw": false,
+      "meta": {
+        "createdAt": "2024-06-15T10:18:24.5630508+02:00",
+        "updatedAt": "2024-06-15T10:19:43.0832741+02:00"
+      },
+      "isAnonymous": false,
+      "isAmountHidden": false
+    },
+    "eventType": "Order"
+  }
