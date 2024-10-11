@@ -1,6 +1,8 @@
 <?php 
 
-$jsonString = file_get_contents('duo.json');	
+
+$jsonString = file_get_contents('test.json');	
+
 $jsonData = json_decode($jsonString, true);
 // var_dump($jsonData); // ça, ça retourne bien un array(2)
 
@@ -10,9 +12,8 @@ $jsdata = $jsonData["data"]; // Je sais pas pourquoi $jsonData->data retourne NU
 
 
 // Initialize cURL session
-$url = 'localhost/chessMOOC/Events-For-Members/API/helloasso3.php?t=1&key=dummy.key'; // !!!!!!!!!!!!!!!!! pas de fichier → faut mettre en localhost.
 
-// $url = 'https://www.chessmooc.org/web/PUCE-ins/API/helloasso2.php?t=136&key=TlfjQYm7PZ'; 
+$url = 'localhost/chessMOOC/Events-For-Members/API/helloasso3.php?t=1&key=dummy.key'; // !!!!!!!!!!!!!!!!! pas de fichier → faut mettre en localhost.
 $ch = curl_init($url);
 
 
@@ -33,7 +34,9 @@ curl_setopt($ch, CURLOPT_CAINFO, 'C:/util/cert/cacert.pem');
 $response = curl_exec($ch);
 // var_dump ($response);
 // // 
+
 echo "\n\n";
+
 
 if ($content === false) {
     echo 'cURL Error: ' . curl_error($ch);

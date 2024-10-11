@@ -28,6 +28,7 @@ function LogData ($pdo, $comment) {
 	$add_req->BindParam(':n_comment', $comment);
 	$add_req->execute();
 }
+
 include ('hello-tools.php');
 include('../../_local-connect/connect.php'); // PDO connection required
 if (is_null($_GET['key'])) //  (2)
