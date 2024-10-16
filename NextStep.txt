@@ -1,7 +1,48 @@
 
 ┌──────┐
-| done |
+| done | see end of section
 └──────┘
+
+┌─────────────┐
+| in progress |
+└─────────────┘
+add improvement for null member_grade
+
+┌───────┐
+| To do |
+└───────┘
+debug old values in edit subevent form
+bug : selection of Sen and/or Sen+ doesnt' work
+bug : searching multiple times for member edit → duplicated.
+bug : rename Jerome LAMBERT → LAMBERT2 : recherche "LAMBERT" ne trouve plus !! En fait, pas un bug, normal, mais troublant, on ne sait pas que la liste est limitée.
+edit event : handle preset value when long/lat not set (see warning in JS console)
+to be done : check-in code restored in edit event
+In opensource version, delete players (or confirm) shows "undefined" message
+make sure that event cloning does not clone check-in-code
+add oops button in check-in page
+fix bug events max 4 (max 2 + max 2) register 3+2, wrong message exiting the waiting list.
+register-event-core.php --> $event_set["infos"] = $reponse->fetch() instead of fetchAll
+register-event-core.php --> is_owner_php can be calculated more concisely.
+register-check-core.php --> $member_email = $_POST['member_email'] causes php error (luckyly only in local mode)
+ajouter champs 'present' bool dans registrations et check-in-code (varchar 6) dans events
+!!! empêcher l'accès à la page edit-create-event.php si pas membre connecté !!!!!!!! (hereusement, ça crash car user NULL)
+limiter le nombre de subevents à 10
+indiquer le nombre d'inscrits à chaque subevent
+activeHeader set to "" because it's uncentered if we put "⚙" --> twick CSS !
+changer le nom "name" du formulaire create event pour ne pas laisser le browser proposer le nom de l'utilisateur et du coup changer les autres fields. 
+Tester avec un subevent qui a une date différente du event
+Nombre max de résultats sur namesearch rendre 25 paramétrable
+NumEvent déclaré nulle part et semble désigner un numéro de SUBevent !!
+ checker dans ./core/edit-subevent-core.php l'absence de GET (et pas dans edit-subevent-core.php)
+ smartTable plante si objet pas de type date (eg NULL)
+ Add checker that detects missing string key during update process.
+ $nauth = array(1,2,3,4,5,6) not OK with parametric NbRating !!
+
+┌──────┐
+| done | 
+└──────┘
+
+
 Nombre d'inscrits sur subevent:ne pas mettre le total, mais filtrer sur l'event
 Ajouter le nombre total d'inscrits (soit dans la page event, soit dans event-list) 
 Liste des inscrits : récupérer le bon rating
@@ -111,38 +152,5 @@ work on edit-member form - namely when no parameter is provided
 edit and save works well
 added QR code. 
 set destination page as parameter
-┌─────────────┐
-| in progress |
-└─────────────┘
 set maxlength=150 for paylink
 debug old values in edit event form
-
-┌───────┐
-| To do |
-└───────┘
-debug old values in edit subevent form
-bug : selection of Sen and/or Sen+ doesnt' work
-bug : searching multiple times for member edit → duplicated.
-bug : rename Jerome LAMBERT → LAMBERT2 : recherche "LAMBERT" ne trouve plus !! En fait, pas un bug, normal, mais troublant, on ne sait pas que la liste est limitée.
-edit event : handle preset value when long/lat not set (see warning in JS console)
-to be done : check-in code restored in edit event
-In opensource version, delete players (or confirm) shows "undefined" message
-make sure that event cloning does not clone check-in-code
-add oops button in check-in page
-fix bug events max 4 (max 2 + max 2) register 3+2, wrong message exiting the waiting list.
-register-event-core.php --> $event_set["infos"] = $reponse->fetch() instead of fetchAll
-register-event-core.php --> is_owner_php can be calculated more concisely.
-register-check-core.php --> $member_email = $_POST['member_email'] causes php error (luckyly only in local mode)
-ajouter champs 'present' bool dans registrations et check-in-code (varchar 6) dans events
-!!! empêcher l'accès à la page edit-create-event.php si pas membre connecté !!!!!!!! (hereusement, ça crash car user NULL)
-limiter le nombre de subevents à 10
-indiquer le nombre d'inscrits à chaque subevent
-activeHeader set to "" because it's uncentered if we put "⚙" --> twick CSS !
-changer le nom "name" du formulaire create event pour ne pas laisser le browser proposer le nom de l'utilisateur et du coup changer les autres fields. 
-Tester avec un subevent qui a une date différente du event
-Nombre max de résultats sur namesearch rendre 25 paramétrable
-NumEvent déclaré nulle part et semble désigner un numéro de SUBevent !!
- checker dans ./core/edit-subevent-core.php l'absence de GET (et pas dans edit-subevent-core.php)
- smartTable plante si objet pas de type date (eg NULL)
- Add checker that detects missing string key during update process.
- $nauth = array(1,2,3,4,5,6) not OK with parametric NbRating !!
