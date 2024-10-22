@@ -1,8 +1,13 @@
 <?php
+/**modifs V3 : switch sur un autre tournoi si l'URL fournie dans le json correspond bien à un autre tournoi valide du même utilisateur */
+
+
 /**
  * API qui reçoit le JSON envoyé par Helloasso. 
  * Les data à traiter sont dans un JSON envoyé dans le body du POST (1).
  * On quitte si on n'a pas de numéro du tournoi (t) en paramètre GET (2). Si oui, on suppose que ça correspond bien au tournoi de l'organisateur.
+ * V3 : ici, on check sur l'URL correspond, et sinon, on switch si besoin.
+ * 
  * On crée un tableau p_arr (3) contentant chaque joueur présent dans le JSON, ainsi que le subevent destinataire ("" si non défini)
  * On récupère (4) dans $subevent_arr la liste des subevents pour l'event passé en paramètre.
  * Pour chaque joueur de p_arr (5)
@@ -31,7 +36,7 @@ function LogData ($pdo, $comment) {
 
 if (is_null($_GET['key'])) //  (2)
 {
-	$LogMessage .= 'Helloasso APIL called without key';
+	$LogMessage .= 'Helloasso API called without key';
 	echo $LogMessage;
 	LogData ($conn, $LogMessage);
 	exit();
@@ -39,7 +44,7 @@ if (is_null($_GET['key'])) //  (2)
 	$url_key = $_GET['key'];
 }
 
-include ('hello-tools.php');
+include ('hello-tools3.php');
 include('../../_local-connect/connect.php'); // PDO connection required
 $debugmode = false;
 $Message = "";
@@ -82,22 +87,33 @@ if ($json_eventType <> "Order") {
 	echo $LogMessage;
 	exit();
 }
+/* challengeons le event_id */
+
+//echo "au début, le event id est $event_id_str \n";
+
 
 
 /* construisons l'array p_arr à partir du json */
 $items_arr = $json_full->data->items;  // (1)
 
+
+
+
 $p_arr = item_array_to_player_array($items_arr);
 //var_dump($p_arr);
 //exit();
 /* récupérons les données de l'event à traiter */
-$stmt = $conn->prepare("SELECT name, contact, api_key FROM events WHERE id=:event_id_str LIMIT 1;");
+$stmt = $conn->prepare("SELECT name, contact, api_key, owner, paylink FROM events WHERE id=:event_id_str LIMIT 1;");
 $stmt->bindParam(':event_id_str', $event_id_str);
 $stmt->execute();
 $event_data = $stmt->fetch(PDO::FETCH_ASSOC);
 $event_name = $event_data['name']; 
 $event_contact = $event_data['contact']; 
 $api_key = $event_data['api_key']; 
+$owner = $event_data['owner']; 
+$event_paylink = $event_data['paylink']; 
+
+echo "initial situation : paylink of event $event_id_str = $event_paylink \n";
 
 // exit if event doesn't exist
 if (is_null ($event_name)){
@@ -115,6 +131,44 @@ if ($_GET['key'] <> $api_key){
 	exit();
 }
 
+/* let's check URL from and change event_id if needed */
+/* if paylink in current event different from URL_from, then we check if there is another event with correct paylink */
+/* if so, then change event_i else, exit */
+$ticket_URL = $items_arr[0]->ticketUrl;
+$URL_from = substr($ticket_URL, 0, strpos($ticket_URL,'/ticket?'));
+echo "ticket URL in json = $URL_from \n";
+
+if ($event_paylink === $URL_from) 
+{
+	echo "event id $event_id_str has expected paylink, we can go on \n";
+} else {
+	echo "event id $event_id_str has  wrong paylink : \n";
+	
+	$stmt = $conn->prepare("SELECT id, owner, paylink FROM events WHERE owner=:same_owner AND paylink=:current_paylink;");
+	$stmt->bindParam(':same_owner', $owner );
+	$stmt->bindParam(':current_paylink', $URL_from );
+	echo "searching for event with paylink = $URL_from \n";
+	$stmt->execute();
+	$other_events = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	// var_dump($other_events);
+	$NbAlt = sizeof($other_events);
+	if ($NbAlt > 0) 
+	{
+		$alternative_event_id = $other_events[0]["id"]; // ne correspond à rien :-(
+		echo"event id $alternative_event_id has correct paylink <br />";
+		$event_id_str = $alternative_event_id;
+	} else {
+		echo"didn't find event with correct paylink\n";
+		$LogMessage = "no valid ticket URL found for event $event_id_str or same owner";
+		LogData ($conn, $LogMessage);
+		echo $LogMessage;
+		exit();
+	}
+	
+}
+
+// ça marche, si on trouve un tournoi avec le bon ticketURL.
+// Mais pas si on trouve pas (tentative d'inscription) → pas de régression ou si c'est pas du ticket mais 
 
 /* récupérons les données des subevents */
 $stmt = $conn->prepare("SELECT id, event_id, name FROM subevents WHERE event_id=:event_id_str;");
