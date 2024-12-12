@@ -1,7 +1,5 @@
 <?php
 /**modifs V3 : switch sur un autre tournoi si l'URL fournie dans le json correspond bien à un autre tournoi valide du même utilisateur */
-
-
 /**
  * API qui reçoit le JSON envoyé par Helloasso. 
  * Les data à traiter sont dans un JSON envoyé dans le body du POST (1).
@@ -24,7 +22,6 @@
  * 			Si c'est bien le cas, on l'ajoute (10)
  * 
  */
-
 function LogData ($pdo, $comment) {
 	$add_req=$pdo->prepare("INSERT INTO logs (comment) VALUES (:n_comment);");
 	if (strlen($comment) > 80 ) {
@@ -33,7 +30,6 @@ function LogData ($pdo, $comment) {
 	$add_req->BindParam(':n_comment', $comment);
 	$add_req->execute();
 }
-
 if (is_null($_GET['key'])) //  (2)
 {
 	$LogMessage .= 'Helloasso API called without key';
@@ -43,8 +39,7 @@ if (is_null($_GET['key'])) //  (2)
 } else {
 	$url_key = $_GET['key'];
 }
-
-include ('hello-tools3.php');
+include ('hello-tools4.php');
 include('../../_local-connect/connect.php'); // PDO connection required
 $debugmode = false;
 $Message = "";
@@ -52,7 +47,6 @@ $BR = "<br />";
 $one = 1;
 $is_event_GET = true; 
 $event_OK = true; // event GET parameter correspond à un event avec un nom (mandatory)
-
 if (is_null($_GET['t'])) //  (2)
 {
 	$LogMessage .= 'Helloasso API called without event id';
@@ -62,7 +56,6 @@ if (is_null($_GET['t'])) //  (2)
 } else {
 	$event_id_str = $_GET['t'];
 }
-
 // exit if no api_key
 if (is_null ($_GET['key'])){
 	$LogMessage = 'Helloasso API called without api_key';
@@ -70,35 +63,33 @@ if (is_null ($_GET['key'])){
 	echo $LogMessage;
 	exit();
 }
-
-	
 /* regardons si c'est une notification de type payer (à traiter) ou order (à ignorer) json */
 /* On quitte si on ne trouve pas de clé 'order' dans le json */
 $json_full = json_decode(file_get_contents('php://input'));  // (1)
 $json_eventType = $json_full->eventType;
+$is_order = ($json_full->eventType === "Order");
+// if ($is_order) {
+// 	echo "type order";
+// } else {
+// 	echo "type payer";
+// }
+// exit();
 //$json_data = $json_full->data;
+// $json_type = json_decode(file_get_contents('php://input'))->data;  // (1)
+// $type = $json_type->order ?? "NA"; // si on n'a pas de 'order' (alors c'est 'payer') → type=NA → on poursuit
 
-$json_type = json_decode(file_get_contents('php://input'))->data;  // (1)
-$type = $json_type->order ?? "NA"; // si on n'a pas de 'order' (alors c'est 'payer') → type=NA → on poursuit
-
-if ($json_eventType <> "Order") {
+if (!$is_order) {
 	$LogMessage = "Notification de type Payer → ignored";
 	LogData ($conn, $LogMessage);
 	echo $LogMessage;
 	exit();
 }
+// echo "type order";
+// exit();
 /* challengeons le event_id */
-
 //echo "au début, le event id est $event_id_str \n";
-
-
-
 /* construisons l'array p_arr à partir du json */
 $items_arr = $json_full->data->items;  // (1)
-
-
-
-
 $p_arr = item_array_to_player_array($items_arr);
 //var_dump($p_arr);
 //exit();
@@ -112,9 +103,7 @@ $event_contact = $event_data['contact'];
 $api_key = $event_data['api_key']; 
 $owner = $event_data['owner']; 
 $event_paylink = $event_data['paylink']; 
-
-echo "initial situation : paylink of event $event_id_str = $event_paylink \n";
-
+// echo "initial situation : paylink of event $event_id_str = $event_paylink \n";
 // exit if event doesn't exist
 if (is_null ($event_name)){
 	$LogMessage = "event" . $event_id_str . " not found";
@@ -122,7 +111,6 @@ if (is_null ($event_name)){
 	echo $LogMessage;
 	exit();
 }
-	
 // exit if wrong api_key
 if ($_GET['key'] <> $api_key){
 	$LogMessage = "event " . $event_id_str . " and api_key " . $_GET['key'] .  " mismatch";
@@ -130,32 +118,33 @@ if ($_GET['key'] <> $api_key){
 	echo $LogMessage;
 	exit();
 }
-
 /* let's check URL from and change event_id if needed */
 /* if paylink in current event different from URL_from, then we check if there is another event with correct paylink */
 /* if so, then change event_i else, exit */
 $ticket_URL = $items_arr[0]->ticketUrl;
 $URL_from = substr($ticket_URL, 0, strpos($ticket_URL,'/ticket?'));
-echo "ticket URL in json = $URL_from \n";
-
+//echo "ticket URL in json = $URL_from \n";
 if ($event_paylink === $URL_from) 
 {
-	echo "event id $event_id_str has expected paylink, we can go on \n";
+	//echo "event id $event_id_str has expected paylink, we can go on \n";
 } else {
-	echo "event id $event_id_str has  wrong paylink : \n";
+	//echo "event id $event_id_str has  wrong paylink : \n";
 	
-	$stmt = $conn->prepare("SELECT id, owner, paylink FROM events WHERE owner=:same_owner AND paylink=:current_paylink;");
+	$stmt = $conn->prepare("SELECT id, owner, name, paylink FROM events WHERE owner=:same_owner AND paylink=:current_paylink;");
 	$stmt->bindParam(':same_owner', $owner );
 	$stmt->bindParam(':current_paylink', $URL_from );
-	echo "searching for event with paylink = $URL_from \n";
+	//echo "searching for event with paylink = $URL_from \n";
 	$stmt->execute();
 	$other_events = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	// var_dump($other_events);
 	$NbAlt = sizeof($other_events);
 	if ($NbAlt > 0) 
 	{
-		$alternative_event_id = $other_events[0]["id"]; // ne correspond à rien :-(
-		echo"event id $alternative_event_id has correct paylink <br />";
+		// il y a un event du bon ownner qui a le bon paylink
+		$alternative_event_id = $other_events[0]["id"]; 
+		$event_name = $other_events[0]['name']; 
+		
+		echo"event id $alternative_event_id has correct paylink and name $event_name<br />";
 		$event_id_str = $alternative_event_id;
 	} else {
 		echo"didn't find event with correct paylink\n";
@@ -164,11 +153,7 @@ if ($event_paylink === $URL_from)
 		echo $LogMessage;
 		exit();
 	}
-	
 }
-
-// ça marche, si on trouve un tournoi avec le bon ticketURL.
-// Mais pas si on trouve pas (tentative d'inscription) → pas de régression ou si c'est pas du ticket mais 
 
 /* récupérons les données des subevents */
 $stmt = $conn->prepare("SELECT id, event_id, name FROM subevents WHERE event_id=:event_id_str;");
@@ -181,16 +166,14 @@ if ($NbSubs == 0)
 	$Message .= "Festival sans tournoi (event=" . $event_id_str . ") -> abandon <br />";
 	$event_OK = false;
 }
-
-
 /* let's loop on each player from Helloasso*/
-
 $mail_obj = "";
 if ($debugmode) echo "\n** event OK, on va maintenant boucler sur chaque joueur  ******\n";
-
-
 foreach($p_arr as $p) // (5)
 {
+	//echo "voici £p : \n";
+	//var_dump($p);
+	
 	$Message .= "<hr>";
 	$ValidPlayer = true;
 	$AddPlayer = true;
@@ -203,21 +186,22 @@ foreach($p_arr as $p) // (5)
 	} else {
 		$Message .=  $BR;
 	}
-	
 	/* let's check if licence exists and name matches */
 	/* parameters come from the database, no need to use prepared statement for security */
 	/* but we never know, licence might be corrupted ! */
-	$qtxt = "SELECT id, fede_id, firstname, lastname from members where fede_id='" . $p["licence"] . "';";
 
+	$licenceTXT = $p["licence"];
+	$qtxt = "SELECT id, fede_id, intl_id, firstname, lastname from members where fede_id='$licenceTXT' OR intl_id = '$licenceTXT';";
 	// echo $qtxt; echo "<br />";
 	$reponse = $conn->query($qtxt);
 	$ffe_player = $reponse->fetch(PDO::FETCH_ASSOC);
-	
-	if ($debugmode) var_dump($ffe_player); // false si joueur pas trouvé dans la base
+	if ($debugmode) 
+	{
+		echo "\nvoici £ffe_player : \n";
+		var_dump($ffe_player); // false si joueur pas trouvé dans la base
+	}
 	$matching_sign = ""; // deviendra ✅ | ❌ | ⚠️
-	
 	if (!$ffe_player)  // ffe_player false si rien trouvé
-	
 	{
 		/* licence pas trouvée dans la base PUCE */
 		if ($debugmode) echo "licence pas trouvée dans la base";
@@ -228,7 +212,6 @@ foreach($p_arr as $p) // (5)
 		$add_url .= "fid=" . $p["licence"];
 		$add_url .= "&f=" . urlencode($p["firstName"]);
 		$add_url .= "&l=" . urlencode($p["lastName"]);
-		
 		$Message .= "Numéro de licence " . $p["licence"] . " non trouvé". $BR;
 		$Message .= "Vous pouvez ajouter le joueur dans la base PUCE". $BR;
 		$Message .= "① Vérifiez sur le <a href='http://www.echecs.asso.fr/ListeJoueurs.aspx?Action=FFE'>site FFE</a> que le numéro de licence saisi est correct". $BR;
@@ -237,16 +220,13 @@ foreach($p_arr as $p) // (5)
 		/* TBD : préparer le message d'ajout  */
 	} else {
 		/* ------------- Numéro de licence existe, on vérifie que les noms correspondent ------------------ */
-		
 		$score_match = person_match( $p["firstName"], $p["lastName"], $ffe_player['firstname'],  $ffe_player['lastname'] );
-		
 		$player_id = $ffe_player['id'];
 		if ($debugmode) {
 			$debugstring = $p["firstName"] . " " . $p["lastName"] . " vs " . $ffe_player['firstname'] . " " . $ffe_player['lastname'];
 			$debugstring .= " --> scorematch = $score_match" ."\n";
 			echo $debugstring;
 		}
-		
 		$matching_sign = match_rate_to_match_sign($score_match);
 		if ($debugmode) echo $matching_sign;
 		$ValidPlayer = ($score_match >= 0.5 ); // Attention, doit être en cohérence avec la limite basse de la fonction
@@ -265,9 +245,10 @@ foreach($p_arr as $p) // (5)
 			if ($NbSubs !=0)
 			{
 				/* on cherche le subevent cible (8)*/
-				if ($debugmode) echo "au moins deux subevents dans PUCE : " .$BR ; // debug
+				if ($debugmode) echo "au moins deux subevents dans PUCE : \n" ; 
 				foreach ($subevent_arr as $sub) 
 				{
+					echo $sub['name'] . " vs " . unaccent_up($p['subevent']) . "\n";
 					if (unaccent_up($sub['name']) == unaccent_up($p['subevent'])) 
 					{
 						$target_sub = $sub['id'];
@@ -284,7 +265,6 @@ foreach($p_arr as $p) // (5)
 				} else {
 					/* regardons si le joueur est déjà inscrit dans le tournoi identifié (9b) */
 					$qtxt = "SELECT id FROM registrations WHERE member_id=" . $player_id . " AND subevent_id=" . $target_sub . ";";
-					
 					$reponse = $conn->query($qtxt);
 					$existing_reg = $reponse->fetch(PDO::FETCH_ASSOC);
 					// var_dump($existing_reg);
@@ -292,7 +272,6 @@ foreach($p_arr as $p) // (5)
 					{ 
 						/* registration not found in this subevent for this player */
 						$Message .= "Ce joueur a correctement été inscrit dans le tournoi" . $BR;
-
 					} else {
 						$AddPlayer = false;
 						$Message .= "joueur déjà inscrit dans ce tournoi" .$BR;
@@ -344,10 +323,10 @@ $headers .= "From: $from  \n";
 $headers .= "Reply-To: $ReplyTo  \n";
 $CR_Mail = TRUE;
 $CR_Mail = @mail ($mailto, $mail_obj, $mail_Data, $headers);
+
 if ($debugmode) echo $Message;
 $LogMessage = "mail sent to " . $event_contact;
 LogData ($conn, $LogMessage);
 echo $LogMessage;
 echo $ShortMessage;
-
 ?>
