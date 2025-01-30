@@ -252,6 +252,7 @@ class smartTable{
             for (let i = 0; i< nbCol; i++) {
                 let cell = document.createElement('td');
                 let cell_content = rowData[Columns[i]];
+                if (cell_content == null) cell_content = "";
                 /* Dates and null are seen as objects. If date then format date */
                 if (typeof(cell_content) == 'object' && cell_content !== null) {
                     cell_content = cell_content.toLocaleDateString()
