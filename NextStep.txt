@@ -111,11 +111,13 @@ work on edit-member form - namely when no parameter is provided
 edit and save works well
 added QR code. 
 set destination page as parameter
-┌─────────────┐
-| in progress |
-└─────────────┘
 set maxlength=150 for paylink
 debug old values in edit event form
+
+┌─────────────┐
+| This commit |
+└─────────────┘
+null member_grade are displayed as empty string instead of 'null'
 
 ┌───────┐
 | To do |
