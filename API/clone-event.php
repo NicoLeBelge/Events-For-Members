@@ -24,8 +24,8 @@ if ((isset($_POST['event_id']) && isset($_SESSION['user_id'])))
 	} else {
 		/* event found - let's duplicate it */
 		$event = $res->fetch();
-		$req_TXT = "INSERT INTO events (name, datestart, datelim, secured, contact, nbmax, pos_long, pos_lat, owner) ";
-		$req_TXT .= "VALUES (:n_name, :n_datestart, :n_datelim, :n_secured, :n_contact, :n_nbmax, :n_pos_long, :n_pos_lat, :n_owner);";
+		$req_TXT = "INSERT INTO events (name, datestart, datelim, secured, contact, nbmax, pos_long, pos_lat, owner, api_key) ";
+		$req_TXT .= "VALUES (:n_name, :n_datestart, :n_datelim, :n_secured, :n_contact, :n_nbmax, :n_pos_long, :n_pos_lat, :n_owner, :n_api_key);";
 		$req_new_event = $conn->prepare($req_TXT);
 		
 		$req_new_event->BindParam(':n_name', $new_name);
@@ -37,6 +37,8 @@ if ((isset($_POST['event_id']) && isset($_SESSION['user_id'])))
 		$req_new_event->BindParam(':n_pos_long', $event["pos_long"]);
 		$req_new_event->BindParam(':n_pos_lat', $event["pos_lat"]);
 		$req_new_event->BindParam(':n_owner', $event["owner"]);
+		// same owner → no need to generate new random api_key
+		$req_new_event->BindParam(':n_api_key', $event["api_key"]);
 		$new_name = $event["name"] . $str["Cloned_mark"];
 		
 		$req_new_event->execute();
