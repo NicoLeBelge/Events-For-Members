@@ -293,7 +293,7 @@ if(isset($_GET['id']))
 	// as long as datetime will be stored with space in database, replacement by T is required for iOS
 	let datelim = new Date(eventinfoset.datelim.replace(" ", "T"));
 	
-	RegisterBtn.disabled = !( datelim-Date.now() > 0 ); 
+	if (! is_owner) RegisterBtn.disabled = !( datelim-Date.now() > 0 ); 
 	CurrentSubEventId = subs_data_set[CurrentSubEventIndex]["id"]; 
 	/** Prepares buttons for Event and subevent (if viewed by owner) [part 2/2]*/
 	if (is_owner)
