@@ -220,7 +220,7 @@ if(isset($_GET['id']))
 	document.getElementById('E4M_subevent_cat').style.display = is_check_in ? "none" : "inherit";
 	document.getElementById('E4M_subevent_gen').style.display = is_check_in ? "none" : "inherit";
 	document.getElementById('E4M_subevent_typ').style.display = is_check_in ? "none" : "inherit";
-	document.getElementById('RegisterButton').style.display = is_check_in ? "none" : "inherit";
+	if (! is_owner) document.getElementById('RegisterButton').style.display = is_check_in ? "none" : "inherit";
 
 
 
